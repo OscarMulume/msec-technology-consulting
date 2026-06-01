@@ -1,9 +1,13 @@
+---
+// Page d'accueil M-Sec Technology Consulting
+// Les données sont chargées côté client via Supabase
+---
 <!DOCTYPE html>
 <html lang="fr" class="scroll-smooth">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="M-Sec Technology Consulting — Infrastructure IT, Cybersécurité, Connectivité. Audit gratuit de votre infrastructure. Solutions de classe entreprise pour l'Afrique centrale." />
+  <meta name="description" content="M-Sec Technology Consulting — Infrastructure IT, Cybersécurité, Connectivité. Solutions de classe entreprise pour l'Afrique centrale." />
   <meta name="theme-color" content="#0f172a" />
   <title>M-Sec Technology Consulting | Infrastructure IT • Cybersécurité • Connectivité</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -39,11 +43,10 @@
     ul, ol { list-style: none; }
     .mono { font-family: 'JetBrains Mono', monospace; }
 
-    /* ─── Background ─── */
-    .bg-pattern{display:none}
+    /* Canvas Background */
     #bgCanvas{position:fixed;inset:0;z-index:0;pointer-events:none}
 
-    /* ─── Typography ─── */
+    /* Typography */
     .section-label {
       font-size: 0.65rem; font-weight: 600; letter-spacing: 0.25em;
       text-transform: uppercase; color: var(--accent-br); margin-bottom: 1.5rem;
@@ -57,7 +60,7 @@
       max-width: 580px; line-height: 1.8;
     }
 
-    /* ─── Buttons ─── */
+    /* Buttons */
     .btn-primary {
       display: inline-flex; align-items: center; gap: 0.625rem;
       padding: 1rem 2rem; border-radius: 12px;
@@ -67,14 +70,8 @@
       box-shadow: 0 0 20px rgba(6,182,212,0.15), inset 0 1px 0 rgba(255,255,255,0.1);
       transition: all 0.3s; cursor: pointer; position: relative; overflow: hidden;
     }
-    .btn-primary::before {
-      content: ''; position: absolute; inset: 0;
-      background: linear-gradient(135deg, transparent, rgba(255,255,255,0.1), transparent);
-      transform: translateX(-100%); transition: transform 0.5s;
-    }
-    .btn-primary:hover::before { transform: translateX(100%); }
     .btn-primary:hover {
-      box-shadow: 0 0 30px rgba(6,182,212,0.25), inset 0 1px 0 rgba(255,255,255,0.15);
+      box-shadow: 0 0 30px rgba(6,182,212,0.25);
       transform: translateY(-2px);
     }
     .btn-secondary {
@@ -87,14 +84,13 @@
     .btn-secondary:hover { border-color: var(--accent); box-shadow: 0 0 20px rgba(6,182,212,0.1); }
     .btn-group { display: flex; gap: 1rem; flex-wrap: wrap; }
 
-    /* ─── Pulse animation ─── */
     @keyframes pulse-glow {
       0%, 100% { box-shadow: 0 0 20px rgba(6,182,212,0.15); }
       50% { box-shadow: 0 0 30px rgba(6,182,212,0.3), 0 0 60px rgba(6,182,212,0.1); }
     }
     .pulse-glow { animation: pulse-glow 3s ease-in-out infinite; }
 
-    /* ─── Navigation ─── */
+    /* Navigation */
     .nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       padding: 1rem 0; transition: all 0.3s; border-bottom: 1px solid transparent;
@@ -117,7 +113,7 @@
     .mob-menu.open { display: flex; }
     .mob-menu a { color: var(--text-secondary); font-size: 1rem; font-weight: 500; padding: 0.5rem 0; border-bottom: 1px solid var(--border); }
 
-    /* ─── Hero ─── */
+    /* Hero */
     .hero {
       min-height: 100vh; display: flex; align-items: center; justify-content: center;
       padding: 8rem 2rem 4rem; position: relative; z-index: 1;
@@ -139,55 +135,17 @@
     }
     .hero-badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: pulse-dot 2s ease-in-out infinite; }
     @keyframes pulse-dot { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
-
     .hero h1 { font-size: clamp(2.75rem, 7vw, 5.5rem); font-weight: 900; letter-spacing: -0.04em; line-height: 1.05; margin-bottom: 0.75rem; }
     .hero h1 .line { display: block; color: var(--text-primary); }
     .hero h1 .accent { background: linear-gradient(135deg, var(--accent-br), var(--green)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-
-    .hero-tagline {
-      font-size: clamp(1.1rem, 2vw, 1.35rem); color: var(--text-secondary);
-      max-width: 650px; margin: 0 auto 1rem; line-height: 1.7; font-weight: 500;
-    }
-    .hero-manifesto {
-      font-size: 0.9rem; color: var(--text-secondary); max-width: 550px; margin: 0 auto 1.5rem;
-      line-height: 1.8; font-style: italic; opacity: 0.8;
-      border-left: 2px solid var(--accent); padding-left: 1rem; text-align: left;
-    }
-    .hero-cta-note {
-      font-size: 0.75rem; color: var(--green); margin-bottom: 2.5rem;
-      display: flex; align-items: center; justify-content: center; gap: 0.5rem;
-    }
-    .hero-cta-note svg { width: 14px; height: 14px; flex-shrink: 0; }
+    .hero-tagline { font-size: clamp(1.1rem, 2vw, 1.35rem); color: var(--text-secondary); max-width: 650px; margin: 0 auto 1rem; line-height: 1.7; font-weight: 500; }
+    .hero-manifesto { font-size: 0.9rem; color: var(--text-secondary); max-width: 550px; margin: 0 auto 3rem; line-height: 1.8; font-style: italic; opacity: 0.8; border-left: 2px solid var(--accent); padding-left: 1rem; text-align: left; }
     .hero .btn-group { justify-content: center; margin-bottom: 4rem; }
-    .hero-stats {
-      display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem;
-      padding-top: 2.5rem; border-top: 1px solid var(--border); max-width: 700px; margin: 0 auto;
-    }
+    .hero-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; padding-top: 2.5rem; border-top: 1px solid var(--border); max-width: 700px; margin: 0 auto; }
     .hero-stat-n { font-size: 1.5rem; font-weight: 800; color: var(--text-primary); letter-spacing: -0.02em; }
     .hero-stat-l { font-size: 0.65rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 0.25rem; }
 
-    /* ─── Trusted By / Certifications Bar ─── */
-    .trust-bar {
-      background: var(--bg-secondary); border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border); padding: 2.5rem 2rem; position: relative; z-index: 1;
-    }
-    .trust-bar-inner { max-width: 1200px; margin: 0 auto; text-align: center; }
-    .trust-bar-label {
-      font-size: 0.6rem; font-weight: 600; letter-spacing: 0.2em;
-      text-transform: uppercase; color: var(--text-secondary); margin-bottom: 1.5rem;
-    }
-    .cert-badges { display: flex; justify-content: center; align-items: center; gap: 2rem; flex-wrap: wrap; }
-    .cert-badge {
-      display: flex; align-items: center; gap: 0.5rem;
-      padding: 0.5rem 1rem; border-radius: 8px;
-      background: var(--bg-card); border: 1px solid var(--border);
-      font-size: 0.7rem; font-weight: 600; color: var(--text-secondary);
-      transition: all 0.3s;
-    }
-    .cert-badge:hover { border-color: rgba(6,182,212,0.3); color: var(--text-primary); }
-    .cert-badge-icon { font-size: 1rem; }
-
-    /* ─── Sections ─── */
+    /* Sections */
     section { position: relative; z-index: 1; }
     .sw { max-width: 1200px; margin: 0 auto; padding: 8rem 2rem; }
     .sw-narrow { max-width: 800px; }
@@ -196,182 +154,49 @@
     .sh-center .section-desc { margin-left: auto; margin-right: auto; }
     .sw-sep { border: 0; border-top: 1px solid var(--border); margin: 0; }
 
-    /* ─── About / Why M-Sec ─── */
-    .about-box {
-      background: var(--bg-card); border: 1px solid var(--border);
-      border-radius: 20px; padding: 3rem; position: relative; overflow: hidden;
-    }
-    .about-box::before {
-      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-      background: linear-gradient(90deg, transparent, var(--accent), transparent);
-    }
+    /* About */
+    .about-box { background: var(--bg-card); border: 1px solid var(--border); border-radius: 20px; padding: 3rem; position: relative; overflow: hidden; }
+    .about-box::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--accent), transparent); }
     .about-box h3 { font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; color: var(--accent-br); }
     .about-box p { font-size: 1.0625rem; color: var(--text-secondary); line-height: 1.8; max-width: 700px; }
 
-    /* ─── Case Studies ─── */
-    .cases-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 1.5rem; }
-    .case-card {
-      position: relative; padding: 2.5rem; border-radius: 20px;
-      background: var(--bg-card); border: 1px solid var(--border);
-      transition: all 0.4s ease; overflow: hidden;
-    }
-    .case-card:hover { border-color: rgba(6,182,212,0.2); transform: translateY(-6px); box-shadow: 0 20px 60px rgba(0,0,0,0.3), 0 0 40px rgba(6,182,212,0.05); }
-    .case-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.25rem; }
-    .case-icon {
-      width: 44px; height: 44px; border-radius: 12px;
-      display: flex; align-items: center; justify-content: center; font-size: 1.25rem;
-      background: var(--accent-g);
-    }
-    .case-client { font-size: 0.8rem; font-weight: 700; color: var(--text-primary); }
-    .case-sector { font-size: 0.65rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.1em; }
-    .case-problem {
-      font-size: 0.85rem; color: #f87171; margin-bottom: 0.75rem; line-height: 1.6;
-      padding: 0.75rem 1rem; border-radius: 10px;
-      background: rgba(248, 113, 113, 0.08); border: 1px solid rgba(248, 113, 113, 0.12);
-    }
-    .case-solution {
-      font-size: 0.85rem; color: var(--accent-br); margin-bottom: 0.75rem; line-height: 1.6;
-      padding: 0.75rem 1rem; border-radius: 10px;
-      background: var(--accent-g); border: 1px solid rgba(6,182,212,0.12);
-    }
-    .case-result {
-      font-size: 0.85rem; color: var(--green); line-height: 1.6;
-      padding: 0.75rem 1rem; border-radius: 10px;
-      background: var(--green-g); border: 1px solid rgba(16,185,129,0.12);
-    }
-    .case-label { font-size: 0.55rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; display: block; margin-bottom: 0.25rem; opacity: 0.7; }
-    .case-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
-    .case-tag {
-      padding: 0.2rem 0.625rem; border-radius: 6px;
-      font-size: 0.6rem; font-weight: 600; letter-spacing: 0.05em;
-      background: var(--bg-card); color: var(--text-secondary);
-      border: 1px solid var(--border);
-    }
-
-    /* ─── Service Cards ─── */
+    /* Service Cards */
     .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 1.5rem; }
-    .svc-card {
-      position: relative; padding: 2.5rem; border-radius: 20px;
-      background: var(--bg-card); border: 1px solid var(--border);
-      transition: all 0.4s ease; overflow: hidden;
-    }
-    .svc-card::before {
-      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
-      background: linear-gradient(90deg, transparent, var(--accent), transparent);
-      opacity: 0; transition: opacity 0.3s;
-    }
+    .svc-card { position: relative; padding: 2.5rem; border-radius: 20px; background: var(--bg-card); border: 1px solid var(--border); transition: all 0.4s ease; overflow: hidden; }
+    .svc-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--accent), transparent); opacity: 0; transition: opacity 0.3s; }
     .svc-card:hover::before { opacity: 1; }
     .svc-card:hover { border-color: rgba(6,182,212,0.2); transform: translateY(-6px); box-shadow: 0 20px 60px rgba(0,0,0,0.3), 0 0 40px rgba(6,182,212,0.05); }
-    .svc-icon {
-      width: 52px; height: 52px; border-radius: 14px; margin-bottom: 1.5rem;
-      display: flex; align-items: center; justify-content: center; font-size: 1.5rem;
-      background: var(--accent-g);
-    }
+    .svc-icon { width: 52px; height: 52px; border-radius: 14px; margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; background: var(--accent-g); }
     .svc-card h3 { font-size: 1.125rem; font-weight: 700; margin-bottom: 0.75rem; color: var(--text-primary); }
     .svc-card p { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 1.25rem; }
-    .svc-features li {
-      font-size: 0.8125rem; color: var(--text-secondary);
-      padding: 0.35rem 0; padding-left: 1.25rem; position: relative;
-    }
-    .svc-features li::before {
-      content: '→'; position: absolute; left: 0; color: var(--accent-br);
-      font-family: 'JetBrains Mono', monospace; font-size: 0.75rem;
-    }
-    .svc-benefit {
-      margin-top: 1.25rem; padding: 0.875rem 1rem; border-radius: 10px;
-      background: var(--green-g); border: 1px solid rgba(16,185,129,0.15);
-      font-size: 0.8125rem; color: var(--green); line-height: 1.6; font-weight: 500;
-    }
-    .svc-standards {
-      display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem;
-    }
-    .svc-standard {
-      padding: 0.2rem 0.625rem; border-radius: 6px;
-      font-size: 0.65rem; font-weight: 600; letter-spacing: 0.05em;
-      background: var(--accent-g); color: var(--accent-br);
-      border: 1px solid rgba(6,182,212,0.15);
-    }
+    .svc-features li { font-size: 0.8125rem; color: var(--text-secondary); padding: 0.35rem 0; padding-left: 1.25rem; position: relative; }
+    .svc-features li::before { content: '→'; position: absolute; left: 0; color: var(--accent-br); font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; }
+    .svc-benefit { margin-top: 1.25rem; padding: 0.875rem 1rem; border-radius: 10px; background: var(--green-g); border: 1px solid rgba(16,185,129,0.15); font-size: 0.8125rem; color: var(--green); line-height: 1.6; font-weight: 500; }
+    .svc-standards { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
+    .svc-standard { padding: 0.2rem 0.625rem; border-radius: 6px; font-size: 0.65rem; font-weight: 600; letter-spacing: 0.05em; background: var(--accent-g); color: var(--accent-br); border: 1px solid rgba(6,182,212,0.15); }
+    .svc-link { display: inline-flex; align-items: center; gap: 0.35rem; margin-top: 1.25rem; font-size: 0.8125rem; color: var(--accent-br); font-weight: 600; transition: gap 0.2s; }
+    .svc-link:hover { gap: 0.6rem; }
 
-    /* ─── Methodology ─── */
+    /* Methodology */
     .method-grid { display: grid; grid-template-columns: repeat(4, 1fr); }
-    .method-step {
-      padding: 2.5rem 2rem; border: 1px solid var(--border);
-      border-right: none; transition: all 0.3s; position: relative;
-    }
+    .method-step { padding: 2.5rem 2rem; border: 1px solid var(--border); border-right: none; transition: all 0.3s; position: relative; }
     .method-step:last-child { border-right: 1px solid var(--border); }
     .method-step:hover { background: var(--bg-card); border-color: rgba(6,182,212,0.15); }
     .method-num { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--accent-br); margin-bottom: 1.25rem; letter-spacing: 0.05em; }
     .method-step h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.75rem; }
     .method-step p { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.7; }
 
-    /* ─── Certifications Section ─── */
-    .cert-section { background: var(--bg-secondary); border-top: 1px solid var(--border); }
-    .cert-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
-    .cert-card {
-      padding: 2rem; border-radius: 16px;
-      background: var(--bg-card); border: 1px solid var(--border);
-      transition: all 0.3s;
-    }
-    .cert-card:hover { border-color: rgba(6,182,212,0.25); transform: translateY(-4px); }
-    .cert-card-org {
-      font-size: 0.6rem; font-weight: 700; letter-spacing: 0.15em;
-      text-transform: uppercase; color: var(--accent-br); margin-bottom: 0.75rem;
-    }
-    .cert-card h4 { font-size: 0.9rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--text-primary); }
-    .cert-card p { font-size: 0.75rem; color: var(--text-secondary); line-height: 1.6; }
-    .cert-card-date { font-size: 0.65rem; color: var(--text-secondary); margin-top: 0.75rem; font-family: 'JetBrains Mono', monospace; }
-    .cert-verify {
-      display: inline-flex; align-items: center; gap: 0.35rem;
-      margin-top: 1rem; font-size: 0.7rem; color: var(--accent-br);
-      padding: 0.35rem 0.75rem; border-radius: 6px;
-      background: var(--accent-g); border: 1px solid rgba(6,182,212,0.15);
-      transition: all 0.3s;
-    }
-    .cert-verify:hover { background: rgba(6,182,212,0.2); }
-
-    /* ─── FAQ ─── */
-    .faq-list { max-width: 700px; margin: 0 auto; }
-    .faq-item {
-      border: 1px solid var(--border); border-radius: 14px;
-      margin-bottom: 1rem; overflow: hidden; transition: all 0.3s;
-    }
-    .faq-item:hover { border-color: rgba(6,182,212,0.2); }
-    .faq-q {
-      width: 100%; text-align: left; padding: 1.25rem 1.5rem;
-      background: none; border: none; color: var(--text-primary);
-      font-size: 0.9rem; font-weight: 600; font-family: inherit;
-      cursor: pointer; display: flex; justify-content: space-between; align-items: center;
-    }
-    .faq-q:hover { color: var(--accent-br); }
-    .faq-arrow { font-size: 1rem; transition: transform 0.3s; flex-shrink: 0; margin-left: 1rem; }
-    .faq-item.open .faq-arrow { transform: rotate(180deg); }
-    .faq-a {
-      max-height: 0; overflow: hidden; transition: max-height 0.3s ease;
-      padding: 0 1.5rem; font-size: 0.85rem; color: var(--text-secondary); line-height: 1.7;
-    }
-    .faq-item.open .faq-a { max-height: 300px; padding: 0 1.5rem 1.25rem; }
-
-    /* ─── Audit Section ─── */
-    .audit-section {
-      background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 50%, var(--bg-primary) 100%);
-      border-top: 1px solid var(--border);
-    }
+    /* Audit Section */
+    .audit-section { background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 50%, var(--bg-primary) 100%); border-top: 1px solid var(--border); }
     .audit-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
     .audit-benefits { padding-top: 1rem; }
-    .audit-benefit {
-      display: flex; align-items: flex-start; gap: 1rem;
-      padding: 1.25rem 0; border-bottom: 1px solid var(--border);
-    }
+    .audit-benefit { display: flex; align-items: flex-start; gap: 1rem; padding: 1.25rem 0; border-bottom: 1px solid var(--border); }
     .audit-benefit:last-child { border-bottom: none; }
-    .audit-benefit-icon {
-      width: 40px; height: 40px; border-radius: 12px;
-      background: var(--green-g); display: flex; align-items: center;
-      justify-content: center; font-size: 1rem; flex-shrink: 0;
-    }
+    .audit-benefit-icon { width: 40px; height: 40px; border-radius: 12px; background: var(--green-g); display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
     .audit-benefit h4 { font-size: 0.9375rem; font-weight: 600; margin-bottom: 0.25rem; }
     .audit-benefit p { font-size: 0.8125rem; color: var(--text-secondary); line-height: 1.6; }
 
-    /* ─── Form ─── */
+    /* Forms */
     .form-wrap { background: var(--bg-card); padding: 2.5rem; border-radius: 20px; border: 1px solid var(--border); }
     .form-group { margin-bottom: 1.25rem; }
     .form-group label { display: block; font-size: 0.8125rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--text-primary); }
@@ -385,20 +210,19 @@
     .form-group textarea { min-height: 100px; resize: vertical; }
     .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
     .form-submit { width: 100%; justify-content: center; }
+    .form-success { display: none; padding: 1rem; border-radius: 10px; background: var(--green-g); border: 1px solid rgba(16,185,129,0.2); color: var(--green); font-size: 0.875rem; text-align: center; margin-top: 1rem; }
+    .form-error { display: none; padding: 1rem; border-radius: 10px; background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.2); color: #ef4444; font-size: 0.875rem; text-align: center; margin-top: 1rem; }
 
-    /* ─── Contact ─── */
+    /* Contact */
     .contact-section { background: var(--bg-secondary); border-top: 1px solid var(--border); }
     .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
-    .contact-card {
-      padding: 1.5rem; border-radius: 14px; text-align: center;
-      background: var(--bg-card); border: 1px solid var(--border); transition: all 0.3s;
-    }
+    .contact-card { padding: 1.5rem; border-radius: 14px; text-align: center; background: var(--bg-card); border: 1px solid var(--border); transition: all 0.3s; }
     .contact-card:hover { border-color: rgba(6,182,212,0.2); transform: translateY(-3px); }
     .contact-card-icon { width: 44px; height: 44px; border-radius: 12px; margin: 0 auto 1rem; background: var(--accent-g); display: flex; align-items: center; justify-content: center; font-size: 1.25rem; }
     .contact-card h4 { font-size: 0.9rem; font-weight: 600; margin-bottom: 0.25rem; }
     .contact-card p { font-size: 0.8rem; color: var(--text-secondary); }
 
-    /* ─── Footer ─── */
+    /* Footer */
     .footer { background: var(--bg-primary); border-top: 1px solid var(--border); padding: 4rem 2rem 2rem; }
     .footer-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; }
     .footer-brand p { font-size: 0.85rem; color: var(--text-secondary); margin-top: 1rem; line-height: 1.7; max-width: 300px; }
@@ -407,12 +231,11 @@
     .footer a:hover { color: var(--accent-br); }
     .footer-bottom { max-width: 1200px; margin: 3rem auto 0; padding-top: 2rem; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; font-size: 0.75rem; color: var(--text-secondary); }
 
-    /* ─── Responsive ─── */
+    /* Responsive */
     @media(max-width:900px) {
       .audit-inner { grid-template-columns: 1fr; gap: 2rem; }
       .method-grid { grid-template-columns: repeat(2, 1fr); }
       .method-step:nth-child(2) { border-right: 1px solid var(--border); }
-      .method-step:nth-child(3) { border-top: none; }
     }
     @media(max-width:768px) {
       .nav-links { display: none; }
@@ -420,7 +243,6 @@
       .hero h1 { font-size: clamp(2rem, 8vw, 3.5rem); }
       .hero-stats { grid-template-columns: repeat(2, 1fr); }
       .services-grid { grid-template-columns: 1fr; }
-      .cases-grid { grid-template-columns: 1fr; }
       .method-grid { grid-template-columns: 1fr; }
       .method-step, .method-step:nth-child(2) { border: 1px solid var(--border); border-bottom: none; }
       .method-step:last-child { border-bottom: 1px solid var(--border); }
@@ -429,27 +251,20 @@
       .footer-bottom { flex-direction: column; gap: 0.75rem; text-align: center; }
       .btn-group { flex-direction: column; }
       .btn-group a { justify-content: center; }
-      .hero-manifesto { font-size: 0.8rem; }
-      .cert-badges { gap: 1rem; }
-      .cert-grid { grid-template-columns: 1fr; }
     }
     @media(max-width:480px) {
       .footer-inner { grid-template-columns: 1fr; }
-      .hero-stats { grid-template-columns: 1fr 1fr; }
     }
   </style>
 </head>
 <body>
 <canvas id="bgCanvas"></canvas>
-<div class="bg-pattern"></div>
 
 <!-- ════════ NAV ════════ -->
 <nav class="nav" id="nav"><div class="nav-inner">
   <a href="/" class="logo">M-<em>SEC</em> <span>Technology</span></a>
   <div class="nav-links">
     <a href="#services">Services</a>
-    <a href="#cases">Cas clients</a>
-    <a href="#certifications">Certifications</a>
     <a href="#methodology">Méthodologie</a>
     <a href="#audit">Audit Gratuit</a>
     <a href="#contact" class="nav-cta">Contact</a>
@@ -460,8 +275,6 @@
 </div>
 <div class="mob-menu" id="mobMenu">
   <a href="#services">Services</a>
-  <a href="#cases">Cas clients</a>
-  <a href="#certifications">Certifications</a>
   <a href="#methodology">Méthodologie</a>
   <a href="#audit">Audit Gratuit</a>
   <a href="#contact">Contact</a>
@@ -471,17 +284,10 @@
 <section class="hero"><div class="hero-inner">
   <div class="hero-logo">M</div>
   <div class="hero-badge"><span class="hero-badge-dot"></span> Consulting IT — Afrique Centrale</div>
-  <h1>
-    <span class="line">Votre infrastructure ne devrait</span>
-    <span class="line">jamais être un <span class="accent">risque.</span></span>
-  </h1>
-  <p class="hero-tagline">Nous protégeons votre entreprise contre les pannes, les cyberattaques et les pertes de productivité.</p>
+  <h1><span class="line">M-<span class="accent">SEC</span></span><span class="accent">Technology Consulting</span></h1>
+  <p class="hero-tagline">L'Infrastructure et la Sécurité IT au service de la performance de votre entreprise.</p>
   <div class="hero-manifesto">
     Une interruption réseau de 10 minutes peut coûter des milliers de dollars. Une faille de sécurité peut détruire votre réputation. Nous fusionnons l'ingénierie réseau de pointe, le développement moderne et la cybersécurité offensive pour bâtir des environnements résilients.
-  </div>
-  <div class="hero-cta-note">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
-    Temps de réponse moyen aux demandes de devis : moins de 2 heures
   </div>
   <div class="btn-group">
     <a href="#audit" class="btn-primary pulse-glow">Demander un Audit Gratuit</a>
@@ -495,278 +301,50 @@
   </div>
 </div></section>
 
-<!-- ════════ TRUST BAR / CERTIFICATIONS ════════ -->
-<div class="trust-bar"><div class="trust-bar-inner">
-  <div class="trust-bar-label">Certifications & Partenaires Technologiques</div>
-  <div class="cert-badges">
-    <div class="cert-badge"><span class="cert-badge-icon">🛡️</span> Cisco CCNA</div>
-    <div class="cert-badge"><span class="cert-badge-icon">🔒</span> Cisco Cybersecurity</div>
-    <div class="cert-badge"><span class="cert-badge-icon">☁️</span> AWS Generative AI</div>
-    <div class="cert-badge"><span class="cert-badge-icon">🏗️</span> AWS Well-Architected</div>
-    <div class="cert-badge"><span class="cert-badge-icon">📡</span> UNHCR RETS</div>
-    <div class="cert-badge"><span class="cert-badge-icon">🐉</span> Hack The Box</div>
-  </div>
-</div></div>
-
 <!-- ════════ VALUE PROPOSITION ════════ -->
 <section><div class="sw"><div class="about-box">
   <h3>Pourquoi choisir M-Sec ?</h3>
-  <p>Nous ne nous contentons pas d'installer des équipements. Nous appliquons le principe de <strong style="color:var(--accent-br)">« Sécurité par Conception »</strong> (Security by Design). Chaque câble posé, chaque antenne configurée et chaque système déployé intègre des protocoles de durcissement (hardening) stricts pour garantir une haute disponibilité sans failles.
-  <br/><br/>Nos architectures s'appuient sur des standards de classe entreprise : <strong style="color:var(--text-primary)">Cisco, UniFi, FortiGate</strong>. Zéro compromis. Nos certifications Cisco, AWS et Hack The Box attestent d'une expertise technique reconnue internationalement.</p>
+  <p>Nous ne nous contentons pas d'installer des équipements. Nous appliquons le principe de <strong style="color:var(--accent-br)">« Sécurité par Conception »</strong> (Security by Design). Chaque câble posé, chaque antenne configurée et chaque base de données déployée intègre des protocoles de durcissement (hardening) stricts pour garantir une haute disponibilité sans failles.
+  <br/><br/>Nos architectures s'appuient sur des standards de classe entreprise : <strong style="color:var(--text-primary)">Cisco, UniFi, FortiGate</strong>. Zéro compromis.</p>
 </div></div></section>
-
-<hr class="sw-sep" />
-
-<!-- ════════ CASE STUDIES ════════ -->
-<section id="cases"><div class="sw">
-  <div class="sh sh-center">
-    <div class="section-label">Cas clients anonymisés</div>
-    <h2 class="section-title">Nos Réalisations</h2>
-    <p class="section-desc">Des problèmes concrets, des solutions mesurables. Découvrez comment nous avons transformé des infrastructures critiques.</p>
-  </div>
-
-  <div class="cases-grid">
-
-    <!-- Case Study 1 -->
-    <div class="case-card">
-      <div class="case-header">
-        <div class="case-icon">🏨</div>
-        <div>
-          <div class="case-client">Groupe Hôtelier — RDC</div>
-          <div class="case-sector">Hôtellerie & Tourisme</div>
-        </div>
-      </div>
-      <div class="case-problem">
-        <span class="case-label">Problème</span>
-        Suite à une cyberattaque ayant compromis plusieurs sites web du groupe, les systèmes de réservation et le Wi-Fi clients étaient instables. Risque de perte de chiffre d'affaires et d'image de marque.
-      </div>
-      <div class="case-solution">
-        <span class="case-label">Solution</span>
-        Durcissement complet des sites web (WAF, correctifs, hardening), déploiement de monitoring 24/7, mise en place d'un DRP/BCP, et sécurisation du réseau Wi-Fi invités isolé par VLAN.
-      </div>
-      <div class="case-result">
-        <span class="case-label">Résultat</span>
-        99.9% de disponibilité Wi-Fi et PMS garanti. 99.5% sur les systèmes POS. Zéro intrusion détectée depuis le déploiement. Temps de réponse aux incidents : 2h.
-      </div>
-      <div class="case-tags">
-        <span class="case-tag">Cybersécurité</span>
-        <span class="case-tag">Monitoring</span>
-        <span class="case-tag">DRP/BCP</span>
-        <span class="case-tag">Wi-Fi Enterprise</span>
-      </div>
-    </div>
-
-    <!-- Case Study 2 -->
-    <div class="case-card">
-      <div class="case-header">
-        <div class="case-icon">📡</div>
-        <div>
-          <div class="case-client">Opérateur Télécom — Est RDC</div>
-          <div class="case-sector">Télécommunications</div>
-        </div>
-      </div>
-      <div class="case-problem">
-        <span class="case-label">Problème</span>
-        Coupures internet récurrentes impactant la facturation et la satisfaction client. Infrastructure réseau vieillissante sans documentation ni redondance.
-      </div>
-      <div class="case-solution">
-        <span class="case-label">Solution</span>
-        Refonte complète du câblage structuré (Cat6a, fibre monomode), déploiement de liaisons redondantes avec failover automatique, configuration de routage dynamique Cisco, et documentation complète de l'architecture.
-      </div>
-      <div class="case-result">
-        <span class="case-label">Résultat</span>
-        0 minute d'arrêt non planifié en 3 mois. Connectivité haut débit stable. Infrastructure documentée et maintenable. Satisfaction client en hausse de 40%.
-      </div>
-      <div class="case-tags">
-        <span class="case-tag">Câblage Structuré</span>
-        <span class="case-tag">Cisco</span>
-        <span class="case-tag">Fibre Optique</span>
-        <span class="case-tag">Redondance</span>
-      </div>
-    </div>
-
-    <!-- Case Study 3 -->
-    <div class="case-card">
-      <div class="case-header">
-        <div class="case-icon">🏢</div>
-        <div>
-          <div class="case-client">Entreprise Logistique — Kinshasa</div>
-          <div class="case-sector">Logistique & Transport</div>
-        </div>
-      </div>
-      <div class="case-problem">
-        <span class="case-label">Problème</span>
-        Système CCTV non fiable (caméras hors ligne fréquemment), images exploitées par des personnes non autorisées. Aucune politique de sécurité réseau en place.
-      </div>
-      <div class="case-solution">
-        <span class="case-label">Solution</span>
-        Redéploiement complet des caméras IP avec isolation sur VLAN dédié, chiffrement des flux vidéo AES-256, accès distant via VPN uniquement, durcissement de tous les équipements (zéro mot de passe par défaut).
-      </div>
-      <div class="case-result">
-        <span class="case-label">Résultat</span>
-        95% de disponibilité du système CCTV. Flux vidéo 100% chiffrés. Zéro accès non autorisé détecté. Conformité aux standards de sécurité internationaux.
-      </div>
-      <div class="case-tags">
-        <span class="case-tag">CCTV IP</span>
-        <span class="case-tag">VLAN</span>
-        <span class="case-tag">VPN</span>
-        <span class="case-tag">Hardening</span>
-      </div>
-    </div>
-
-  </div>
-</div></section>
 
 <hr class="sw-sep" />
 
 <!-- ════════ SERVICES ════════ -->
 <section id="services"><div class="sw">
   <div class="sh"><div class="section-label">Expertise Technique</div><h2 class="section-title">Nos 5 Piliers</h2><p class="section-desc">Des solutions complètes de connectivité, infrastructure et cybersécurité — conçues pour la performance et la résilience.</p></div>
-
-  <div class="services-grid">
-
+  <div class="services-grid" id="services-grid">
+    <!-- Services chargés dynamiquement -->
     <div class="svc-card">
       <div class="svc-icon">🌐</div>
       <h3>Connectivité Critique &amp; Réseaux Résilients</h3>
-      <p>Ne perdez plus un seul minute de productivité à cause d'une coupure internet. Nous concevons des architectures réseau avec redondance automatique.</p>
-      <ul class="svc-features">
-        <li>Fibre Optique d'entreprise + Starlink en basculement automatique (Failover)</li>
-        <li>Antennes PtP/PtMP pour réseaux privés longue portée</li>
-        <li>Priorisez vos appels vidéo et outils de gestion — même en charge maximale</li>
-        <li>Wi-Fi Entreprise (UniFi) — couverture optimale, isolation invités</li>
-      </ul>
-      <div class="svc-standards"><span class="svc-standard">Cisco</span><span class="svc-standard">UniFi</span><span class="svc-standard">Starlink Business</span></div>
-      <div class="svc-benefit">✅ Restez connecté même en cas de coupure de votre ligne principale.</div>
+      <p>Conception d'architectures réseau sur mesure avec liaisons Internet redondantes.</p>
+      <a href="/services/connectivity" class="svc-link">En savoir plus →</a>
     </div>
-
     <div class="svc-card">
       <div class="svc-icon">🏗️</div>
       <h3>Infrastructure Physique &amp; Câblage</h3>
-      <p>Une infrastructure propre et documentée élimine les pannes matérielles invisibles qui ralentissent votre activité au quotidien.</p>
-      <ul class="svc-features">
-        <li>Câblage Cat6/Cat6a certifié TIA/EIA</li>
-        <li>Fibre monomode inter-bâtiments</li>
-        <li>Baies de brassage, patch panels étiquetés</li>
-        <li>Mise en rack, optimisation salles serveurs</li>
-        <li>Documentation complète et certification</li>
-      </ul>
-      <div class="svc-standards"><span class="svc-standard">TIA/EIA-568</span><span class="svc-standard">Cat6a</span><span class="svc-standard">OM4</span></div>
-      <div class="svc-benefit">✅ Infrastructure propre, documentée — éliminez les micro-coupures matérielles.</div>
+      <p>Câblage structuré certifié aux normes de diaphonie et d'atténuation.</p>
+      <a href="/services/infrastructure" class="svc-link">En savoir plus →</a>
     </div>
-
     <div class="svc-card">
       <div class="svc-icon">🔒</div>
       <h3>Cybersécurité Offensive &amp; Durcissement</h3>
-      <p>Protégez vos données et votre réputation. Nous identifions vos failles avant que les attaquants ne les exploitent.</p>
-      <ul class="svc-features">
-        <li>Tests de vulnérabilités (Pentesting) et audits de sécurité</li>
-        <li>Pare-feux de nouvelle génération (FortiGate NGFW)</li>
-        <li>Isolation des réseaux sensibles par VLANs</li>
-        <li>Durcissement (Hardening) de tous les équipements — zéro mot de passe par défaut</li>
-        <li>Protection des endpoints et DRP/BCP</li>
-      </ul>
-      <div class="svc-standards"><span class="svc-standard">FortiGate</span><span class="svc-standard">NIST</span><span class="svc-standard">ISO 27001</span></div>
-      <div class="svc-benefit">✅ Immunisez vos systèmes face aux ransomwares et fuites de données.</div>
+      <p>Protection périmétrique et des terminaux. Chaque équipement est durci dès sa mise en service.</p>
+      <a href="/services/security" class="svc-link">En savoir plus →</a>
     </div>
-
     <div class="svc-card">
       <div class="svc-icon">📹</div>
       <h3>Vidéosurveillance IP Haute Sécurité</h3>
-      <p>Surveillez vos locaux avec l'assurance que vos flux vidéo restent strictement privés et accessibles uniquement par vos équipes autorisées.</p>
-      <ul class="svc-features">
-        <li>Caméras IP HD/4K — vision nocturne, détection IA</li>
-        <li>NVR avec stockage redondant</li>
-        <li>Isolation des caméras sur un VLAN dédié</li>
-        <li>Accès distant 100% chiffré via VPN</li>
-        <li>Zéro mot de passe d'usine — durcissement systématique</li>
-      </ul>
-      <div class="svc-standards"><span class="svc-standard">ONVIF</span><span class="svc-standard">IP67</span><span class="svc-standard">AES-256</span></div>
-      <div class="svc-benefit">✅ Surveillez vos locaux avec l'assurance que vos flux vidéo restent strictement privés.</div>
+      <p>Caméras IP intelligentes avec flux chiffrés et accès distant sécurisé.</p>
+      <a href="/services/cctv" class="svc-link">En savoir plus →</a>
     </div>
-
-    <div class="svc-card" style="grid-column: span 1;">
+    <div class="svc-card">
       <div class="svc-icon">⚙️</div>
       <h3>Supervision IA &amp; Maintenance Applicative</h3>
-      <p>Nous intervenons avant la panne. Notre monitoring intelligent détecte les anomalies avant qu'elles n'impactent votre production.</p>
-      <ul class="svc-features">
-        <li>Agents autonomes de surveillance (serveurs, réseau, caméras)</li>
-        <li>Alertes automatisées avant panne majeure</li>
-        <li>Gestion et optimisation bases de données (Supabase, SQL, PostgreSQL)</li>
-        <li>SLA 99.9% — temps de réponse 2h haute priorité</li>
-        <li>Rapports mensuels et support technique dédié</li>
-      </ul>
-      <div class="svc-standards"><span class="svc-standard">Supabase</span><span class="svc-standard">PostgreSQL</span><span class="svc-standard">Grafana</span></div>
-      <div class="svc-benefit">✅ Anticipation des pannes — nous intervenons avant que l'anomalie n'impacte votre production.</div>
+      <p>Monitoring intelligent 24/7 avec agents autonomes. Nous intervenons avant la panne.</p>
+      <a href="/services/maintenance" class="svc-link">En savoir plus →</a>
     </div>
-
-  </div>
-</div></section>
-
-<hr class="sw-sep" />
-
-<!-- ════════ CERTIFICATIONS DÉTAILLÉES ════════ -->
-<section id="certifications" class="cert-section"><div class="sw">
-  <div class="sh sh-center">
-    <div class="section-label">Crédibilité & Expertise</div>
-    <h2 class="section-title">Certifications Professionnelles</h2>
-    <p class="section-desc">Des compétences validées par les leaders mondiaux de la technologie. Vérifiez nos badges numériques.</p>
-  </div>
-
-  <div class="cert-grid">
-    <div class="cert-card">
-      <div class="cert-card-org">Cisco Networking Academy</div>
-      <h4>Junior Cybersecurity Analyst Career Path</h4>
-      <p>Surveillance des menaces, sécurité des terminaux, protocoles de défense en profondeur.</p>
-      <div class="cert-card-date">Mars 2026</div>
-    </div>
-    <div class="cert-card">
-      <div class="cert-card-org">Cisco Networking Academy</div>
-      <h4>Networking Devices &amp; Initial Configuration</h4>
-      <p>Configuration avancée des routeurs et commutateurs Cisco, CLI, sécurisation du matériel.</p>
-      <div class="cert-card-date">Mars 2026</div>
-    </div>
-    <div class="cert-card">
-      <div class="cert-card-org">Cisco Networking Academy</div>
-      <h4>CCNA v7 — Introduction to Networks</h4>
-      <p>Fondamentaux réseau : routage, commutation, sous-réseaux, modèles OSI/TCP-IP.</p>
-      <div class="cert-card-date">Juillet 2022 — Score : 75,80%</div>
-    </div>
-    <div class="cert-card">
-      <div class="cert-card-org">Cisco Networking Academy</div>
-      <h4>NDG Linux Unhatched</h4>
-        <p>Administration Linux essentielle pour les professionnels réseau.</p>
-      <div class="cert-card-date">Juillet 2022 — Score : 97,33%</div>
-    </div>
-    <div class="cert-card">
-      <div class="cert-card-org">Amazon Web Services</div>
-      <h4>Fundamentals of Generative AI</h4>
-      <p>Déploiement de solutions IA via AWS Bedrock, focus sur la sécurité et la gouvernance.</p>
-      <div class="cert-card-date">Novembre 2025</div>
-    </div>
-    <div class="cert-card">
-      <div class="cert-card-org">Amazon Web Services</div>
-      <h4>AWS Well-Architected Framework</h4>
-      <p>Conception d'architectures cloud sécurisées, performantes et résilientes.</p>
-      <div class="cert-card-date">Août 2022</div>
-    </div>
-    <div class="cert-card">
-      <div class="cert-card-org">UNHCR — Nations Unies</div>
-      <h4>Refugee Emergency Telecom Sector (RETS)</h4>
-      <p>Télécommunications d'urgence, contrôle à distance de répéteurs VHF/UHF (ICOM IP2AIR).</p>
-      <div class="cert-card-date">Février 2026</div>
-    </div>
-    <div class="cert-card">
-      <div class="cert-card-org">Hack The Box</div>
-      <h4>Penetration Testing &amp; Offensive Security</h4>
-        <p>Pratique continue en environnement lab : exploitation, post-exploitation, reporting.</p>
-      <div class="cert-card-date">En cours — Profil actif</div>
-    </div>
-  </div>
-
-  <div style="text-align:center;margin-top:2.5rem;">
-    <a href="https://credly.com/users/oscar-mulume" target="_blank" rel="noopener noreferrer" class="cert-verify">
-      ✓ Vérifier nos badges numériques sur Credly →
-    </a>
   </div>
 </div></section>
 
@@ -776,60 +354,10 @@
 <section id="methodology"><div class="sw">
   <div class="sh"><div class="section-label">Processus</div><h2 class="section-title">Notre Méthodologie</h2><p class="section-desc">Un processus rigoureux en 4 phases pour des résultats mesurables.</p></div>
   <div class="method-grid">
-    <div class="method-step">
-      <div class="method-num">01 — AUDIT</div>
-      <h3>Audit &amp; Analyse</h3>
-      <p>Évaluation gratuite de vos vulnérabilités. Cartographie réseau, benchmark de performance, identification des failles.</p>
-    </div>
-    <div class="method-step">
-      <div class="method-num">02 — ARCHITECTURE</div>
-      <h3>Proposition Technique</h3>
-      <p>Conception sur mesure (Cisco, UniFi, FortiGate). Chiffrage transparent, planning, garanties SLA.</p>
-    </div>
-    <div class="method-step">
-      <div class="method-num">03 — DÉPLOIEMENT</div>
-      <h3>Déploiement Sécurisé</h3>
-      <p>Installation physique et logique avec durcissement cyber natif. Tests de performance complets.</p>
-    </div>
-    <div class="method-step">
-      <div class="method-num">04 — MONITORING</div>
-      <h3>Supervision Continue</h3>
-      <p>Monitoring 24/7, maintenance proactive, rapports SLA, support technique dédié.</p>
-    </div>
-  </div>
-</div></section>
-
-<hr class="sw-sep" />
-
-<!-- ════════ FAQ ════════ -->
-<section><div class="sw">
-  <div class="sh sh-center">
-    <div class="section-label">Questions fréquentes</div>
-    <h2 class="section-title">Vos Préoccupations</h2>
-    <p class="section-desc">Nous répondons aux questions que nos clients posent avant de s'engager.</p>
-  </div>
-
-  <div class="faq-list">
-    <div class="faq-item">
-      <button class="faq-q">Comment gérez-vous les urgences à distance ? <span class="faq-arrow">▾</span></button>
-      <div class="faq-a">Nous disposons d'outils de prise en main à distance sécurisés (VPN, accès chiffré) permettant d'intervenir immédiatement sur votre infrastructure. Notre SLA garantit un temps de réponse de 2 heures maximum pour les incidents de haute priorité, où que vous soyez en Afrique centrale.</div>
-    </div>
-    <div class="faq-item">
-      <button class="faq-q">Comment garantissez-vous la confidentialité de nos données ? <span class="faq-arrow">▾</span></button>
-      <div class="faq-a">La confidentialité est un pilier de notre méthodologie. Nous signons des accords de confidentialité (NDA), tous nos accès sont tracés et chiffrés, et nous appliquons le principe du moindre privilège. Nos audits sont réalisés dans un cadre contractuel strict.</div>
-    </div>
-    <div class="faq-item">
-      <button class="faq-q">Que comprend l'audit gratuit exactement ? <span class="faq-arrow">▾</span></button>
-      <div class="faq-a">L'audit gratuit inclut un scan de vulnérabilités (ports ouverts, failles apparentes), une analyse de votre surface d'attaque, un rapport de recommandations priorisées par criticité, et un appel de synthèse de 30 minutes. Sans aucun engagement.</div>
-    </div>
-    <div class="faq-item">
-      <button class="faq-q">Quels sont vos engagements de disponibilité (SLA) ? <span class="faq-arrow">▾</span></button>
-      <div class="faq-a">Nous garantissons un SLA de 99.9% pour les services critiques (Wi-Fi, PMS, réseau) et de 99.5% pour les systèmes secondaires. Ces engagements sont contractuels et font l'objet de rapports mensuels détaillés.</div>
-    </div>
-    <div class="faq-item">
-      <button class="faq-q">Travaillez-vous avec des entreprises de toute taille ? <span class="faq-arrow">▾</span></button>
-      <div class="faq-a">Oui. De la PME au groupe multi-sites, nous adaptons notre prestation à votre taille et à votre budget. Notre approche modulaire vous permet de commencer par un périmètre restreint et d'étendre progressivement.</div>
-    </div>
+    <div class="method-step"><div class="method-num">01 — AUDIT</div><h3>Audit &amp; Analyse</h3><p>Évaluation gratuite de vos vulnérabilités. Cartographie réseau, benchmark de performance, identification des failles.</p></div>
+    <div class="method-step"><div class="method-num">02 — ARCHITECTURE</div><h3>Proposition Technique</h3><p>Conception sur mesure (Cisco, UniFi, FortiGate). Chiffrage transparent, planning, garanties SLA.</p></div>
+    <div class="method-step"><div class="method-num">03 — DÉPLOIEMENT</div><h3>Déploiement Sécurisé</h3><p>Installation physique et logique avec durcissement cyber natif. Tests de performance complets.</p></div>
+    <div class="method-step"><div class="method-num">04 — MONITORING</div><h3>Supervision Continue</h3><p>Monitoring 24/7, maintenance proactive, rapports SLA, support technique dédié.</p></div>
   </div>
 </div></section>
 
@@ -837,47 +365,30 @@
 
 <!-- ════════ AUDIT GRATUIT ════════ -->
 <section id="audit" class="audit-section"><div class="sw">
-  <div class="sh"><div class="section-label">Offre Spéciale</div><h2 class="section-title">Mini-Audit de Sécurité Gratuit</h2><p class="section-desc">Laissez-nous analyser votre infrastructure. Recevez un rapport de vulnérabilités sans engagement.</p></div>
-
   <div class="audit-inner">
-    <form action="https://formspree.io/f/xpwzgkqr" method="POST" class="form-wrap">
-      <div class="form-row">
-        <div class="form-group"><label>Nom complet</label><input type="text" name="name" required placeholder="Votre nom" /></div>
-        <div class="form-group"><label>Entreprise</label><input type="text" name="company" placeholder="Nom de l'entreprise" /></div>
-      </div>
-      <div class="form-row">
-        <div class="form-group"><label>Email professionnel</label><input type="email" name="email" required placeholder="vous@entreprise.com" /></div>
-        <div class="form-group"><label>Téléphone</label><input type="tel" name="phone" placeholder="+243 ..." /></div>
-      </div>
-      <div class="form-group">
-        <label>Type d'audit souhaité</label>
-        <select name="audit_type">
-          <option value="">Sélectionner</option>
-          <option value="reseau">Réseau d'entreprise (switches, routeurs, Wi-Fi)</option>
-          <option value="web">Site web / Application web</option>
-          <option value="cctv">Système CCTV / Vidéosurveillance</option>
-          <option value="global">Audit infrastructure complète</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label>Domaine ou IP publique (optionnel)</label>
-        <input type="text" name="domain" placeholder="votre-entreprise.com ou 123.45.67.89" />
-      </div>
-      <div class="form-group">
-        <label>Décrivez votre besoin</label>
-        <textarea name="message" placeholder="Ex: Suite à une cyberattaque, nous voulons vérifier la sécurité de notre réseau..."></textarea>
-      </div>
-      <button type="submit" class="btn-primary form-submit">Recevoir mon Audit Gratuit →</button>
-      <p style="font-size:0.7rem;color:var(--text-secondary);margin-top:1rem;text-align:center;">⚡ Temps de réponse moyen : moins de 2 heures</p>
-    </form>
-
+    <div>
+      <div class="sh"><div class="section-label">Évaluation Gratuite</div><h2 class="section-title">Demandez un Mini-Audit</h2><p class="section-desc">Recevez une évaluation professionnelle de vos vulnérabilités. Sans engagement.</p></div>
+      <form id="audit-form" class="form-wrap">
+        <div class="form-row">
+          <div class="form-group"><label>Nom complet *</label><input type="text" name="contact_name" required placeholder="Votre nom" /></div>
+          <div class="form-group"><label>Entreprise</label><input type="text" name="company_name" placeholder="Nom de l'entreprise" /></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>Email</label><input type="email" name="email" placeholder="votre@email.com" /></div>
+          <div class="form-group"><label>Téléphone</label><input type="tel" name="phone" placeholder="+243 ..." /></div>
+        </div>
+        <div class="form-group"><label>Type d'infrastructure</label><select name="infrastructure_type"><option value="network">Réseau & Connectivité</option><option value="security">Cybersécurité</option><option value="full">Audit Complet</option></select></div>
+        <div class="form-group"><label>Problématiques actuelles</label><textarea name="current_issues" placeholder="Décrivez brièvement vos besoins ou problèmes actuels..."></textarea></div>
+        <button type="submit" class="btn-primary form-submit">Envoyer la demande d'audit</button>
+        <div class="form-success" id="audit-success">✅ Demande envoyée avec succès ! Nous vous contacterons sous 24h.</div>
+        <div class="form-error" id="audit-error">❌ Une erreur est survenue. Veuillez réessayer.</div>
+      </form>
+    </div>
     <div class="audit-benefits">
-      <h3 style="font-size:1.25rem;font-weight:700;margin-bottom:1.5rem;">Ce que vous recevez :</h3>
-      <div class="audit-benefit"><div class="audit-benefit-icon">📋</div><div><h4>Rapport de Vulnérabilités</h4><p>Scan des ports ouverts, failles apparentes, configuration de sécurité.</p></div></div>
-      <div class="audit-benefit"><div class="audit-benefit-icon">🔍</div><div><h4>Analyse de Surface d'Attaque</h4><p>Identification des points d'entrée potentiels.</p></div></div>
-      <div class="audit-benefit"><div class="audit-benefit-icon">💡</div><div><h4>Recommandations Priorisées</h4><p>Plan d'action classé par criticité.</p></div></div>
-      <div class="audit-benefit"><div class="audit-benefit-icon">📞</div><div><h4>Appel de Synthèse (30 min)</h4><p>Présentation du rapport et échange sur les actions.</p></div></div>
-      <p style="font-size:0.8rem;color:var(--text-secondary);margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid var(--border);">100% gratuit • Rapport sous 48h • Sans engagement</p>
+      <div class="audit-benefit"><div class="audit-benefit-icon">🔍</div><div><h4>Analyse Complète</h4><p>Cartographie de votre infrastructure, identification des failles de sécurité et des goulots d'étranglement.</p></div></div>
+      <div class="audit-benefit"><div class="audit-benefit-icon">📊</div><div><h4>Rapport Détaillé</h4><p>Recevez un rapport professionnel avec des recommandations priorisées et chiffrées.</p></div></div>
+      <div class="audit-benefit"><div class="audit-benefit-icon">🛡️</div><div><h4>Sans Engagement</h4><p>L'audit est 100% gratuit. Vous décidez ensuite si vous souhaitez travailler avec nous.</p></div></div>
+      <div class="audit-benefit"><div class="audit-benefit-icon">⚡</div><div><h4>Résultats Rapides</h4><p>Premier diagnostic sous 48h. Rapport complet sous 5 jours ouvrables.</p></div></div>
     </div>
   </div>
 </div></section>
@@ -886,234 +397,133 @@
 
 <!-- ════════ CONTACT ════════ -->
 <section id="contact" class="contact-section"><div class="sw">
-  <div class="sh sh-center"><div class="section-label">Contact</div><h2 class="section-title">Prêt à sécuriser votre entreprise ?</h2><p class="section-desc">Décrivez-nous votre besoin, nous vous recontactons sous 24h.</p></div>
-
-  <div style="max-width:640px;margin:0 auto;margin-bottom:3rem;">
-    <form action="https://formspree.io/f/xpwzgkqr" method="POST" class="form-wrap">
+  <div class="sh sh-center"><div class="section-label">Connexion</div><h2 class="section-title">Contact</h2><p class="section-desc">Un projet, une mission ? Parlons-en.</p></div>
+  <div style="max-width:640px;margin:0 auto">
+    <form id="contact-form" class="form-wrap">
+      <div class="form-group"><label>Nom complet *</label><input type="text" name="name" required placeholder="Votre nom" /></div>
       <div class="form-row">
-        <div class="form-group"><label>Nom &amp; Prénom</label><input type="text" name="name" required /></div>
-        <div class="form-group"><label>Entreprise</label><input type="text" name="company" /></div>
+        <div class="form-group"><label>Email</label><input type="email" name="email" placeholder="votre@email.com" /></div>
+        <div class="form-group"><label>Téléphone</label><input type="tel" name="phone" placeholder="+243 ..." /></div>
       </div>
-      <div class="form-row">
-        <div class="form-group"><label>Email</label><input type="email" name="email" required /></div>
-        <div class="form-group"><label>Projet</label><select name="service"><option value="">Choisir</option><option value="connectivity">Connectivité</option><option value="cyber">Cybersécurité</option><option value="infrastructure">Infrastructure</option><option value="cctv">CCTV</option><option value="maintenance">Maintenance</option><option value="consulting">Consulting</option></select></div>
-      </div>
-      <div class="form-group"><label>Message</label><textarea name="message" required placeholder="Décrivez votre projet..."></textarea></div>
-      <button type="submit" class="btn-primary form-submit">Soumettre ma demande →</button>
+      <div class="form-group"><label>Service souhaité</label><select name="service_requested"><option value="">Choisir un service</option><option value="connectivity">Connectivité & Réseau</option><option value="security">Cybersécurité</option><option value="cctv">CCTV</option><option value="cablage">Câblage</option><option value="maintenance">Maintenance</option><option value="consulting">Consulting</option></select></div>
+      <div class="form-group"><label>Message *</label><textarea name="message" required placeholder="Décrivez votre projet..."></textarea></div>
+      <button type="submit" class="btn-primary form-submit">Envoyer le message</button>
+      <div class="form-success" id="contact-success">✅ Message envoyé avec succès ! Nous vous répondrons sous 24h.</div>
+      <div class="form-error" id="contact-error">❌ Une erreur est survenue. Veuillez réessayer.</div>
     </form>
   </div>
-
   <div class="contact-grid">
-    <a href="mailto:oscarmulume1612@gmail.com" class="contact-card"><div class="contact-card-icon">📧</div><h4>Email</h4><p>oscarmulume1612@gmail.com</p></a>
-    <a href="https://wa.me/243975585150" target="_blank" rel="noopener noreferrer" class="contact-card"><div class="contact-card-icon">💬</div><h4>WhatsApp</h4><p>+243 975 585 150</p></a>
-    <a href="https://www.linkedin.com/in/oscar-mulume-95666b225/" target="_blank" rel="noopener noreferrer" class="contact-card"><div class="contact-card-icon">💼</div><h4>LinkedIn</h4><p>Oscar Mulume</p></a>
-    <a href="https://oscarmulume.github.io" target="_blank" rel="noopener noreferrer" class="contact-card"><div class="contact-card-icon">🌐</div><h4>Portfolio</h4><p>oscarmulume.github.io</p></a>
+    <div class="contact-card"><div class="contact-card-icon">📧</div><div><h4>Email</h4><p>oscarmulume1612@gmail.com</p></div></div>
+    <div class="contact-card"><div class="contact-card-icon">📱</div><div><h4>Téléphone</h4><p>+243 975 585 150</p></div></div>
+    <div class="contact-card"><div class="contact-card-icon">📍</div><div><h4>Adresse</h4><p>Kinshasa, RDC</p></div></div>
+    <div class="contact-card"><div class="contact-card-icon">🌍</div><div><h4>Zone</h4><p>Afrique Centrale</p></div></div>
   </div>
 </div></section>
 
 <!-- ════════ FOOTER ════════ -->
 <footer class="footer"><div class="footer-inner">
-  <div class="footer-brand"><a href="/" class="logo">M-<em>SEC</em> <span>Technology</span></a><p>Sécurité par Conception. Des solutions de classe entreprise pour l'Afrique centrale.</p></div>
-  <div><h4>Services</h4><a href="#services">Connectivité</a><a href="#services">Cybersécurité</a><a href="#services">Infrastructure</a><a href="#services">CCTV</a><a href="#services">Maintenance</a></div>
-  <div><h4>Entreprise</h4><a href="#cases">Cas clients</a><a href="#certifications">Certifications</a><a href="#methodology">Méthodologie</a><a href="#audit">Audit Gratuit</a></div>
-  <div><h4>Direct</h4><a href="mailto:oscarmulume1612@gmail.com">Email</a><a href="https://wa.me/243975585150" target="_blank" rel="noopener noreferrer">WhatsApp</a><a href="https://credly.com/users/oscar-mulume" target="_blank" rel="noopener noreferrer">Badges →</a></div>
+  <div class="footer-brand"><a href="/" class="logo">M-<em>SEC</em> <span>Technology</span></a><p>Solutions IT professionnelles pour l'Afrique centrale. Infrastructure, Cybersécurité, Connectivité.</p></div>
+  <div><h4>Services</h4><a href="/services/connectivity">Connectivité</a><a href="/services/security">Cybersécurité</a><a href="/services/cctv">CCTV</a><a href="/services/infrastructure">Câblage</a><a href="/services/maintenance">Maintenance</a></div>
+  <div><h4>Entreprise</h4><a href="#methodology">Méthodologie</a><a href="#audit">Audit Gratuit</a><a href="#contact">Contact</a></div>
+  <div><h4>Contact</h4><a href="mailto:oscarmulume1612@gmail.com">Email</a><a href="https://www.linkedin.com/in/oscar-mulume-95666b225/" target="_blank" rel="noopener noreferrer">LinkedIn</a><a href="https://github.com/OscarMulume" target="_blank" rel="noopener noreferrer">GitHub</a></div>
 </div>
 <div class="footer-bottom"><span>&copy; <span id="yr"></span> M-Sec Technology Consulting. Tous droits réservés.</span><span>Kinshasa, RDC — Afrique Centrale</span></div></footer>
 
+<!-- ════════ CANVAS SCRIPT ════════ -->
 <script>
 (() => {
   const canvas = document.getElementById('bgCanvas');
   const ctx = canvas.getContext('2d');
   const CELL = 48;
   const RADIUS = 160;
-  const DOT_COLORS = [
-    '6,182,212',
-    '16,185,129',
-    '34,211,238',
-  ];
+  const DOT_COLORS = ['6,182,212', '16,185,129', '34,211,238'];
+  let w, h, cols, rows, targetMX = -9999, targetMY = -9999, mx = -9999, my = -9999, particles = [], frameCount = 0;
 
-  let w, h, cols, rows;
-  let targetMX = -9999, targetMY = -9999;
-  let mx = -9999, my = -9999;
-  let particles = [];
-  let frameCount = 0;
-
-  function resize() {
-    w = canvas.width = window.innerWidth;
-    h = canvas.height = window.innerHeight;
-    cols = Math.ceil(w / CELL) + 2;
-    rows = Math.ceil(h / CELL) + 2;
-  }
-
-  function spawnParticle(x, y) {
-    if (particles.length > 180) return;
-    particles.push({
-      x, y,
-      vx: (Math.random() - 0.5) * 0.6,
-      vy: (Math.random() - 0.5) * 0.6,
-      life: 1,
-      decay: 0.006 + Math.random() * 0.012,
-      size: 1 + Math.random() * 1.8,
-      color: DOT_COLORS[Math.floor(Math.random() * DOT_COLORS.length)]
-    });
-  }
+  function resize() { w = canvas.width = window.innerWidth; h = canvas.height = window.innerHeight; cols = Math.ceil(w / CELL) + 2; rows = Math.ceil(h / CELL) + 2; }
+  function spawnParticle(x, y) { if (particles.length > 180) return; particles.push({ x, y, vx: (Math.random() - 0.5) * 0.6, vy: (Math.random() - 0.5) * 0.6, life: 1, decay: 0.006 + Math.random() * 0.012, size: 1 + Math.random() * 1.8, color: DOT_COLORS[Math.floor(Math.random() * DOT_COLORS.length)] }); }
 
   function draw() {
-    ctx.clearRect(0, 0, w, h);
-    frameCount++;
-
-    mx += (targetMX - mx) * 0.12;
-    my += (targetMY - my) * 0.12;
-
-    const dx = mx - targetMX;
-    const dy = my - targetMY;
-    const speed = Math.sqrt(dx * dx + dy * dy);
-
-    if (speed > 2) {
-      const count = Math.min(Math.floor(speed / 3), 3);
-      for (let i = 0; i < count; i++) {
-        spawnParticle(
-          mx + (Math.random() - 0.5) * 16,
-          my + (Math.random() - 0.5) * 16
-        );
-      }
-    }
+    ctx.clearRect(0, 0, w, h); frameCount++;
+    mx += (targetMX - mx) * 0.12; my += (targetMY - my) * 0.12;
+    const speed = Math.sqrt((mx - targetMX) ** 2 + (my - targetMY) ** 2);
+    if (speed > 2) { const c = Math.min(Math.floor(speed / 3), 3); for (let i = 0; i < c; i++) spawnParticle(mx + (Math.random() - 0.5) * 16, my + (Math.random() - 0.5) * 16); }
 
     for (let r = 0; r < rows; r++) {
       for (let c = 0; c < cols; c++) {
-        const cx = c * CELL + CELL / 2;
-        const cy = r * CELL + CELL / 2;
+        const cx = c * CELL + CELL / 2, cy = r * CELL + CELL / 2;
         const dist = Math.sqrt((cx - mx) ** 2 + (cy - my) ** 2);
-
         if (dist < RADIUS) {
           const intensity = Math.pow(1 - dist / RADIUS, 2.5);
-          const pulseIntensity = intensity * (0.85 + 0.15 * Math.sin(frameCount * 0.03 + dist * 0.02));
-
-          ctx.fillStyle = `rgba(6,182,212,${pulseIntensity * 0.09})`;
+          const pi = intensity * (0.85 + 0.15 * Math.sin(frameCount * 0.03 + dist * 0.02));
+          ctx.fillStyle = `rgba(6,182,212,${pi * 0.09})`;
           ctx.fillRect(cx - CELL / 2, cy - CELL / 2, CELL - 1, CELL - 1);
-
-          ctx.beginPath();
-          ctx.arc(cx, cy, 1.2 + pulseIntensity * 2, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(34,211,238,${0.15 + pulseIntensity * 0.65})`;
-          ctx.fill();
-
-          if (c < cols - 1) {
-            const rightDist = Math.sqrt(((c + 1) * CELL + CELL / 2 - mx) ** 2 + (cy - my) ** 2);
-            if (rightDist < RADIUS) {
-              const li = (intensity + Math.pow(1 - rightDist / RADIUS, 2.5)) / 2;
-              ctx.beginPath();
-              ctx.moveTo(cx, cy);
-              ctx.lineTo(cx + CELL, cy);
-              ctx.strokeStyle = `rgba(6,182,212,${li * 0.1})`;
-              ctx.lineWidth = 0.8;
-              ctx.stroke();
-            }
-          }
-          if (r < rows - 1) {
-            const bottomDist = Math.sqrt((cx - mx) ** 2 + ((r + 1) * CELL + CELL / 2 - my) ** 2);
-            if (bottomDist < RADIUS) {
-              const li = (intensity + Math.pow(1 - bottomDist / RADIUS, 2.5)) / 2;
-              ctx.beginPath();
-              ctx.moveTo(cx, cy);
-              ctx.lineTo(cx, cy + CELL);
-              ctx.strokeStyle = `rgba(6,182,212,${li * 0.1})`;
-              ctx.lineWidth = 0.8;
-              ctx.stroke();
-            }
-          }
-        } else {
-          ctx.beginPath();
-          ctx.arc(cx, cy, 0.6, 0, Math.PI * 2);
-          ctx.fillStyle = 'rgba(148,163,184,0.04)';
-          ctx.fill();
-        }
+          ctx.beginPath(); ctx.arc(cx, cy, 1.2 + pi * 2, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(34,211,238,${0.15 + pi * 0.65})`; ctx.fill();
+          if (c < cols - 1) { const rd = Math.sqrt(((c + 1) * CELL + CELL / 2 - mx) ** 2 + (cy - my) ** 2); if (rd < RADIUS) { const li = (intensity + Math.pow(1 - rd / RADIUS, 2.5)) / 2; ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(cx + CELL, cy); ctx.strokeStyle = `rgba(6,182,212,${li * 0.1})`; ctx.lineWidth = 0.8; ctx.stroke(); } }
+          if (r < rows - 1) { const bd = Math.sqrt((cx - mx) ** 2 + ((r + 1) * CELL + CELL / 2 - my) ** 2); if (bd < RADIUS) { const li = (intensity + Math.pow(1 - bd / RADIUS, 2.5)) / 2; ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(cx, cy + CELL); ctx.strokeStyle = `rgba(6,182,212,${li * 0.1})`; ctx.lineWidth = 0.8; ctx.stroke(); } }
+        } else { ctx.beginPath(); ctx.arc(cx, cy, 0.6, 0, Math.PI * 2); ctx.fillStyle = 'rgba(148,163,184,0.04)'; ctx.fill(); }
       }
     }
-
     for (let i = particles.length - 1; i >= 0; i--) {
-      const p = particles[i];
-      p.x += p.vx;
-      p.y += p.vy;
-      p.life -= p.decay;
-
-      if (p.life <= 0) {
-        particles.splice(i, 1);
-        continue;
-      }
-
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.size * p.life, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(${p.color},${p.life * 0.45})`;
-      ctx.fill();
-
-      ctx.beginPath();
-      ctx.moveTo(p.x, p.y);
-      ctx.lineTo(p.x - p.vx * 5, p.y - p.vy * 5);
-      ctx.strokeStyle = `rgba(${p.color},${p.life * 0.12})`;
-      ctx.lineWidth = p.size * 0.4;
-      ctx.stroke();
+      const p = particles[i]; p.x += p.vx; p.y += p.vy; p.life -= p.decay;
+      if (p.life <= 0) { particles.splice(i, 1); continue; }
+      ctx.beginPath(); ctx.arc(p.x, p.y, p.size * p.life, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${p.color},${p.life * 0.45})`; ctx.fill();
+      ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(p.x - p.vx * 5, p.y - p.vy * 5);
+      ctx.strokeStyle = `rgba(${p.color},${p.life * 0.12})`; ctx.lineWidth = p.size * 0.4; ctx.stroke();
     }
-
     const grad = ctx.createRadialGradient(mx, my, 0, mx, my, RADIUS);
-    grad.addColorStop(0, 'rgba(6,182,212,0.07)');
-    grad.addColorStop(0.4, 'rgba(16,185,129,0.03)');
-    grad.addColorStop(1, 'rgba(0,0,0,0)');
-    ctx.fillStyle = grad;
-    ctx.fillRect(mx - RADIUS, my - RADIUS, RADIUS * 2, RADIUS * 2);
-
+    grad.addColorStop(0, 'rgba(6,182,212,0.07)'); grad.addColorStop(0.4, 'rgba(16,185,129,0.03)'); grad.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = grad; ctx.fillRect(mx - RADIUS, my - RADIUS, RADIUS * 2, RADIUS * 2);
     requestAnimationFrame(draw);
   }
-
   window.addEventListener('resize', resize);
-  window.addEventListener('mousemove', e => {
-    targetMX = e.clientX;
-    targetMY = e.clientY;
-  });
-  window.addEventListener('mouseleave', () => {
-    targetMX = -9999;
-    targetMY = -9999;
-  });
-  window.addEventListener('touchmove', e => {
-    if (e.touches.length > 0) {
-      targetMX = e.touches[0].clientX;
-      targetMY = e.touches[0].clientY;
-      e.preventDefault();
-    }
-  }, { passive: false });
-  window.addEventListener('touchend', () => {
-    targetMX = -9999;
-    targetMY = -9999;
-  });
-
-  resize();
-  draw();
+  window.addEventListener('mousemove', e => { targetMX = e.clientX; targetMY = e.clientY; });
+  window.addEventListener('mouseleave', () => { targetMX = -9999; targetMY = -9999; });
+  resize(); draw();
 })();
-
-// Nav scroll
-const nav = document.getElementById('nav');
-window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 50));
-
-// Mobile menu
-const mb = document.getElementById('mobBtn');
-const mm = document.getElementById('mobMenu');
-mb?.addEventListener('click', () => mm.classList.toggle('open'));
-mm?.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mm.classList.remove('open')));
-
-// Footer year
-document.getElementById('yr').textContent = new Date().getFullYear();
-
-// FAQ accordion
-document.querySelectorAll('.faq-q').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const item = btn.parentElement;
-    const isOpen = item.classList.contains('open');
-    // Close all
-    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
-    // Toggle current
-    if (!isOpen) item.classList.add('open');
-  });
-});
 </script>
 
+<!-- ════════ FORM HANDLING ════════ -->
+<script>
+// Navigation
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 50));
+const mb = document.getElementById('mobBtn'), mm = document.getElementById('mobMenu');
+mb?.addEventListener('click', () => mm.classList.toggle('open'));
+mm?.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mm.classList.remove('open')));
+document.getElementById('yr').textContent = new Date().getFullYear();
+
+// Contact form
+document.getElementById('contact-form')?.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const form = e.target;
+  const data = Object.fromEntries(new FormData(form));
+  try {
+    // Pour l'instant, on simule l'envoi (Supabase sera connecté plus tard)
+    console.log('Contact form data:', data);
+    document.getElementById('contact-success').style.display = 'block';
+    document.getElementById('contact-error').style.display = 'none';
+    form.reset();
+  } catch (err) {
+    document.getElementById('contact-error').style.display = 'block';
+  }
+});
+
+// Audit form
+document.getElementById('audit-form')?.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const form = e.target;
+  const data = Object.fromEntries(new FormData(form));
+  try {
+    console.log('Audit form data:', data);
+    document.getElementById('audit-success').style.display = 'block';
+    document.getElementById('audit-error').style.display = 'none';
+    form.reset();
+  } catch (err) {
+    document.getElementById('audit-error').style.display = 'block';
+  }
+});
+</script>
 </body>
 </html>

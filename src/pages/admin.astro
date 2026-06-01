@@ -1,0 +1,606 @@
+---
+// Espace Admin M-Sec Technology Consulting
+// Authentification par mot de passe (SHA-256 hash)
+---
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin | M-Sec Technology Consulting</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root{--bg:#0f172a;--bg2:#1e293b;--card:rgba(30,41,59,0.6);--border:rgba(148,163,184,0.1);--text:#f8fafc;--text2:#94a3b8;--accent:#06b6d4;--accent-br:#22d3ee;--green:#10b981;--red:#ef4444;--orange:#f59e0b}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh}
+    .mono{font-family:'JetBrains Mono',monospace}
+
+    /* Login */
+    .login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:2rem}
+    .login-box{width:100%;max-width:400px;padding:2.5rem;border-radius:20px;background:var(--card);border:1px solid var(--border)}
+    .login-box h1{font-size:1.5rem;font-weight:700;margin-bottom:.5rem;text-align:center}
+    .login-box p{font-size:.875rem;color:var(--text2);text-align:center;margin-bottom:2rem}
+    .form-group{margin-bottom:1.25rem}
+    .form-group label{display:block;font-size:.8125rem;font-weight:600;margin-bottom:.5rem}
+    .form-group input{width:100%;padding:.75rem 1rem;border-radius:10px;background:rgba(15,23,42,.6);border:1px solid var(--border);color:var(--text);font-size:.9rem;outline:none;transition:border-color .2s}
+    .form-group input:focus{border-color:var(--accent)}
+    .btn{width:100%;padding:.875rem;border-radius:10px;font-size:.9375rem;font-weight:600;cursor:pointer;border:none;transition:all .25s}
+    .btn-primary{background:linear-gradient(135deg,#0891b2,var(--accent));color:#fff}
+    .btn-primary:hover{transform:translateY(-1px);box-shadow:0 0 20px rgba(6,182,212,.25)}
+    .btn-danger{background:rgba(239,68,68,.1);color:var(--red);border:1px solid rgba(239,68,68,.2)}
+    .btn-danger:hover{background:rgba(239,68,68,.2)}
+    .btn-sm{padding:.5rem .875rem;font-size:.8125rem;width:auto}
+    .error-msg{display:none;padding:.75rem;border-radius:8px;background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.2);color:var(--red);font-size:.8125rem;text-align:center;margin-top:1rem}
+
+    /* Admin Layout */
+    .admin-layout{display:none;min-height:100vh}
+    .sidebar{position:fixed;left:0;top:0;bottom:0;width:240px;background:var(--bg2);border-right:1px solid var(--border);padding:1.5rem 0;z-index:50}
+    .sidebar-brand{padding:0 1.5rem 2rem;font-size:1.125rem;font-weight:700;color:var(--text);border-bottom:1px solid var(--border);margin-bottom:1rem}
+    .sidebar-brand em{font-style:normal;color:var(--accent-br)}
+    .sidebar-nav{padding:0 .75rem}
+    .sidebar-nav a{display:flex;align-items:center;gap:.75rem;padding:.75rem 1rem;border-radius:10px;font-size:.875rem;color:var(--text2);transition:all .2s;margin-bottom:.25rem}
+    .sidebar-nav a:hover,.sidebar-nav a.active{background:var(--accent-g);color:var(--accent-br)}
+    .sidebar-nav a .icon{width:20px;text-align:center}
+    .sidebar-footer{position:absolute;bottom:0;left:0;right:0;padding:1rem 1.5rem;border-top:1px solid var(--border)}
+    .sidebar-footer a{display:flex;align-items:center;gap:.5rem;font-size:.8125rem;color:var(--text2);transition:color .2s}
+    .sidebar-footer a:hover{color:var(--red)}
+
+    .main{margin-left:240px;padding:2rem;min-height:100vh}
+    .page-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:2rem}
+    .page-header h1{font-size:1.5rem;font-weight:700}
+    .page-header p{font-size:.875rem;color:var(--text2);margin-top:.25rem}
+
+    /* Stats */
+    .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-bottom:2rem}
+    .stat-card{padding:1.5rem;border-radius:14px;background:var(--card);border:1px solid var(--border)}
+    .stat-card .label{font-size:.7rem;color:var(--text2);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.5rem}
+    .stat-card .value{font-size:1.75rem;font-weight:800;color:var(--text)}
+    .stat-card .trend{font-size:.75rem;margin-top:.25rem}
+    .stat-card .trend.up{color:var(--green)}
+    .stat-card .trend.down{color:var(--red)}
+
+    /* Tables */
+    .table-wrap{overflow-x:auto;border-radius:14px;background:var(--card);border:1px solid var(--border)}
+    table{width:100%;border-collapse:collapse;font-size:.875rem}
+    th{text-align:left;padding:.875rem 1rem;font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:var(--text2);border-bottom:1px solid var(--border);background:rgba(15,23,42,.4)}
+    td{padding:.875rem 1rem;border-bottom:1px solid var(--border);color:var(--text2)}
+    tr:last-child td{border-bottom:none}
+    tr:hover td{background:rgba(6,182,212,.03)}
+    .badge{display:inline-block;padding:.2rem .625rem;border-radius:6px;font-size:.65rem;font-weight:600;letter-spacing:.03em}
+    .badge-green{background:rgba(16,185,129,.1);color:var(--green);border:1px solid rgba(16,185,129,.2)}
+    .badge-orange{background:rgba(245,158,11,.1);color:var(--orange);border:1px solid rgba(245,158,11,.2)}
+    .badge-red{background:rgba(239,68,68,.1);color:var(--red);border:1px solid rgba(239,68,68,.2)}
+    .badge-cyan{background:rgba(6,182,212,.1);color:var(--accent-br);border:1px solid rgba(6,182,212,.2)}
+    .actions{display:flex;gap:.5rem}
+    .action-btn{padding:.375rem .625rem;border-radius:6px;font-size:.75rem;font-weight:500;cursor:pointer;border:none;transition:all .2s}
+    .action-btn.edit{background:rgba(6,182,212,.1);color:var(--accent-br)}
+    .action-btn.edit:hover{background:rgba(6,182,212,.2)}
+    .action-btn.delete{background:rgba(239,68,68,.1);color:var(--red)}
+    .action-btn.delete:hover{background:rgba(239,68,68,.2)}
+    .action-btn.view{background:rgba(16,185,129,.1);color:var(--green)}
+    .action-btn.view:hover{background:rgba(16,185,129,.2)}
+
+    /* Modal */
+    .modal-overlay{display:none;position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);align-items:center;justify-content:center}
+    .modal-overlay.open{display:flex}
+    .modal{width:100%;max-width:560px;max-height:90vh;overflow-y:auto;padding:2rem;border-radius:20px;background:var(--bg2);border:1px solid var(--border)}
+    .modal h2{font-size:1.25rem;font-weight:700;margin-bottom:1.5rem}
+    .modal-actions{display:flex;gap:1rem;justify-content:flex-end;margin-top:1.5rem}
+
+    /* Toast */
+    .toast{position:fixed;bottom:2rem;right:2rem;padding:1rem 1.5rem;border-radius:12px;font-size:.875rem;font-weight:500;z-index:300;transform:translateY(100px);opacity:0;transition:all .3s}
+    .toast.show{transform:translateY(0);opacity:1}
+    .toast.success{background:var(--green-g);border:1px solid rgba(16,185,129,.2);color:var(--green)}
+    .toast.error{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.2);color:var(--red)}
+
+    /* Mobile */
+    .menu-btn{display:none;position:fixed;top:1rem;left:1rem;z-index:60;padding:.5rem;border-radius:8px;background:var(--bg2);border:1px solid var(--border);color:var(--text);cursor:pointer}
+    @media(max-width:768px){
+      .menu-btn{display:block}
+      .sidebar{transform:translateX(-100%);transition:transform .3s}
+      .sidebar.open{transform:translateX(0)}
+      .main{margin-left:0;padding:5rem 1rem 2rem}
+    }
+  </style>
+</head>
+<body>
+
+<!-- ════════ LOGIN ════════ -->
+<div class="login-wrap" id="login-page">
+  <div class="login-box">
+    <h1>M-<em style="color:var(--accent-br)">SEC</em> Admin</h1>
+    <p>Espace d'administration — Accès restreint</p>
+    <form id="login-form">
+      <div class="form-group"><label>Nom d'utilisateur</label><input type="text" id="login-user" required placeholder="admin" /></div>
+      <div class="form-group"><label>Mot de passe</label><input type="password" id="login-pass" required placeholder="••••••••" /></div>
+      <button type="submit" class="btn btn-primary">Se connecter</button>
+      <div class="error-msg" id="login-error">Identifiants incorrects. Veuillez réessayer.</div>
+    </form>
+  </div>
+</div>
+
+<!-- ════════ ADMIN LAYOUT ════════ -->
+<div class="admin-layout" id="admin-layout">
+  <button class="menu-btn" id="menu-btn">☰</button>
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">M-<em>SEC</em> <span style="color:var(--text2);font-weight:400;font-size:.75rem">Admin</span></div>
+    <nav class="sidebar-nav">
+      <a href="#" class="active" data-page="dashboard"><span class="icon">📊</span> Dashboard</a>
+      <a href="#" data-page="messages"><span class="icon">💬</span> Messages</a>
+      <a href="#" data-page="audits"><span class="icon">🔍</span> Audits</a>
+      <a href="#" data-page="clients"><span class="icon">👥</span> Clients</a>
+      <a href="#" data-page="services"><span class="icon">⚙️</span> Services</a>
+      <a href="#" data-page="settings"><span class="icon">🔧</span> Paramètres</a>
+    </nav>
+    <div class="sidebar-footer">
+      <a href="#" id="logout-btn">🚪 Déconnexion</a>
+    </div>
+  </aside>
+
+  <main class="main" id="main-content">
+    <!-- Content loaded dynamically -->
+  </main>
+</div>
+
+<!-- ════════ MODAL ════════ -->
+<div class="modal-overlay" id="modal">
+  <div class="modal" id="modal-content"></div>
+</div>
+
+<!-- ════════ TOAST ════════ -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ============================================================
+// AUTHENTIFICATION
+// ============================================================
+const ADMIN_HASH = '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8'; // SHA-256 de "password"
+
+async function sha256(str) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+function isLoggedIn() {
+  return sessionStorage.getItem('msec_admin') === 'true';
+}
+
+function setLoggedIn(val) {
+  if (val) sessionStorage.setItem('msec_admin', 'true');
+  else sessionStorage.removeItem('msec_admin');
+}
+
+// Login form
+document.getElementById('login-form')?.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const user = document.getElementById('login-user').value;
+  const pass = document.getElementById('login-pass').value;
+  const hash = await sha256(pass);
+  if (user === 'admin' && hash === ADMIN_HASH) {
+    setLoggedIn(true);
+    showAdmin();
+  } else {
+    document.getElementById('login-error').style.display = 'block';
+  }
+});
+
+document.getElementById('logout-btn')?.addEventListener('click', () => {
+  setLoggedIn(false);
+  document.getElementById('login-page').style.display = 'flex';
+  document.getElementById('admin-layout').style.display = 'none';
+});
+
+function showAdmin() {
+  document.getElementById('login-page').style.display = 'none';
+  document.getElementById('admin-layout').style.display = 'block';
+  loadPage('dashboard');
+}
+
+// Check session
+if (isLoggedIn()) showAdmin();
+
+// ============================================================
+// NAVIGATION
+// ============================================================
+const sidebar = document.getElementById('sidebar');
+document.getElementById('menu-btn')?.addEventListener('click', () => sidebar.classList.toggle('open'));
+
+document.querySelectorAll('.sidebar-nav a').forEach(a => {
+  a.addEventListener('click', (e) => {
+    e.preventDefault();
+    document.querySelectorAll('.sidebar-nav a').forEach(x => x.classList.remove('active'));
+    a.classList.add('active');
+    loadPage(a.dataset.page);
+    sidebar.classList.remove('open');
+  });
+});
+
+// ============================================================
+// DATA STORE (localStorage pour démo, remplacé par Supabase)
+// ============================================================
+function getData(key) {
+  try { return JSON.parse(localStorage.getItem('msec_' + key) || '[]'); } catch { return []; }
+}
+function setData(key, val) {
+  localStorage.setItem('msec_' + key, JSON.stringify(val));
+}
+
+// Init demo data
+if (!localStorage.getItem('msec_messages')) {
+  setData('messages', [
+    { id: '1', name: 'Jean Kabongo', email: 'jean@example.com', phone: '+243 999 123 456', service_requested: 'security', message: 'Nous avons besoin d\'un audit de sécurité pour notre infrastructure.', is_read: false, created_at: new Date().toISOString() },
+    { id: '2', name: 'Marie Tshisekedi', email: 'marie@example.com', phone: null, service_requested: 'connectivity', message: 'Demande de devis pour installation fibre optique.', is_read: true, created_at: new Date(Date.now() - 86400000).toISOString() },
+  ]);
+}
+if (!localStorage.getItem('msec_audits')) {
+  setData('audits', [
+    { id: '1', company_name: 'Banque Centrale', contact_name: 'Pierre Mbuyi', email: 'pierre@banque.cd', phone: '+243 811 987 654', infrastructure_type: 'full', current_issues: 'Lenteurs réseau récurrentes', status: 'pending', created_at: new Date().toISOString() },
+    { id: '2', company_name: 'Hôpital Général', contact_name: 'Dr. Sophie', email: 'sophie@hopital.cd', phone: null, infrastructure_type: 'security', current_issues: 'Pas de firewall, réseau ouvert', status: 'scheduled', created_at: new Date(Date.now() - 172800000).toISOString() },
+  ]);
+}
+if (!localStorage.getItem('msec_clients')) {
+  setData('clients', [
+    { id: '1', company_name: 'Malaïka Group', contact_name: 'Oscar Mulume', email: 'oscarmulume1612@gmail.com', phone: '+243 975 585 150', country: 'RDC', city: 'Kinshasa', status: 'active', source: 'website', created_at: new Date().toISOString() },
+  ]);
+}
+
+// ============================================================
+// PAGE LOADER
+// ============================================================
+function loadPage(page) {
+  const main = document.getElementById('main-content');
+  switch(page) {
+    case 'dashboard': renderDashboard(main); break;
+    case 'messages': renderMessages(main); break;
+    case 'audits': renderAudits(main); break;
+    case 'clients': renderClients(main); break;
+    case 'services': renderServices(main); break;
+    case 'settings': renderSettings(main); break;
+  }
+}
+
+// ============================================================
+// DASHBOARD
+// ============================================================
+function renderDashboard(el) {
+  const msgs = getData('messages'), audits = getData('audits'), clients = getData('clients');
+  const unread = msgs.filter(m => !m.is_read).length;
+  const pending = audits.filter(a => a.status === 'pending').length;
+  const active = clients.filter(c => c.status === 'active').length;
+
+  el.innerHTML = `
+    <div class="page-header"><div><h1>Dashboard</h1><p>Vue d'ensemble de votre activité</p></div></div>
+    <div class="stats-grid">
+      <div class="stat-card"><div class="label">Messages</div><div class="value">${msgs.length}</div><div class="trend up">${unread} non lus</div></div>
+      <div class="stat-card"><div class="label">Audits</div><div class="value">${audits.length}</div><div class="trend up">${pending} en attente</div></div>
+      <div class="stat-card"><div class="label">Clients</div><div class="value">${clients.length}</div><div class="trend up">${active} actifs</div></div>
+      <div class="stat-card"><div class="label">Taux de réponse</div><div class="value">98%</div><div class="trend up">↑ 2% ce mois</div></div>
+    </div>
+    <h2 style="font-size:1.125rem;font-weight:700;margin-bottom:1rem">Messages récents</h2>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Nom</th><th>Service</th><th>Message</th><th>Date</th><th>Statut</th></tr></thead>
+      <tbody>${msgs.slice(0, 5).map(m => `
+        <tr>
+          <td style="color:var(--text);font-weight:500">${m.name}</td>
+          <td><span class="badge badge-cyan">${m.service_requested || '-'}</span></td>
+          <td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${m.message}</td>
+          <td style="white-space:nowrap">${new Date(m.created_at).toLocaleDateString('fr-FR')}</td>
+          <td><span class="badge ${m.is_read ? 'badge-green' : 'badge-orange'}">${m.is_read ? 'Lu' : 'Nouveau'}</span></td>
+        </tr>
+      `).join('')}</tbody>
+    </table></div>
+  `;
+}
+
+// ============================================================
+// MESSAGES
+// ============================================================
+function renderMessages(el) {
+  const msgs = getData('messages');
+  el.innerHTML = `
+    <div class="page-header"><div><h1>Messages</h1><p>${msgs.length} message(s) au total</p></div></div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Nom</th><th>Email</th><th>Téléphone</th><th>Service</th><th>Message</th><th>Date</th><th>Statut</th><th>Actions</th></tr></thead>
+      <tbody>${msgs.map(m => `
+        <tr>
+          <td style="color:var(--text);font-weight:500">${m.name}</td>
+          <td>${m.email || '-'}</td>
+          <td>${m.phone || '-'}</td>
+          <td><span class="badge badge-cyan">${m.service_requested || '-'}</span></td>
+          <td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${m.message}</td>
+          <td style="white-space:nowrap">${new Date(m.created_at).toLocaleDateString('fr-FR')}</td>
+          <td><span class="badge ${m.is_read ? 'badge-green' : 'badge-orange'}">${m.is_read ? 'Lu' : 'Nouveau'}</span></td>
+          <td><div class="actions">
+            <button class="action-btn view" onclick="viewMessage('${m.id}')">Voir</button>
+            <button class="action-btn ${m.is_read ? '' : 'edit'}" onclick="toggleRead('${m.id}')">${m.is_read ? 'Marquer non lu' : 'Marquer lu'}</button>
+            <button class="action-btn delete" onclick="deleteMessage('${m.id}')">Suppr</button>
+          </div></td>
+        </tr>
+      `).join('')}</tbody>
+    </table></div>
+  `;
+}
+
+function viewMessage(id) {
+  const msgs = getData('messages');
+  const m = msgs.find(x => x.id === id);
+  if (!m) return;
+  openModal(`
+    <h2>Message de ${m.name}</h2>
+    <div style="margin-bottom:1rem"><strong>Email:</strong> ${m.email || '-'}<br/><strong>Téléphone:</strong> ${m.phone || '-'}<br/><strong>Service:</strong> ${m.service_requested || '-'}<br/><strong>Date:</strong> ${new Date(m.created_at).toLocaleString('fr-FR')}</div>
+    <div style="padding:1rem;border-radius:10px;background:rgba(15,23,42,.4);border:1px solid var(--border);margin-bottom:1rem"><p style="color:var(--text2);line-height:1.7">${m.message}</p></div>
+    <div class="modal-actions"><button class="btn btn-primary btn-sm" onclick="closeModal()">Fermer</button></div>
+  `);
+  // Mark as read
+  const idx = msgs.findIndex(x => x.id === id);
+  if (idx >= 0) { msgs[idx].is_read = true; setData('messages', msgs); }
+}
+
+function toggleRead(id) {
+  const msgs = getData('messages');
+  const idx = msgs.findIndex(x => x.id === id);
+  if (idx >= 0) { msgs[idx].is_read = !msgs[idx].is_read; setData('messages', msgs); renderMessages(document.getElementById('main-content')); showToast(msgs[idx].is_read ? 'Marqué comme lu' : 'Marqué comme non lu', 'success'); }
+}
+
+function deleteMessage(id) {
+  if (!confirm('Supprimer ce message ?')) return;
+  const msgs = getData('messages').filter(x => x.id !== id);
+  setData('messages', msgs);
+  renderMessages(document.getElementById('main-content'));
+  showToast('Message supprimé', 'success');
+}
+
+// ============================================================
+// AUDITS
+// ============================================================
+function renderAudits(el) {
+  const audits = getData('audits');
+  el.innerHTML = `
+    <div class="page-header"><div><h1>Demandes d'Audit</h1><p>${audits.length} demande(s) au total</p></div></div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Entreprise</th><th>Contact</th><th>Type</th><th>Problématique</th><th>Date</th><th>Statut</th><th>Actions</th></tr></thead>
+      <tbody>${audits.map(a => `
+        <tr>
+          <td style="color:var(--text);font-weight:500">${a.company_name || '-'}</td>
+          <td>${a.contact_name}</td>
+          <td><span class="badge badge-cyan">${a.infrastructure_type || '-'}</span></td>
+          <td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${a.current_issues || '-'}</td>
+          <td style="white-space:nowrap">${new Date(a.created_at).toLocaleDateString('fr-FR')}</td>
+          <td><span class="badge ${a.status === 'pending' ? 'badge-orange' : a.status === 'scheduled' ? 'badge-cyan' : a.status === 'completed' ? 'badge-green' : 'badge-red'}">${a.status === 'pending' ? 'En attente' : a.status === 'scheduled' ? 'Planifié' : a.status === 'completed' ? 'Terminé' : 'Annulé'}</span></td>
+          <td><div class="actions">
+            <button class="action-btn view" onclick="viewAudit('${a.id}')">Voir</button>
+            <button class="action-btn edit" onclick="updateAuditStatus('${a.id}')">Statut</button>
+          </div></td>
+        </tr>
+      `).join('')}</tbody>
+    </table></div>
+  `;
+}
+
+function viewAudit(id) {
+  const audits = getData('audits');
+  const a = audits.find(x => x.id === id);
+  if (!a) return;
+  openModal(`
+    <h2>Audit — ${a.company_name || a.contact_name}</h2>
+    <div style="margin-bottom:1rem"><strong>Contact:</strong> ${a.contact_name}<br/><strong>Email:</strong> ${a.email || '-'}<br/><strong>Téléphone:</strong> ${a.phone || '-'}<br/><strong>Type:</strong> ${a.infrastructure_type || '-'}<br/><strong>Date:</strong> ${new Date(a.created_at).toLocaleString('fr-FR')}</div>
+    <div style="padding:1rem;border-radius:10px;background:rgba(15,23,42,.4);border:1px solid var(--border);margin-bottom:1rem"><strong>Problématique:</strong><p style="color:var(--text2);line-height:1.7;margin-top:.5rem">${a.current_issues || '-'}</p></div>
+    <div class="modal-actions"><button class="btn btn-primary btn-sm" onclick="closeModal()">Fermer</button></div>
+  `);
+}
+
+function updateAuditStatus(id) {
+  const audits = getData('audits');
+  const idx = audits.findIndex(x => x.id === id);
+  if (idx < 0) return;
+  const statuses = ['pending', 'scheduled', 'completed', 'cancelled'];
+  const labels = ['En attente', 'Planifié', 'Terminé', 'Annulé'];
+  const currentIdx = statuses.indexOf(audits[idx].status);
+  const nextIdx = (currentIdx + 1) % statuses.length;
+  audits[idx].status = statuses[nextIdx];
+  setData('audits', audits);
+  renderAudits(document.getElementById('main-content'));
+  showToast(`Statut: ${labels[nextIdx]}`, 'success');
+}
+
+// ============================================================
+// CLIENTS
+// ============================================================
+function renderClients(el) {
+  const clients = getData('clients');
+  el.innerHTML = `
+    <div class="page-header"><div><h1>Clients</h1><p>${clients.length} client(s) au total</p></div><button class="btn btn-primary btn-sm" onclick="addClient()">+ Ajouter</button></div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Entreprise</th><th>Contact</th><th>Email</th><th>Téléphone</th><th>Ville</th><th>Statut</th><th>Source</th><th>Actions</th></tr></thead>
+      <tbody>${clients.map(c => `
+        <tr>
+          <td style="color:var(--text);font-weight:500">${c.company_name || '-'}</td>
+          <td>${c.contact_name}</td>
+          <td>${c.email || '-'}</td>
+          <td>${c.phone || '-'}</td>
+          <td>${c.city || '-'}</td>
+          <td><span class="badge ${c.status === 'active' ? 'badge-green' : c.status === 'prospect' ? 'badge-orange' : 'badge-red'}">${c.status === 'active' ? 'Actif' : c.status === 'prospect' ? 'Prospect' : 'Inactif'}</span></td>
+          <td>${c.source || '-'}</td>
+          <td><div class="actions">
+            <button class="action-btn edit" onclick="editClient('${c.id}')">Éditer</button>
+            <button class="action-btn delete" onclick="deleteClient('${c.id}')">Suppr</button>
+          </div></td>
+        </tr>
+      `).join('')}</tbody>
+    </table></div>
+  `;
+}
+
+function addClient() {
+  openModal(`
+    <h2>Ajouter un client</h2>
+    <div class="form-group"><label>Nom de l'entreprise</label><input type="text" id="client-company" placeholder="Nom" /></div>
+    <div class="form-group"><label>Nom du contact *</label><input type="text" id="client-name" required placeholder="Nom" /></div>
+    <div class="form-group"><label>Email</label><input type="email" id="client-email" placeholder="email@example.com" /></div>
+    <div class="form-group"><label>Téléphone</label><input type="tel" id="client-phone" placeholder="+243 ..." /></div>
+    <div class="form-group"><label>Ville</label><input type="text" id="client-city" placeholder="Kinshasa" /></div>
+    <div class="form-group"><label>Statut</label><select id="client-status"><option value="prospect">Prospect</option><option value="active">Actif</option><option value="inactive">Inactif</option></select></div>
+    <div class="modal-actions"><button class="btn btn-secondary btn-sm" onclick="closeModal()">Annuler</button><button class="btn btn-primary btn-sm" onclick="saveClient()">Enregistrer</button></div>
+  `);
+}
+
+function saveClient() {
+  const clients = getData('clients');
+  clients.push({
+    id: Date.now().toString(),
+    company_name: document.getElementById('client-company').value,
+    contact_name: document.getElementById('client-name').value,
+    email: document.getElementById('client-email').value,
+    phone: document.getElementById('client-phone').value,
+    city: document.getElementById('client-city').value,
+    country: 'RDC',
+    status: document.getElementById('client-status').value,
+    source: 'admin',
+    created_at: new Date().toISOString()
+  });
+  setData('clients', clients);
+  closeModal();
+  renderClients(document.getElementById('main-content'));
+  showToast('Client ajouté', 'success');
+}
+
+function editClient(id) {
+  const clients = getData('clients');
+  const c = clients.find(x => x.id === id);
+  if (!c) return;
+  openModal(`
+    <h2>Modifier le client</h2>
+    <div class="form-group"><label>Entreprise</label><input type="text" id="client-company" value="${c.company_name || ''}" /></div>
+    <div class="form-group"><label>Contact *</label><input type="text" id="client-name" value="${c.contact_name}" /></div>
+    <div class="form-group"><label>Email</label><input type="email" id="client-email" value="${c.email || ''}" /></div>
+    <div class="form-group"><label>Téléphone</label><input type="tel" id="client-phone" value="${c.phone || ''}" /></div>
+    <div class="form-group"><label>Ville</label><input type="text" id="client-city" value="${c.city || ''}" /></div>
+    <div class="form-group"><label>Statut</label><select id="client-status"><option value="prospect" ${c.status === 'prospect' ? 'selected' : ''}>Prospect</option><option value="active" ${c.status === 'active' ? 'selected' : ''}>Actif</option><option value="inactive" ${c.status === 'inactive' ? 'selected' : ''}>Inactif</option></select></div>
+    <div class="modal-actions"><button class="btn btn-secondary btn-sm" onclick="closeModal()">Annuler</button><button class="btn btn-primary btn-sm" onclick="saveClientEdit('${id}')">Enregistrer</button></div>
+  `);
+}
+
+function saveClientEdit(id) {
+  const clients = getData('clients');
+  const idx = clients.findIndex(x => x.id === id);
+  if (idx < 0) return;
+  clients[idx] = { ...clients[idx], company_name: document.getElementById('client-company').value, contact_name: document.getElementById('client-name').value, email: document.getElementById('client-email').value, phone: document.getElementById('client-phone').value, city: document.getElementById('client-city').value, status: document.getElementById('client-status').value };
+  setData('clients', clients);
+  closeModal();
+  renderClients(document.getElementById('main-content'));
+  showToast('Client modifié', 'success');
+}
+
+function deleteClient(id) {
+  if (!confirm('Supprimer ce client ?')) return;
+  setData('clients', getData('clients').filter(x => x.id !== id));
+  renderClients(document.getElementById('main-content'));
+  showToast('Client supprimé', 'success');
+}
+
+// ============================================================
+// SERVICES (admin)
+// ============================================================
+function renderServices(el) {
+  const services = [
+    { id: '1', slug: 'connectivity', title: 'Connectivité Critique', icon: '🌐', is_active: true },
+    { id: '2', slug: 'infrastructure', title: 'Infrastructure & Câblage', icon: '🏗️', is_active: true },
+    { id: '3', slug: 'security', title: 'Cybersécurité', icon: '🔒', is_active: true },
+    { id: '4', slug: 'cctv', title: 'Vidéosurveillance', icon: '📹', is_active: true },
+    { id: '5', slug: 'maintenance', title: 'Supervision & Maintenance', icon: '⚙️', is_active: true },
+  ];
+  el.innerHTML = `
+    <div class="page-header"><div><h1>Services</h1><p>Gérer les services affichés sur le site</p></div></div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Icône</th><th>Titre</th><th>Slug</th><th>Statut</th><th>Actions</th></tr></thead>
+      <tbody>${services.map(s => `
+        <tr><td style="font-size:1.5rem">${s.icon}</td><td style="color:var(--text);font-weight:500">${s.title}</td><td class="mono" style="font-size:.75rem">${s.slug}</td><td><span class="badge ${s.is_active ? 'badge-green' : 'badge-red'}">${s.is_active ? 'Actif' : 'Inactif'}</span></td>
+          <td><div class="actions"><button class="action-btn edit" onclick="editService('${s.id}')">Éditer</button></div></td>
+        </tr>
+      `).join('')}</tbody>
+    </table></div>
+  `;
+}
+
+function editService(id) {
+  showToast('Édition de service — à connecter avec Supabase', 'success');
+}
+
+// ============================================================
+// SETTINGS
+// ============================================================
+function renderSettings(el) {
+  el.innerHTML = `
+    <div class="page-header"><div><h1>Paramètres</h1><p>Configuration du site</p></div></div>
+    <div class="card" style="margin-bottom:1.5rem">
+      <h3 style="margin-bottom:1rem">🔐 Changer le mot de passe admin</h3>
+      <div class="form-group"><label>Nouveau mot de passe</label><input type="password" id="new-pass" placeholder="Nouveau mot de passe" /></div>
+      <div class="form-group"><label>Confirmer</label><input type="password" id="confirm-pass" placeholder="Confirmer" /></div>
+      <button class="btn btn-primary btn-sm" onclick="changePassword()">Changer le mot de passe</button>
+    </div>
+    <div class="card" style="margin-bottom:1.5rem">
+      <h3 style="margin-bottom:1rem">🗑️ Données</h3>
+      <p style="color:var(--text2);font-size:.875rem;margin-bottom:1rem">Exporter ou réinitialiser les données locales.</p>
+      <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+        <button class="btn btn-secondary btn-sm" onclick="exportData()">📥 Exporter JSON</button>
+        <button class="btn btn-danger btn-sm" onclick="resetData()">🗑️ Tout réinitialiser</button>
+      </div>
+    </div>
+    <div class="card">
+      <h3 style="margin-bottom:1rem">ℹ️ Informations</h3>
+      <p style="color:var(--text2);font-size:.875rem">Version: 1.0.0 — M-Sec Technology Consulting<br/>Les données sont actuellement stockées en localStorage (démo). Connectez Supabase pour la production.</p>
+    </div>
+  `;
+}
+
+async function changePassword() {
+  const p1 = document.getElementById('new-pass').value, p2 = document.getElementById('confirm-pass').value;
+  if (!p1 || p1 !== p2) { showToast('Les mots de passe ne correspondent pas', 'error'); return; }
+  const hash = await sha256(p1);
+  localStorage.setItem('msec_admin_hash', hash);
+  showToast('Mot de passe changé', 'success');
+}
+
+function exportData() {
+  const data = {};
+  ['messages', 'audits', 'clients'].forEach(k => { data[k] = getData(k); });
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href = url; a.download = 'msec-data.json'; a.click();
+  showToast('Données exportées', 'success');
+}
+
+function resetData() {
+  if (!confirm('⚠️ Supprimer TOUTES les données ? Cette action est irréversible.')) return;
+  ['messages', 'audits', 'clients'].forEach(k => localStorage.removeItem('msec_' + k));
+  showToast('Données réinitialisées', 'success');
+  loadPage('dashboard');
+}
+
+// ============================================================
+// UTILS
+// ============================================================
+function openModal(html) {
+  document.getElementById('modal-content').innerHTML = html;
+  document.getElementById('modal').classList.add('open');
+}
+
+function closeModal() {
+  document.getElementById('modal').classList.remove('open');
+}
+
+function showToast(msg, type = 'success') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = `toast ${type} show`;
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// Close modal on overlay click
+document.getElementById('modal')?.addEventListener('click', (e) => {
+  if (e.target === e.currentTarget) closeModal();
+});
+</script>
+</body>
+</html>

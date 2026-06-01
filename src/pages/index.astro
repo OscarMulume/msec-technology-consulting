@@ -153,18 +153,27 @@
     .sh-center { text-align: center; }
     .sh-center .section-desc { margin-left: auto; margin-right: auto; }
     .sw-sep { border: 0; border-top: 1px solid var(--border); margin: 0; }
+    /* Hero with background image */
+    .hero {
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      padding: 8rem 2rem 4rem; position: relative; z-index: 1;
+    }
+    .hero-bg {
+      position: absolute; inset: 0; z-index: -1;
+      background-image: url('/media/msec-team.webp');
+      background-size: cover; background-position: center 30%;
+      opacity: 0.15;
+    }
+    .hero-bg::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(180deg, rgba(15,23,42,0.7) 0%, rgba(15,23,42,0.9) 100%);
+    }
+    .hero-inner { max-width: 900px; width: 100%; text-align: center; position: relative; z-index: 1; }
 
-    /* About */
-    .about-box { background: var(--bg-card); border: 1px solid var(--border); border-radius: 20px; padding: 3rem; position: relative; overflow: hidden; }
-    .about-box::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--accent), transparent); }
-    .about-box h3 { font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; color: var(--accent-br); }
-    .about-box p { font-size: 1.0625rem; color: var(--text-secondary); line-height: 1.8; max-width: 700px; }
-
-    /* Service Cards */
-    .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 1.5rem; }
-    .svc-card { position: relative; padding: 2.5rem; border-radius: 20px; background: var(--bg-card); border: 1px solid var(--border); transition: all 0.4s ease; overflow: hidden; }
-    .svc-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--accent), transparent); opacity: 0; transition: opacity 0.3s; }
-    .svc-card:hover::before { opacity: 1; }
+    /* Service card with image */
+    .svc-card { position: relative; padding: 0; border-radius: 20px; background: var(--bg-card); border: 1px solid var(--border); transition: all 0.4s ease; overflow: hidden; }
+    .svc-card-img { width: 100%; height: 180px; object-fit: cover; display: block; }
+    .svc-card-body { padding: 1.75rem; }
     .svc-card:hover { border-color: rgba(6,182,212,0.2); transform: translateY(-6px); box-shadow: 0 20px 60px rgba(0,0,0,0.3), 0 0 40px rgba(6,182,212,0.05); }
     .svc-icon { width: 52px; height: 52px; border-radius: 14px; margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; background: var(--accent-g); }
     .svc-card h3 { font-size: 1.125rem; font-weight: 700; margin-bottom: 0.75rem; color: var(--text-primary); }
@@ -293,7 +302,9 @@
 </div></nav>
 
 <!-- ════════ HERO ════════ -->
-<section class="hero"><div class="hero-inner">
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-inner">
   <div class="hero-logo">M</div>
   <div class="hero-badge"><span class="hero-badge-dot"></span> Consulting IT — Afrique Centrale</div>
   <h1><span class="line">M-<span class="accent">SEC</span></span><span class="accent">Technology Consulting</span></h1>
@@ -331,23 +342,38 @@
   </div>
   <div class="gallery-grid">
     <div class="gallery-card gallery-featured">
-      <img src=`/media/msec-office.png` alt="Bureau M-Sec Technology Consulting" loading="lazy" />
+      <picture>
+        <source srcset="/media/msec-office.webp" type="image/webp" />
+        <img src="/media/msec-office.jpg" alt="Bureau M-Sec Technology Consulting" loading="lazy" />
+      </picture>
       <div class="gallery-card-overlay"><h4>Siège M-Sec</h4><p>Kinshasa, RDC</p></div>
     </div>
     <div class="gallery-card">
-      <img src=`/media/msec-team.png` alt="Équipe M-Sec" loading="lazy" />
+      <picture>
+        <source srcset="/media/msec-team.webp" type="image/webp" />
+        <img src="/media/msec-team.jpg" alt="Équipe M-Sec" loading="lazy" />
+      </picture>
       <div class="gallery-card-overlay"><h4>Notre Équipe</h4><p>Professionnels certifiés</p></div>
     </div>
     <div class="gallery-card">
-      <img src=`/media/msec-network.png` alt="Infrastructure réseau" loading="lazy" />
+      <picture>
+        <source srcset="/media/msec-network.webp" type="image/webp" />
+        <img src="/media/msec-network.jpg" alt="Infrastructure réseau" loading="lazy" />
+      </picture>
       <div class="gallery-card-overlay"><h4>Salle Serveurs</h4><p>Câblage structuré &amp; baies</p></div>
     </div>
     <div class="gallery-card">
-      <img src=`/media/msec-security.png` alt="Cybersécurité" loading="lazy" />
+      <picture>
+        <source srcset="/media/msec-security.webp" type="image/webp" />
+        <img src="/media/msec-security.jpg" alt="Cybersécurité" loading="lazy" />
+      </picture>
       <div class="gallery-card-overlay"><h4>Sécurité Périmétrique</h4><p>CCTV &amp; contrôle d'accès</p></div>
     </div>
     <div class="gallery-card">
-      <img src=`/media/msec-server.png` alt="Serveurs" loading="lazy" />
+      <picture>
+        <source srcset="/media/msec-server.webp" type="image/webp" />
+        <img src="/media/msec-server.jpg" alt="Serveurs" loading="lazy" />
+      </picture>
       <div class="gallery-card-overlay"><h4>Infrastructure Server</h4><p>Haute disponibilité</p></div>
     </div>
   </div>
@@ -359,36 +385,61 @@
 <section id="services"><div class="sw">
   <div class="sh"><div class="section-label">Expertise Technique</div><h2 class="section-title">Nos 5 Piliers</h2><p class="section-desc">Des solutions complètes de connectivité, infrastructure et cybersécurité — conçues pour la performance et la résilience.</p></div>
   <div class="services-grid" id="services-grid">
-    <!-- Services chargés dynamiquement -->
     <div class="svc-card">
-      <div class="svc-icon">🌐</div>
-      <h3>Connectivité Critique &amp; Réseaux Résilients</h3>
-      <p>Conception d'architectures réseau sur mesure avec liaisons Internet redondantes.</p>
-      <a href="services/connectivity" class="svc-link">En savoir plus →</a>
+      <picture>
+        <source srcset="/media/msec-network-thumb.webp" type="image/webp" />
+        <img class="svc-card-img" src="/media/msec-network-thumb.jpg" alt="Connectivité réseau" loading="lazy" />
+      </picture>
+      <div class="svc-card-body">
+        <div class="svc-icon">🌐</div>
+        <h3>Connectivité Critique &amp; Réseaux Résilients</h3>
+        <p>Conception d'architectures réseau sur mesure avec liaisons Internet redondantes.</p>
+        <a href="services/connectivity" class="svc-link">En savoir plus →</a>
+      </div>
     </div>
     <div class="svc-card">
-      <div class="svc-icon">🏗️</div>
-      <h3>Infrastructure Physique &amp; Câblage</h3>
-      <p>Câblage structuré certifié aux normes de diaphonie et d'atténuation.</p>
-      <a href="services/infrastructure" class="svc-link">En savoir plus →</a>
+      <picture>
+        <source srcset="/media/msec-server-thumb.webp" type="image/webp" />
+        <img class="svc-card-img" src="/media/msec-server-thumb.jpg" alt="Infrastructure serveur" loading="lazy" />
+      </picture>
+      <div class="svc-card-body">
+        <div class="svc-icon">🏗️</div>
+        <h3>Infrastructure Physique &amp; Câblage</h3>
+        <p>Câblage structuré certifié aux normes de diaphonie et d'atténuation.</p>
+        <a href="services/infrastructure" class="svc-link">En savoir plus →</a>
+      </div>
     </div>
     <div class="svc-card">
-      <div class="svc-icon">🔒</div>
-      <h3>Cybersécurité Offensive &amp; Durcissement</h3>
-      <p>Protection périmétrique et des terminaux. Chaque équipement est durci dès sa mise en service.</p>
-      <a href="services/security" class="svc-link">En savoir plus →</a>
+      <picture>
+        <source srcset="/media/msec-security-thumb.webp" type="image/webp" />
+        <img class="svc-card-img" src="/media/msec-security-thumb.jpg" alt="Cybersécurité" loading="lazy" />
+      </picture>
+      <div class="svc-card-body">
+        <div class="svc-icon">🔒</div>
+        <h3>Cybersécurité Offensive &amp; Durcissement</h3>
+        <p>Protection périmétrique et des terminaux. Chaque équipement est durci dès sa mise en service.</p>
+        <a href="services/security" class="svc-link">En savoir plus →</a>
+      </div>
     </div>
     <div class="svc-card">
-      <div class="svc-icon">📹</div>
-      <h3>Vidéosurveillance IP Haute Sécurité</h3>
-      <p>Caméras IP intelligentes avec flux chiffrés et accès distant sécurisé.</p>
-      <a href="services/cctv" class="svc-link">En savoir plus →</a>
+      <picture>
+        <source srcset="/media/msec-team-thumb.webp" type="image/webp" />
+        <img class="svc-card-img" src="/media/msec-team-thumb.jpg" alt="Vidéosurveillance" loading="lazy" />
+      </picture>
+      <div class="svc-card-body">
+        <div class="svc-icon">📹</div>
+        <h3>Vidéosurveillance IP Haute Sécurité</h3>
+        <p>Caméras IP intelligentes avec flux chiffrés et accès distant sécurisé.</p>
+        <a href="services/cctv" class="svc-link">En savoir plus →</a>
+      </div>
     </div>
     <div class="svc-card">
-      <div class="svc-icon">⚙️</div>
-      <h3>Supervision IA &amp; Maintenance Applicative</h3>
-      <p>Monitoring intelligent 24/7 avec agents autonomes. Nous intervenons avant la panne.</p>
-      <a href="services/maintenance" class="svc-link">En savoir plus →</a>
+      <div class="svc-card-body">
+        <div class="svc-icon">⚙️</div>
+        <h3>Supervision IA &amp; Maintenance Applicative</h3>
+        <p>Monitoring intelligent 24/7 avec agents autonomes. Nous intervenons avant la panne.</p>
+        <a href="services/maintenance" class="svc-link">En savoir plus →</a>
+      </div>
     </div>
   </div>
 </div></section>

@@ -84,12 +84,12 @@ const { slug } = Astro.params;
 <canvas id="bgCanvas"></canvas>
 
 <nav class="nav" id="nav"><div class="nav-inner">
-  <a href="/" class="logo">M-<em>SEC</em> <span>Technology</span></a>
+  <a href={import.meta.env.BASE_URL || '/'} class="logo">M-<em>SEC</em> <span>Technology</span></a>
   <div class="nav-links">
-    <a href="/">Accueil</a>
-    <a href="/#services">Services</a>
-    <a href="/#audit">Audit Gratuit</a>
-    <a href="/#contact">Contact</a>
+    <a href={`${import.meta.env.BASE_URL || '/'}`}>Accueil</a>
+    <a href={`${import.meta.env.BASE_URL || '/'}#services`}>Services</a>
+    <a href={`${import.meta.env.BASE_URL || '/'}#audit`}>Audit Gratuit</a>
+    <a href={`${import.meta.env.BASE_URL || '/'}#contact`}>Contact</a>
   </div>
 </div></nav>
 
@@ -108,8 +108,8 @@ const { slug } = Astro.params;
       <h2>Intéressé par ce service ?</h2>
       <p>Contactez-nous pour une consultation gratuite et sans engagement.</p>
       <div class="btn-group">
-        <a href="/#audit" class="btn btn-primary">Demander un Audit Gratuit</a>
-        <a href="/#contact" class="btn btn-secondary">Nous contacter</a>
+        <a href={`${import.meta.env.BASE_URL || '/'}#audit`} class="btn btn-primary">Demander un Audit Gratuit</a>
+        <a href={`${import.meta.env.BASE_URL || '/'}#contact`} class="btn btn-secondary">Nous contacter</a>
       </div>
     </div>
   </div>
@@ -118,7 +118,7 @@ const { slug } = Astro.params;
   <div id="not-found" class="not-found" style="display:none">
     <h2>Service non trouvé</h2>
     <p>Le service demandé n'existe pas ou a été déplacé.</p>
-    <a href="/" class="btn btn-primary">Retour à l'accueil</a>
+    <a href={import.meta.env.BASE_URL || '/'} class="btn btn-primary">Retour à l'accueil</a>
   </div>
 </div></section>
 

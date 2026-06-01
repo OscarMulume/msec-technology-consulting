@@ -1,9 +1,9 @@
-const p="5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8";async function h(e){const a=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(e));return Array.from(new Uint8Array(a)).map(t=>t.toString(16).padStart(2,"0")).join("")}function v(){return sessionStorage.getItem("msec_admin")==="true"}function r(e){e?sessionStorage.setItem("msec_admin","true"):sessionStorage.removeItem("msec_admin")}document.getElementById("login-form")?.addEventListener("submit",async e=>{e.preventDefault();const a=document.getElementById("login-user").value,t=document.getElementById("login-pass").value,i=await h(t);a==="admin"&&i===p?(r(!0),o()):document.getElementById("login-error").style.display="block"});document.getElementById("logout-btn")?.addEventListener("click",()=>{r(!1),document.getElementById("login-page").style.display="flex",document.getElementById("admin-layout").style.display="none"});function o(){document.getElementById("login-page").style.display="none",document.getElementById("admin-layout").style.display="block",l("dashboard")}v()&&o();const c=document.getElementById("sidebar");document.getElementById("menu-btn")?.addEventListener("click",()=>c.classList.toggle("open"));document.querySelectorAll(".sidebar-nav a").forEach(e=>{e.addEventListener("click",a=>{a.preventDefault(),document.querySelectorAll(".sidebar-nav a").forEach(t=>t.classList.remove("active")),e.classList.add("active"),l(e.dataset.page),c.classList.remove("open")})});function n(e){try{return JSON.parse(localStorage.getItem("msec_"+e)||"[]")}catch{return[]}}function d(e,a){localStorage.setItem("msec_"+e,JSON.stringify(a))}localStorage.getItem("msec_messages")||d("messages",[{id:"1",name:"Jean Kabongo",email:"jean@example.com",phone:"+243 999 123 456",service_requested:"security",message:"Nous avons besoin d'un audit de sécurité pour notre infrastructure.",is_read:!1,created_at:new Date().toISOString()},{id:"2",name:"Marie Tshisekedi",email:"marie@example.com",phone:null,service_requested:"connectivity",message:"Demande de devis pour installation fibre optique.",is_read:!0,created_at:new Date(Date.now()-864e5).toISOString()}]);localStorage.getItem("msec_audits")||d("audits",[{id:"1",company_name:"Banque Centrale",contact_name:"Pierre Mbuyi",email:"pierre@banque.cd",phone:"+243 811 987 654",infrastructure_type:"full",current_issues:"Lenteurs réseau récurrentes",status:"pending",created_at:new Date().toISOString()},{id:"2",company_name:"Hôpital Général",contact_name:"Dr. Sophie",email:"sophie@hopital.cd",phone:null,infrastructure_type:"security",current_issues:"Pas de firewall, réseau ouvert",status:"scheduled",created_at:new Date(Date.now()-1728e5).toISOString()}]);localStorage.getItem("msec_clients")||d("clients",[{id:"1",company_name:"Malaïka Group",contact_name:"Oscar Mulume",email:"oscarmulume1612@gmail.com",phone:"+243 975 585 150",country:"RDC",city:"Kinshasa",status:"active",source:"website",created_at:new Date().toISOString()}]);function l(e){const a=document.getElementById("main-content");switch(e){case"dashboard":b(a);break;case"messages":y(a);break;case"audits":f(a);break;case"clients":w(a);break;case"services":$(a);break;case"settings":_(a);break}}function b(e){const a=n("messages"),t=n("audits"),i=n("clients"),u=a.filter(s=>!s.is_read).length,g=t.filter(s=>s.status==="pending").length,m=i.filter(s=>s.status==="active").length;e.innerHTML=`
+const v="5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8";async function g(e){const a=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(e));return Array.from(new Uint8Array(a)).map(t=>t.toString(16).padStart(2,"0")).join("")}function h(){return sessionStorage.getItem("msec_admin")==="true"}function r(e){e?sessionStorage.setItem("msec_admin","true"):sessionStorage.removeItem("msec_admin")}document.getElementById("login-form")?.addEventListener("submit",async e=>{e.preventDefault();const a=document.getElementById("login-user").value,t=document.getElementById("login-pass").value,n=await g(t);a==="admin"&&n===v?(r(!0),o()):document.getElementById("login-error").style.display="block"});document.getElementById("logout-btn")?.addEventListener("click",()=>{r(!1),document.getElementById("login-page").style.display="flex",document.getElementById("admin-layout").style.display="none"});function o(){document.getElementById("login-page").style.display="none",document.getElementById("admin-layout").style.display="block",l("dashboard")}h()&&o();const c=document.getElementById("sidebar");document.getElementById("menu-btn")?.addEventListener("click",()=>c.classList.toggle("open"));document.querySelectorAll(".sidebar-nav a").forEach(e=>{e.addEventListener("click",a=>{a.preventDefault(),document.querySelectorAll(".sidebar-nav a").forEach(t=>t.classList.remove("active")),e.classList.add("active"),l(e.dataset.page),c.classList.remove("open")})});function i(e){try{return JSON.parse(localStorage.getItem("msec_"+e)||"[]")}catch{return[]}}function d(e,a){localStorage.setItem("msec_"+e,JSON.stringify(a))}localStorage.getItem("msec_messages")||d("messages",[{id:"1",name:"Jean Kabongo",email:"jean@example.com",phone:"+243 999 123 456",service_requested:"security",message:"Nous avons besoin d'un audit de sécurité pour notre infrastructure.",is_read:!1,created_at:new Date().toISOString()},{id:"2",name:"Marie Tshisekedi",email:"marie@example.com",phone:null,service_requested:"connectivity",message:"Demande de devis pour installation fibre optique.",is_read:!0,created_at:new Date(Date.now()-864e5).toISOString()}]);localStorage.getItem("msec_audits")||d("audits",[{id:"1",company_name:"Banque Centrale",contact_name:"Pierre Mbuyi",email:"pierre@banque.cd",phone:"+243 811 987 654",infrastructure_type:"full",current_issues:"Lenteurs réseau récurrentes",status:"pending",created_at:new Date().toISOString()},{id:"2",company_name:"Hôpital Général",contact_name:"Dr. Sophie",email:"sophie@hopital.cd",phone:null,infrastructure_type:"security",current_issues:"Pas de firewall, réseau ouvert",status:"scheduled",created_at:new Date(Date.now()-1728e5).toISOString()}]);localStorage.getItem("msec_clients")||d("clients",[{id:"1",company_name:"Malaïka Group",contact_name:"Oscar Mulume",email:"oscarmulume1612@gmail.com",phone:"+243 975 585 150",country:"RDC",city:"Kinshasa",status:"active",source:"website",created_at:new Date().toISOString()}]);function l(e){const a=document.getElementById("main-content");switch(e){case"dashboard":b(a);break;case"messages":y(a);break;case"audits":f(a);break;case"clients":w(a);break;case"services":$(a);break;case"settings":_(a);break}}function b(e){const a=i("messages"),t=i("audits"),n=i("clients"),u=a.filter(s=>!s.is_read).length,m=t.filter(s=>s.status==="pending").length,p=n.filter(s=>s.status==="active").length;e.innerHTML=`
     <div class="page-header"><div><h1>Dashboard</h1><p>Vue d'ensemble de votre activité</p></div></div>
     <div class="stats-grid">
       <div class="stat-card"><div class="label">Messages</div><div class="value">${a.length}</div><div class="trend up">${u} non lus</div></div>
-      <div class="stat-card"><div class="label">Audits</div><div class="value">${t.length}</div><div class="trend up">${g} en attente</div></div>
-      <div class="stat-card"><div class="label">Clients</div><div class="value">${i.length}</div><div class="trend up">${m} actifs</div></div>
+      <div class="stat-card"><div class="label">Audits</div><div class="value">${t.length}</div><div class="trend up">${m} en attente</div></div>
+      <div class="stat-card"><div class="label">Clients</div><div class="value">${n.length}</div><div class="trend up">${p} actifs</div></div>
       <div class="stat-card"><div class="label">Taux de réponse</div><div class="value">98%</div><div class="trend up">↑ 2% ce mois</div></div>
     </div>
     <h2 style="font-size:1.125rem;font-weight:700;margin-bottom:1rem">Messages récents</h2>
@@ -19,7 +19,7 @@ const p="5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8";async
         </tr>
       `).join("")}</tbody>
     </table></div>
-  `}function y(e){const a=n("messages");e.innerHTML=`
+  `}function y(e){const a=i("messages");e.innerHTML=`
     <div class="page-header"><div><h1>Messages</h1><p>${a.length} message(s) au total</p></div></div>
     <div class="table-wrap"><table>
       <thead><tr><th>Nom</th><th>Email</th><th>Téléphone</th><th>Service</th><th>Message</th><th>Date</th><th>Statut</th><th>Actions</th></tr></thead>
@@ -34,13 +34,14 @@ const p="5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8";async
           <td><span class="badge ${t.is_read?"badge-green":"badge-orange"}">${t.is_read?"Lu":"Nouveau"}</span></td>
           <td><div class="actions">
             <button class="action-btn view" onclick="viewMessage('${t.id}')">Voir</button>
-            <button class="action-btn ${t.is_read?"":"edit"}" onclick="toggleRead('${t.id}')">${t.is_read?"Marquer non lu":"Marquer lu"}</button>
+            ${t.email?`<button class="action-btn edit" onclick="replyMessage('${t.email}', '${t.name.replace(/'/g,"\\'")}')">Répondre</button>`:""}
+            <button class="action-btn ${t.is_read?"":"edit"}" onclick="toggleRead('${t.id}')">${t.is_read?"Non lu":"Lu"}</button>
             <button class="action-btn delete" onclick="deleteMessage('${t.id}')">Suppr</button>
           </div></td>
         </tr>
       `).join("")}</tbody>
     </table></div>
-  `}function f(e){const a=n("audits");e.innerHTML=`
+  `}function f(e){const a=i("audits");e.innerHTML=`
     <div class="page-header"><div><h1>Demandes d'Audit</h1><p>${a.length} demande(s) au total</p></div></div>
     <div class="table-wrap"><table>
       <thead><tr><th>Entreprise</th><th>Contact</th><th>Type</th><th>Problématique</th><th>Date</th><th>Statut</th><th>Actions</th></tr></thead>
@@ -59,7 +60,7 @@ const p="5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8";async
         </tr>
       `).join("")}</tbody>
     </table></div>
-  `}function w(e){const a=n("clients");e.innerHTML=`
+  `}function w(e){const a=i("clients");e.innerHTML=`
     <div class="page-header"><div><h1>Clients</h1><p>${a.length} client(s) au total</p></div><button class="btn btn-primary btn-sm" onclick="addClient()">+ Ajouter</button></div>
     <div class="table-wrap"><table>
       <thead><tr><th>Entreprise</th><th>Contact</th><th>Email</th><th>Téléphone</th><th>Ville</th><th>Statut</th><th>Source</th><th>Actions</th></tr></thead>
@@ -79,13 +80,21 @@ const p="5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8";async
         </tr>
       `).join("")}</tbody>
     </table></div>
-  `}function $(e){const a=[{id:"1",slug:"connectivity",title:"Connectivité Critique",icon:"🌐",is_active:!0},{id:"2",slug:"infrastructure",title:"Infrastructure & Câblage",icon:"🏗️",is_active:!0},{id:"3",slug:"security",title:"Cybersécurité",icon:"🔒",is_active:!0},{id:"4",slug:"cctv",title:"Vidéosurveillance",icon:"📹",is_active:!0},{id:"5",slug:"maintenance",title:"Supervision & Maintenance",icon:"⚙️",is_active:!0}];e.innerHTML=`
-    <div class="page-header"><div><h1>Services</h1><p>Gérer les services affichés sur le site</p></div></div>
+  `}function $(e){const a=i("services")||[{id:"1",slug:"connectivity",title:"Connectivité Critique",icon:"🌐",summary:"Conception d'architectures réseau sur mesure.",is_active:!0,display_order:1},{id:"2",slug:"infrastructure",title:"Infrastructure & Câblage",icon:"🏗️",summary:"Câblage structuré certifié aux normes.",is_active:!0,display_order:2},{id:"3",slug:"security",title:"Cybersécurité",icon:"🔒",summary:"Protection périmétrique et durcissement.",is_active:!0,display_order:3},{id:"4",slug:"cctv",title:"Vidéosurveillance",icon:"📹",summary:"Caméras IP intelligentes avec flux chiffrés.",is_active:!0,display_order:4},{id:"5",slug:"maintenance",title:"Supervision & Maintenance",icon:"⚙️",summary:"Monitoring intelligent 24/7.",is_active:!0,display_order:5}];i("services")||d("services",a),e.innerHTML=`
+    <div class="page-header"><div><h1>Services</h1><p>Gérer les services affichés sur le site</p></div><button class="btn btn-primary btn-sm" onclick="addService()">+ Ajouter</button></div>
     <div class="table-wrap"><table>
-      <thead><tr><th>Icône</th><th>Titre</th><th>Slug</th><th>Statut</th><th>Actions</th></tr></thead>
+      <thead><tr><th>#</th><th>Icône</th><th>Titre</th><th>Résumé</th><th>Statut</th><th>Actions</th></tr></thead>
       <tbody>${a.map(t=>`
-        <tr><td style="font-size:1.5rem">${t.icon}</td><td style="color:var(--text);font-weight:500">${t.title}</td><td class="mono" style="font-size:.75rem">${t.slug}</td><td><span class="badge ${t.is_active?"badge-green":"badge-red"}">${t.is_active?"Actif":"Inactif"}</span></td>
-          <td><div class="actions"><button class="action-btn edit" onclick="editService('${t.id}')">Éditer</button></div></td>
+        <tr>
+          <td class="mono" style="color:var(--text2)">${t.display_order}</td>
+          <td style="font-size:1.5rem">${t.icon}</td>
+          <td style="color:var(--text);font-weight:500;white-space:nowrap">${t.title}</td>
+          <td style="max-width:250px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${t.summary||"-"}</td>
+          <td><span class="badge ${t.is_active?"badge-green":"badge-red"}">${t.is_active?"Actif":"Inactif"}</span></td>
+          <td><div class="actions">
+            <button class="action-btn edit" onclick="editService('${t.id}')">Éditer</button>
+            <button class="action-btn ${t.is_active?"delete":"view"}" onclick="toggleService('${t.id}')">${t.is_active?"Désactiver":"Activer"}</button>
+          </div></td>
         </tr>
       `).join("")}</tbody>
     </table></div>

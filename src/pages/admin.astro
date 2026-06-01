@@ -313,7 +313,8 @@ function renderMessages(el) {
           <td><span class="badge ${m.is_read ? 'badge-green' : 'badge-orange'}">${m.is_read ? 'Lu' : 'Nouveau'}</span></td>
           <td><div class="actions">
             <button class="action-btn view" onclick="viewMessage('${m.id}')">Voir</button>
-            <button class="action-btn ${m.is_read ? '' : 'edit'}" onclick="toggleRead('${m.id}')">${m.is_read ? 'Marquer non lu' : 'Marquer lu'}</button>
+            ${m.email ? `<button class="action-btn edit" onclick="replyMessage('${m.email}', '${m.name.replace(/'/g, "\\'")}')">Répondre</button>` : ''}
+            <button class="action-btn ${m.is_read ? '' : 'edit'}" onclick="toggleRead('${m.id}')">${m.is_read ? 'Non lu' : 'Lu'}</button>
             <button class="action-btn delete" onclick="deleteMessage('${m.id}')">Suppr</button>
           </div></td>
         </tr>
@@ -335,6 +336,12 @@ function viewMessage(id) {
   // Mark as read
   const idx = msgs.findIndex(x => x.id === id);
   if (idx >= 0) { msgs[idx].is_read = true; setData('messages', msgs); }
+}
+
+function replyMessage(email, name) {
+  const subject = encodeURIComponent('Re: Votre demande - M-Sec Technology Consulting');
+  const body = encodeURIComponent(`Bonjour ${name},\n\nNous avons bien reçu votre message et nous vous remercions pour votre intérêt.\n\n`);
+  window.open(`mailto:${email}?subject=${subject}&body=${body}`, '_blank');
 }
 
 function toggleRead(id) {
@@ -503,20 +510,31 @@ function deleteClient(id) {
 // SERVICES (admin)
 // ============================================================
 function renderServices(el) {
-  const services = [
-    { id: '1', slug: 'connectivity', title: 'Connectivité Critique', icon: '🌐', is_active: true },
-    { id: '2', slug: 'infrastructure', title: 'Infrastructure & Câblage', icon: '🏗️', is_active: true },
-    { id: '3', slug: 'security', title: 'Cybersécurité', icon: '🔒', is_active: true },
-    { id: '4', slug: 'cctv', title: 'Vidéosurveillance', icon: '📹', is_active: true },
-    { id: '5', slug: 'maintenance', title: 'Supervision & Maintenance', icon: '⚙️', is_active: true },
+  const services = getData('services') || [
+    { id: '1', slug: 'connectivity', title: 'Connectivité Critique', icon: '🌐', summary: 'Conception d\'architectures réseau sur mesure.', is_active: true, display_order: 1 },
+    { id: '2', slug: 'infrastructure', title: 'Infrastructure & Câblage', icon: '🏗️', summary: 'Câblage structuré certifié aux normes.', is_active: true, display_order: 2 },
+    { id: '3', slug: 'security', title: 'Cybersécurité', icon: '🔒', summary: 'Protection périmétrique et durcissement.', is_active: true, display_order: 3 },
+    { id: '4', slug: 'cctv', title: 'Vidéosurveillance', icon: '📹', summary: 'Caméras IP intelligentes avec flux chiffrés.', is_active: true, display_order: 4 },
+    { id: '5', slug: 'maintenance', title: 'Supervision & Maintenance', icon: '⚙️', summary: 'Monitoring intelligent 24/7.', is_active: true, display_order: 5 },
   ];
+  // Save to localStorage if not exists
+  if (!getData('services')) setData('services', services);
+
   el.innerHTML = `
-    <div class="page-header"><div><h1>Services</h1><p>Gérer les services affichés sur le site</p></div></div>
+    <div class="page-header"><div><h1>Services</h1><p>Gérer les services affichés sur le site</p></div><button class="btn btn-primary btn-sm" onclick="addService()">+ Ajouter</button></div>
     <div class="table-wrap"><table>
-      <thead><tr><th>Icône</th><th>Titre</th><th>Slug</th><th>Statut</th><th>Actions</th></tr></thead>
+      <thead><tr><th>#</th><th>Icône</th><th>Titre</th><th>Résumé</th><th>Statut</th><th>Actions</th></tr></thead>
       <tbody>${services.map(s => `
-        <tr><td style="font-size:1.5rem">${s.icon}</td><td style="color:var(--text);font-weight:500">${s.title}</td><td class="mono" style="font-size:.75rem">${s.slug}</td><td><span class="badge ${s.is_active ? 'badge-green' : 'badge-red'}">${s.is_active ? 'Actif' : 'Inactif'}</span></td>
-          <td><div class="actions"><button class="action-btn edit" onclick="editService('${s.id}')">Éditer</button></div></td>
+        <tr>
+          <td class="mono" style="color:var(--text2)">${s.display_order}</td>
+          <td style="font-size:1.5rem">${s.icon}</td>
+          <td style="color:var(--text);font-weight:500;white-space:nowrap">${s.title}</td>
+          <td style="max-width:250px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${s.summary || '-'}</td>
+          <td><span class="badge ${s.is_active ? 'badge-green' : 'badge-red'}">${s.is_active ? 'Actif' : 'Inactif'}</span></td>
+          <td><div class="actions">
+            <button class="action-btn edit" onclick="editService('${s.id}')">Éditer</button>
+            <button class="action-btn ${s.is_active ? 'delete' : 'view'}" onclick="toggleService('${s.id}')">${s.is_active ? 'Désactiver' : 'Activer'}</button>
+          </div></td>
         </tr>
       `).join('')}</tbody>
     </table></div>
@@ -524,7 +542,96 @@ function renderServices(el) {
 }
 
 function editService(id) {
-  showToast('Édition de service — à connecter avec Supabase', 'success');
+  const services = getData('services') || [];
+  const s = services.find(x => x.id === id);
+  if (!s) return;
+  openModal(`
+    <h2>Modifier le service</h2>
+    <div class="form-group"><label>Titre</label><input type="text" id="svc-title" value="${s.title}" /></div>
+    <div class="form-group"><label>Icône (emoji)</label><input type="text" id="svc-icon" value="${s.icon}" /></div>
+    <div class="form-group"><label>Résumé</label><input type="text" id="svc-summary" value="${s.summary || ''}" /></div>
+    <div class="form-group"><label>Ordre d'affichage</label><input type="number" id="svc-order" value="${s.display_order}" min="0" /></div>
+    <div class="form-group">
+      <label>Statut</label>
+      <select id="svc-active">
+        <option value="true" ${s.is_active ? 'selected' : ''}>Actif</option>
+        <option value="false" ${!s.is_active ? 'selected' : ''}>Inactif</option>
+      </select>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-secondary btn-sm" onclick="closeModal()">Annuler</button>
+      <button class="btn btn-primary btn-sm" onclick="saveService('${id}')">Enregistrer</button>
+    </div>
+  `);
+}
+
+function saveService(id) {
+  const services = getData('services') || [];
+  const idx = services.findIndex(x => x.id === id);
+  if (idx < 0) return;
+  services[idx] = {
+    ...services[idx],
+    title: document.getElementById('svc-title').value,
+    icon: document.getElementById('svc-icon').value,
+    summary: document.getElementById('svc-summary').value,
+    display_order: parseInt(document.getElementById('svc-order').value) || 0,
+    is_active: document.getElementById('svc-active').value === 'true',
+  };
+  setData('services', services);
+  closeModal();
+  renderServices(document.getElementById('main-content'));
+  showToast('Service modifié', 'success');
+}
+
+function toggleService(id) {
+  const services = getData('services') || [];
+  const idx = services.findIndex(x => x.id === id);
+  if (idx < 0) return;
+  services[idx].is_active = !services[idx].is_active;
+  setData('services', services);
+  renderServices(document.getElementById('main-content'));
+  showToast(services[idx].is_active ? 'Service activé' : 'Service désactivé', 'success');
+}
+
+function addService() {
+  openModal(`
+    <h2>Ajouter un service</h2>
+    <div class="form-group"><label>Titre *</label><input type="text" id="svc-title" placeholder="Nom du service" /></div>
+    <div class="form-group"><label>Icône (emoji)</label><input type="text" id="svc-icon" placeholder="⚙️" /></div>
+    <div class="form-group"><label>Résumé</label><input type="text" id="svc-summary" placeholder="Description courte" /></div>
+    <div class="form-group"><label>Slug</label><input type="text" id="svc-slug" placeholder="mon-service" /></div>
+    <div class="form-group"><label>Ordre</label><input type="number" id="svc-order" value="0" min="0" /></div>
+    <div class="modal-actions">
+      <button class="btn btn-secondary btn-sm" onclick="closeModal()">Annuler</button>
+      <button class="btn btn-primary btn-sm" onclick="saveNewService()">Ajouter</button>
+    </div>
+  `);
+}
+
+function saveNewService() {
+  const services = getData('services') || [];
+  const title = document.getElementById('svc-title').value.trim();
+  if (!title) { showToast('Le titre est requis', 'error'); return; }
+  services.push({
+    id: Date.now().toString(),
+    slug: document.getElementById('svc-slug').value.trim() || 'service-' + Date.now(),
+    title,
+    icon: document.getElementById('svc-icon').value.trim() || '⚙️',
+    summary: document.getElementById('svc-summary').value.trim(),
+    is_active: true,
+    display_order: parseInt(document.getElementById('svc-order').value) || 0,
+  });
+  setData('services', services);
+  closeModal();
+  renderServices(document.getElementById('main-content'));
+  showToast('Service ajouté', 'success');
+}
+
+function deleteService(id) {
+  if (!confirm('Supprimer ce service ?')) return;
+  setData('services', (getData('services') || []).filter(x => x.id !== id));
+  renderServices(document.getElementById('main-content'));
+  showToast('Service supprimé', 'success');
 }
 
 // ============================================================

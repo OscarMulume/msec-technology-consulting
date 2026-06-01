@@ -153,16 +153,22 @@
     .sh-center { text-align: center; }
     .sh-center .section-desc { margin-left: auto; margin-right: auto; }
     .sw-sep { border: 0; border-top: 1px solid var(--border); margin: 0; }
-    /* Hero with background image */
+    /* Hero with background image - responsive */
     .hero {
       min-height: 100vh; display: flex; align-items: center; justify-content: center;
       padding: 8rem 2rem 4rem; position: relative; z-index: 1;
     }
     .hero-bg {
       position: absolute; inset: 0; z-index: -1;
-      background-image: url('/msec-technology-consulting/media/msec-team.webp');
+      background-image: url('/msec-technology-consulting/media/msec-team-sm.webp');
       background-size: cover; background-position: center 30%;
-      opacity: 0.15;
+      opacity: 0.12;
+    }
+    @media(min-width:768px) {
+      .hero-bg { background-image: url('/msec-technology-consulting/media/msec-team-md.webp'); opacity: 0.15; }
+    }
+    @media(min-width:1200px) {
+      .hero-bg { background-image: url('/msec-technology-consulting/media/msec-team.webp'); opacity: 0.18; }
     }
     .hero-bg::after {
       content: ''; position: absolute; inset: 0;
@@ -172,9 +178,32 @@
 
     /* Service card with image */
     .svc-card { position: relative; padding: 0; border-radius: 20px; background: var(--bg-card); border: 1px solid var(--border); transition: all 0.4s ease; overflow: hidden; }
-    .svc-card-img { width: 100%; height: 180px; object-fit: cover; display: block; }
+    .svc-card-img { width: 100%; height: 160px; object-fit: cover; display: block; }
+    @media(min-width:768px) { .svc-card-img { height: 200px; } }
     .svc-card-body { padding: 1.75rem; }
     .svc-card:hover { border-color: rgba(6,182,212,0.2); transform: translateY(-6px); box-shadow: 0 20px 60px rgba(0,0,0,0.3), 0 0 40px rgba(6,182,212,0.05); }
+
+    /* Gallery */
+    .gallery-section { padding: 6rem 0; border-top: 1px solid var(--border); }
+    .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+    .gallery-card { position: relative; border-radius: 14px; overflow: hidden; cursor: pointer; aspect-ratio: 16/10; }
+    .gallery-card.gallery-featured { grid-column: span 2; grid-row: span 2; aspect-ratio: auto; }
+    .gallery-card img { width: 100%; height: 100%; object-fit: cover; transition: transform .3s; }
+    .gallery-card:hover img { transform: scale(1.05); }
+    .gallery-card-overlay { position: absolute; bottom: 0; left: 0; right: 0; padding: 1rem; background: linear-gradient(transparent, rgba(0,0,0,.8)); color: #fff; }
+    .gallery-card-overlay h4 { font-size: .875rem; font-weight: 600; }
+    .gallery-card-overlay p { font-size: .7rem; opacity: .7; }
+    @media(max-width:768px) {
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+      .gallery-card.gallery-featured { grid-column: span 2; grid-row: span 1; }
+    }
+
+    /* Lightbox */
+    .lightbox { display: none; position: fixed; inset: 0; z-index: 1000; background: rgba(0,0,0,.92); align-items: center; justify-content: center; cursor: zoom-out; }
+    .lightbox.open { display: flex; }
+    .lightbox img { max-width: 90vw; max-height: 85vh; object-fit: contain; border-radius: 8px; }
+    .lightbox-close { position: absolute; top: 1.5rem; right: 1.5rem; color: #fff; font-size: 2rem; cursor: pointer; opacity: .7; transition: opacity .2s; background: none; border: none; }
+    .lightbox-close:hover { opacity: 1; }
     .svc-icon { width: 52px; height: 52px; border-radius: 14px; margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; background: var(--accent-g); }
     .svc-card h3 { font-size: 1.125rem; font-weight: 700; margin-bottom: 0.75rem; color: var(--text-primary); }
     .svc-card p { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 1.25rem; }
@@ -341,37 +370,42 @@
     <p class="section-desc">Aperçu de nos installations et de notre environnement de travail.</p>
   </div>
   <div class="gallery-grid">
-    <div class="gallery-card gallery-featured">
+    <div class="gallery-card gallery-featured" onclick="openLightbox('/msec-technology-consulting/media/msec-office.webp')">
       <picture>
-        <source srcset="/msec-technology-consulting/media/msec-office.webp" type="image/webp" />
+        <source srcset="/msec-technology-consulting/media/msec-office-md.webp" type="image/webp" media="(min-width:768px)" />
+        <source srcset="/msec-technology-consulting/media/msec-office-sm.webp" type="image/webp" />
         <img src="/msec-technology-consulting/media/msec-office.jpg" alt="Bureau M-Sec Technology Consulting" loading="lazy" />
       </picture>
-      <div class="gallery-card-overlay"><h4>Siège M-Sec</h4><p>Kinshasa, RDC</p></div>
+      <div class="gallery-card-overlay"><h4>Siège M-Sec</h4><p>Kinshasa, RDC — Cliquer pour agrandir</p></div>
     </div>
-    <div class="gallery-card">
+    <div class="gallery-card" onclick="openLightbox('/msec-technology-consulting/media/msec-team.webp')">
       <picture>
-        <source srcset="/msec-technology-consulting/media/msec-team.webp" type="image/webp" />
+        <source srcset="/msec-technology-consulting/media/msec-team-md.webp" type="image/webp" media="(min-width:768px)" />
+        <source srcset="/msec-technology-consulting/media/msec-team-sm.webp" type="image/webp" />
         <img src="/msec-technology-consulting/media/msec-team.jpg" alt="Équipe M-Sec" loading="lazy" />
       </picture>
       <div class="gallery-card-overlay"><h4>Notre Équipe</h4><p>Professionnels certifiés</p></div>
     </div>
-    <div class="gallery-card">
+    <div class="gallery-card" onclick="openLightbox('/msec-technology-consulting/media/msec-network.webp')">
       <picture>
-        <source srcset="/msec-technology-consulting/media/msec-network.webp" type="image/webp" />
+        <source srcset="/msec-technology-consulting/media/msec-network-md.webp" type="image/webp" media="(min-width:768px)" />
+        <source srcset="/msec-technology-consulting/media/msec-network-sm.webp" type="image/webp" />
         <img src="/msec-technology-consulting/media/msec-network.jpg" alt="Infrastructure réseau" loading="lazy" />
       </picture>
       <div class="gallery-card-overlay"><h4>Salle Serveurs</h4><p>Câblage structuré &amp; baies</p></div>
     </div>
-    <div class="gallery-card">
+    <div class="gallery-card" onclick="openLightbox('/msec-technology-consulting/media/msec-security.webp')">
       <picture>
-        <source srcset="/msec-technology-consulting/media/msec-security.webp" type="image/webp" />
+        <source srcset="/msec-technology-consulting/media/msec-security-md.webp" type="image/webp" media="(min-width:768px)" />
+        <source srcset="/msec-technology-consulting/media/msec-security-sm.webp" type="image/webp" />
         <img src="/msec-technology-consulting/media/msec-security.jpg" alt="Cybersécurité" loading="lazy" />
       </picture>
       <div class="gallery-card-overlay"><h4>Sécurité Périmétrique</h4><p>CCTV &amp; contrôle d'accès</p></div>
     </div>
-    <div class="gallery-card">
+    <div class="gallery-card" onclick="openLightbox('/msec-technology-consulting/media/msec-server.webp')">
       <picture>
-        <source srcset="/msec-technology-consulting/media/msec-server.webp" type="image/webp" />
+        <source srcset="/msec-technology-consulting/media/msec-server-md.webp" type="image/webp" media="(min-width:768px)" />
+        <source srcset="/msec-technology-consulting/media/msec-server-sm.webp" type="image/webp" />
         <img src="/msec-technology-consulting/media/msec-server.jpg" alt="Serveurs" loading="lazy" />
       </picture>
       <div class="gallery-card-overlay"><h4>Infrastructure Server</h4><p>Haute disponibilité</p></div>
@@ -387,8 +421,9 @@
   <div class="services-grid" id="services-grid">
     <div class="svc-card">
       <picture>
-        <source srcset="/msec-technology-consulting/media/msec-network-thumb.webp" type="image/webp" />
-        <img class="svc-card-img" src="/msec-technology-consulting/media/msec-network-thumb.jpg" alt="Connectivité réseau" loading="lazy" />
+        <source srcset="/msec-technology-consulting/media/msec-network-md.webp" type="image/webp" media="(min-width:768px)" />
+        <source srcset="/msec-technology-consulting/media/msec-network-sm.webp" type="image/webp" />
+        <img class="svc-card-img" src="/msec-technology-consulting/media/msec-network.jpg" alt="Connectivité réseau" loading="lazy" />
       </picture>
       <div class="svc-card-body">
         <div class="svc-icon">🌐</div>
@@ -399,8 +434,9 @@
     </div>
     <div class="svc-card">
       <picture>
-        <source srcset="/msec-technology-consulting/media/msec-server-thumb.webp" type="image/webp" />
-        <img class="svc-card-img" src="/msec-technology-consulting/media/msec-server-thumb.jpg" alt="Infrastructure serveur" loading="lazy" />
+        <source srcset="/msec-technology-consulting/media/msec-server-md.webp" type="image/webp" media="(min-width:768px)" />
+        <source srcset="/msec-technology-consulting/media/msec-server-sm.webp" type="image/webp" />
+        <img class="svc-card-img" src="/msec-technology-consulting/media/msec-server.jpg" alt="Infrastructure serveur" loading="lazy" />
       </picture>
       <div class="svc-card-body">
         <div class="svc-icon">🏗️</div>
@@ -411,8 +447,9 @@
     </div>
     <div class="svc-card">
       <picture>
-        <source srcset="/msec-technology-consulting/media/msec-security-thumb.webp" type="image/webp" />
-        <img class="svc-card-img" src="/msec-technology-consulting/media/msec-security-thumb.jpg" alt="Cybersécurité" loading="lazy" />
+        <source srcset="/msec-technology-consulting/media/msec-security-md.webp" type="image/webp" media="(min-width:768px)" />
+        <source srcset="/msec-technology-consulting/media/msec-security-sm.webp" type="image/webp" />
+        <img class="svc-card-img" src="/msec-technology-consulting/media/msec-security.jpg" alt="Cybersécurité" loading="lazy" />
       </picture>
       <div class="svc-card-body">
         <div class="svc-icon">🔒</div>
@@ -423,8 +460,9 @@
     </div>
     <div class="svc-card">
       <picture>
-        <source srcset="/msec-technology-consulting/media/msec-team-thumb.webp" type="image/webp" />
-        <img class="svc-card-img" src="/msec-technology-consulting/media/msec-team-thumb.jpg" alt="Vidéosurveillance" loading="lazy" />
+        <source srcset="/msec-technology-consulting/media/msec-team-md.webp" type="image/webp" media="(min-width:768px)" />
+        <source srcset="/msec-technology-consulting/media/msec-team-sm.webp" type="image/webp" />
+        <img class="svc-card-img" src="/msec-technology-consulting/media/msec-team.jpg" alt="Vidéosurveillance" loading="lazy" />
       </picture>
       <div class="svc-card-body">
         <div class="svc-icon">📹</div>
@@ -620,6 +658,24 @@ document.getElementById('audit-form')?.addEventListener('submit', async (e) => {
     document.getElementById('audit-error').style.display = 'block';
   }
 });
+</script>
+
+<!-- ════════ LIGHTBOX ════════ -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+  <img id="lightbox-img" src="" alt="Image agrandie" />
+</div>
+<script>
+function openLightbox(src) {
+  document.getElementById('lightbox-img').src = src;
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
 </script>
 </body>
 </html>

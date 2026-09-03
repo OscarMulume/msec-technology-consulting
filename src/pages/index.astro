@@ -202,6 +202,8 @@
     .bento-card:nth-child(3n) .bento-icon { background: var(--green-g); border-color: rgba(16,185,129,0.16); color: var(--green); }
     .bento-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 10px; letter-spacing: -0.01em; }
     .bento-card p { font-size: 0.875rem; color: var(--text-2); line-height: 1.7; flex: 1; }
+    .bento-card .bento-benefit { margin-top: 4px; color: var(--text-3); }
+    .bento-card .bento-benefit strong { color: var(--green); }
     .bento-link { display: inline-flex; align-items: center; gap: 6px; margin-top: 18px; font-size: 0.8125rem; color: var(--cyan); font-weight: 600; transition: gap 0.3s var(--smooth); }
     .bento-link:hover { gap: 12px; }
     .bento-card:last-child .bento-icon { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.16); color: #fff; }
@@ -250,6 +252,29 @@
     .comp-card ul { margin-top: 12px; }
     .comp-card li { font-size: 0.8125rem; color: var(--text-2); padding: 5px 0 5px 22px; position: relative; line-height: 1.6; }
     .comp-card li::before { content: '✓'; position: absolute; left: 0; color: var(--green); font-weight: 700; }
+
+    /* ── Études de cas ── */
+    .cases-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .case-card { padding: 34px; border-radius: var(--radius); background: var(--glass); backdrop-filter: blur(24px); border: 1px solid var(--border); transition: all 0.5s var(--spring); position: relative; overflow: hidden; }
+    .case-card:hover { border-color: var(--border-h); transform: translateY(-4px); }
+    .case-tag { display: inline-flex; align-items: center; font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--cyan); background: var(--cyan-g); border: 1px solid rgba(34,211,238,0.18); padding: 6px 14px; border-radius: 100px; margin-bottom: 18px; }
+    .case-card h3 { font-size: 1.3rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 22px; }
+    .case-segment { border-left: 2px solid rgba(34,211,238,0.3); padding: 6px 0 6px 18px; margin-bottom: 18px; }
+    .case-seg-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--green); margin-bottom: 6px; }
+    .case-segment p { font-size: 0.875rem; color: var(--text-2); line-height: 1.75; }
+
+    /* ── Certifications ── */
+    .cert-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .cert-card { padding: 28px; border-radius: var(--radius); background: var(--glass); backdrop-filter: blur(24px); border: 1px solid var(--border); display: flex; gap: 18px; transition: all 0.5s var(--spring); position: relative; }
+    .cert-card:hover { border-color: var(--border-h); transform: translateY(-4px); }
+    .cert-icon { width: 52px; height: 52px; border-radius: 15px; background: var(--cyan-g); color: var(--cyan); display: flex; align-items: center; justify-content: center; font-size: 1.4rem; flex-shrink: 0; border: 1px solid rgba(34,211,238,0.16); }
+    .cert-card:nth-child(even) .cert-icon { background: var(--green-g); color: var(--green); border-color: rgba(16,185,129,0.16); }
+    .cert-domain { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-3); margin-bottom: 8px; }
+    .cert-body h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.01em; }
+    .cert-body p { font-size: 0.855rem; color: var(--text-2); line-height: 1.7; }
+    .cert-note { margin-top: 28px; padding: 20px 24px; border-radius: var(--radius-sm); background: linear-gradient(135deg, rgba(34,211,238,0.06), rgba(16,185,129,0.05)); border: 1px solid var(--border); display: flex; gap: 14px; align-items: flex-start; }
+    .cert-note-icon { width: 26px; height: 26px; border-radius: 50%; background: var(--green); color: #03130f; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.85rem; flex-shrink: 0; box-shadow: 0 0 16px rgba(16,185,129,0.5); }
+    .cert-note p { font-size: 0.875rem; color: var(--text-2); line-height: 1.7; }
 
     /* ── Formulaires ── */
     .form-wrap { background: var(--glass); padding: 32px; border-radius: var(--radius); border: 1px solid var(--border); backdrop-filter: blur(28px); }
@@ -335,6 +360,7 @@
       .method-grid { grid-template-columns: 1fr 1fr; }
       .compliance-grid { grid-template-columns: 1fr; }
       .form-row { grid-template-columns: 1fr; }
+      .cases-grid, .cert-grid { grid-template-columns: 1fr; }
       .footer-inner { grid-template-columns: 1fr; gap: 28px; }
       .gallery-card.featured, .gallery-card.tall, .gallery-card.norm { grid-column: span 2; grid-row: span 1; }
       .cta-panel { padding: 40px 24px; }
@@ -358,10 +384,10 @@
     </a>
     <div class="nav-links">
       <a href="#services">Services</a>
-      <a href="#methodology">Méthodologie</a>
+      <a href="#realisations">Réalisations</a>
+      <a href="#certifications">Certifications</a>
       <a href="#engagements">Engagements</a>
-      <a href="#audit">Audit Gratuit</a>
-      <a href="#contact" class="nav-cta">Contact</a>
+      <a href="#audit" class="nav-cta">Audit Gratuit</a>
     </div>
     <button class="mob-btn" id="mobBtn" aria-label="Menu">
       <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
@@ -369,7 +395,8 @@
   </div>
   <div class="mob-menu" id="mobMenu">
     <a href="#services">Services</a>
-    <a href="#methodology">Méthodologie</a>
+    <a href="#realisations">Réalisations</a>
+    <a href="#certifications">Certifications</a>
     <a href="#engagements">Engagements</a>
     <a href="#audit">Audit Gratuit</a>
     <a href="#contact">Contact</a>
@@ -394,7 +421,7 @@
         <div class="stat-card"><div class="stat-n">99.9%</div><div class="stat-l">SLA Garanti</div></div>
         <div class="stat-card"><div class="stat-n">2h</div><div class="stat-l">Temps de réponse</div></div>
         <div class="stat-card"><div class="stat-n">24/7</div><div class="stat-l">Monitoring</div></div>
-        <div class="stat-card"><div class="stat-n">5</div><div class="stat-l">Piliers experts</div></div>
+        <div class="stat-card"><div class="stat-n">4</div><div class="stat-l">Piliers experts</div></div>
       </div>
       <div class="hero-note">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
@@ -460,39 +487,37 @@
   <div class="section-inner">
     <div class="section-head reveal">
       <div class="section-label">Expertise Technique</div>
-      <h2 class="section-title">Nos 5 piliers d'expertise</h2>
-      <p class="section-desc">Des solutions complètes de connectivité, infrastructure et cybersécurité — conçues pour la performance et la résilience.</p>
+      <h2 class="section-title">Nos 4 piliers d'expertise</h2>
+      <p class="section-desc">Des solutions premium de connectivité, cybersécurité, IoT et IA — conçues pour la performance et la résilience de votre entreprise.</p>
     </div>
     <div class="bento" id="services-grid">
       <div class="bento-card reveal reveal-1">
         <div class="bento-icon">🌐</div>
-        <h3>Connectivité Critique &amp; Réseaux Résilients</h3>
-        <p>Architectures réseau sur mesure, liaisons Internet redondantes, failover automatique en moins de 30 secondes. Fibre optique, Starlink Business, routage dynamique BGP/OSPF.</p>
+        <h3>Connectivité &amp; Infrastructure Haute Disponibilité</h3>
+        <p><strong style="color:var(--text)">Technologies :</strong> Starlink, réseaux UniFi, pare-feux FortiGate NGFW, standards VoIP Yeastar. Liaisons redondantes, failover en moins de 30 secondes.</p>
+        <p class="bento-benefit"><strong>Bénéfice :</strong> une continuité d'activité totale : votre entreprise ne tombe jamais en panne.</p>
         <a href="services/connectivity" class="bento-link">En savoir plus →</a>
       </div>
       <div class="bento-card reveal reveal-2">
-        <div class="bento-icon">🔒</div>
-        <h3>Cybersécurité Offensive &amp; Durcissement</h3>
-        <p>Protection périmétrique et des terminaux. Pentest, pare-feux FortiGate NGFW, isolation VLAN, hardening systématique — chaque équipement est durci dès sa mise en service.</p>
+        <div class="bento-icon">🛡️</div>
+        <h3>Cybersécurité &amp; Vidéosurveillance</h3>
+        <p><strong style="color:var(--text)">Technologies :</strong> FortiGate NGFW, CCTV intelligents (Hikvision, Dahua), tests de pénétration, hardening systématique.</p>
+        <p class="bento-benefit"><strong>Bénéfice :</strong> des actifs et des locaux protégés de bout en bout, auditables et conformes.</p>
         <a href="services/security" class="bento-link">En savoir plus →</a>
       </div>
       <div class="bento-card reveal reveal-1">
-        <div class="bento-icon">🏗️</div>
-        <h3>Infrastructure Physique &amp; Câblage</h3>
-        <p>Câblage structuré certifié aux normes TIA/EIA-568. Cat6/6a, fibre monomode, baies de brassage, avec documentation complète et rapports de certification.</p>
-        <a href="services/infrastructure" class="bento-link">En savoir plus →</a>
+        <div class="bento-icon">📡</div>
+        <h3>IoT, Traçage &amp; MDM</h3>
+        <p><strong style="color:var(--text)">Technologies :</strong> géolocalisation de flottes (Toyota &amp; autres), sécurisation des terminaux mobiles via MDM, capteurs IoT.</p>
+        <p class="bento-benefit"><strong>Bénéfice :</strong> visibilité en temps réel et contrôle total de vos flottes et de vos terminaux professionnels.</p>
+        <a href="services/iot-tracking" class="bento-link">En savoir plus →</a>
       </div>
       <div class="bento-card reveal reveal-2">
-        <div class="bento-icon">📹</div>
-        <h3>Vidéosurveillance IP Haute Sécurité</h3>
-        <p>Caméras IP intelligentes avec flux chiffrés, détection IA et accès distant sécurisé via VPN. Isolation VLAN, stockage RAID redondant, zéro exposition internet.</p>
-        <a href="services/cctv" class="bento-link">En savoir plus →</a>
-      </div>
-      <div class="bento-card reveal reveal-3">
-        <div class="bento-icon">⚙️</div>
-        <h3>Supervision IA &amp; Maintenance Applicative</h3>
-        <p>Monitoring intelligent 24/7 avec agents autonomes. Alertes prédictives, administration des bases de données, SLA 99.9% et rapports mensuels. Nous intervenons avant la panne, pas après.</p>
-        <a href="services/maintenance" class="bento-link">En savoir plus →</a>
+        <div class="bento-icon">🤖</div>
+        <h3>Innovation IA &amp; Systèmes Autonomes</h3>
+        <p><strong style="color:var(--text)">Technologies :</strong> agents IA open-source (Hermes Agent, OpenCode AI) déployés localement en environnement Linux pour automatiser vos opérations.</p>
+        <p class="bento-benefit"><strong>Bénéfice :</strong> une automatisation souveraine de vos processus, sans dépendance ni coût cloud excessif.</p>
+        <a href="services/ai-automation" class="bento-link">En savoir plus →</a>
       </div>
     </div>
 
@@ -500,6 +525,53 @@
       <div class="value-card"><div class="value-icon">⏱️</div><h3>Réactivité locale</h3><p>Intervention sur site à Kinshasa et disponibles pour missions en Afrique centrale dans des délais courts.</p></div>
       <div class="value-card"><div class="value-icon">🛡️</div><h3>Standards éprouvés</h3><p>Cisco, UniFi, FortiGate, NIST, ISO 27001, OWASP — des référentiels de classe entreprise appliqués partout.</p></div>
       <div class="value-card"><div class="value-icon">📊</div><h3>Transparence totale</h3><p>Chiffrage clair, plannings respectés, rapports SLA et documentation livrée à chaque étape.</p></div>
+    </div>
+  </div>
+</section>
+
+<hr style="border:0;border-top:1px solid var(--border);max-width:1200px;margin:0 auto" />
+
+<!-- ════════ ÉTUDES DE CAS / RÉALISATIONS ════════ -->
+<section class="section" id="realisations">
+  <div class="section-inner">
+    <div class="section-head section-center reveal">
+      <div class="section-label">Études de Cas</div>
+      <h2 class="section-title">Projets réels, résultats mesurables</h2>
+      <p class="section-desc">Au-delà des promesses, des missions livrées sur le terrain avec un impact opérationnel concret pour nos clients.</p>
+    </div>
+    <div class="cases-grid">
+      <article class="case-card reveal reveal-1">
+        <div class="case-tag">Modernisation d'infrastructure</div>
+        <h3>Refonte du câblage &amp; digitalisation de complexes immobiliers</h3>
+        <div class="case-segment">
+          <div class="case-seg-label">Le Défi</div>
+          <p>Des complexes immobiliers majeurs dotés d'un réseau hétéroclite, lent et peu fiable, freinant les outils de gestion et les points de vente.</p>
+        </div>
+        <div class="case-segment">
+          <div class="case-seg-label">La Solution Déployée</div>
+          <p>Refonte complète du câblage réseau sur près de 50% des infrastructures, évaluation et déploiement de logiciels de gestion (type Okoya/Immosphere), et intégration de systèmes de point de vente (POS) synchronisés en temps réel.</p>
+        </div>
+        <div class="case-segment">
+          <div class="case-seg-label">L'Impact Opérationnel</div>
+          <p>Des opérations accélérées, des ventes fiabilisées et une infrastructure enfin maintenable, documentée et prête à croître.</p>
+        </div>
+      </article>
+      <article class="case-card reveal reveal-2">
+        <div class="case-tag">Connectivité nomade</div>
+        <h3>Architecture de connectivité pour véhicules d'intervention</h3>
+        <div class="case-segment">
+          <div class="case-seg-label">Le Défi</div>
+          <p>Une flotte de véhicules d'intervention sans connexion fiable en zones reculées, incapable de transmettre ses données de mission en temps réel.</p>
+        </div>
+        <div class="case-segment">
+          <div class="case-seg-label">La Solution Déployée</div>
+          <p>Conception technique et déploiement de terminaux satellites haut débit couplés à des stations d'énergie portables, garantissant une liaison toujours active, indépendamment de l'infrastructure locale.</p>
+        </div>
+        <div class="case-segment">
+          <div class="case-seg-label">L'Impact Opérationnel</div>
+          <p>Une flotte connectée en permanence, une télémétrie fiable et une capacité d'intervention démultipliée sur le terrain.</p>
+        </div>
+      </article>
     </div>
   </div>
 </section>
@@ -620,6 +692,41 @@
 
 <hr style="border:0;border-top:1px solid var(--border);max-width:1200px;margin:0 auto" />
 
+<!-- ════════ CERTIFICATIONS & RIGUEUR ACADÉMIQUE ════════ -->
+<section class="section" id="certifications">
+  <div class="section-inner">
+    <div class="section-head reveal">
+      <div class="section-label">Validations &amp; Excellence Technique</div>
+      <h2 class="section-title">Certifications &amp; rigueur académique</h2>
+      <p class="section-desc">Nous allions la rigueur académique aux réalités brutes du terrain. Chaque certification valide une capacité que nous appliquons sur vos projets.</p>
+    </div>
+    <div class="cert-grid">
+      <div class="cert-card reveal reveal-1">
+        <div class="cert-icon">🌐</div>
+        <div class="cert-body"><div class="cert-domain">Réseau &amp; Infrastructure</div><h3>Cisco Networking Academy</h3><p>Certification officielle « Networking Devices and Initial Configuration » (Mars 2026). Une preuve de maîtrise des fondations réseau que nous appliquons à chaque architecture déployée.</p></div>
+      </div>
+      <div class="cert-card reveal reveal-1">
+        <div class="cert-icon">🛡️</div>
+        <div class="cert-body"><div class="cert-domain">Cybersécurité Offensive</div><h3>Hack The Box &amp; Kali Linux</h3><p>Pratique continue sur Hack The Box Academy (résolution de machines complexes) et maîtrise de Kali Linux sous WSL. Des compétences offensives au service de votre défense.</p></div>
+      </div>
+      <div class="cert-card reveal reveal-2">
+        <div class="cert-icon">🤖</div>
+        <div class="cert-body"><div class="cert-domain">Intelligence Artificielle</div><h3>Grant AI Skills &amp; Compute Africa</h3><p>Obtenu en Juillet 2026 pour le fine-tuning de modèles de langage et d'agents autonomes, complété par la participation à la Data Science Africa Summer School (Université Makerere).</p></div>
+      </div>
+      <div class="cert-card reveal reveal-2">
+        <div class="cert-icon">🎓</div>
+        <div class="cert-body"><div class="cert-domain">Fondations académiques</div><h3>Licence en Sciences Informatiques — ISIPA</h3><p>Un socle théorique solide qui garantit des livrables rigoureux, documentés et pérennes sur chaque mission.</p></div>
+      </div>
+    </div>
+    <div class="cert-note reveal">
+      <span class="cert-note-icon">✓</span>
+      <p>Chaque validation se traduit par un bénéfice concret pour votre entreprise : des architectures plus sûres, des systèmes audités selon des standards reconnus et une veille permanente sur les menaces émergentes.</p>
+    </div>
+  </div>
+</section>
+
+<hr style="border:0;border-top:1px solid var(--border);max-width:1200px;margin:0 auto" />
+
 <!-- ════════ AUDIT GRATUIT ════════ -->
 <section class="section" id="audit">
   <div class="section-inner">
@@ -639,7 +746,7 @@
             <div class="form-group"><label>Email</label><input type="email" name="email" placeholder="votre@email.com" /></div>
             <div class="form-group"><label>Téléphone</label><input type="tel" name="phone" placeholder="+243 ..." /></div>
           </div>
-          <div class="form-group"><label>Type d'infrastructure</label><select name="infrastructure_type"><option value="network">Réseau &amp; Connectivité</option><option value="security">Cybersécurité</option><option value="cctv">Vidéosurveillance</option><option value="full">Audit Complet</option></select></div>
+          <div class="form-group"><label>Type d'infrastructure</label><select name="infrastructure_type"><option value="connectivity">Connectivité &amp; Infrastructure</option><option value="security">Cybersécurité &amp; Vidéosurveillance</option><option value="iot">IoT, Traçage &amp; MDM</option><option value="ai">Innovation IA</option><option value="full">Audit Complet</option></select></div>
           <div class="form-group"><label>Problématiques actuelles</label><textarea name="current_issues" placeholder="Décrivez brièvement vos besoins ou problèmes actuels..."></textarea></div>
           <button type="submit" class="btn btn-primary form-submit">Envoyer la demande d'audit</button>
           <div class="form-success" id="audit-success">✅ Demande envoyée avec succès ! Nous vous contacterons sous 24h.</div>
@@ -671,7 +778,7 @@
           <div class="form-group"><label>Email</label><input type="email" name="email" placeholder="votre@email.com" /></div>
           <div class="form-group"><label>Téléphone</label><input type="tel" name="phone" placeholder="+243 ..." /></div>
         </div>
-        <div class="form-group"><label>Service souhaité</label><select name="service_requested"><option value="">Choisir un service</option><option value="connectivity">Connectivité &amp; Réseau</option><option value="security">Cybersécurité</option><option value="cctv">CCTV</option><option value="cablage">Câblage</option><option value="maintenance">Maintenance</option><option value="consulting">Consulting</option></select></div>
+        <div class="form-group"><label>Service souhaité</label><select name="service_requested"><option value="">Choisir un service</option><option value="connectivity">Connectivité &amp; Infrastructure</option><option value="security">Cybersécurité &amp; Vidéosurveillance</option><option value="iot-tracking">IoT, Traçage &amp; MDM</option><option value="ai-automation">Innovation IA &amp; Automatisation</option><option value="consulting">Consulting</option></select></div>
         <div class="form-group"><label>Message *</label><textarea name="message" required placeholder="Décrivez votre projet..."></textarea></div>
         <button type="submit" class="btn btn-white form-submit">Envoyer le message</button>
         <div class="form-success" id="contact-success">✅ Message envoyé avec succès ! Nous vous répondrons sous 24h.</div>
@@ -708,8 +815,8 @@
       <a href={import.meta.env.BASE_URL || '/'} class="logo"><span class="logo-mark">M</span><span>M-<em>SEC</em> <span>Technology</span></span></a>
       <p>Cabinet d'ingénierie IT, réseaux et cybersécurité. Infrastructure, Cybersécurité, Connectivité — au service de la performance des entreprises d'Afrique centrale.</p>
     </div>
-    <div class="footer-col"><h4>Services</h4><a href="services/connectivity">Connectivité</a><a href="services/security">Cybersécurité</a><a href="services/cctv">CCTV</a><a href="services/infrastructure">Câblage</a><a href="services/maintenance">Maintenance</a></div>
-    <div class="footer-col"><h4>Entreprise</h4><a href="#methodology">Méthodologie</a><a href="#engagements">Engagements</a><a href="#conformite">Conformité</a><a href="#audit">Audit Gratuit</a><a href="#contact">Contact</a></div>
+    <div class="footer-col"><h4>Services</h4><a href="services/connectivity">Connectivité &amp; Infrastructure</a><a href="services/security">Cybersécurité &amp; CCTV</a><a href="services/iot-tracking">IoT, Traçage &amp; MDM</a><a href="services/ai-automation">Innovation IA</a></div>
+    <div class="footer-col"><h4>Entreprise</h4><a href="#realisations">Réalisations</a><a href="#certifications">Certifications</a><a href="#methodology">Méthodologie</a><a href="#engagements">Engagements</a><a href="#conformite">Conformité</a><a href="#contact">Contact</a></div>
     <div class="footer-col"><h4>Contact</h4><a href="mailto:oscarmulume1612@gmail.com">Email</a><a href="https://www.linkedin.com/in/oscar-mulume-95666b225/" target="_blank" rel="noopener noreferrer">LinkedIn</a><a href="https://github.com/OscarMulume" target="_blank" rel="noopener noreferrer">GitHub</a></div>
   </div>
   <div class="footer-bottom">

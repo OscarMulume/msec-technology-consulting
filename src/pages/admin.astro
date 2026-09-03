@@ -511,11 +511,10 @@ function deleteClient(id) {
 // ============================================================
 function renderServices(el) {
   const services = getData('services') || [
-    { id: '1', slug: 'connectivity', title: 'Connectivité Critique', icon: '🌐', summary: 'Conception d\'architectures réseau sur mesure.', is_active: true, display_order: 1 },
-    { id: '2', slug: 'infrastructure', title: 'Infrastructure & Câblage', icon: '🏗️', summary: 'Câblage structuré certifié aux normes.', is_active: true, display_order: 2 },
-    { id: '3', slug: 'security', title: 'Cybersécurité', icon: '🔒', summary: 'Protection périmétrique et durcissement.', is_active: true, display_order: 3 },
-    { id: '4', slug: 'cctv', title: 'Vidéosurveillance', icon: '📹', summary: 'Caméras IP intelligentes avec flux chiffrés.', is_active: true, display_order: 4 },
-    { id: '5', slug: 'maintenance', title: 'Supervision & Maintenance', icon: '⚙️', summary: 'Monitoring intelligent 24/7.', is_active: true, display_order: 5 },
+    { id: '1', slug: 'connectivity', title: 'Connectivité & Infrastructure', icon: '🌐', summary: 'Starlink, UniFi, FortiGate, VoIP Yeastar — haute disponibilité.', is_active: true, display_order: 1 },
+    { id: '2', slug: 'security', title: 'Cybersécurité & Vidéosurveillance', icon: '🛡️', summary: 'FortiGate, CCTV Hikvision/Dahua, pentest.', is_active: true, display_order: 2 },
+    { id: '3', slug: 'iot-tracking', title: 'IoT, Traçage & MDM', icon: '📡', summary: 'Géolocalisation de flottes, gestion des terminaux.', is_active: true, display_order: 3 },
+    { id: '4', slug: 'ai-automation', title: 'Innovation IA & Systèmes Autonomes', icon: '🤖', summary: 'Agents IA open-source déployés en local.', is_active: true, display_order: 4 },
   ];
   // Save to localStorage if not exists
   if (!getData('services')) setData('services', services);

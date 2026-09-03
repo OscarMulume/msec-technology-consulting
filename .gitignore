@@ -1,0 +1,24 @@
+# Sécurité — secrets jamais versionnés (voir .github/workflows/secrets-scan.yml)
+.env
+*.env
+!.env.example
+secrets/
+tokens/
+sessions/
+*.key
+*.pem
+*.p12
+
+# Node / Astro
+node_modules/
+dist/
+.astro/
+npm-debug.log*
+
+# Éditeurs / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.swp
+*.tmp

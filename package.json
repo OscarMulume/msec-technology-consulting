@@ -8,8 +8,11 @@
     "preview": "astro preview"
   },
   "dependencies": {
+    "@react-three/fiber": "^9.7.0",
     "@supabase/supabase-js": "^2.106.2",
+    "@types/three": "^0.185.4",
     "astro": "^6.4.2",
-    "bcryptjs": "^3.0.3"
+    "bcryptjs": "^3.0.3",
+    "three": "^0.185.1"
   }
 }

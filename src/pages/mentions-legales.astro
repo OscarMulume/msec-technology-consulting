@@ -1,0 +1,135 @@
+---
+// ============================================================
+// Mentions légales — M-Sec Technology Consulting
+// (c) Mulume Izuba Oscar
+// ============================================================
+const year = new Date().getFullYear();
+---
+
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Mentions légales | M-Sec Technology Consulting</title>
+    <meta
+      name="description"
+      content="Informations légales de M-Sec Technology Consulting, édité par Mulume Izuba Oscar."
+    />
+    <style>
+      :root {
+        --bg: #05060a;
+        --surface: #0b0e16;
+        --border: rgba(255, 255, 255, 0.09);
+        --text: #f1f5f9;
+        --text-2: #94a3b8;
+        --text-3: #64748b;
+        --cyan: #22d3ee;
+        --green: #10b981;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+        line-height: 1.7;
+        padding: 48px 24px 64px;
+      }
+      main { max-width: 860px; margin: 0 auto; }
+      h1 {
+        font-size: 2rem;
+        font-weight: 900;
+        letter-spacing: -0.03em;
+        margin: 0 0 6px;
+      }
+      .updated { color: var(--text-3); font-size: 0.85rem; margin: 0 0 40px; }
+      section {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 22px;
+        padding: 28px;
+        margin-bottom: 20px;
+      }
+      h2 {
+        font-size: 1.05rem;
+        margin: 0 0 12px;
+        color: var(--cyan);
+      }
+      p { color: var(--text-2); margin: 0 0 10px; }
+      strong { color: var(--text); }
+      .back {
+        display: inline-block;
+        margin-top: 28px;
+        color: var(--green);
+        text-decoration: none;
+        font-weight: 600;
+      }
+      .back:hover { text-decoration: underline; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Mentions légales</h1>
+      <p class="updated">Dernière mise à jour : 16/09/2026</p>
+
+      <section>
+        <h2>1. Éditeur du site</h2>
+        <p>
+          Le site <strong>M-Sec Technology Consulting</strong> (cabinet d&apos;ingénierie IT,
+          réseaux et cybersécurité) est édité par :
+        </p>
+        <p>
+          <strong>Mulume Izuba Oscar</strong><br />
+          Développeur, architecte IT et éditeur de solutions de cybersécurité, connectivité et
+          infrastructure, basé à Kinshasa (RDC).
+        </p>
+        <p>
+          Contact : <a href="mailto:oscarmulume1612@gmail.com" style="color: var(--cyan)">oscarmulume1612@gmail.com</a>.
+        </p>
+      </section>
+
+      <section>
+        <h2>2. Hébergement et données</h2>
+        <p>
+          Le site est hébergé sur une infrastructure cloud sécurisée (Vercel). Les services de
+          paiement sont fournis par Stripe ; les paiements en cryptomonnaie via SideShift AI. Les
+          données applicatives sont stockées sur un service d&apos;hébergement de données cloud
+          (Supabase) dans des emplacements respectant la législation applicable.
+        </p>
+      </section>
+
+      <section>
+        <h2>3. Propriété intellectuelle</h2>
+        <p>
+          L&apos;ensemble des éléments du site (structure, textes, interfaces, logo, code source,
+          visuels) est la propriété exclusive de <strong>Mulume Izuba Oscar</strong> ou de ses
+          ayants droit. Toute reproduction, représentation ou exploitation, totale ou partielle,
+          sans autorisation préalable écrite est interdite.
+        </p>
+      </section>
+
+      <section>
+        <h2>4. Données personnelles et cookies</h2>
+        <p>
+          Le site utilise le stockage local de l&apos;appareil (localStorage) pour les préférences
+          d&apos;affichage et la session. Les données personnelles collectées (notamment via les
+          formulaires de contact) ne sont jamais revendues à des tiers.
+        </p>
+      </section>
+
+      <section>
+        <h2>5. Droit applicable et juridiction</h2>
+        <p>
+          Le présent site et son utilisation sont régis par le droit applicable au lieu
+          d&apos;établissement de l&apos;éditeur. En cas de litige, une solution amiable sera
+          recherchée préalablement à toute action judiciaire devant la juridiction compétente.
+        </p>
+      </section>
+
+      <a class="back" href="{import.meta.env.BASE_URL || '/'}">← Retour à l&apos;accueil</a>
+      <p style="margin-top: 40px; color: var(--text-3); font-size: 0.8rem">
+        &copy; {year} Mulume Izuba Oscar · M-Sec Technology Consulting. Tous droits réservés.
+      </p>
+    </main>
+  </body>
+</html>

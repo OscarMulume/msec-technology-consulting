@@ -1,7 +1,8 @@
 # Sécurité — secrets jamais versionnés (voir .github/workflows/secrets-scan.yml)
 .env
-*.env
+.env.*
 !.env.example
+!.env.neon.example
 secrets/
 tokens/
 sessions/

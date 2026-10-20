@@ -18,6 +18,10 @@ jobs:
         with: { node-version: "22" }
       - run: npm ci
       - run: npm run build
+        env:
+          PUBLIC_SUPABASE_URL: ${{ vars.PUBLIC_SUPABASE_URL }}
+          PUBLIC_SUPABASE_ANON_KEY: ${{ vars.PUBLIC_SUPABASE_ANON_KEY }}
+          PUBLIC_WHATSAPP_NUMBER: ${{ vars.PUBLIC_WHATSAPP_NUMBER }}
       - uses: actions/upload-pages-artifact@v3
         with: { path: "./dist" }
   deploy:

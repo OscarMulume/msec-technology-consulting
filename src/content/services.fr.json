@@ -1,0 +1,66 @@
+{
+  "connectivity": {
+    "slug": "connectivity",
+    "icon": "🌐",
+    "title": "Connectivité & infrastructure haute disponibilité",
+    "shortTitle": "Connectivité & infrastructure",
+    "summary": "Liaisons Starlink, réseaux UniFi, pare-feux FortiGate NGFW et téléphonie Yeastar : une architecture pensée pour réduire les interruptions et faciliter la reprise.",
+    "features": [
+      { "title": "Liaisons Starlink", "description": "Terminaux satellite haut débit avec bascule automatique lorsque la configuration du site le permet, pour les sites isolés ou les flottes mobiles." },
+      { "title": "Réseaux UniFi à gestion centralisée", "description": "Wi-Fi et commutateurs d'entreprise avec portail captif, VLAN et supervision unifiée." },
+      { "title": "Pare-feux FortiGate NGFW", "description": "Sécurité réseau de nouvelle génération intégrée à la couche connectivité." },
+      { "title": "Téléphonie Yeastar", "description": "Téléphonie IP professionnelle unifiée : appels, conférences et intégration aux outils métier." },
+      { "title": "Liaisons redondantes", "description": "Fibre, satellite et 4G/5G combinés selon le site, avec bascule automatique documentée et testée." }
+    ],
+    "benefit": "Une continuité d'activité renforcée : liaisons redondantes, supervision et procédures de bascule documentées.",
+    "standards": ["Starlink Business", "FortiGate", "UniFi", "Yeastar", "Cisco"]
+  },
+  "security": {
+    "slug": "security",
+    "icon": "🛡️",
+    "title": "Cybersécurité & vidéosurveillance",
+    "shortTitle": "Cybersécurité & vidéosurveillance",
+    "summary": "Protection de vos actifs numériques et physiques : sécurisation des réseaux, vidéosurveillance IP (Hikvision, Dahua) et tests d'intrusion encadrés.",
+    "features": [
+      { "title": "Pare-feux FortiGate NGFW", "description": "IPS, filtrage applicatif et VPN pour protéger votre périmètre." },
+      { "title": "Vidéosurveillance IP Hikvision / Dahua", "description": "Caméras haute définition avec détection assistée, vision nocturne et accès distant sécurisé." },
+      { "title": "Tests d'intrusion encadrés", "description": "Tests éthiques réalisés dans un périmètre contractuel pour identifier et corriger les failles." },
+      { "title": "Durcissement", "description": "Renforcement systématique des équipements et suppression des accès par défaut." },
+      { "title": "Segmentation VLAN & plan de reprise", "description": "Séparation des réseaux vidéo et métier, avec plan de reprise d'activité documenté." }
+    ],
+    "benefit": "Des actifs et des locaux mieux protégés, avec des flux vidéo privés et un réseau segmenté.",
+    "standards": ["FortiGate", "Hikvision", "Dahua", "NIST", "ISO 27001", "OWASP"]
+  },
+  "iot-tracking": {
+    "slug": "iot-tracking",
+    "icon": "📡",
+    "title": "IoT, traçage & MDM",
+    "shortTitle": "IoT, traçage & MDM",
+    "summary": "Géolocalisation de flottes, gestion des terminaux mobiles (MDM) et capteurs IoT : une visibilité en temps réel sur vos opérations.",
+    "features": [
+      { "title": "Géolocalisation de flottes", "description": "Traçage GPS de véhicules, historique, alertes de zone et rapports d'usage." },
+      { "title": "Gestion de parc (MDM)", "description": "Configuration, sécurisation et supervision à distance des smartphones et tablettes professionnels." },
+      { "title": "Capteurs IoT", "description": "Télémétrie, température et énergie : connectez et pilotez vos équipements physiques." },
+      { "title": "Alertes & rapports", "description": "Notifications configurables et rapports d'utilisation pour appuyer vos décisions." },
+      { "title": "Intégration & API", "description": "Interconnexion avec vos logiciels métier existants pour une donnée unique et fiable." }
+    ],
+    "benefit": "Une visibilité en temps réel sur vos flottes et vos terminaux, avec des alertes configurables.",
+    "standards": ["GPS/GNSS", "MDM", "MQTT", "API REST", "LoRaWAN"]
+  },
+  "ai-automation": {
+    "slug": "ai-automation",
+    "icon": "🤖",
+    "title": "Innovation IA & systèmes autonomes",
+    "shortTitle": "Innovation IA",
+    "summary": "Déploiement local d'agents IA open-source (Hermes Agent, OpenCode AI) sous Linux pour automatiser vos opérations tout en gardant la maîtrise des données.",
+    "features": [
+      { "title": "Agents IA open-source", "description": "Déploiement local de Hermes Agent et OpenCode AI pour exécuter des tâches complexes en autonomie." },
+      { "title": "Fine-tuning & modèles sur mesure", "description": "Adaptation de modèles de langage aux spécificités de votre entreprise." },
+      { "title": "Automatisation des opérations", "description": "Scripts, pipelines et workflows auto-gérés, sans dépendance cloud systématique." },
+      { "title": "Environnement Linux", "description": "Infrastructure maîtrisée sous Linux : contrôle, sécurité et coûts documentés." },
+      { "title": "Supervision & maintenance", "description": "Monitoring des agents, versioning des modèles et rapports d'activité réguliers." }
+    ],
+    "benefit": "Une automatisation locale de vos processus, avec des données hébergées selon votre choix.",
+    "standards": ["Hermes Agent", "OpenCode AI", "Linux", "Python", "Ollama"]
+  }
+}

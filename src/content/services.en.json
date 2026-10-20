@@ -1,0 +1,66 @@
+{
+  "connectivity": {
+    "slug": "connectivity",
+    "icon": "🌐",
+    "title": "Connectivity & high-availability infrastructure",
+    "shortTitle": "Connectivity & infrastructure",
+    "summary": "Starlink links, UniFi networks, FortiGate NGFW firewalls and Yeastar telephony: an architecture designed to reduce downtime and simplify recovery.",
+    "features": [
+      { "title": "Starlink links", "description": "High-speed satellite terminals with automatic failover where site configuration allows, for isolated sites or mobile fleets." },
+      { "title": "Centrally managed UniFi networks", "description": "Enterprise Wi-Fi and switches with captive portal, VLANs and unified supervision." },
+      { "title": "FortiGate NGFW firewalls", "description": "Next-generation network security integrated into the connectivity layer." },
+      { "title": "Yeastar telephony", "description": "Unified professional IP telephony: calls, conferences and integration with business tools." },
+      { "title": "Redundant links", "description": "Fibre, satellite and 4G/5G combined per site, with a documented and tested failover procedure." }
+    ],
+    "benefit": "Stronger business continuity: redundant links, supervision and documented failover procedures.",
+    "standards": ["Starlink Business", "FortiGate", "UniFi", "Yeastar", "Cisco"]
+  },
+  "security": {
+    "slug": "security",
+    "icon": "🛡️",
+    "title": "Cybersecurity & video surveillance",
+    "shortTitle": "Cybersecurity & video surveillance",
+    "summary": "Protection for your digital and physical assets: network security, IP video surveillance (Hikvision, Dahua) and supervised penetration tests.",
+    "features": [
+      { "title": "FortiGate NGFW firewalls", "description": "IPS, application filtering and VPN to protect your perimeter." },
+      { "title": "Hikvision / Dahua IP video surveillance", "description": "High-definition cameras with assisted detection, night vision and secure remote access." },
+      { "title": "Supervised penetration tests", "description": "Ethical tests carried out within a contractual scope to identify and fix vulnerabilities." },
+      { "title": "Hardening", "description": "Systematic hardening of equipment and removal of default access." },
+      { "title": "VLAN segmentation & recovery plan", "description": "Separation of video and business networks, with a documented business recovery plan." }
+    ],
+    "benefit": "Better-protected assets and premises, with private video streams and a segmented network.",
+    "standards": ["FortiGate", "Hikvision", "Dahua", "NIST", "ISO 27001", "OWASP"]
+  },
+  "iot-tracking": {
+    "slug": "iot-tracking",
+    "icon": "📡",
+    "title": "IoT, tracking & MDM",
+    "shortTitle": "IoT, tracking & MDM",
+    "summary": "Fleet geolocation, mobile device management (MDM) and IoT sensors: real-time visibility over your operations.",
+    "features": [
+      { "title": "Fleet geolocation", "description": "GPS vehicle tracking, history, geofence alerts and usage reports." },
+      { "title": "Device management (MDM)", "description": "Remote configuration, security and supervision of professional smartphones and tablets." },
+      { "title": "IoT sensors", "description": "Telemetry, temperature and energy: connect and manage your physical equipment." },
+      { "title": "Alerts & reports", "description": "Configurable notifications and usage reports to support your decisions." },
+      { "title": "Integration & API", "description": "Connection with your existing business software for a single, reliable source of data." }
+    ],
+    "benefit": "Real-time visibility over your fleets and devices, with configurable alerts.",
+    "standards": ["GPS/GNSS", "MDM", "MQTT", "REST API", "LoRaWAN"]
+  },
+  "ai-automation": {
+    "slug": "ai-automation",
+    "icon": "🤖",
+    "title": "AI innovation & autonomous systems",
+    "shortTitle": "AI innovation",
+    "summary": "Local deployment of open-source AI agents (Hermes Agent, OpenCode AI) on Linux to automate your operations while keeping control of your data.",
+    "features": [
+      { "title": "Open-source AI agents", "description": "Local deployment of Hermes Agent and OpenCode AI to run complex tasks autonomously." },
+      { "title": "Fine-tuning & custom models", "description": "Adaptation of language models to your company's specific needs." },
+      { "title": "Operations automation", "description": "Self-managed scripts, pipelines and workflows, without systematic cloud dependency." },
+      { "title": "Linux environment", "description": "Controlled Linux infrastructure: security, control and documented costs." },
+      { "title": "Supervision & maintenance", "description": "Agent monitoring, model versioning and regular activity reports." }
+    ],
+    "benefit": "Local automation of your processes, with data hosted according to your choice.",
+    "standards": ["Hermes Agent", "OpenCode AI", "Linux", "Python", "Ollama"]
+  }
+}

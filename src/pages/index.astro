@@ -295,6 +295,13 @@
     .form-submit { width: 100%; justify-content: center; }
     .form-success { display: none; padding: 14px; border-radius: var(--radius-sm); background: var(--green-g); border: 1px solid rgba(16,185,129,0.25); color: var(--green); font-size: 0.875rem; text-align: center; margin-top: 16px; }
     .form-error { display: none; padding: 14px; border-radius: var(--radius-sm); background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.25); color: #f87171; font-size: 0.875rem; text-align: center; margin-top: 16px; }
+    .form-fallback { margin-top: 16px; padding: 16px; border-radius: var(--radius-sm); background: rgba(255,255,255,0.03); border: 1px solid var(--border); }
+    .form-fallback p { font-size: 0.84rem; color: var(--text-2); margin-bottom: 12px; }
+    .form-fallback-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+    .form-fallback-actions .btn { padding: 10px 18px; font-size: 0.8rem; }
+    .hp-field { position: absolute !important; left: -9999px !important; width: 1px; height: 1px; overflow: hidden; }
+    [hidden] { display: none !important; }
+    .btn:disabled { opacity: 0.6; cursor: wait; transform: none; }
 
     /* ── Audit ── */
     .audit-inner { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 48px; align-items: start; }
@@ -737,20 +744,30 @@
           <h2 class="section-title">Demandez un Mini-Audit</h2>
           <p class="section-desc">Recevez une évaluation professionnelle de vos vulnérabilités. Sans engagement.</p>
         </div>
-        <form id="audit-form" class="form-wrap">
+        <form id="audit-form" class="form-wrap lead-form">
+          <input type="hidden" name="kind" value="audit" />
+          <input type="hidden" name="locale" value="fr" />
+          <div class="hp-field" aria-hidden="true"><label>Ne pas remplir<input type="text" name="company_website" tabindex="-1" autocomplete="off" /></label></div>
           <div class="form-row">
-            <div class="form-group"><label>Nom complet *</label><input type="text" name="contact_name" required placeholder="Votre nom" /></div>
-            <div class="form-group"><label>Entreprise</label><input type="text" name="company_name" placeholder="Nom de l'entreprise" /></div>
+            <div class="form-group"><label for="audit-name">Nom complet *</label><input id="audit-name" type="text" name="full_name" required minlength="2" maxlength="120" placeholder="Votre nom" /></div>
+            <div class="form-group"><label for="audit-company">Entreprise</label><input id="audit-company" type="text" name="company" maxlength="160" placeholder="Nom de l'entreprise" /></div>
           </div>
           <div class="form-row">
-            <div class="form-group"><label>Email</label><input type="email" name="email" placeholder="votre@email.com" /></div>
-            <div class="form-group"><label>Téléphone</label><input type="tel" name="phone" placeholder="+243 ..." /></div>
+            <div class="form-group"><label for="audit-email">Email *</label><input id="audit-email" type="email" name="email" required maxlength="254" placeholder="votre@email.com" /></div>
+            <div class="form-group"><label for="audit-phone">Téléphone</label><input id="audit-phone" type="tel" name="phone" maxlength="40" placeholder="+243 ..." /></div>
           </div>
-          <div class="form-group"><label>Type d'infrastructure</label><select name="infrastructure_type"><option value="connectivity">Connectivité &amp; Infrastructure</option><option value="security">Cybersécurité &amp; Vidéosurveillance</option><option value="iot">IoT, Traçage &amp; MDM</option><option value="ai">Innovation IA</option><option value="full">Audit Complet</option></select></div>
-          <div class="form-group"><label>Problématiques actuelles</label><textarea name="current_issues" placeholder="Décrivez brièvement vos besoins ou problèmes actuels..."></textarea></div>
+          <div class="form-group"><label for="audit-topic">Type d'infrastructure</label><select id="audit-topic" name="topic"><option value="connectivity">Connectivité &amp; Infrastructure</option><option value="security">Cybersécurité &amp; Vidéosurveillance</option><option value="iot">IoT, Traçage &amp; MDM</option><option value="ai">Innovation IA</option><option value="full">Audit Complet</option></select></div>
+          <div class="form-group"><label for="audit-message">Problématiques actuelles</label><textarea id="audit-message" name="message" maxlength="4000" placeholder="Décrivez brièvement vos besoins ou problèmes actuels..."></textarea></div>
           <button type="submit" class="btn btn-primary form-submit">Envoyer la demande d'audit</button>
-          <div class="form-success" id="audit-success">✅ Demande envoyée avec succès ! Nous vous contacterons sous 24h.</div>
-          <div class="form-error" id="audit-error">❌ Une erreur est survenue. Veuillez réessayer.</div>
+          <div class="form-success" id="audit-success" role="status">Demande envoyée. Nous vous recontactons selon les délais indiqués dans nos engagements.</div>
+          <div class="form-error" id="audit-error" role="alert"></div>
+          <div class="form-fallback" id="audit-fallback" hidden>
+            <p>Votre demande n'a pas été enregistrée. Vous pouvez nous l'envoyer directement :</p>
+            <div class="form-fallback-actions">
+              <a class="btn btn-primary" id="audit-whatsapp" href="#" target="_blank" rel="noopener noreferrer" hidden>Envoyer par WhatsApp</a>
+              <a class="btn btn-ghost" id="audit-mailto" href="#">Envoyer par e-mail</a>
+            </div>
+          </div>
         </form>
       </div>
       <div class="audit-benefits">
@@ -772,17 +789,30 @@
       <p class="section-desc">Un projet, une mission, une question ? Notre équipe vous répond sous 24h.</p>
     </div>
     <div style="max-width:640px;margin:0 auto" class="reveal reveal-1">
-      <form id="contact-form" class="form-wrap">
-        <div class="form-group"><label>Nom complet *</label><input type="text" name="name" required placeholder="Votre nom" /></div>
+      <form id="contact-form" class="form-wrap lead-form">
+        <input type="hidden" name="kind" value="contact" />
+        <input type="hidden" name="locale" value="fr" />
+        <div class="hp-field" aria-hidden="true"><label>Ne pas remplir<input type="text" name="company_website" tabindex="-1" autocomplete="off" /></label></div>
         <div class="form-row">
-          <div class="form-group"><label>Email</label><input type="email" name="email" placeholder="votre@email.com" /></div>
-          <div class="form-group"><label>Téléphone</label><input type="tel" name="phone" placeholder="+243 ..." /></div>
+          <div class="form-group"><label for="contact-name">Nom complet *</label><input id="contact-name" type="text" name="full_name" required minlength="2" maxlength="120" placeholder="Votre nom" /></div>
+          <div class="form-group"><label for="contact-company">Entreprise</label><input id="contact-company" type="text" name="company" maxlength="160" placeholder="Nom de l'entreprise" /></div>
         </div>
-        <div class="form-group"><label>Service souhaité</label><select name="service_requested"><option value="">Choisir un service</option><option value="connectivity">Connectivité &amp; Infrastructure</option><option value="security">Cybersécurité &amp; Vidéosurveillance</option><option value="iot-tracking">IoT, Traçage &amp; MDM</option><option value="ai-automation">Innovation IA &amp; Automatisation</option><option value="consulting">Consulting</option></select></div>
-        <div class="form-group"><label>Message *</label><textarea name="message" required placeholder="Décrivez votre projet..."></textarea></div>
+        <div class="form-row">
+          <div class="form-group"><label for="contact-email">Email *</label><input id="contact-email" type="email" name="email" required maxlength="254" placeholder="votre@email.com" /></div>
+          <div class="form-group"><label for="contact-phone">Téléphone</label><input id="contact-phone" type="tel" name="phone" maxlength="40" placeholder="+243 ..." /></div>
+        </div>
+        <div class="form-group"><label for="contact-topic">Service souhaité</label><select id="contact-topic" name="topic"><option value="">Choisir un service</option><option value="connectivity">Connectivité &amp; Infrastructure</option><option value="security">Cybersécurité &amp; Vidéosurveillance</option><option value="iot-tracking">IoT, Traçage &amp; MDM</option><option value="ai-automation">Innovation IA &amp; Automatisation</option><option value="consulting">Consulting</option></select></div>
+        <div class="form-group"><label for="contact-message">Message *</label><textarea id="contact-message" name="message" required maxlength="4000" placeholder="Décrivez votre projet..."></textarea></div>
         <button type="submit" class="btn btn-white form-submit">Envoyer le message</button>
-        <div class="form-success" id="contact-success">✅ Message envoyé avec succès ! Nous vous répondrons sous 24h.</div>
-        <div class="form-error" id="contact-error">❌ Une erreur est survenue. Veuillez réessayer.</div>
+        <div class="form-success" id="contact-success" role="status">Message envoyé.</div>
+        <div class="form-error" id="contact-error" role="alert"></div>
+        <div class="form-fallback" id="contact-fallback" hidden>
+          <p>Votre message n'a pas été enregistré. Vous pouvez nous l'envoyer directement :</p>
+          <div class="form-fallback-actions">
+            <a class="btn btn-primary" id="contact-whatsapp" href="#" target="_blank" rel="noopener noreferrer" hidden>Envoyer par WhatsApp</a>
+            <a class="btn btn-ghost" id="contact-mailto" href="#">Envoyer par e-mail</a>
+          </div>
+        </div>
       </form>
     </div>
     <div class="contact-grid">
@@ -833,6 +863,8 @@
 
 <!-- ════════ SCRIPTS ════════ -->
 <script>
+import { submitLead, whatsappHref } from '../lib/leads';
+
 (() => {
   const canvas = document.getElementById('bgCanvas');
   const ctx = canvas.getContext('2d');
@@ -904,30 +936,87 @@ document.querySelectorAll('.bento-card').forEach(card => {
   });
 });
 
-// Contact form
-document.getElementById('contact-form')?.addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const form = e.target;
-  const data = Object.fromEntries(new FormData(form));
-  try {
-    console.log('Contact form data:', data);
-    document.getElementById('contact-success').style.display = 'block';
-    document.getElementById('contact-error').style.display = 'none';
-    form.reset();
-  } catch (err) { document.getElementById('contact-error').style.display = 'block'; }
-});
+// Contact & audit forms — envoi réel vers Supabase, repli WhatsApp/e-mail.
+document.querySelectorAll('.lead-form').forEach((form) => {
+  const startedAt = Date.now();
+  const button = form.querySelector('button[type="submit"]');
+  const success = form.querySelector('.form-success');
+  const error = form.querySelector('.form-error');
+  const fallback = form.querySelector('.form-fallback');
+  const whatsapp = form.querySelector('a[id$="-whatsapp"]');
+  const mailto = form.querySelector('a[id$="-mailto"]');
+  if (!button || !success || !error || !fallback) return;
 
-// Audit form
-document.getElementById('audit-form')?.addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const form = e.target;
-  const data = Object.fromEntries(new FormData(form));
-  try {
-    console.log('Audit form data:', data);
-    document.getElementById('audit-success').style.display = 'block';
-    document.getElementById('audit-error').style.display = 'none';
-    form.reset();
-  } catch (err) { document.getElementById('audit-error').style.display = 'block'; }
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    success.style.display = 'none';
+    error.style.display = 'none';
+    fallback.hidden = true;
+
+    if (!form.reportValidity()) return;
+    if (Date.now() - startedAt < 3000) {
+      error.textContent = 'Merci de patienter quelques secondes avant l’envoi.';
+      error.style.display = 'block';
+      return;
+    }
+    const trap = form.querySelector('input[name="company_website"]');
+    if (trap && trap.value) return;
+
+    const data = Object.fromEntries(new FormData(form));
+    const clean = (value) => (typeof value === 'string' ? value.trim() : '');
+    const payload = {
+      kind: clean(data.kind),
+      full_name: clean(data.full_name),
+      company: clean(data.company) || undefined,
+      email: clean(data.email),
+      phone: clean(data.phone) || undefined,
+      topic: clean(data.topic) || undefined,
+      message: clean(data.message) || undefined,
+      locale: clean(data.locale) || 'fr',
+      page: window.location.pathname,
+    };
+
+    const label = button.textContent;
+    button.disabled = true;
+    button.textContent = 'Envoi en cours…';
+    const result = await submitLead(payload as never);
+    button.disabled = false;
+    button.textContent = label;
+
+    if (result.ok) {
+      success.style.display = 'block';
+      form.reset();
+      return;
+    }
+
+    error.textContent = result.reason === 'not-configured'
+      ? 'L’envoi automatique n’est pas encore configuré. Votre demande n’a pas été enregistrée.'
+      : 'L’envoi a échoué. Votre demande n’a pas été enregistrée.';
+    error.style.display = 'block';
+    fallback.hidden = false;
+
+    const recap = [
+      `Type de demande : ${payload.kind}`,
+      `Nom : ${payload.full_name}`,
+      payload.company ? `Entreprise : ${payload.company}` : '',
+      `Email : ${payload.email}`,
+      payload.phone ? `Téléphone : ${payload.phone}` : '',
+      payload.topic ? `Sujet : ${payload.topic}` : '',
+      payload.message ? `Message : ${payload.message}` : '',
+      `Page : ${payload.page}`,
+    ].filter(Boolean).join('\n');
+
+    if (mailto) {
+      mailto.href = `mailto:oscarmulume1612@gmail.com?subject=${encodeURIComponent('Demande depuis le site M-SEC')}&body=${encodeURIComponent(recap)}`;
+    }
+    if (whatsapp) {
+      const href = whatsappHref(import.meta.env.PUBLIC_WHATSAPP_NUMBER, recap);
+      if (href) {
+        whatsapp.href = href;
+        whatsapp.hidden = false;
+      }
+    }
+  });
 });
 </script>
 

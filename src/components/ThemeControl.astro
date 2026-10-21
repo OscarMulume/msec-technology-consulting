@@ -1,0 +1,121 @@
+---
+interface Props {
+  autoLabel: string;
+  lightLabel: string;
+  darkLabel: string;
+  ariaLabel: string;
+}
+
+const { autoLabel, lightLabel, darkLabel, ariaLabel } = Astro.props;
+---
+
+<button
+  class="theme-control"
+  type="button"
+  data-theme-toggle
+  data-label-auto={autoLabel}
+  data-label-light={lightLabel}
+  data-label-dark={darkLabel}
+  aria-label={ariaLabel}
+>
+  <svg class="theme-control__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+    <circle cx="12" cy="12" r="4"></circle>
+    <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path>
+  </svg>
+  <span class="theme-control__label" data-theme-label>{autoLabel}</span>
+</button>
+
+<script>
+  const root = document.documentElement;
+  const button = document.querySelector<HTMLButtonElement>('[data-theme-toggle]');
+  const label = button?.querySelector<HTMLElement>('[data-theme-label]');
+  const storageKey = 'msec-theme';
+  const media = window.matchMedia('(prefers-color-scheme: dark)');
+  type ThemePreference = 'auto' | 'light' | 'dark';
+
+  const readPreference = (): ThemePreference => {
+    try {
+      const stored = localStorage.getItem(storageKey);
+      return stored === 'light' || stored === 'dark' ? stored : 'auto';
+    } catch {
+      return 'auto';
+    }
+  };
+
+  const effectiveTheme = (preference: ThemePreference): 'light' | 'dark' =>
+    preference === 'auto' ? (media.matches ? 'dark' : 'light') : preference;
+
+  const render = (preference: ThemePreference): void => {
+    const theme = effectiveTheme(preference);
+    root.dataset.theme = theme;
+    root.dataset.themePreference = preference;
+    if (label && button) {
+      const text =
+        preference === 'auto'
+          ? button.dataset.labelAuto
+          : preference === 'light'
+            ? button.dataset.labelLight
+            : button.dataset.labelDark;
+      label.textContent = text || '';
+      button.setAttribute('aria-label', text || '');
+      button.setAttribute('title', text || '');
+    }
+  };
+
+  render(readPreference());
+
+  button?.addEventListener('click', () => {
+    const current = (root.dataset.themePreference || 'auto') as ThemePreference;
+    const next: ThemePreference = current === 'auto' ? 'light' : current === 'light' ? 'dark' : 'auto';
+    try {
+      localStorage.setItem(storageKey, next);
+    } catch {
+      render(next);
+    }
+    render(next);
+  });
+
+  media.addEventListener?.('change', () => {
+    if ((root.dataset.themePreference || 'auto') === 'auto') render('auto');
+  });
+</script>
+
+<style>
+  .theme-control {
+    display: inline-flex;
+    min-width: var(--ms-touch);
+    min-height: var(--ms-touch);
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    padding: 0.45rem 0.65rem;
+    border: 1px solid transparent;
+    border-radius: var(--ms-radius-pill);
+    background: transparent;
+    color: var(--ms-text-secondary);
+    font-size: var(--ms-text-xs);
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s var(--ms-ease), color 0.2s var(--ms-ease);
+  }
+
+  .theme-control:hover {
+    background: var(--ms-surface-muted);
+    color: var(--ms-text);
+  }
+
+  .theme-control__icon {
+    width: 1.05rem;
+    height: 1.05rem;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.7;
+    stroke-linecap: round;
+  }
+
+  @media (max-width: 1120px) {
+    .theme-control__label {
+      display: none;
+    }
+  }
+</style>

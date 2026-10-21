@@ -1,0 +1,123 @@
+---
+import '../styles/tokens.css';
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+import { SITE, absoluteMedia, absoluteUrl, withBase, type Locale } from '../config/site';
+import { getDict } from '../i18n/utils';
+
+interface Props {
+  locale: Locale;
+  title: string;
+  description: string;
+  frPath: string;
+  enPath: string;
+  image?: string;
+  noindex?: boolean;
+  pageType?: 'website' | 'article';
+  rssPath?: string;
+}
+
+const {
+  locale,
+  title,
+  description,
+  frPath,
+  enPath,
+  image = 'media/og-image.png',
+  noindex = false,
+  pageType = 'website',
+  rssPath,
+} = Astro.props;
+
+const dict = getDict(locale);
+const canonical = absoluteUrl(locale === 'en' ? enPath : frPath);
+const frUrl = absoluteUrl(frPath);
+const enUrl = absoluteUrl(enPath);
+const ogImage = absoluteMedia(image);
+const whatsappMessage = dict.common.whatsappMessage;
+
+const organization = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: SITE.name,
+  alternateName: SITE.shortName,
+  url: absoluteUrl('/'),
+  logo: absoluteMedia('logo.svg'),
+  email: SITE.email,
+  telephone: SITE.phone,
+  founder: { '@type': 'Person', name: SITE.founder },
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Kinshasa',
+    addressCountry: 'CD',
+  },
+  sameAs: [SITE.linkedin, SITE.github],
+};
+---
+
+<!doctype html>
+<html lang={locale} data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script is:inline>
+      (() => {
+        try {
+          const stored = localStorage.getItem('msec-theme');
+          const preference = stored === 'light' || stored === 'dark' ? stored : 'auto';
+          const dark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          document.documentElement.dataset.theme = preference === 'auto' ? (dark ? 'dark' : 'light') : preference;
+          document.documentElement.dataset.themePreference = preference;
+        } catch {
+          document.documentElement.dataset.theme = 'light';
+          document.documentElement.dataset.themePreference = 'auto';
+        }
+      })();
+    </script>
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content={SITE.founder} />
+    <meta name="theme-color" content="#f4f6f8" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#081014" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" href={withBase('/favicon.svg')} type="image/svg+xml" />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="fr" href={frUrl} />
+    <link rel="alternate" hreflang="en" href={enUrl} />
+    <link rel="alternate" hreflang="x-default" href={frUrl} />
+    {rssPath && <link rel="alternate" type="application/rss+xml" title={`${SITE.name} RSS`} href={absoluteUrl(rssPath)} />}
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+
+    <meta property="og:type" content={pageType} />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content={locale === 'fr' ? 'fr_CD' : 'en_US'} />
+    <meta property="og:locale:alternate" content={locale === 'fr' ? 'en_US' : 'fr_CD'} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <script type="application/ld+json" set:html={JSON.stringify(organization)} />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">{dict.nav.skip}</a>
+    <Header locale={locale} frPath={frPath} enPath={enPath} />
+    <main id="main" tabindex="-1">
+      <slot />
+    </main>
+    <Footer locale={locale} />
+    <WhatsAppButton locale={locale} message={whatsappMessage} />
+  </body>
+</html>
+
+<style>
+  main {
+    padding-top: calc(var(--ms-header-height) + 1.5rem);
+  }
+</style>

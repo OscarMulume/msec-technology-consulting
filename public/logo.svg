@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title">
+  <title id="title">M-SEC Technology Consulting</title>
+  <rect width="512" height="512" rx="112" fill="#081014"/>
+  <path d="M256 76 421 141v124c0 98-68 171-165 215-97-44-165-117-165-215V141l165-65Z" fill="#4fd1c5" opacity=".14"/>
+  <path d="M256 116 383 167v96c0 75-51 132-127 167-76-35-127-92-127-167v-96l127-51Z" fill="none" stroke="#4fd1c5" stroke-width="14"/>
+  <path d="M193 300v-108l63 60 63-60v108" fill="none" stroke="#f1f6f7" stroke-width="19" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

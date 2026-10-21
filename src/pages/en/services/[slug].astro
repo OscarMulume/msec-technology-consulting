@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ServicePage from '../../../components/ServicePage.astro';
+import { SITE } from '../../../config/site';
+import services from '../../../content/services.en.json';
+
+export function getStaticPaths() {
+  return Object.values(services).map((service) => ({
+    params: { slug: service.slug },
+    props: { service },
+  }));
+}
+
+const { service } = Astro.props;
+---
+
+<BaseLayout
+  locale="en"
+  title={`${service.shortTitle} | ${SITE.name}`}
+  description={service.summary}
+  frPath={`/services/${service.slug}/`}
+  enPath={`/en/services/${service.slug}/`}
+>
+  <ServicePage locale="en" slug={service.slug} />
+</BaseLayout>

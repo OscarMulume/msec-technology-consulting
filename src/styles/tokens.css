@@ -1,0 +1,129 @@
+:root {
+  color-scheme: light;
+
+  --ms-bg: #f4f6f8;
+  --ms-bg-elevated: #ffffff;
+  --ms-bg-soft: #eef2f5;
+  --ms-surface: #ffffff;
+  --ms-surface-strong: #ffffff;
+  --ms-surface-muted: #f7f9fb;
+  --ms-text: #10161d;
+  --ms-text-secondary: #4c5a68;
+  --ms-text-muted: #5f6b78;
+  --ms-border: rgba(16, 22, 29, 0.1);
+  --ms-border-strong: rgba(16, 22, 29, 0.18);
+  --ms-accent: #07727f;
+  --ms-accent-strong: #05636d;
+  --ms-accent-soft: rgba(8, 127, 140, 0.1);
+  --ms-accent-contrast: #ffffff;
+  --ms-success: #087a55;
+  --ms-success-soft: rgba(8, 122, 85, 0.1);
+  --ms-danger: #b42318;
+  --ms-danger-soft: rgba(180, 35, 24, 0.08);
+  --ms-warning: #8a5a00;
+
+  --ms-glass: rgba(255, 255, 255, 0.72);
+  --ms-glass-strong: rgba(255, 255, 255, 0.9);
+  --ms-glass-border: rgba(255, 255, 255, 0.72);
+  --ms-glass-highlight: rgba(255, 255, 255, 0.55);
+  --ms-shadow-glass: 0 18px 50px rgba(16, 35, 45, 0.12);
+
+  --ms-gradient: linear-gradient(135deg, #087f8c 0%, #0e9f94 58%, #2d9f74 100%);
+  --ms-gradient-soft: linear-gradient(135deg, rgba(8, 127, 140, 0.1), rgba(45, 159, 116, 0.08));
+  --ms-hero-glow: radial-gradient(circle at 75% 18%, rgba(8, 127, 140, 0.18), transparent 38%),
+    radial-gradient(circle at 12% 70%, rgba(45, 159, 116, 0.12), transparent 34%);
+
+  --ms-font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text",
+    "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --ms-font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+
+  --ms-text-xs: 0.75rem;
+  --ms-text-sm: 0.875rem;
+  --ms-text-base: 1rem;
+  --ms-text-lg: 1.125rem;
+  --ms-text-xl: 1.375rem;
+  --ms-display-sm: clamp(1.9rem, 4vw, 2.8rem);
+  --ms-display-md: clamp(2.35rem, 6vw, 4.1rem);
+  --ms-display-lg: clamp(2.8rem, 7.5vw, 5.2rem);
+
+  --ms-space-1: 0.25rem;
+  --ms-space-2: 0.5rem;
+  --ms-space-3: 0.75rem;
+  --ms-space-4: 1rem;
+  --ms-space-5: 1.25rem;
+  --ms-space-6: 1.5rem;
+  --ms-space-8: 2rem;
+  --ms-space-10: 2.5rem;
+  --ms-space-12: 3rem;
+  --ms-space-16: 4rem;
+  --ms-space-20: 5rem;
+  --ms-space-24: 6rem;
+
+  --ms-radius-sm: 0.75rem;
+  --ms-radius-md: 1rem;
+  --ms-radius-lg: 1.5rem;
+  --ms-radius-xl: 2rem;
+  --ms-radius-pill: 999px;
+
+  --ms-blur: 22px;
+  --ms-blur-strong: 34px;
+  --ms-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --ms-ease-spring: cubic-bezier(0.34, 1.4, 0.64, 1);
+
+  --ms-container: 76rem;
+  --ms-header-height: 4.5rem;
+  --ms-touch: 2.75rem;
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+
+  --ms-bg: #081014;
+  --ms-bg-elevated: #0e191e;
+  --ms-bg-soft: #0b151a;
+  --ms-surface: #101c22;
+  --ms-surface-strong: #14232a;
+  --ms-surface-muted: #0d181d;
+  --ms-text: #f1f6f7;
+  --ms-text-secondary: #b5c2c7;
+  --ms-text-muted: #8c9ca2;
+  --ms-border: rgba(229, 244, 247, 0.12);
+  --ms-border-strong: rgba(229, 244, 247, 0.22);
+  --ms-accent: #4fd1c5;
+  --ms-accent-strong: #7ee0d5;
+  --ms-accent-soft: rgba(79, 209, 197, 0.12);
+  --ms-accent-contrast: #042024;
+  --ms-success: #57d6a4;
+  --ms-success-soft: rgba(87, 214, 164, 0.12);
+  --ms-danger: #ff9b90;
+  --ms-danger-soft: rgba(255, 155, 144, 0.1);
+  --ms-warning: #f4c66b;
+
+  --ms-glass: rgba(16, 28, 34, 0.62);
+  --ms-glass-strong: rgba(16, 28, 34, 0.86);
+  --ms-glass-border: rgba(255, 255, 255, 0.12);
+  --ms-glass-highlight: rgba(255, 255, 255, 0.08);
+  --ms-shadow-glass: 0 22px 60px rgba(0, 0, 0, 0.36);
+
+  --ms-gradient: linear-gradient(135deg, #2fb8b0 0%, #38c7ad 55%, #6bd79d 100%);
+  --ms-gradient-soft: linear-gradient(135deg, rgba(79, 209, 197, 0.14), rgba(107, 215, 157, 0.08));
+  --ms-hero-glow: radial-gradient(circle at 78% 18%, rgba(79, 209, 197, 0.16), transparent 40%),
+    radial-gradient(circle at 12% 76%, rgba(107, 215, 157, 0.1), transparent 34%);
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  :root {
+    --ms-glass: var(--ms-surface-strong);
+    --ms-glass-strong: var(--ms-surface-strong);
+    --ms-glass-border: var(--ms-border);
+    --ms-blur: 0px;
+    --ms-blur-strong: 0px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --ms-ease: linear;
+    --ms-ease-spring: linear;
+  }
+}

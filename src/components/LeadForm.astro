@@ -1,0 +1,346 @@
+---
+import { getDict } from '../i18n/utils';
+import { SITE, type Locale } from '../config/site';
+import type { LeadKind } from '../lib/leads';
+
+interface Props {
+  kind: LeadKind;
+  locale: Locale;
+  id: string;
+}
+
+const { kind, locale, id } = Astro.props;
+const dict = getDict(locale);
+const forms = dict.forms;
+const isPilot = kind === 'pilot';
+const topics = kind === 'audit' ? forms.audit.topics : forms.contact.topics;
+const success = forms.success[kind as keyof typeof forms.success];
+---
+
+<form
+  class="lead-form"
+  id={id}
+  data-lead-form
+  data-kind={kind}
+  data-locale={locale}
+  data-labels={`${forms.fullName}|${forms.company}|${forms.email}|${forms.phone}|${forms.topic}|${forms.message}|${forms.registers}|${forms.fallback.subject}`}
+  data-msg-wait={forms.errors.wait}
+  data-msg-not-configured={forms.errors.notConfigured}
+  data-msg-failed={forms.errors.failed}
+  data-msg-page={forms.page}
+>
+  <input type="hidden" name="kind" value={kind} />
+  <input type="hidden" name="locale" value={locale} />
+  <div class="lead-form__trap" aria-hidden="true">
+    <label for={`${id}-website`}>Website</label>
+    <input id={`${id}-website`} type="text" name="website" tabindex="-1" autocomplete="off" />
+  </div>
+
+  <div class="lead-form__row">
+    <div class="field">
+      <label for={`${id}-name`}>{forms.fullName} *</label>
+      <input id={`${id}-name`} name="full_name" type="text" required minlength="2" maxlength="120" autocomplete="name" placeholder={forms.placeholders.name} />
+    </div>
+    <div class="field">
+      <label for={`${id}-company`}>{isPilot ? forms.pilotRestaurant : forms.company}</label>
+      <input id={`${id}-company`} name="company" type="text" required={isPilot} maxlength="160" autocomplete="organization" placeholder={isPilot ? forms.placeholders.restaurant : forms.placeholders.company} />
+    </div>
+  </div>
+
+  <div class="lead-form__row">
+    <div class="field">
+      <label for={`${id}-email`}>{forms.email}{!isPilot && ' *'}{isPilot && ` (${forms.pilot.emailOptional.replace(/\s*\(.*\)\s*/, '')})`}</label>
+      <input id={`${id}-email`} name="email" type="email" required={!isPilot} maxlength="254" autocomplete="email" placeholder={forms.placeholders.email} />
+    </div>
+    <div class="field">
+      <label for={`${id}-phone`}>{forms.phone}{isPilot && ' *'}</label>
+      <input id={`${id}-phone`} name="phone" type="tel" required={isPilot} maxlength="40" autocomplete="tel" placeholder={forms.placeholders.phone} />
+    </div>
+  </div>
+
+  {isPilot ? (
+    <>
+      <div class="lead-form__row">
+        <div class="field">
+          <label for={`${id}-commune`}>{forms.commune} *</label>
+          <input id={`${id}-commune`} name="topic" type="text" required maxlength="120" autocomplete="address-level2" placeholder={forms.placeholders.commune} />
+        </div>
+        <div class="field">
+          <label for={`${id}-registers`}>{forms.registers} *</label>
+          <input id={`${id}-registers`} name="registers" type="number" required min="1" max="99" inputmode="numeric" placeholder={forms.placeholders.registers} />
+        </div>
+      </div>
+      <div class="field">
+        <label for={`${id}-message`}>{forms.message}</label>
+        <textarea id={`${id}-message`} name="message" maxlength="4000" rows="3" placeholder={forms.placeholders.message}></textarea>
+      </div>
+    </>
+  ) : (
+    <>
+      <div class="field">
+        <label for={`${id}-topic`}>{kind === 'audit' ? forms.audit.topicLabel : forms.contact.topicLabel}</label>
+        <select id={`${id}-topic`} name="topic">
+          {topics.map((topic) => (
+            <option value={topic.value}>{topic.label}</option>
+          ))}
+        </select>
+      </div>
+      <div class="field">
+        <label for={`${id}-message`}>{forms.message}{kind === 'contact' && ' *'}</label>
+        <textarea
+          id={`${id}-message`}
+          name="message"
+          required={kind === 'contact'}
+          maxlength="4000"
+          rows="4"
+          placeholder={kind === 'audit' ? forms.placeholders.auditMessage : forms.placeholders.message}
+        ></textarea>
+      </div>
+    </>
+  )}
+
+  <button class="btn btn--primary lead-form__submit" type="submit" data-label-sending={forms.sending}>
+    {isPilot ? forms.pilot.submit : kind === 'audit' ? forms.audit.submit : forms.contact.submit}
+  </button>
+
+  <p class="lead-form__note">{forms.privacyNote}</p>
+
+  <p class="lead-form__success" role="status" tabindex="-1" hidden>{success}</p>
+  <p class="lead-form__error" role="alert" hidden></p>
+  <div class="lead-form__fallback" hidden>
+    <p>{forms.fallback.title}</p>
+    <div class="lead-form__fallback-actions">
+      <a class="btn btn--primary" data-whatsapp href="#" target="_blank" rel="noopener noreferrer" hidden>{forms.fallback.whatsapp}</a>
+      <a class="btn btn--secondary" data-mailto href={`mailto:${SITE.email}`}>{forms.fallback.email}</a>
+    </div>
+  </div>
+</form>
+
+<script>
+  import { submitLead, whatsappHref, type LeadKind } from '../lib/leads';
+  import type { Locale } from '../config/site';
+
+  const clean = (value: FormDataEntryValue | null): string =>
+    typeof value === 'string' ? value.trim() : '';
+
+  const forms = document.querySelectorAll<HTMLFormElement>('[data-lead-form]');
+
+  forms.forEach((form) => {
+    const startedAt = Date.now();
+    const button = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+    const success = form.querySelector<HTMLElement>('.lead-form__success');
+    const error = form.querySelector<HTMLElement>('.lead-form__error');
+    const fallback = form.querySelector<HTMLElement>('.lead-form__fallback');
+    const whatsapp = form.querySelector<HTMLAnchorElement>('[data-whatsapp]');
+    const mailto = form.querySelector<HTMLAnchorElement>('[data-mailto]');
+    const labels = (form.dataset.labels || '').split('|');
+    const [fullNameLabel, companyLabel, emailLabel, phoneLabel, topicLabel, messageLabel, registersLabel, subject] = labels;
+    const kind = (form.dataset.kind || 'contact') as LeadKind;
+    const locale: Locale = form.dataset.locale === 'en' ? 'en' : 'fr';
+
+    if (!button || !success || !error || !fallback || !mailto) return;
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      success.hidden = true;
+      error.hidden = true;
+      fallback.hidden = true;
+      whatsapp?.setAttribute('hidden', '');
+
+      if (!form.reportValidity()) return;
+
+      if (Date.now() - startedAt < 3000) {
+        error.textContent = form.dataset.msgWait || '';
+        error.hidden = false;
+        return;
+      }
+
+      const trap = form.elements.namedItem('website');
+      if (trap instanceof HTMLInputElement && trap.value) return;
+
+      const data = new FormData(form);
+      const registers = clean(data.get('registers'));
+      const rawMessage = clean(data.get('message'));
+      const message = [registers ? `${registersLabel}: ${registers}` : '', rawMessage].filter(Boolean).join('\n');
+      const payload = {
+        kind,
+        full_name: clean(data.get('full_name')),
+        company: clean(data.get('company')) || undefined,
+        email: clean(data.get('email')) || undefined,
+        phone: clean(data.get('phone')) || undefined,
+        topic: clean(data.get('topic')) || undefined,
+        message: message || undefined,
+        locale,
+        page: window.location.pathname,
+      };
+
+      const original = button.textContent || '';
+      button.disabled = true;
+      button.setAttribute('aria-busy', 'true');
+      button.textContent = button.dataset.labelSending || original;
+      const result = await submitLead(payload);
+      button.disabled = false;
+      button.removeAttribute('aria-busy');
+      button.textContent = original;
+
+      if (result.ok) {
+        success.hidden = false;
+        form.reset();
+        success.focus();
+        return;
+      }
+
+      error.textContent = result.reason === 'not-configured'
+        ? form.dataset.msgNotConfigured || ''
+        : form.dataset.msgFailed || '';
+      error.hidden = false;
+      fallback.hidden = false;
+
+      const recap = [
+        `${fullNameLabel}: ${payload.full_name}`,
+        payload.company ? `${companyLabel}: ${payload.company}` : '',
+        payload.email ? `${emailLabel}: ${payload.email}` : '',
+        payload.phone ? `${phoneLabel}: ${payload.phone}` : '',
+        payload.topic ? `${topicLabel}: ${payload.topic}` : '',
+        registers ? `${registersLabel}: ${registers}` : '',
+        payload.message ? `${messageLabel}: ${payload.message}` : '',
+        `${form.dataset.msgPage || 'Page'}: ${payload.page}`,
+      ].filter(Boolean).join('\n');
+
+      mailto.href = `mailto:${mailto.href.split(':')[1]?.split('?')[0] || ''}?subject=${encodeURIComponent(subject || 'M-SEC')}&body=${encodeURIComponent(recap)}`;
+      const whatsappLink = whatsappHref(import.meta.env.PUBLIC_WHATSAPP_NUMBER, recap);
+      if (whatsapp && whatsappLink) {
+        whatsapp.href = whatsappLink;
+        whatsapp.hidden = false;
+      }
+    });
+  });
+</script>
+
+<style>
+  .lead-form {
+    display: grid;
+    gap: 1rem;
+    padding: clamp(1.25rem, 3vw, 2rem);
+    border: 1px solid var(--ms-border);
+    border-radius: var(--ms-radius-lg);
+    background: var(--ms-surface-strong);
+    box-shadow: 0 18px 45px rgba(16, 35, 45, 0.07);
+  }
+
+  .lead-form__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .field {
+    display: grid;
+    gap: 0.42rem;
+  }
+
+  .field label {
+    color: var(--ms-text);
+    font-size: var(--ms-text-xs);
+    font-weight: 750;
+  }
+
+  .field input,
+  .field select,
+  .field textarea {
+    width: 100%;
+    min-height: var(--ms-touch);
+    padding: 0.72rem 0.8rem;
+    border: 1px solid var(--ms-border-strong);
+    border-radius: var(--ms-radius-sm);
+    background: var(--ms-surface);
+    color: var(--ms-text);
+    font-size: var(--ms-text-sm);
+    outline: none;
+    transition: border-color 0.2s var(--ms-ease), box-shadow 0.2s var(--ms-ease);
+  }
+
+  .field textarea {
+    min-height: 6.5rem;
+    resize: vertical;
+  }
+
+  .field input::placeholder,
+  .field textarea::placeholder {
+    color: var(--ms-text-muted);
+  }
+
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus {
+    border-color: var(--ms-accent);
+    box-shadow: 0 0 0 3px var(--ms-accent-soft);
+  }
+
+  .lead-form__submit {
+    width: 100%;
+    margin-top: 0.25rem;
+  }
+
+  .lead-form__note {
+    color: var(--ms-text-muted);
+    font-size: var(--ms-text-xs);
+    line-height: 1.5;
+    text-align: center;
+  }
+
+  .lead-form__success,
+  .lead-form__error {
+    padding: 0.8rem 0.9rem;
+    border-radius: var(--ms-radius-sm);
+    font-size: var(--ms-text-sm);
+    text-align: center;
+  }
+
+  .lead-form__success {
+    background: var(--ms-success-soft);
+    color: var(--ms-success);
+  }
+
+  .lead-form__error {
+    background: var(--ms-danger-soft);
+    color: var(--ms-danger);
+  }
+
+  .lead-form__fallback {
+    padding: 1rem;
+    border: 1px solid var(--ms-border);
+    border-radius: var(--ms-radius-sm);
+    background: var(--ms-surface-muted);
+  }
+
+  .lead-form__fallback p {
+    color: var(--ms-text-secondary);
+    font-size: var(--ms-text-sm);
+  }
+
+  .lead-form__fallback-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+  }
+
+  .lead-form__trap {
+    position: absolute !important;
+    left: -10000px !important;
+    width: 1px !important;
+    height: 1px !important;
+    overflow: hidden !important;
+  }
+
+  .lead-form [hidden] {
+    display: none !important;
+  }
+
+  @media (max-width: 620px) {
+    .lead-form__row {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

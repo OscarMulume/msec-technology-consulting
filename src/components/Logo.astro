@@ -1,0 +1,62 @@
+---
+import { localePath, type Locale } from '../config/site';
+
+interface Props {
+  locale: Locale;
+  compact?: boolean;
+}
+
+const { locale, compact = false } = Astro.props;
+---
+
+<a class="brand" href={localePath(locale)}>
+  <svg class="brand__mark" viewBox="0 0 40 40" aria-hidden="true" focusable="false">
+    <path d="M20 3.5 34 9v10.4c0 8.2-5.6 14.2-14 17.1C11.6 33.6 6 27.6 6 19.4V9l14-5.5Z" fill="currentColor" opacity=".12"></path>
+    <path d="M20 7.2 30.8 11v8.3c0 6.2-4.2 10.9-10.8 13.4C13.4 30.2 9.2 25.5 9.2 19.3V11L20 7.2Z" fill="none" stroke="currentColor" stroke-width="1.7"></path>
+    <path d="M14.2 23.8V15l5.8 5.5 5.8-5.5v8.8" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"></path>
+  </svg>
+  <span class="brand__text">
+    <span class="brand__name">M-SEC</span>
+    {!compact && <span class="brand__descriptor">Technology Consulting</span>}
+  </span>
+</a>
+
+<style>
+  .brand {
+    display: inline-flex;
+    min-height: var(--ms-touch);
+    align-items: center;
+    gap: 0.65rem;
+    color: var(--ms-text);
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+
+  .brand__mark {
+    width: 2rem;
+    height: 2rem;
+    color: var(--ms-accent);
+  }
+
+  .brand__text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+  }
+
+  .brand__name {
+    font-size: 1.02rem;
+    font-weight: 900;
+    letter-spacing: -0.03em;
+  }
+
+  .brand__descriptor {
+    margin-top: 0.28rem;
+    color: var(--ms-text-muted);
+    font-size: 0.62rem;
+    font-weight: 650;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+</style>

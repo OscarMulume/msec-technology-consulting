@@ -1,0 +1,299 @@
+---
+import ServiceIcon from './ServiceIcon.astro';
+import { localePath, type Locale } from '../config/site';
+import { getDict } from '../i18n/utils';
+import servicesFr from '../content/services.fr.json';
+import servicesEn from '../content/services.en.json';
+
+interface Props {
+  locale: Locale;
+  slug: string;
+}
+
+const { locale, slug } = Astro.props;
+const dict = getDict(locale);
+const content = locale === 'en' ? servicesEn : servicesFr;
+const service = content[slug as keyof typeof content];
+const otherServices = Object.values(content).filter((item) => item.slug !== slug);
+---
+
+<div class="service-page">
+  <div class="container">
+    <a class="back-link" href={localePath(locale, '#services')}>
+      <span aria-hidden="true">←</span>{dict.servicePage.back}
+    </a>
+
+    <div class="service-layout">
+      <article>
+        <header class="service-hero">
+          <span class="service-hero__icon"><ServiceIcon slug={service.slug} /></span>
+          <h1>{service.title}</h1>
+          <p>{service.summary}</p>
+        </header>
+
+        <section class="feature-panel" aria-labelledby="features-title">
+          <h2 id="features-title">{dict.servicePage.featuresLabel}</h2>
+          <div class="feature-list">
+            {service.features.map((feature, index) => (
+              <article>
+                <span>0{index + 1}</span>
+                <div>
+                  <h3>{feature.title}</h3>
+                  <p>{feature.description}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section class="benefit-panel">
+          <p>{dict.servicePage.benefitLabel}</p>
+          <h2>{service.benefit}</h2>
+        </section>
+
+        <section class="standards-panel" aria-labelledby="standards-title">
+          <h2 id="standards-title">{dict.servicePage.standardsLabel}</h2>
+          <ul>
+            {service.standards.map((standard) => <li>{standard}</li>)}
+          </ul>
+        </section>
+      </article>
+
+      <aside class="service-aside">
+        <div class="aside-card">
+          <h2>{dict.servicePage.ctaTitle}</h2>
+          <p>{dict.servicePage.ctaText}</p>
+          <a class="btn btn--primary" href={localePath(locale, '#audit')}>{dict.servicePage.auditCta}</a>
+          <a class="btn btn--secondary" href={localePath(locale, '#contact')}>{dict.servicePage.contactCta}</a>
+        </div>
+
+        <div class="aside-card aside-card--muted">
+          <h2>{dict.common.allServices}</h2>
+          <ul class="aside-links">
+            {otherServices.map((item) => (
+              <li>
+                <a href={localePath(locale, `services/${item.slug}/`)}>
+                  <span>{item.shortTitle}</span>
+                  <span aria-hidden="true">→</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </div>
+</div>
+
+<style>
+  .service-page {
+    padding-block: clamp(2.5rem, 6vw, 4.5rem) clamp(4rem, 9vw, 7rem);
+  }
+
+  .back-link {
+    display: inline-flex;
+    min-height: var(--ms-touch);
+    align-items: center;
+    gap: 0.45rem;
+    margin-bottom: 2rem;
+    color: var(--ms-text-secondary);
+    font-size: var(--ms-text-sm);
+    font-weight: 650;
+    text-decoration: none;
+  }
+
+  .back-link:hover {
+    color: var(--ms-accent);
+  }
+
+  .service-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.35fr) minmax(16rem, 0.65fr);
+    gap: clamp(2rem, 6vw, 4.5rem);
+    align-items: start;
+  }
+
+  .service-hero {
+    max-width: 46rem;
+  }
+
+  .service-hero__icon {
+    display: grid;
+    width: 4.2rem;
+    height: 4.2rem;
+    place-items: center;
+    border-radius: 1.4rem;
+    background: var(--ms-accent-soft);
+    color: var(--ms-accent);
+  }
+
+  .service-hero h1 {
+    margin-top: 1.4rem;
+    font-size: var(--ms-display-sm);
+    font-weight: 850;
+  }
+
+  .service-hero p {
+    margin-top: 1rem;
+    color: var(--ms-text-secondary);
+    font-size: var(--ms-text-lg);
+    line-height: 1.7;
+  }
+
+  .feature-panel {
+    margin-top: 2.5rem;
+    padding: clamp(1.25rem, 3vw, 2rem);
+    border: 1px solid var(--ms-border);
+    border-radius: var(--ms-radius-lg);
+    background: var(--ms-surface);
+  }
+
+  .feature-panel > h2,
+  .standards-panel h2 {
+    color: var(--ms-text-muted);
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .feature-list {
+    display: grid;
+    gap: 0;
+    margin-top: 0.9rem;
+  }
+
+  .feature-list article {
+    display: grid;
+    grid-template-columns: 2.2rem 1fr;
+    gap: 0.75rem;
+    padding-block: 1rem;
+    border-top: 1px solid var(--ms-border);
+  }
+
+  .feature-list article > span {
+    color: var(--ms-accent);
+    font-family: var(--ms-font-mono);
+    font-size: var(--ms-text-xs);
+    font-weight: 700;
+  }
+
+  .feature-list h3 {
+    font-size: var(--ms-text-base);
+  }
+
+  .feature-list p {
+    margin-top: 0.25rem;
+    color: var(--ms-text-secondary);
+    font-size: var(--ms-text-sm);
+  }
+
+  .benefit-panel {
+    margin-top: 1.5rem;
+    padding: 1.4rem;
+    border: 1px solid var(--ms-border);
+    border-radius: var(--ms-radius-lg);
+    background: var(--ms-gradient-soft);
+  }
+
+  .benefit-panel > p {
+    color: var(--ms-accent);
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .benefit-panel h2 {
+    margin-top: 0.35rem;
+    font-size: 1.25rem;
+    line-height: 1.35;
+  }
+
+  .standards-panel {
+    margin-top: 2rem;
+  }
+
+  .standards-panel ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 0.8rem;
+  }
+
+  .standards-panel li {
+    padding: 0.35rem 0.7rem;
+    border: 1px solid var(--ms-border);
+    border-radius: var(--ms-radius-pill);
+    background: var(--ms-surface);
+    color: var(--ms-text-secondary);
+    font-size: var(--ms-text-xs);
+    font-weight: 700;
+  }
+
+  .service-aside {
+    position: sticky;
+    top: calc(var(--ms-header-height) + 2rem);
+    display: grid;
+    gap: 1rem;
+  }
+
+  .aside-card {
+    display: grid;
+    gap: 0.75rem;
+    padding: 1.4rem;
+    border: 1px solid var(--ms-border);
+    border-radius: var(--ms-radius-lg);
+    background: var(--ms-surface);
+    box-shadow: var(--ms-shadow-glass);
+  }
+
+  .aside-card h2 {
+    font-size: var(--ms-text-lg);
+  }
+
+  .aside-card p {
+    color: var(--ms-text-secondary);
+    font-size: var(--ms-text-sm);
+  }
+
+  .aside-card .btn {
+    width: 100%;
+  }
+
+  .aside-card--muted {
+    background: var(--ms-surface-muted);
+    box-shadow: none;
+  }
+
+  .aside-links {
+    display: grid;
+    gap: 0.15rem;
+  }
+
+  .aside-links a {
+    display: flex;
+    min-height: 2.75rem;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.3rem 0;
+    color: var(--ms-text-secondary);
+    font-size: var(--ms-text-sm);
+    text-decoration: none;
+  }
+
+  .aside-links a:hover {
+    color: var(--ms-accent);
+  }
+
+  @media (max-width: 900px) {
+    .service-layout {
+      grid-template-columns: 1fr;
+    }
+
+    .service-aside {
+      position: static;
+    }
+  }
+</style>

@@ -5,14 +5,21 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "check": "astro check",
+    "typecheck": "astro check",
+    "validate:html": "html-validate \"dist/**/*.html\"",
+    "check:links": "node scripts/check-links.mjs",
+    "lint": "npm run check && npm run validate:html && npm run check:links",
+    "test": "npm run build && npm run lint"
   },
   "dependencies": {
-    "@react-three/fiber": "^9.7.0",
     "@supabase/supabase-js": "^2.106.2",
-    "@types/three": "^0.185.4",
-    "astro": "^6.4.2",
-    "bcryptjs": "^3.0.3",
-    "three": "^0.185.1"
+    "astro": "^7.4.1"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.11",
+    "html-validate": "^11.17.0",
+    "typescript": "^6.0.3"
   }
 }

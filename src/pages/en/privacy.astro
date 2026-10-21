@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import LegalPage from '../../components/LegalPage.astro';
+import { getDict } from '../../i18n/utils';
+
+const dict = getDict('en');
+---
+
+<BaseLayout
+  locale="en"
+  title={dict.meta.privacyTitle}
+  description={dict.meta.privacyDescription}
+  frPath="/confidentialite/"
+  enPath="/en/privacy/"
+>
+  <LegalPage locale="en" page="privacy" />
+</BaseLayout>

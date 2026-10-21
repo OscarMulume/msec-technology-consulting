@@ -1,0 +1,85 @@
+---
+import type { Locale } from '../config/site';
+import { getDict } from '../i18n/utils';
+
+interface Props {
+  locale: Locale;
+  page: 'legalNotice' | 'privacy' | 'cookies';
+}
+
+const { locale, page } = Astro.props;
+const dict = getDict(locale);
+const content = page === 'legalNotice' ? dict.legalNotice : page === 'privacy' ? dict.privacy : dict.cookies;
+---
+
+<div class="legal-page">
+  <div class="container container--narrow">
+    <header class="legal-hero">
+      <p class="eyebrow">{dict.footer.companyTitle}</p>
+      <h1>{content.title}</h1>
+      <p class="legal-updated">{content.updated}</p>
+      {'intro' in content && <p class="legal-intro">{content.intro}</p>}
+    </header>
+
+    <div class="legal-sections">
+      {content.sections.map((section) => (
+        <section>
+          <h2>{section.heading}</h2>
+          {section.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+        </section>
+      ))}
+    </div>
+  </div>
+</div>
+
+<style>
+  .legal-page {
+    padding-block: clamp(2.25rem, 6vw, 4rem) clamp(4rem, 9vw, 7rem);
+  }
+
+  .legal-hero {
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--ms-border);
+  }
+
+  .legal-hero h1 {
+    font-size: var(--ms-display-sm);
+    font-weight: 850;
+  }
+
+  .legal-updated {
+    margin-top: 0.5rem;
+    color: var(--ms-text-muted);
+    font-size: var(--ms-text-xs);
+  }
+
+  .legal-intro {
+    margin-top: 1rem;
+    color: var(--ms-text-secondary);
+    font-size: var(--ms-text-lg);
+  }
+
+  .legal-sections {
+    margin-top: 1.5rem;
+  }
+
+  .legal-sections section {
+    padding-block: 1.4rem;
+    border-bottom: 1px solid var(--ms-border);
+  }
+
+  .legal-sections section:last-child {
+    border-bottom: 0;
+  }
+
+  .legal-sections h2 {
+    font-size: 1.15rem;
+  }
+
+  .legal-sections p {
+    margin-top: 0.55rem;
+    color: var(--ms-text-secondary);
+    font-size: var(--ms-text-sm);
+    line-height: 1.7;
+  }
+</style>

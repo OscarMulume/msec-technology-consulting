@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import LegalPage from '../components/LegalPage.astro';
+import { getDict } from '../i18n/utils';
+
+const dict = getDict('fr');
+---
+
+<BaseLayout
+  locale="fr"
+  title={dict.meta.cookiesTitle}
+  description={dict.meta.cookiesDescription}
+  frPath="/cookies/"
+  enPath="/en/cookies/"
+>
+  <LegalPage locale="fr" page="cookies" />
+</BaseLayout>

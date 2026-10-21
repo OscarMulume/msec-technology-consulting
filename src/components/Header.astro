@@ -1,0 +1,271 @@
+---
+import Logo from './Logo.astro';
+import ThemeControl from './ThemeControl.astro';
+import { localePath, withBase, type Locale } from '../config/site';
+import { getDict, otherLocale } from '../i18n/utils';
+
+interface Props {
+  locale: Locale;
+  frPath: string;
+  enPath: string;
+}
+
+const { locale, frPath, enPath } = Astro.props;
+const dict = getDict(locale);
+const nextLocale = otherLocale(locale);
+const languagePath = nextLocale === 'fr' ? frPath : enPath;
+const languageLabel = dict.nav.languages[nextLocale];
+
+const links = [
+  { href: localePath(locale, '#services'), label: dict.nav.services },
+  { href: localePath(locale, '#products'), label: dict.nav.products },
+  { href: localePath(locale, '#realisations'), label: dict.nav.cases },
+  { href: localePath(locale, '#engagements'), label: dict.nav.engagements },
+  { href: localePath(locale, 'blog'), label: dict.nav.blog },
+  { href: localePath(locale, '#contact'), label: dict.nav.contact },
+];
+---
+
+<header class="site-header">
+  <div class="site-header__inner glass">
+    <Logo locale={locale} />
+
+    <nav class="site-nav" aria-label={dict.nav.mainMenu}>
+      <ul>
+        {links.map((link) => (
+          <li><a href={link.href}>{link.label}</a></li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="site-actions">
+      <ThemeControl
+        autoLabel={dict.nav.themeAuto}
+        lightLabel={dict.nav.themeLight}
+        darkLabel={dict.nav.themeDark}
+        ariaLabel={dict.nav.theme}
+      />
+      <a class="language-switch" href={withBase(languagePath)} hreflang={nextLocale} lang={nextLocale}>
+        {nextLocale.toUpperCase()}<span class="visually-hidden"> — {dict.nav.language}: {languageLabel}</span>
+      </a>
+      <a class="btn btn--primary site-cta" href={localePath(locale, '#audit')}>{dict.nav.audit}</a>
+      <button class="menu-button" type="button" aria-expanded="false" aria-controls="mobile-menu" data-menu-button aria-label={dict.nav.menu}>
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="mobile-menu glass" id="mobile-menu" data-mobile-menu hidden>
+    <nav aria-label={dict.nav.mobileMenu}>
+      <ul>
+        {links.map((link) => (
+          <li><a href={link.href}>{link.label}</a></li>
+        ))}
+      </ul>
+    </nav>
+    <div class="mobile-menu__footer">
+      <a class="btn btn--secondary" href={withBase(languagePath)} hreflang={nextLocale} lang={nextLocale}>
+        {languageLabel}
+      </a>
+      <a class="btn btn--primary" href={localePath(locale, '#audit')}>{dict.nav.audit}</a>
+    </div>
+  </div>
+</header>
+
+<script>
+  const button = document.querySelector<HTMLButtonElement>('[data-menu-button]');
+  const menu = document.querySelector<HTMLElement>('[data-mobile-menu]');
+
+  const closeMenu = () => {
+    if (!button || !menu) return;
+    button.setAttribute('aria-expanded', 'false');
+    menu.hidden = true;
+    document.body.classList.remove('menu-open');
+  };
+
+  button?.addEventListener('click', () => {
+    if (!menu) return;
+    const open = button.getAttribute('aria-expanded') === 'true';
+    button.setAttribute('aria-expanded', String(!open));
+    menu.hidden = open;
+    document.body.classList.toggle('menu-open', !open);
+  });
+
+  menu?.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeMenu));
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') closeMenu();
+  });
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 1080) closeMenu();
+  });
+</script>
+
+<style>
+  .site-header {
+    position: fixed;
+    z-index: 1000;
+    top: 0.75rem;
+    left: 50%;
+    width: min(calc(100% - 1.5rem), 82rem);
+    transform: translateX(-50%);
+  }
+
+  .site-header__inner {
+    display: flex;
+    min-height: 4rem;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.45rem 0.55rem 0.45rem 1rem;
+    border-radius: 1.4rem;
+  }
+
+  .site-nav ul {
+    display: flex;
+    align-items: center;
+    gap: 0.1rem;
+  }
+
+  .site-nav a {
+    display: inline-flex;
+    min-height: 2.75rem;
+    align-items: center;
+    padding: 0.45rem 0.62rem;
+    border-radius: var(--ms-radius-pill);
+    color: var(--ms-text-secondary);
+    font-size: 0.8rem;
+    font-weight: 650;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background-color 0.2s var(--ms-ease), color 0.2s var(--ms-ease);
+  }
+
+  .site-nav a:hover {
+    background: var(--ms-surface-muted);
+    color: var(--ms-text);
+  }
+
+  .site-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+  }
+
+  .language-switch {
+    display: inline-flex;
+    min-width: var(--ms-touch);
+    min-height: var(--ms-touch);
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--ms-radius-pill);
+    color: var(--ms-text-secondary);
+    font-size: var(--ms-text-xs);
+    font-weight: 800;
+    text-decoration: none;
+  }
+
+  .language-switch:hover {
+    background: var(--ms-surface-muted);
+    color: var(--ms-text);
+  }
+
+  .menu-button {
+    display: none;
+    width: var(--ms-touch);
+    height: var(--ms-touch);
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    border-radius: var(--ms-radius-pill);
+    background: transparent;
+    color: var(--ms-text);
+    cursor: pointer;
+  }
+
+  .menu-button:hover {
+    background: var(--ms-surface-muted);
+  }
+
+  .menu-button svg {
+    width: 1.35rem;
+    height: 1.35rem;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+  }
+
+  .mobile-menu {
+    display: none;
+    margin-top: 0.55rem;
+    padding: 0.75rem;
+    border-radius: var(--ms-radius-lg);
+  }
+
+  .mobile-menu[hidden] {
+    display: none;
+  }
+
+  .mobile-menu a {
+    display: flex;
+    min-height: var(--ms-touch);
+    align-items: center;
+    padding: 0.55rem 0.75rem;
+    border-radius: var(--ms-radius-sm);
+    color: var(--ms-text-secondary);
+    font-weight: 650;
+    text-decoration: none;
+  }
+
+  .mobile-menu a:hover {
+    background: var(--ms-surface-muted);
+    color: var(--ms-text);
+  }
+
+  .mobile-menu__footer {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.6rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--ms-border);
+  }
+
+  .mobile-menu__footer .btn {
+    flex: 1;
+  }
+
+  @media (max-width: 1180px) {
+    .site-nav a {
+      padding-inline: 0.45rem;
+      font-size: 0.76rem;
+    }
+
+    .site-cta {
+      display: none;
+    }
+  }
+
+  @media (max-width: 1080px) {
+    .site-nav {
+      display: none;
+    }
+
+    .menu-button {
+      display: inline-flex;
+    }
+
+    .mobile-menu:not([hidden]) {
+      display: block;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .site-header {
+      width: calc(100% - 0.75rem);
+    }
+
+    .site-header__inner {
+      padding-left: 0.65rem;
+    }
+  }
+</style>

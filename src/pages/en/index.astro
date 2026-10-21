@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import HomePage from '../../components/HomePage.astro';
+import { getDict } from '../../i18n/utils';
+
+const dict = getDict('en');
+---
+
+<BaseLayout
+  locale="en"
+  title={dict.meta.homeTitle}
+  description={dict.meta.homeDescription}
+  frPath="/"
+  enPath="/en/"
+>
+  <HomePage locale="en" />
+</BaseLayout>

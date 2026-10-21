@@ -1,0 +1,187 @@
+---
+import Logo from './Logo.astro';
+import { SITE, legalPath, localePath, type Locale } from '../config/site';
+import { getDict } from '../i18n/utils';
+import servicesFr from '../content/services.fr.json';
+import servicesEn from '../content/services.en.json';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const dict = getDict(locale);
+const year = new Date().getFullYear();
+const serviceContent = locale === 'en' ? servicesEn : servicesFr;
+const services = Object.values(serviceContent).map((service) => ({
+  href: localePath(locale, `services/${service.slug}/`),
+  label: service.shortTitle,
+}));
+---
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="site-footer__grid">
+      <div class="site-footer__brand">
+        <Logo locale={locale} />
+        <p>{dict.footer.tagline}</p>
+        <a class="site-footer__email" href={`mailto:${SITE.email}`}>{SITE.email}</a>
+      </div>
+
+      <div>
+        <h2>{dict.footer.servicesTitle}</h2>
+        <ul>
+          {services.map((item) => (
+            <li><a href={item.href}>{item.label}</a></li>
+          ))}
+        </ul>
+      </div>
+
+      <div>
+        <h2>{dict.footer.companyTitle}</h2>
+        <ul>
+          <li><a href={localePath(locale, '#realisations')}>{dict.footer.realisations}</a></li>
+          <li><a href={localePath(locale, '#certifications')}>{dict.footer.certifications}</a></li>
+          <li><a href={localePath(locale, '#methodology')}>{dict.footer.methodology}</a></li>
+          <li><a href={localePath(locale, '#engagements')}>{dict.footer.engagements}</a></li>
+          <li><a href={localePath(locale, 'blog')}>{dict.footer.blog}</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h2>{dict.footer.contactTitle}</h2>
+        <ul>
+          <li><a href={`mailto:${SITE.email}`}>{dict.common.email}</a></li>
+          <li><a href={SITE.phoneHref}>{SITE.phone.replaceAll(' ', '\u00a0')}</a></li>
+          <li><a href={SITE.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn<span class="sr-only"> ({dict.common.opensNewTab})</span></a></li>
+          <li><a href={SITE.github} target="_blank" rel="noopener noreferrer">GitHub<span class="sr-only"> ({dict.common.opensNewTab})</span></a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="site-footer__bottom">
+      <p>{dict.footer.rights.replace('{year}', String(year))}</p>
+      <div class="site-footer__legal">
+        <a href={legalPath(locale, 'legal')}>{dict.footer.legalNotice}</a>
+        <a href={legalPath(locale, 'privacy')}>{dict.footer.privacy}</a>
+        <a href={legalPath(locale, 'cookies')}>{dict.footer.cookies}</a>
+      </div>
+      <p>{dict.footer.location}</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    padding-block: 4rem 2rem;
+    border-top: 1px solid var(--ms-border);
+    background: var(--ms-bg-soft);
+  }
+
+  .site-footer__grid {
+    display: grid;
+    grid-template-columns: 1.8fr repeat(3, 1fr);
+    gap: 2.5rem;
+    padding-bottom: 3rem;
+  }
+
+  .site-footer__brand p {
+    max-width: 22rem;
+    margin-top: 1rem;
+    color: var(--ms-text-secondary);
+    font-size: var(--ms-text-sm);
+  }
+
+  .site-footer__email {
+    display: inline-block;
+    margin-top: 1rem;
+    color: var(--ms-accent);
+    font-size: var(--ms-text-sm);
+    font-weight: 700;
+  }
+
+  .site-footer h2 {
+    margin-bottom: 1rem;
+    color: var(--ms-text-muted);
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .site-footer li + li {
+    margin-top: 0.15rem;
+  }
+
+  .site-footer li a {
+    display: inline-flex;
+    min-height: 2.25rem;
+    align-items: center;
+    color: var(--ms-text-secondary);
+    font-size: var(--ms-text-sm);
+    text-decoration: none;
+  }
+
+  .site-footer li a:hover {
+    color: var(--ms-accent);
+  }
+
+  .site-footer__bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--ms-border);
+    color: var(--ms-text-muted);
+    font-size: var(--ms-text-xs);
+  }
+
+  .site-footer__legal {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .site-footer__legal a {
+    min-height: 2rem;
+    display: inline-flex;
+    align-items: center;
+    color: var(--ms-text-muted);
+  }
+
+  .site-footer__legal a:hover {
+    color: var(--ms-accent);
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  @media (max-width: 860px) {
+    .site-footer__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 540px) {
+    .site-footer__grid {
+      grid-template-columns: 1fr;
+      gap: 1.75rem;
+    }
+
+    .site-footer__bottom {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+  }
+</style>

@@ -1,0 +1,46 @@
+---
+interface Props {
+  slug: string;
+}
+
+const { slug } = Astro.props;
+---
+
+<svg class="service-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+  {slug === 'connectivity' && (
+    <>
+      <circle cx="24" cy="24" r="17"></circle>
+      <path d="M7 24h34M24 7c4.4 4.5 6.8 10.2 6.8 17S28.4 36.5 24 41c-4.4-4.5-6.8-10.2-6.8-17S19.6 11.5 24 7Z"></path>
+      <circle cx="34.5" cy="13.5" r="3.5" fill="currentColor" stroke="none"></circle>
+    </>
+  )}
+  {slug === 'security' && (
+    <>
+      <path d="M24 6 39 12v10.8c0 8.5-5.9 14.8-15 19.2-9.1-4.4-15-10.7-15-19.2V12L24 6Z"></path>
+      <path d="m17.8 24.2 4 4.1 8.5-9"></path>
+    </>
+  )}
+  {slug === 'iot-tracking' && (
+    <>
+      <path d="M24 27v8"></path>
+      <path d="M18 35h12"></path>
+      <circle cx="24" cy="22" r="5"></circle>
+      <path d="M14.4 12.4a13.5 13.5 0 0 0 0 19.2M33.6 12.4a13.5 13.5 0 0 1 0 19.2"></path>
+      <path d="M9.5 7.5a20.5 20.5 0 0 0 0 29M38.5 7.5a20.5 20.5 0 0 1 0 29"></path>
+    </>
+  )}
+  {slug === 'ai-automation' && (
+    <>
+      <rect x="9" y="12" width="30" height="24" rx="6"></rect>
+      <path d="M18 22h.1M30 22h.1M18 29h12"></path>
+      <path d="M24 12V6M17 6h14M9 20H4M44 20h-5"></path>
+    </>
+  )}
+</svg>
+
+<style>
+  .service-icon {
+    width: 2rem;
+    height: 2rem;
+  }
+</style>

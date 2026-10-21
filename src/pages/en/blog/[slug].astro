@@ -1,0 +1,31 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import BlogArticle from '../../../components/BlogArticle.astro';
+import { SITE } from '../../../config/site';
+import { getPublishedPosts, postSlug } from '../../../lib/blog';
+
+export async function getStaticPaths() {
+  const posts = await getPublishedPosts('en');
+  return posts.map((entry) => ({
+    params: { slug: postSlug(entry) },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const slug = postSlug(entry);
+const frPosts = await getPublishedPosts('fr');
+const hasFrench = frPosts.some((post) => postSlug(post) === slug);
+---
+
+<BaseLayout
+  locale="en"
+  title={`${entry.data.title} | ${SITE.name}`}
+  description={entry.data.description}
+  frPath={hasFrench ? `/blog/${slug}/` : '/blog/'}
+  enPath={`/en/blog/${slug}/`}
+  pageType="article"
+  rssPath="/en/blog/rss.xml"
+>
+  <BlogArticle locale="en" entry={entry} />
+</BaseLayout>

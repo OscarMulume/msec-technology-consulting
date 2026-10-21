@@ -1,0 +1,66 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { localePath } from '../config/site';
+import { getDict } from '../i18n/utils';
+
+const fr = getDict('fr');
+const en = getDict('en');
+---
+
+<BaseLayout
+  locale="fr"
+  title={fr.meta.notFoundTitle}
+  description={fr.meta.notFoundDescription}
+  frPath="/"
+  enPath="/en/"
+  noindex
+>
+  <div class="not-found">
+    <div class="container container--narrow">
+      <p class="not-found__code">404</p>
+      <h1>{fr.notFound.title}</h1>
+      <p>{fr.notFound.text}</p>
+      <p lang="en" class="not-found__en">{en.notFound.text}</p>
+      <div class="btn-row">
+        <a class="btn btn--primary" href={localePath('fr')}>{fr.notFound.back}</a>
+        <a class="btn btn--secondary" href={localePath('en')} lang="en">{en.notFound.back}</a>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .not-found {
+    display: grid;
+    min-height: 62vh;
+    place-items: center;
+    padding-block: 3rem 5rem;
+  }
+
+  .not-found__code {
+    color: var(--ms-accent);
+    font-size: clamp(4rem, 15vw, 8rem);
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -0.06em;
+  }
+
+  .not-found h1 {
+    margin-top: 0.5rem;
+    font-size: var(--ms-display-sm);
+  }
+
+  .not-found p {
+    margin-top: 0.75rem;
+    color: var(--ms-text-secondary);
+  }
+
+  .not-found__en {
+    padding-top: 0.5rem;
+    font-size: var(--ms-text-sm);
+  }
+
+  .not-found .btn-row {
+    margin-top: 1.5rem;
+  }
+</style>

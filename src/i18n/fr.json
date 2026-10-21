@@ -1,0 +1,416 @@
+{
+  "meta": {
+    "homeTitle": "M-SEC Technology Consulting | Infrastructure IT et cybersécurité",
+    "homeDescription": "M-SEC Technology Consulting conçoit des infrastructures IT, réseaux et cybersécurité pour les entreprises d'Afrique centrale. Audit, connectivité, sécurité et produits SaaS.",
+    "servicesTitle": "Services | M-SEC Technology Consulting",
+    "servicesDescription": "Connectivité, cybersécurité, IoT et IA : découvrez les services M-SEC Technology Consulting.",
+    "blogTitle": "Blog | M-SEC Technology Consulting",
+    "blogDescription": "Conseils pratiques sur l'infrastructure, la cybersécurité et la continuité d'activité en Afrique centrale.",
+    "legalNoticeTitle": "Mentions légales | M-SEC Technology Consulting",
+    "legalNoticeDescription": "Informations légales du site M-SEC Technology Consulting, édité par Mulume Izuba Oscar.",
+    "privacyTitle": "Politique de confidentialité | M-SEC Technology Consulting",
+    "privacyDescription": "Données collectées par les formulaires du site M-SEC : finalité, conservation et droits.",
+    "cookiesTitle": "Cookies | M-SEC Technology Consulting",
+    "cookiesDescription": "Utilisation des cookies et du stockage local sur le site M-SEC Technology Consulting.",
+    "notFoundTitle": "Page introuvable | M-SEC Technology Consulting",
+    "notFoundDescription": "La page demandée n'existe pas ou a été déplacée."
+  },
+  "nav": {
+    "services": "Services",
+    "products": "Produits",
+    "cases": "Réalisations",
+    "certifications": "Certifications",
+    "engagements": "Engagements",
+    "blog": "Blog",
+    "contact": "Contact",
+    "audit": "Audit gratuit",
+    "menu": "Menu",
+    "mainMenu": "Navigation principale",
+    "mobileMenu": "Menu mobile",
+    "home": "Accueil",
+    "language": "Langue",
+    "languages": { "fr": "Français", "en": "English" },
+    "theme": "Apparence",
+    "themeAuto": "Automatique",
+    "themeLight": "Clair",
+    "themeDark": "Sombre",
+    "skip": "Aller au contenu principal"
+  },
+  "common": {
+    "learnMore": "En savoir plus",
+    "allServices": "Tous nos services",
+    "readMore": "Lire l'article",
+    "backHome": "Retour à l'accueil",
+    "contactUs": "Nous contacter",
+    "requestAudit": "Demander un audit gratuit",
+    "publishedOn": "Publié le",
+    "readingTime": "min de lecture",
+    "author": "Auteur",
+    "emptyBlog": "Articles en préparation",
+    "emptyBlogHint": "Les premiers articles sont en relecture. Ils seront publiés prochainement.",
+    "rss": "Flux RSS",
+    "share": "Partager",
+    "copyLink": "Copier le lien",
+    "copied": "Lien copié",
+    "whatsapp": "WhatsApp",
+    "email": "E-mail",
+    "phone": "Téléphone",
+    "location": "Adresse",
+    "coverage": "Zone d'intervention",
+    "inPreparation": "En préparation",
+    "pilotOpen": "Programme pilote ouvert",
+    "slashes": "Kinshasa, RDC",
+    "coverageValue": "Afrique centrale",
+    "whatsappMessage": "Bonjour M-SEC, je souhaite discuter d'un projet.",
+    "opensNewTab": "s'ouvre dans un nouvel onglet"
+  },
+  "footer": {
+    "tagline": "Cabinet d'ingénierie IT, réseaux et cybersécurité. Infrastructure, connectivité et sécurité au service des entreprises d'Afrique centrale.",
+    "servicesTitle": "Services",
+    "companyTitle": "Entreprise",
+    "resourcesTitle": "Ressources",
+    "contactTitle": "Contact",
+    "realisations": "Réalisations",
+    "certifications": "Certifications",
+    "methodology": "Méthodologie",
+    "engagements": "Engagements",
+    "compliance": "Conformité",
+    "blog": "Blog",
+    "legalNotice": "Mentions légales",
+    "privacy": "Confidentialité",
+    "cookies": "Cookies",
+    "rights": "© {year} M-SEC Technology Consulting — Mulume Izuba Oscar. Tous droits réservés.",
+    "location": "Kinshasa, RDC — Afrique centrale"
+  },
+  "home": {
+    "hero": {
+      "badge": "Conseil IT — Afrique centrale",
+      "title1": "M-SEC",
+      "title2": "Technology Consulting",
+      "tagline": "L'infrastructure et la sécurité IT au service de la performance de votre entreprise.",
+      "manifesto": "Une interruption réseau ou une faille de sécurité peut coûter cher à une entreprise. Nous associons ingénierie réseau, développement et cybersécurité pour construire des environnements plus résilients, documentés et maintenables.",
+      "ctaAudit": "Demander un audit gratuit",
+      "ctaServices": "Découvrir nos services",
+      "note": "Un premier échange permet de cadrer le besoin avant tout engagement.",
+      "stats": [
+        { "value": "24 h", "label": "Réponse à un message (jours ouvrés)" },
+        { "value": "48 h", "label": "Diagnostic d'audit" },
+        { "value": "SLA", "label": "Intervention prioritaire sous contrat" },
+        { "value": "4", "label": "Piliers d'expertise" }
+      ]
+    },
+    "why": {
+      "title": "Pourquoi choisir M-SEC ?",
+      "p1": "Nous appliquons le principe de « sécurité par conception ». Chaque câble posé, chaque antenne configurée et chaque base de données déployée intègre des règles de durcissement documentées, afin de réduire les risques et de faciliter la maintenance.",
+      "p2": "Nos architectures s'appuient sur des standards d'entreprise : Cisco, UniFi, FortiGate. Nous privilégions des choix vérifiables, un chiffrage clair et une documentation remise à chaque étape."
+    },
+    "products": {
+      "label": "Nos produits",
+      "title": "Des outils conçus pour le terrain",
+      "desc": "M-SEC développe aussi ses propres produits, pensés pour les réalités des entreprises congolaises : faible connectivité, double devise et terminaux Android d'entrée de gamme.",
+      "statusPilot": "Programme pilote ouvert",
+      "statusSoon": "Bientôt",
+      "items": [
+        {
+          "name": "POS Pro",
+          "tag": "Caisse restaurant",
+          "description": "Caisse hors-ligne pour restaurants : encaissement en CDF et USD, suivi des ventes et prise en charge du mobile money de la RDC (M-Pesa, Airtel Money, Orange Money, Afrimoney).",
+          "cta": "Devenir restaurant pilote"
+        },
+        {
+          "name": "Herbo",
+          "tag": "Boutique en ligne",
+          "description": "Une boutique de médicaments traditionnels en préparation, avec fiches produits et traçabilité.",
+          "cta": ""
+        },
+        {
+          "name": "MonImmo",
+          "tag": "Immobilier",
+          "description": "Une plateforme immobilière en préparation pour présenter et gérer des biens.",
+          "cta": ""
+        }
+      ],
+      "pilot": {
+        "label": "Programme pilote",
+        "title": "Devenir restaurant pilote",
+        "desc": "Vous gérez un restaurant à Kinshasa et souhaitez tester POS Pro ? Décrivez votre établissement. Aucun engagement : nous vous recontactons pour valider le périmètre.",
+        "note": "Le programme pilote est proposé sous réserve de disponibilité et après validation du besoin.",
+        "points": [
+          "Caisse pensée pour fonctionner hors-ligne",
+          "Encaissements en CDF et USD",
+          "Mobile money utilisé en RDC"
+        ]
+      }
+    },
+    "services": {
+      "label": "Expertise technique",
+      "title": "Nos 4 piliers d'expertise",
+      "desc": "Des solutions de connectivité, cybersécurité, IoT et IA conçues pour la performance et la résilience de votre entreprise.",
+      "technologies": "Technologies",
+      "benefit": "Bénéfice",
+      "values": [
+        { "icon": "⏱️", "title": "Réactivité locale", "text": "Intervention sur site à Kinshasa et missions en Afrique centrale selon le périmètre convenu." },
+        { "icon": "🛡️", "title": "Standards éprouvés", "text": "Cisco, UniFi, FortiGate, NIST, ISO 27001 et OWASP : des référentiels d'entreprise appliqués lorsque le projet le justifie." },
+        { "icon": "📊", "title": "Transparence", "text": "Chiffrage clair, plannings suivis, rapports SLA et documentation livrée à chaque étape." }
+      ]
+    },
+    "gallery": {
+      "label": "Nos réalisations",
+      "title": "Un travail qui se voit",
+      "desc": "Aperçu de nos installations et de notre environnement de travail.",
+      "close": "Fermer l'image",
+      "items": [
+        { "src": "msec-office", "title": "Siège M-SEC", "text": "Kinshasa, RDC — cliquez pour agrandir", "alt": "Bureau M-SEC Technology Consulting" },
+        { "src": "msec-team", "title": "Notre équipe", "text": "Professionnels certifiés", "alt": "Équipe M-SEC" },
+        { "src": "msec-network", "title": "Salle serveurs", "text": "Câblage structuré et baies", "alt": "Infrastructure réseau" },
+        { "src": "msec-security", "title": "Sécurité périmétrique", "text": "Vidéosurveillance et contrôle d'accès", "alt": "Cybersécurité" },
+        { "src": "msec-server", "title": "Infrastructure serveur", "text": "Haute disponibilité", "alt": "Serveurs" }
+      ]
+    },
+    "cases": {
+      "label": "Études de cas",
+      "title": "Projets réels, résultats mesurables",
+      "desc": "Des missions livrées sur le terrain, avec un impact opérationnel concret.",
+      "items": [
+        {
+          "tag": "Modernisation d'infrastructure",
+          "title": "Refonte du câblage et digitalisation de complexes immobiliers",
+          "segments": [
+            { "label": "Le défi", "text": "Des complexes immobiliers majeurs dotés d'un réseau hétéroclite, lent et peu fiable, freinant les outils de gestion et les points de vente." },
+            { "label": "La solution déployée", "text": "Refonte complète du câblage réseau sur près de 50 % des infrastructures, évaluation et déploiement de logiciels de gestion (type Okoya/Immosphere), et intégration de systèmes de point de vente (POS) synchronisés en temps réel." },
+            { "label": "L'impact opérationnel", "text": "Des opérations accélérées, des ventes fiabilisées et une infrastructure enfin maintenable, documentée et prête à croître." }
+          ]
+        },
+        {
+          "tag": "Connectivité nomade",
+          "title": "Architecture de connectivité pour véhicules d'intervention",
+          "segments": [
+            { "label": "Le défi", "text": "Une flotte de véhicules d'intervention sans connexion fiable en zones reculées, incapable de transmettre ses données de mission en temps réel." },
+            { "label": "La solution déployée", "text": "Conception technique et déploiement de terminaux satellites haut débit couplés à des stations d'énergie portables, afin de maintenir une liaison opérationnelle indépendamment de l'infrastructure locale." },
+            { "label": "L'impact opérationnel", "text": "Une flotte mieux connectée, une télémétrie plus fiable et une capacité d'intervention renforcée sur le terrain." }
+          ]
+        }
+      ]
+    },
+    "engagements": {
+      "label": "Nos engagements",
+      "title": "Des engagements écrits, pas des promesses",
+      "desc": "Nos délais sont définis dans le contrat. Ce tableau récapitule les engagements applicables aux demandes et au support.",
+      "tableHeaders": { "commitment": "Engagement", "target": "Délai cible", "detail": "Précisions" },
+      "rows": [
+        { "commitment": "Réponse à un message", "target": "Sous 24 h ouvrées", "detail": "Pour toute demande envoyée via le formulaire ou par e-mail." },
+        { "commitment": "Diagnostic d'audit", "target": "Sous 48 h", "detail": "Après réception des informations nécessaires. Le rapport complet dépend du périmètre convenu." },
+        { "commitment": "Intervention prioritaire", "target": "Selon le SLA du contrat", "detail": "Délais définis et signés dans le contrat de support." }
+      ],
+      "cards": [
+        { "icon": "🛡️", "title": "Disponibilité encadrée par contrat", "text": "Les objectifs de disponibilité sont fixés contrat par contrat, selon l'architecture et les moyens mis en place. Chaque incident est tracé et documenté." },
+        { "icon": "🔐", "title": "Confidentialité & NDA", "text": "Un accord de non-divulgation peut couvrir chaque échange. Vos données, schémas réseau et résultats d'audit restent confidentiels." },
+        { "icon": "📈", "title": "Rapports & transparence", "text": "Rapports de support, comptes rendus d'intervention et documentation à jour. Vous savez où se trouve votre infrastructure et pourquoi." }
+      ]
+    },
+    "method": {
+      "label": "Processus",
+      "title": "Notre méthodologie",
+      "desc": "Un processus en 4 phases pour des résultats mesurables et reproductibles.",
+      "steps": [
+        { "title": "Audit & analyse", "text": "Évaluation de vos vulnérabilités. Cartographie réseau, mesure de performance et identification des failles." },
+        { "title": "Proposition technique", "text": "Conception sur mesure (Cisco, UniFi, FortiGate). Chiffrage transparent, planning et garanties contractuelles." },
+        { "title": "Déploiement sécurisé", "text": "Installation physique et logique avec durcissement cyber. Tests de performance complets." },
+        { "title": "Supervision continue", "text": "Monitoring selon le contrat, maintenance proactive, rapports et support technique dédié." }
+      ]
+    },
+    "values": {
+      "label": "Ce qui nous guide",
+      "title": "Nos valeurs",
+      "items": [
+        { "icon": "🎯", "title": "Exigence", "text": "La qualité et la sécurité jusque dans les détails qui ne se voient pas." },
+        { "icon": "🤝", "title": "Intégrité", "text": "Des conseils honnêtes, un chiffrage transparent et aucun engagement que nous ne pouvons tenir." },
+        { "icon": "🧠", "title": "Expertise", "text": "Une veille technologique permanente et des compétences actualisées au service de vos projets." },
+        { "icon": "🌍", "title": "Impact local", "text": "Des solutions de classe mondiale pensées pour les réalités de l'Afrique centrale." }
+      ]
+    },
+    "compliance": {
+      "label": "Conformité & sécurité",
+      "title": "Vos données, notre responsabilité",
+      "desc": "Nous intégrons la conformité et la protection des données au cœur de chaque mission.",
+      "items": [
+        { "icon": "🔐", "title": "Confidentialité", "text": "Accords de non-divulgation et accès restreint à vos informations sensibles.", "bullets": ["NDA avant tout partage d'information", "Schémas et failles traités comme des secrets", "Suppression sécurisée des données de projet"] },
+        { "icon": "📜", "title": "Référentiels", "text": "Nos missions s'appuient sur des standards reconnus pour des livrables auditables et durables.", "bullets": ["NIST Cybersecurity Framework", "ISO 27001 & CIS Benchmarks", "OWASP & TIA/EIA-568"] },
+        { "icon": "📄", "title": "Éthique professionnelle", "text": "Des tests réalisés uniquement dans un cadre autorisé et contractuel, avec des interventions documentées.", "bullets": ["Tests dans le périmètre convenu uniquement", "Traçabilité complète des interventions", "Aucune exploitation des failles découvertes"] }
+      ]
+    },
+    "certifications": {
+      "label": "Validations & excellence technique",
+      "title": "Certifications & rigueur académique",
+      "desc": "Nous allions la rigueur académique aux réalités du terrain. Chaque certification valide une capacité appliquée sur vos projets.",
+      "items": [
+        { "icon": "🌐", "domain": "Réseau & infrastructure", "title": "Cisco Networking Academy", "text": "Certification officielle « Networking Devices and Initial Configuration » (mars 2026). Une preuve de maîtrise des fondations réseau appliquées à chaque architecture." },
+        { "icon": "🛡️", "domain": "Cybersécurité offensive", "title": "Hack The Box & Kali Linux", "text": "Pratique continue sur Hack The Box Academy et maîtrise de Kali Linux sous WSL. Des compétences offensives au service de votre défense." },
+        { "icon": "🤖", "domain": "Intelligence artificielle", "title": "Grant AI Skills & Compute Africa", "text": "Obtenu en juillet 2026 pour le fine-tuning de modèles de langage et d'agents autonomes, complété par la Data Science Africa Summer School (Université Makerere)." },
+        { "icon": "🎓", "domain": "Fondations académiques", "title": "Licence en Sciences Informatiques — ISIPA", "text": "Un socle théorique solide qui garantit des livrables rigoureux, documentés et pérennes." }
+      ],
+      "note": "Chaque validation se traduit par un bénéfice concret : des architectures plus sûres, des systèmes audités selon des standards reconnus et une veille permanente sur les menaces émergentes."
+    },
+    "audit": {
+      "label": "Évaluation gratuite",
+      "title": "Demandez un mini-audit",
+      "desc": "Recevez une évaluation professionnelle de vos vulnérabilités. Sans engagement.",
+      "benefits": [
+        { "icon": "🔍", "title": "Analyse complète", "text": "Cartographie de votre infrastructure, identification des failles de sécurité et des goulots d'étranglement." },
+        { "icon": "📊", "title": "Rapport détaillé", "text": "Rapport professionnel avec des recommandations priorisées et chiffrées." },
+        { "icon": "🛡️", "title": "Sans engagement", "text": "L'audit est gratuit. Vous décidez ensuite si vous souhaitez travailler avec nous." },
+        { "icon": "⚡", "title": "Résultats rapides", "text": "Premier diagnostic sous 48 h. Rapport complet selon le périmètre convenu." }
+      ]
+    },
+    "contact": {
+      "label": "Contact",
+      "title": "Parlons de votre projet",
+      "desc": "Un projet, une mission, une question ? Écrivez-nous : nous répondons sous 24 h ouvrées.",
+      "cards": [
+        { "icon": "📧", "title": "E-mail", "value": "oscarmulume1612@gmail.com", "href": "mailto:oscarmulume1612@gmail.com" },
+        { "icon": "📱", "title": "Téléphone", "value": "+243\u00a0975\u00a0585\u00a0150", "href": "tel:+243975585150" },
+        { "icon": "📍", "title": "Adresse", "value": "Kinshasa, RDC" },
+        { "icon": "🌍", "title": "Zone d'intervention", "value": "Afrique centrale" }
+      ]
+    },
+    "cta": {
+      "title": "Prêt à sécuriser votre infrastructure ?",
+      "desc": "Demandez un diagnostic gratuit et recevez des recommandations concrètes, sans engagement.",
+      "audit": "Demander l'audit gratuit",
+      "contact": "Nous contacter"
+    }
+  },
+  "servicePage": {
+    "back": "Tous nos services",
+    "featuresLabel": "Prestations incluses",
+    "benefitLabel": "Bénéfice",
+    "standardsLabel": "Standards & technologies",
+    "ctaTitle": "Intéressé par ce service ?",
+    "ctaText": "Contactez-nous pour une consultation gratuite et sans engagement.",
+    "auditCta": "Demander un audit gratuit",
+    "contactCta": "Nous contacter"
+  },
+  "forms": {
+    "required": "Champ obligatoire",
+    "fullName": "Nom complet",
+    "company": "Entreprise",
+    "email": "E-mail",
+    "phone": "Téléphone",
+    "topic": "Sujet",
+    "message": "Message",
+    "page": "Page",
+    "commune": "Commune",
+    "registers": "Nombre de caisses",
+    "pilotRestaurant": "Nom du restaurant",
+    "chooseService": "Choisir un service",
+    "placeholders": {
+      "name": "Votre nom",
+      "company": "Nom de l'entreprise",
+      "restaurant": "Nom du restaurant",
+      "email": "votre@email.com",
+      "phone": "+243 ...",
+      "message": "Décrivez votre projet...",
+      "auditMessage": "Décrivez brièvement vos besoins ou problèmes actuels...",
+      "commune": "Ex. Gombe",
+      "registers": "Ex. 2"
+    },
+    "audit": {
+      "submit": "Envoyer la demande d'audit",
+      "topicLabel": "Type d'infrastructure",
+      "topics": [
+        { "value": "connectivity", "label": "Connectivité & infrastructure" },
+        { "value": "security", "label": "Cybersécurité & vidéosurveillance" },
+        { "value": "iot", "label": "IoT, traçage & MDM" },
+        { "value": "ai", "label": "Innovation IA" },
+        { "value": "full", "label": "Audit complet" }
+      ]
+    },
+    "contact": {
+      "submit": "Envoyer le message",
+      "topicLabel": "Service souhaité",
+      "topics": [
+        { "value": "", "label": "Choisir un service" },
+        { "value": "connectivity", "label": "Connectivité & infrastructure" },
+        { "value": "security", "label": "Cybersécurité & vidéosurveillance" },
+        { "value": "iot-tracking", "label": "IoT, traçage & MDM" },
+        { "value": "ai-automation", "label": "Innovation IA & automatisation" },
+        { "value": "consulting", "label": "Conseil" }
+      ]
+    },
+    "pilot": {
+      "submit": "Envoyer ma candidature",
+      "topicLabel": "Commune",
+      "emailOptional": "E-mail (facultatif)"
+    },
+    "privacyNote": "Vos informations servent uniquement à répondre à votre demande. Voir la politique de confidentialité.",
+    "sending": "Envoi en cours…",
+    "success": {
+      "audit": "Demande envoyée. Nous vous recontactons selon les délais indiqués dans nos engagements.",
+      "contact": "Message envoyé.",
+      "pilot": "Candidature envoyée. Nous vous recontactons pour étudier le programme pilote."
+    },
+    "errors": {
+      "wait": "Merci de patienter quelques secondes avant l'envoi.",
+      "notConfigured": "L'envoi automatique n'est pas encore configuré. Votre demande n'a pas été enregistrée.",
+      "failed": "L'envoi a échoué. Votre demande n'a pas été enregistrée."
+    },
+    "fallback": {
+      "title": "Votre demande n'a pas été enregistrée. Vous pouvez nous l'envoyer directement :",
+      "whatsapp": "Envoyer par WhatsApp",
+      "email": "Envoyer par e-mail",
+      "subject": "Demande depuis le site M-SEC"
+    }
+  },
+  "legalNotice": {
+    "title": "Mentions légales",
+    "updated": "Dernière mise à jour : 20 octobre 2026",
+    "sections": [
+      { "heading": "1. Éditeur du site", "paragraphs": ["Le site M-SEC Technology Consulting (conseil IT, réseaux et cybersécurité) est édité par Mulume Izuba Oscar, développeur et architecte IT basé à Kinshasa, République démocratique du Congo.", "Contact : oscarmulume1612@gmail.com."] },
+      { "heading": "2. Hébergement", "paragraphs": ["Le site est hébergé par GitHub Pages, un service de GitHub, Inc. (88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis).", "Les demandes envoyées via les formulaires sont stockées dans une base Supabase, selon la politique de confidentialité du site."] },
+      { "heading": "3. Propriété intellectuelle", "paragraphs": ["L'ensemble des éléments du site (structure, textes, interfaces, logo, code source et visuels) est la propriété exclusive de Mulume Izuba Oscar ou de ses ayants droit. Toute reproduction, représentation ou exploitation, totale ou partielle, sans autorisation écrite préalable est interdite."] },
+      { "heading": "4. Données personnelles et cookies", "paragraphs": ["Les données transmises via les formulaires servent uniquement à répondre à votre demande. Elles ne sont pas revendues. Voir la politique de confidentialité et la page Cookies pour le détail."] },
+      { "heading": "5. Droit applicable", "paragraphs": ["Le présent site et son utilisation sont régis par le droit applicable au lieu d'établissement de l'éditeur. En cas de litige, une solution amiable sera recherchée avant toute action judiciaire devant la juridiction compétente."] }
+    ]
+  },
+  "privacy": {
+    "title": "Politique de confidentialité",
+    "updated": "Dernière mise à jour : 20 octobre 2026",
+    "intro": "Cette politique explique quelles données le site M-SEC collecte, pourquoi, combien de temps elles sont conservées et comment exercer vos droits.",
+    "sections": [
+      { "heading": "1. Responsable du traitement", "paragraphs": ["Mulume Izuba Oscar, éditeur de M-SEC Technology Consulting, Kinshasa, République démocratique du Congo. Contact : oscarmulume1612@gmail.com."] },
+      { "heading": "2. Données collectées", "paragraphs": ["Via les formulaires d'audit, de contact et de programme pilote : nom, entreprise ou restaurant, adresse e-mail, téléphone, commune, sujet, message et nombre de caisses le cas échéant.", "Des données techniques minimales (page d'origine de la demande) sont enregistrées pour comprendre le contexte de votre message."] },
+      { "heading": "3. Finalité et base légale", "paragraphs": ["Ces données servent uniquement à répondre à votre demande, qualifier un projet ou étudier une candidature au programme pilote. La base légale est votre consentement, exprimé par l'envoi volontaire du formulaire."] },
+      { "heading": "4. Destinataires", "paragraphs": ["Les données sont accessibles au fondateur de M-SEC et aux prestataires techniques strictement nécessaires (hébergement de la base Supabase, hébergement du site GitHub Pages). Elles ne sont ni vendues ni cédées à des fins commerciales."] },
+      { "heading": "5. Durée de conservation", "paragraphs": ["Les demandes sont conservées 24 mois à compter du dernier contact, sauf obligation légale contraire ou demande de suppression anticipée."] },
+      { "heading": "6. Vos droits", "paragraphs": ["Vous pouvez demander l'accès, la rectification ou la suppression de vos données en écrivant à oscarmulume1612@gmail.com. Nous répondons dans un délai de 30 jours."] },
+      { "heading": "7. Sécurité", "paragraphs": ["L'accès à la base est restreint. Les formulaires publics ne peuvent qu'insérer une demande : aucune lecture, modification ou suppression n'est ouverte au public. Les échanges sensibles peuvent être couverts par un accord de non-divulgation."] }
+    ]
+  },
+  "cookies": {
+    "title": "Cookies",
+    "updated": "Dernière mise à jour : 20 octobre 2026",
+    "intro": "Ce site n'utilise aucun cookie de mesure d'audience, de publicité ou de profilage.",
+    "sections": [
+      { "heading": "1. Cookies", "paragraphs": ["Aucun cookie n'est déposé par le site M-SEC. Aucun outil d'analyse tiers n'est chargé."] },
+      { "heading": "2. Stockage local", "paragraphs": ["Le site utilise le stockage local de votre navigateur (localStorage) pour mémoriser votre préférence d'apparence : automatique, clair ou sombre. Cette information reste sur votre appareil et n'est pas transmise."] },
+      { "heading": "3. Polices et ressources", "paragraphs": ["Le site utilise les polices système de votre appareil. Aucune police, aucun script et aucune ressource externe ne sont chargés pour l'affichage."] },
+      { "heading": "4. Gestion", "paragraphs": ["Vous pouvez supprimer ce stockage local à tout moment via les réglages de votre navigateur. Le site continuera de fonctionner."] }
+    ]
+  },
+  "blog": {
+    "title": "Blog M-SEC",
+    "description": "Conseils pratiques sur l'infrastructure, la cybersécurité et la continuité d'activité en Afrique centrale.",
+    "empty": "Articles en préparation",
+    "emptyHint": "Les premiers articles sont en relecture. Ils seront publiés prochainement.",
+    "rss": "Flux RSS",
+    "backToBlog": "Retour au blog",
+    "minRead": "min de lecture",
+    "by": "Par",
+    "share": "Partager cet article"
+  },
+  "notFound": {
+    "title": "Page introuvable",
+    "text": "La page demandée n'existe pas ou a été déplacée.",
+    "back": "Retour à l'accueil"
+  }
+}

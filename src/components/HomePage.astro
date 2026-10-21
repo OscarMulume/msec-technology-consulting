@@ -1,0 +1,1379 @@
+---
+import LeadForm from './LeadForm.astro';
+import ServiceIcon from './ServiceIcon.astro';
+import { SITE, localePath, withBase, type Locale } from '../config/site';
+import { getDict } from '../i18n/utils';
+import servicesFr from '../content/services.fr.json';
+import servicesEn from '../content/services.en.json';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const dict = getDict(locale);
+const home = dict.home;
+const services = Object.values(locale === 'en' ? servicesEn : servicesFr);
+const dimensions: Record<string, [number, number]> = {
+  'msec-office': [1332, 768],
+  'msec-team': [1338, 768],
+  'msec-network': [1342, 768],
+  'msec-security': [1329, 768],
+  'msec-server': [1333, 768],
+};
+const contactCards = [
+  { ...home.contact.cards[0], href: `mailto:${SITE.email}` },
+  { ...home.contact.cards[1], href: SITE.phoneHref },
+  home.contact.cards[2],
+  home.contact.cards[3],
+];
+const productCodes = ['POS', 'H', 'MI'];
+---
+
+<div class="home">
+  <section class="hero">
+    <div class="container hero__grid">
+      <div class="hero__copy">
+        <p class="hero__badge"><span></span>{home.hero.badge}</p>
+        <h1>
+          <span class="hero__brand">{home.hero.title1}</span>
+          <span class="hero__accent">{home.hero.title2}</span>
+        </h1>
+        <p class="hero__tagline">{home.hero.tagline}</p>
+        <p class="hero__manifesto">{home.hero.manifesto}</p>
+        <div class="btn-row">
+          <a class="btn btn--primary" href={localePath(locale, '#audit')}>{home.hero.ctaAudit}</a>
+          <a class="btn btn--secondary" href={localePath(locale, '#services')}>{home.hero.ctaServices}</a>
+        </div>
+        <p class="hero__note">{home.hero.note}</p>
+      </div>
+
+      <div class="hero__visual" aria-hidden="true">
+        <div class="signal-panel glass">
+          <div class="signal-panel__top">
+            <span class="signal-panel__dot"></span>
+            <span>{SITE.shortName}</span>
+          </div>
+          <div class="signal-panel__orbit">
+            <span class="signal-panel__core">M-SEC</span>
+            <span class="signal-panel__node signal-panel__node--1"></span>
+            <span class="signal-panel__node signal-panel__node--2"></span>
+            <span class="signal-panel__node signal-panel__node--3"></span>
+            <span class="signal-panel__ring"></span>
+          </div>
+          <div class="signal-panel__footer">
+            <span>{home.services.label}</span>
+            <span>{home.products.label}</span>
+            <span>{dict.nav.blog}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <dl class="hero__stats">
+        {home.hero.stats.map((stat) => (
+          <div>
+            <dt>{stat.label}</dt>
+            <dd>{stat.value}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  </section>
+
+  <section class="section section--soft">
+    <div class="container">
+      <div class="why-grid">
+        <div class="section-head">
+          <h2 class="section-title">{home.why.title}</h2>
+        </div>
+        <div class="why-grid__text">
+          <p>{home.why.p1}</p>
+          <p>{home.why.p2}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="products">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">{home.products.label}</p>
+        <h2 class="section-title">{home.products.title}</h2>
+        <p class="section-desc">{home.products.desc}</p>
+      </div>
+
+      <div class="product-grid">
+        {home.products.items.map((product, index) => (
+          <article class:list={['product-card', { 'product-card--pilot': index === 0 }]}>
+            <div class="product-card__top">
+              <span class="product-card__mark" aria-hidden="true">{productCodes[index]}</span>
+              <span class:list={['badge', { 'badge--accent': index === 0 }]}>
+                {index === 0 ? home.products.statusPilot : home.products.statusSoon}
+              </span>
+            </div>
+            <p class="product-card__tag">{product.tag}</p>
+            <h3>{product.name}</h3>
+            <p class="product-card__description">{product.description}</p>
+            {product.cta && (
+              <a class="product-card__link" href="#pilot">{product.cta}<span aria-hidden="true">→</span></a>
+            )}
+          </article>
+        ))}
+      </div>
+
+      <div class="pilot-panel" id="pilot">
+        <div class="pilot-panel__copy">
+          <p class="eyebrow">{home.products.pilot.label}</p>
+          <h3>{home.products.pilot.title}</h3>
+          <p>{home.products.pilot.desc}</p>
+          <p class="pilot-panel__note">{home.products.pilot.note}</p>
+          <ul class="check-list">
+            {home.products.pilot.points.map((point) => <li>{point}</li>)}
+          </ul>
+        </div>
+        <LeadForm kind="pilot" locale={locale} id="pilot-form" />
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--soft" id="services">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">{home.services.label}</p>
+        <h2 class="section-title">{home.services.title}</h2>
+        <p class="section-desc">{home.services.desc}</p>
+      </div>
+
+      <div class="service-grid">
+        {services.map((service, index) => (
+          <article class="service-card">
+            <div class="service-card__head">
+              <span class="service-card__icon"><ServiceIcon slug={service.slug} /></span>
+              <span class="service-card__index">0{index + 1}</span>
+            </div>
+            <h3>{service.title}</h3>
+            <p>{service.summary}</p>
+            <div class="service-card__standards">
+              {service.standards.slice(0, 3).map((standard) => <span>{standard}</span>)}
+            </div>
+            <a class="text-link" href={localePath(locale, `services/${service.slug}/`)}>
+              {dict.common.learnMore}<span aria-hidden="true">→</span>
+            </a>
+          </article>
+        ))}
+      </div>
+
+      <div class="value-strip">
+        {home.services.values.map((value) => (
+          <div>
+            <span aria-hidden="true">{value.icon}</span>
+            <h3>{value.title}</h3>
+            <p>{value.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="realisations">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">{home.gallery.label}</p>
+        <h2 class="section-title">{home.gallery.title}</h2>
+        <p class="section-desc">{home.gallery.desc}</p>
+      </div>
+
+      <div class="gallery-grid">
+        {home.gallery.items.map((item) => {
+          const [width, height] = dimensions[item.src] || [1332, 768];
+          return (
+            <figure class:list={['gallery-card', { 'gallery-card--wide': item.src === 'msec-office' }]}>
+              <a href={withBase(`/media/${item.src}.webp`)} target="_blank" rel="noopener noreferrer" aria-label={`${item.title} (${dict.common.opensNewTab})`}>
+                <img
+                  src={withBase(`/media/${item.src}.webp`)}
+                  width={width}
+                  height={height}
+                  alt={item.alt}
+                  loading="lazy"
+                  decoding="async"
+                />
+              </a>
+              <figcaption>
+                <strong>{item.title}</strong>
+                <span>{item.text}</span>
+              </figcaption>
+            </figure>
+          );
+        })}
+      </div>
+
+      <div class="case-grid">
+        {home.cases.items.map((item) => (
+          <article class="case-card">
+            <span class="badge">{item.tag}</span>
+            <h3>{item.title}</h3>
+            {item.segments.map((segment) => (
+              <div class="case-card__segment">
+                <h4>{segment.label}</h4>
+                <p>{segment.text}</p>
+              </div>
+            ))}
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--soft" id="engagements">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">{home.engagements.label}</p>
+        <h2 class="section-title">{home.engagements.title}</h2>
+        <p class="section-desc">{home.engagements.desc}</p>
+      </div>
+
+      <div class="engagement-grid">
+        <div class="table-wrap">
+          <table>
+            <caption class="visually-hidden">{home.engagements.title}</caption>
+            <thead>
+              <tr>
+                <th scope="col">{home.engagements.tableHeaders.commitment}</th>
+                <th scope="col">{home.engagements.tableHeaders.target}</th>
+                <th scope="col">{home.engagements.tableHeaders.detail}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {home.engagements.rows.map((row) => (
+                <tr>
+                  <th scope="row">{row.commitment}</th>
+                  <td><strong>{row.target}</strong></td>
+                  <td>{row.detail}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <div class="engagement-cards">
+          {home.engagements.cards.map((card) => (
+            <article class="mini-card">
+              <span aria-hidden="true">{card.icon}</span>
+              <h3>{card.title}</h3>
+              <p>{card.text}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="methodology">
+    <div class="container">
+      <div class="split-head">
+        <div class="section-head">
+          <p class="eyebrow">{home.method.label}</p>
+          <h2 class="section-title">{home.method.title}</h2>
+          <p class="section-desc">{home.method.desc}</p>
+        </div>
+        <div class="section-head">
+          <p class="eyebrow">{home.values.label}</p>
+          <h2 class="section-title">{home.values.title}</h2>
+        </div>
+      </div>
+
+      <div class="method-grid">
+        {home.method.steps.map((step, index) => (
+          <article>
+            <span>0{index + 1}</span>
+            <h3>{step.title}</h3>
+            <p>{step.text}</p>
+          </article>
+        ))}
+      </div>
+
+      <div class="values-grid">
+        {home.values.items.map((value) => (
+          <article>
+            <span aria-hidden="true">{value.icon}</span>
+            <h3>{value.title}</h3>
+            <p>{value.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--soft" id="certifications">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">{home.certifications.label}</p>
+        <h2 class="section-title">{home.certifications.title}</h2>
+        <p class="section-desc">{home.certifications.desc}</p>
+      </div>
+
+      <div class="cert-grid">
+        {home.certifications.items.map((item) => (
+          <article class="cert-card">
+            <span class="cert-card__icon" aria-hidden="true">{item.icon}</span>
+            <div>
+              <p class="cert-card__domain">{item.domain}</p>
+              <h3>{item.title}</h3>
+              <p>{item.text}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+      <p class="cert-note">{home.certifications.note}</p>
+    </div>
+  </section>
+
+  <section class="section" id="audit">
+    <div class="container">
+      <div class="audit-grid">
+        <div>
+          <div class="section-head">
+            <p class="eyebrow">{home.audit.label}</p>
+            <h2 class="section-title">{home.audit.title}</h2>
+            <p class="section-desc">{home.audit.desc}</p>
+          </div>
+          <div class="benefit-list">
+            {home.audit.benefits.map((benefit) => (
+              <article>
+                <span aria-hidden="true">{benefit.icon}</span>
+                <div>
+                  <h3>{benefit.title}</h3>
+                  <p>{benefit.text}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+        <LeadForm kind="audit" locale={locale} id="audit-form" />
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--soft" id="contact">
+    <div class="container">
+      <div class="section-head section-head--center">
+        <p class="eyebrow">{home.contact.label}</p>
+        <h2 class="section-title">{home.contact.title}</h2>
+        <p class="section-desc">{home.contact.desc}</p>
+      </div>
+
+      <div class="contact-grid">
+        <LeadForm kind="contact" locale={locale} id="contact-form" />
+        <div class="contact-cards">
+          {contactCards.map((card) => (
+            <article class="contact-card">
+              <span aria-hidden="true">{card.icon}</span>
+              <h3>{card.title}</h3>
+              {'href' in card && card.href
+                ? <a href={card.href}>{card.value}</a>
+                : <p>{card.value}</p>}
+            </article>
+          ))}
+          <article class="contact-card contact-card--wide">
+            <span aria-hidden="true">🕘</span>
+            <h3>{home.engagements.rows[0].commitment}</h3>
+            <p>{home.engagements.rows[0].target} · {home.engagements.rows[0].detail}</p>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="container">
+      <div class="cta-panel glass">
+        <div>
+          <h2>{home.cta.title}</h2>
+          <p>{home.cta.desc}</p>
+        </div>
+        <div class="btn-row">
+          <a class="btn btn--primary" href={localePath(locale, '#audit')}>{home.cta.audit}</a>
+          <a class="btn btn--secondary" href={localePath(locale, '#contact')}>{home.cta.contact}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<style>
+  .hero {
+    position: relative;
+    padding-block: clamp(3rem, 8vw, 6.5rem) 0;
+    overflow: hidden;
+  }
+
+  .hero__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(18rem, 0.9fr);
+    align-items: center;
+    gap: clamp(2rem, 6vw, 5rem);
+  }
+
+  .hero__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.45rem 0.8rem;
+    border: 1px solid var(--ms-border);
+    border-radius: var(--ms-radius-pill);
+    background: var(--ms-surface);
+    color: var(--ms-text-secondary);
+    font-size: var(--ms-text-xs);
+    font-weight: 750;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .hero__badge span {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background: var(--ms-success);
+    box-shadow: 0 0 0 0.25rem var(--ms-success-soft);
+  }
+
+  .hero h1 {
+    max-width: 12ch;
+    margin-top: 1.25rem;
+    font-size: var(--ms-display-lg);
+    font-weight: 900;
+    letter-spacing: -0.06em;
+  }
+
+  .hero__brand,
+  .hero__accent {
+    display: block;
+  }
+
+  .hero__accent {
+    color: var(--ms-accent);
+  }
+
+  .hero__tagline {
+    max-width: 36rem;
+    margin-top: 1.4rem;
+    color: var(--ms-text-secondary);
+    font-size: clamp(1.08rem, 2vw, 1.35rem);
+    line-height: 1.6;
+  }
+
+  .hero__manifesto {
+    max-width: 39rem;
+    margin-top: 1rem;
+    color: var(--ms-text-muted);
+    font-size: var(--ms-text-sm);
+    line-height: 1.75;
+  }
+
+  .hero .btn-row {
+    margin-top: 1.8rem;
+  }
+
+  .hero__note {
+    margin-top: 1rem;
+    color: var(--ms-text-muted);
+    font-size: var(--ms-text-xs);
+  }
+
+  .hero__visual {
+    display: flex;
+    justify-content: center;
+  }
+
+  .signal-panel {
+    width: min(100%, 27rem);
+    aspect-ratio: 1 / 1.02;
+    padding: 1.1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 2.2rem;
+    transform: rotate(1.4deg);
+  }
+
+  .signal-panel__top,
+  .signal-panel__footer {
+    display: flex;
+    align-items: center;
+    color: var(--ms-text-secondary);
+    font-size: 0.68rem;
+    font-weight: 750;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .signal-panel__top {
+    gap: 0.55rem;
+    padding: 0.4rem 0.5rem;
+  }
+
+  .signal-panel__dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background: var(--ms-success);
+  }
+
+  .signal-panel__footer {
+    justify-content: space-between;
+    padding: 0.6rem 0.5rem 0.3rem;
+    border-top: 1px solid var(--ms-border);
+    font-size: 0.6rem;
+  }
+
+  .signal-panel__orbit {
+    position: relative;
+    display: grid;
+    width: min(17rem, 88%);
+    aspect-ratio: 1;
+    margin: auto;
+    place-items: center;
+  }
+
+  .signal-panel__ring {
+    position: absolute;
+    inset: 0;
+    border: 1px solid var(--ms-border-strong);
+    border-radius: 50%;
+  }
+
+  .signal-panel__ring::before,
+  .signal-panel__ring::after {
+    content: '';
+    position: absolute;
+    inset: 16%;
+    border: 1px dashed var(--ms-border-strong);
+    border-radius: 50%;
+  }
+
+  .signal-panel__ring::after {
+    inset: 33%;
+    border-style: solid;
+  }
+
+  .signal-panel__core {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    width: 6.6rem;
+    height: 6.6rem;
+    place-items: center;
+    border-radius: 2rem;
+    background: var(--ms-gradient);
+    color: var(--ms-accent-contrast);
+    font-size: 1rem;
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    box-shadow: 0 18px 40px rgba(8, 127, 140, 0.28);
+  }
+
+  .signal-panel__node {
+    position: absolute;
+    width: 0.9rem;
+    height: 0.9rem;
+    border: 3px solid var(--ms-surface-strong);
+    border-radius: 50%;
+    background: var(--ms-accent);
+    box-shadow: 0 0 0 0.25rem var(--ms-accent-soft);
+  }
+
+  .signal-panel__node--1 {
+    top: 9%;
+    left: 28%;
+  }
+
+  .signal-panel__node--2 {
+    right: 9%;
+    bottom: 30%;
+  }
+
+  .signal-panel__node--3 {
+    bottom: 7%;
+    left: 26%;
+  }
+
+  .hero__stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    margin-top: clamp(2.5rem, 6vw, 4rem);
+    border: 1px solid var(--ms-border);
+    border-radius: var(--ms-radius-lg) var(--ms-radius-lg) 0 0;
+    background: var(--ms-border);
+    overflow: hidden;
+  }
+
+  .hero__stats div {
+    padding: 1.1rem 1rem;
+    background: var(--ms-surface);
+  }
+
+  .hero__stats dd {
+    margin: 0;
+    color: var(--ms-text);
+    font-size: 1.35rem;
+    font-weight: 850;
+    letter-spacing: -0.03em;
+  }
+
+  .hero__stats dt {
+    color: var(--ms-text-muted);
+    font-size: var(--ms-text-xs);
+    line-height: 1.4;
+  }
+
+  .why-grid {
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: clamp(2rem, 6vw, 5rem);
+  }
+
+  .why-grid .section-head {
+    margin-bottom: 0;
+  }
+
+  .why-grid .eyebrow {
+    color: var(--ms-text-muted);
+  }
+
+  .why-grid__text {
+    display: grid;
+    gap: 1rem;
+    color: var(--ms-text-secondary);
+    font-size: var(--ms-text-lg);
+    line-height: 1.75;
+  }
+
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+
+  .product-card {
+    display: flex;
+    flex-direction: column;
+    min-height: 19rem;
+    padding: clamp(1.25rem, 3vw, 1.75rem);
+    border: 1px solid var(--ms-border);
+    border-radius: var(--ms-radius-lg);
+    background: var(--ms-surface);
+  }
+
+  .product-card--pilot {
+    border-color: var(--ms-accent);
+    box-shadow: inset 0 0 0 1px var(--ms-accent);
+  }
+
+  .product-card__top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .product-card__mark {
+    display: grid;
+    width: 3rem;
+    height: 3rem;
+    place-items: center;
+    border-radius: 1rem;
+    background: var(--ms-accent-soft);
+    color: var(--ms-accent);
+    font-size: 0.72rem;
+    font-weight: 900;
+    letter-spacing: 0.04em;
+  }
+
+  .product-card__tag {
+    margin-top: 1.3rem;
+    color: var(--ms-text-muted);
+    font-size: var(--ms-text-xs);
+    font-weight: 750;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .product-card h3 {
+    margin-top: 0.25rem;
+    font-size: 1.5rem;
+  }
+
+  .product-card__description {
+    flex: 1;
+    margin-top: 0.7rem;
+    color: var(--ms-text-secondary);
+    font-size: var(--ms-text-sm);
+  }
+
+  .product-card__link,
+  .text-link {
+    display: inline-flex;
+    min-height: var(--ms-touch);
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    color: var(--ms-accent);
+    font-size: var(--ms-text-sm);
+    font-weight: 750;
+    text-decoration: none;
+  }
+
+  .product-card__link:hover,
+  .text-link:hover {
+    text-decoration: underline;
+  }
+
+  .pilot-panel {
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: clamp(1.5rem, 5vw, 4rem);
+    align-items: start;
+    margin-top: clamp(2rem, 5vw, 3.5rem);
+    padding: clamp(1.5rem, 4vw, 2.5rem);
+    border: 1px solid var(--ms-border);
+    border-radius: var(--ms-radius-xl);
+    background: var(--ms-gradient-soft);
+  }
+
+  .pilot-panel__copy h3 {
+    font-size: clamp(1.7rem, 3.5vw, 2.5rem);
+  }
+
+  .pilot-panel__copy > p {
+    margin-top: 0.9rem;
+    color: var(--ms-text-secondary);
+  }
+
+  .pilot-panel__note {
+    font-size: var(--ms-text-xs);
+  }
+
+  .check-list {
+    display: grid;
+    gap: 0.55rem;
+    margin-top: 1.3rem;
+  }
+
+  .check-list li {
+    position: relative;
+    padding-left: 1.6rem;
+    color: var(--ms-text-secondary);
+    font-size: var(--ms-text-sm);
+  }
+
+  .check-list li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--ms-success);
+    font-weight: 900;
+  }
+
+  .service-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .service-card {
+    display: flex;
+    flex-direction: column;
+    padding: clamp(1.3rem, 3vw, 2rem);
+    border: 1px solid var(--ms-border);
+    border-radius: var(--ms-radius-lg);
+    background: var(--ms-surface);
+  }
+
+  .service-card__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .service-card__icon {
+    display: grid;
+    width: 3.3rem;
+    height: 3.3rem;
+    place-items: center;
+    border-radius: 1.1rem;
+    background: var(--ms-accent-soft);
+    color: var(--ms-accent);
+  }
+
+  .service-card__index {
+    color: var(--ms-text-muted);
+    font-family: var(--ms-font-mono);
+    font-size: var(--ms-text-xs);
+  }
+
+  .service-card h3 {
+    margin-top: 1.2rem;
+    font-size: 1.25rem;
+  }
+
+  .service-card p {
+    flex: 1;
+    margin-top: 0.6rem;
+    color: var(--ms-text-secondary);
+    font-size: var(--ms-text-sm);
+  }
+
+  .service-card__standards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin-top: 1rem;
+  }
+
+  .service-card__standards span {
+    padding: 0.22rem 0.55rem;
+    border-radius: var(--ms-radius-pill);
+    background: var(--ms-surface-muted);
+    color: var(--ms-text-muted);
+    font-size: 0.68rem;
+    font-weight: 700;
+  }
+
+  .value-strip {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--ms-border);
+  }
+
+  .value-strip > div {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.25rem 0.8rem;
+    align-items: center;
+  }
+
+  .value-strip > div > span {
+    grid-row: span 2;
+    font-size: 1.2rem;
+  }
+
+  .value-strip h3 {
+    font-size: var(--ms-text-sm);
+  }
+
+  .value-strip p {
+    color: var(--ms-text-muted);
+    font-size: var(--ms-text-xs);
+    line-height: 1.5;
+  }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+  }
+
+  .gallery-card {
+    position: relative;
+    grid-column: span 1;
+    overflow: hidden;
+    border: 1px solid var(--ms-border);
+    border-radius: var(--ms-radius-md);
+    background: var(--ms-surface);
+  }
+
+  .gallery-card--wide {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+
+  .gallery-card a {
+    display: block;
+    height: 100%;
+  }
+
+  .gallery-card img {
+    width: 100%;
+    height: 100%;
+    min-height: 10rem;
+    object-fit: cover;
+    transition: transform 0.3s var(--ms-ease);
+  }
+
+  .gallery-card--wide img {
+    min-height: 100%;
+  }
+
+  .gallery-card:hover img {
+    transform: scale(1.02);
+  }
+
+  .gallery-card figcaption {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: grid;
+    gap: 0.1rem;
+    padding: 2.4rem 0.9rem 0.8rem;
+    background: linear-gradient(transparent, rgba(5, 12, 15, 0.86));
+    color: #fff;
+  }
+
+  .gallery-card figcaption strong {
+    font-size: var(--ms-text-sm);
+  }
+
+  .gallery-card figcaption span {
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 0.7rem;
+  }
+
+  .case-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 2.5rem;
+  }
+
+  .case-card {
+    padding: clamp(1.4rem, 3vw, 2rem);
+    border: 1px solid var(--ms-border);
+    border-radius: var(--ms-radius-lg);
+    background: var(--ms-surface);
+  }
+
+  .case-card h3 {
+    margin-top: 1rem;
+    font-size: 1.3rem;
+  }
+
+  .case-card__segment {
+    margin-top: 1.2rem;
+    padding-left: 0.9rem;
+    border-left: 2px solid var(--ms-accent-soft);
+  }
+
+  .case-card__segment h4 {
+    color: var(--ms-accent);
+    font-size: var(--ms-text-xs);
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .case-card__segment p {
+    margin-top: 0.3rem;
+    color: var(--ms-text-secondary);
+    font-size: var(--ms-text-sm);
+  }
+
+  .engagement-grid {
+    display: grid;
+    grid-template-columns: 1.25fr 0.75fr;
+    gap: 1rem;
+    align-items: start;
+  }
+
+  .table-wrap {
+    overflow-x: auto;
+    border: 1px solid var(--ms-border);
+    border-radius: var(--ms-radius-lg);
+    background: var(--ms-surface);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--ms-text-sm);
+  }
+
+  th,
+  td {
+    padding: 0.9rem 1rem;
+    border-bottom: 1px solid var(--ms-border);
+    text-align: left;
+    vertical-align: top;
+  }
+
+  thead th {
+    color: var(--ms-text-muted);
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  tbody th {
+    color: var(--ms-text);
+    font-size: var(--ms-text-sm);
+  }
+
+  tbody td {
+    color: var(--ms-text-secondary);
+  }
+
+  tbody tr:last-child th,
+  tbody tr:last-child td {
+    border-bottom: 0;
+  }
+
+  .engagement-cards {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .mini-card {
+    padding: 1.1rem;
+    border: 1px solid var(--ms-border);
+    border-radius: var(--ms-radius-md);
+    background: var(--ms-surface);
+  }
+
+  .mini-card > span {
+    font-size: 1.1rem;
+  }
+
+  .mini-card h3 {
+    margin-top: 0.45rem;
+    font-size: var(--ms-text-sm);
+  }
+
+  .mini-card p {
+    margin-top: 0.3rem;
+    color: var(--ms-text-muted);
+    font-size: var(--ms-text-xs);
+    line-height: 1.55;
+  }
+
+  .split-head {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 2rem;
+    align-items: end;
+    margin-bottom: 2rem;
+  }
+
+  .split-head .section-head {
+    margin-bottom: 0;
+  }
+
+  .method-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    overflow: hidden;
+    border: 1px solid var(--ms-border);
+    border-radius: var(--ms-radius-lg);
+    background: var(--ms-border);
+  }
+
+  .method-grid article {
+    padding: 1.3rem;
+    background: var(--ms-surface);
+  }
+
+  .method-grid article > span {
+    color: var(--ms-accent);
+    font-family: var(--ms-font-mono);
+    font-size: var(--ms-text-xs);
+    font-weight: 700;
+  }
+
+  .method-grid h3 {
+    margin-top: 0.8rem;
+    font-size: var(--ms-text-base);
+  }
+
+  .method-grid p {
+    margin-top: 0.4rem;
+    color: var(--ms-text-muted);
+    font-size: var(--ms-text-xs);
+    line-height: 1.55;
+  }
+
+  .values-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .values-grid article {
+    padding: 1.1rem;
+    border: 1px solid var(--ms-border);
+    border-radius: var(--ms-radius-md);
+    background: var(--ms-surface-muted);
+  }
+
+  .values-grid article > span {
+    font-size: 1.2rem;
+  }
+
+  .values-grid h3 {
+    margin-top: 0.45rem;
+    font-size: var(--ms-text-sm);
+  }
+
+  .values-grid p {
+    margin-top: 0.3rem;
+    color: var(--ms-text-muted);
+    font-size: var(--ms-text-xs);
+    line-height: 1.55;
+  }
+
+  .cert-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .cert-card {
+    display: flex;
+    gap: 1rem;
+    padding: clamp(1.2rem, 3vw, 1.6rem);
+    border: 1px solid var(--ms-border);
+    border-radius: var(--ms-radius-lg);
+    background: var(--ms-surface);
+  }
+
+  .cert-card__icon {
+    display: grid;
+    width: 2.8rem;
+    height: 2.8rem;
+    flex-shrink: 0;
+    place-items: center;
+    border-radius: 0.9rem;
+    background: var(--ms-accent-soft);
+    font-size: 1.2rem;
+  }
+
+  .cert-card__domain {
+    color: var(--ms-text-muted);
+    font-size: 0.66rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .cert-card h3 {
+    margin-top: 0.2rem;
+    font-size: 1rem;
+  }
+
+  .cert-card p:last-child {
+    margin-top: 0.45rem;
+    color: var(--ms-text-secondary);
+    font-size: var(--ms-text-xs);
+    line-height: 1.6;
+  }
+
+  .cert-note {
+    margin-top: 1.2rem;
+    padding: 1rem 1.2rem;
+    border-left: 3px solid var(--ms-accent);
+    border-radius: 0 var(--ms-radius-sm) var(--ms-radius-sm) 0;
+    background: var(--ms-accent-soft);
+    color: var(--ms-text-secondary);
+    font-size: var(--ms-text-sm);
+  }
+
+  .audit-grid {
+    display: grid;
+    grid-template-columns: 0.95fr 1.05fr;
+    gap: clamp(2rem, 6vw, 4rem);
+    align-items: start;
+  }
+
+  .benefit-list {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .benefit-list article {
+    display: flex;
+    gap: 0.8rem;
+    padding: 0.9rem;
+    border: 1px solid var(--ms-border);
+    border-radius: var(--ms-radius-md);
+    background: var(--ms-surface);
+  }
+
+  .benefit-list article > span {
+    font-size: 1.1rem;
+  }
+
+  .benefit-list h3 {
+    font-size: var(--ms-text-sm);
+  }
+
+  .benefit-list p {
+    margin-top: 0.2rem;
+    color: var(--ms-text-muted);
+    font-size: var(--ms-text-xs);
+    line-height: 1.55;
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: clamp(1.5rem, 4vw, 3rem);
+    align-items: start;
+  }
+
+  .contact-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+  }
+
+  .contact-card {
+    padding: 1rem;
+    border: 1px solid var(--ms-border);
+    border-radius: var(--ms-radius-md);
+    background: var(--ms-surface);
+  }
+
+  .contact-card > span {
+    font-size: 1.1rem;
+  }
+
+  .contact-card h3 {
+    margin-top: 0.45rem;
+    font-size: var(--ms-text-sm);
+  }
+
+  .contact-card a,
+  .contact-card p {
+    display: inline-block;
+    margin-top: 0.2rem;
+    color: var(--ms-text-muted);
+    font-size: var(--ms-text-xs);
+    overflow-wrap: anywhere;
+  }
+
+  .contact-card a:hover {
+    color: var(--ms-accent);
+  }
+
+  .contact-card--wide {
+    grid-column: span 2;
+  }
+
+  .cta-panel {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    padding: clamp(1.5rem, 4vw, 2.5rem);
+    border-radius: var(--ms-radius-xl);
+  }
+
+  .cta-panel h2 {
+    font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+  }
+
+  .cta-panel p {
+    max-width: 38rem;
+    margin-top: 0.5rem;
+    color: var(--ms-text-secondary);
+  }
+
+  @media (max-width: 980px) {
+    .hero__grid,
+    .why-grid,
+    .pilot-panel,
+    .engagement-grid,
+    .audit-grid,
+    .contact-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .hero__visual {
+      display: none;
+    }
+
+    .hero h1 {
+      max-width: 14ch;
+    }
+
+    .product-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .product-card {
+      min-height: auto;
+    }
+
+    .method-grid,
+    .values-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .split-head {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 760px) {
+    .hero__stats {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .service-grid,
+    .case-grid,
+    .cert-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .value-strip {
+      grid-template-columns: 1fr;
+    }
+
+    .gallery-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .gallery-card--wide {
+      grid-column: span 2;
+      grid-row: span 1;
+    }
+
+    .gallery-card img,
+    .gallery-card--wide img {
+      min-height: 11rem;
+    }
+
+    .cta-panel {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .hero__stats,
+    .method-grid,
+    .values-grid,
+    .contact-cards {
+      grid-template-columns: 1fr;
+    }
+
+    .gallery-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .gallery-card--wide {
+      grid-column: span 1;
+    }
+
+    .contact-card--wide {
+      grid-column: span 1;
+    }
+  }
+</style>

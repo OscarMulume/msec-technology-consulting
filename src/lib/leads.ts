@@ -1,11 +1,11 @@
-export type LeadKind = 'audit' | 'contact' | 'pilot';
+﻿export type LeadKind = 'audit' | 'contact' | 'pilot';
 export type Locale = 'fr' | 'en';
 
 export interface LeadPayload {
   kind: LeadKind;
   full_name: string;
   company?: string;
-  email: string;
+  email?: string;
   phone?: string;
   topic?: string;
   message?: string;
@@ -28,6 +28,9 @@ export async function submitLead(payload: LeadPayload): Promise<LeadResult> {
   const config = supabaseConfig();
   if (!config) return { ok: false, reason: 'not-configured' };
 
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 12000);
+
   try {
     const response = await fetch(`${config.url}/rest/v1/site_leads`, {
       method: 'POST',
@@ -38,11 +41,14 @@ export async function submitLead(payload: LeadPayload): Promise<LeadResult> {
         Prefer: 'return=minimal',
       },
       body: JSON.stringify([payload]),
+      signal: controller.signal,
     });
     if (!response.ok) return { ok: false, reason: 'http', status: response.status };
     return { ok: true };
   } catch {
     return { ok: false, reason: 'network' };
+  } finally {
+    clearTimeout(timeout);
   }
 }
 
@@ -52,3 +58,4 @@ export function whatsappHref(number: string | undefined, text: string): string |
   if (digits.length < 8) return null;
   return `https://wa.me/${digits}?text=${encodeURIComponent(text)}`;
 }
+

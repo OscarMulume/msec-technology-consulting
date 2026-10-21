@@ -1,0 +1,90 @@
+---
+import { whatsappLink, type Locale } from '../config/site';
+import { getDict } from '../i18n/utils';
+
+interface Props {
+  locale: Locale;
+  url: string;
+  title: string;
+}
+
+const { locale, url, title } = Astro.props;
+const dict = getDict(locale);
+const whatsapp = whatsappLink(`${title} ${url}`);
+const emailHref = `mailto:?subject=${encodeURIComponent(title)}&body=${encodeURIComponent(url)}`;
+const linkedin = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`;
+---
+
+<div class="share">
+  <span>{dict.common.share}</span>
+  <div class="share__links">
+    <a href={linkedin} target="_blank" rel="noopener noreferrer" aria-label={`LinkedIn (${dict.common.opensNewTab})`}>in</a>
+    {whatsapp && (
+      <a href={whatsapp} target="_blank" rel="noopener noreferrer" aria-label={`${dict.common.whatsapp} (${dict.common.opensNewTab})`}>WA</a>
+    )}
+    <a href={emailHref} aria-label={dict.common.email}>@</a>
+    <button type="button" data-copy-link data-copied-label={dict.common.copied}>{dict.common.copyLink}</button>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('[data-copy-link]').forEach((button) => {
+    const original = button.textContent || '';
+    button.addEventListener('click', async () => {
+      const url = window.location.href;
+      try {
+        await navigator.clipboard.writeText(url);
+        button.textContent = button.dataset.copiedLabel || original;
+        window.setTimeout(() => {
+          button.textContent = original;
+        }, 2000);
+      } catch {
+        button.textContent = url;
+      }
+    });
+  });
+</script>
+
+<style>
+  .share {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.7rem;
+    margin-top: 2rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--ms-border);
+    color: var(--ms-text-muted);
+    font-size: var(--ms-text-xs);
+    font-weight: 700;
+  }
+
+  .share__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+
+  .share__links a,
+  .share__links button {
+    display: inline-flex;
+    min-height: 2.4rem;
+    align-items: center;
+    justify-content: center;
+    padding: 0.4rem 0.7rem;
+    border: 1px solid var(--ms-border);
+    border-radius: var(--ms-radius-pill);
+    background: var(--ms-surface);
+    color: var(--ms-text-secondary);
+    font-size: var(--ms-text-xs);
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .share__links a:hover,
+  .share__links button:hover {
+    border-color: var(--ms-accent);
+    color: var(--ms-accent);
+  }
+</style>

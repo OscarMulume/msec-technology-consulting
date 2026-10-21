@@ -1,0 +1,180 @@
+---
+import { localePath, type Locale } from '../config/site';
+import { getDict } from '../i18n/utils';
+import { formatPostDate, getPublishedPosts, postSlug, readingMinutes } from '../lib/blog';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const dict = getDict(locale);
+const posts = await getPublishedPosts(locale);
+---
+
+<div class="blog-page">
+  <div class="container">
+    <header class="blog-hero">
+      <p class="eyebrow">{dict.nav.blog}</p>
+      <h1>{dict.blog.title}</h1>
+      <p>{dict.blog.description}</p>
+      <a class="rss-link" href={localePath(locale, 'blog/rss.xml')}>
+        <span aria-hidden="true">◉</span>{dict.blog.rss}
+      </a>
+    </header>
+
+    {posts.length === 0 ? (
+      <div class="empty-state">
+        <span aria-hidden="true">✎</span>
+        <h2>{dict.blog.empty}</h2>
+        <p>{dict.blog.emptyHint}</p>
+      </div>
+    ) : (
+      <div class="post-grid">
+        {posts.map((post) => (
+          <article class="post-card">
+            <div class="post-card__meta">
+              <time datetime={post.data.date.toISOString()}>{formatPostDate(post.data.date, locale)}</time>
+              <span>{readingMinutes(post)} {dict.blog.minRead}</span>
+            </div>
+            <h2><a href={localePath(locale, `blog/${postSlug(post)}/`)}>{post.data.title}</a></h2>
+            <p>{post.data.description}</p>
+            <a class="read-link" href={localePath(locale, `blog/${postSlug(post)}/`)}>
+              {dict.common.readMore}<span aria-hidden="true">→</span>
+            </a>
+          </article>
+        ))}
+      </div>
+    )}
+  </div>
+</div>
+
+<style>
+  .blog-page {
+    padding-block: clamp(2.5rem, 7vw, 5rem) clamp(4rem, 9vw, 7rem);
+  }
+
+  .blog-hero {
+    max-width: 46rem;
+    padding-bottom: clamp(2rem, 5vw, 3.5rem);
+    border-bottom: 1px solid var(--ms-border);
+  }
+
+  .blog-hero h1 {
+    font-size: var(--ms-display-sm);
+    font-weight: 850;
+  }
+
+  .blog-hero > p {
+    margin-top: 0.9rem;
+    color: var(--ms-text-secondary);
+    font-size: var(--ms-text-lg);
+  }
+
+  .rss-link {
+    display: inline-flex;
+    min-height: var(--ms-touch);
+    align-items: center;
+    gap: 0.45rem;
+    margin-top: 1rem;
+    color: var(--ms-accent);
+    font-size: var(--ms-text-sm);
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .post-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .post-card {
+    display: flex;
+    flex-direction: column;
+    padding: clamp(1.25rem, 3vw, 1.8rem);
+    border: 1px solid var(--ms-border);
+    border-radius: var(--ms-radius-lg);
+    background: var(--ms-surface);
+  }
+
+  .post-card__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+    color: var(--ms-text-muted);
+    font-size: var(--ms-text-xs);
+  }
+
+  .post-card h2 {
+    margin-top: 0.7rem;
+    font-size: 1.35rem;
+  }
+
+  .post-card h2 a {
+    text-decoration: none;
+  }
+
+  .post-card h2 a:hover {
+    color: var(--ms-accent);
+  }
+
+  .post-card p {
+    flex: 1;
+    margin-top: 0.5rem;
+    color: var(--ms-text-secondary);
+    font-size: var(--ms-text-sm);
+  }
+
+  .read-link {
+    display: inline-flex;
+    min-height: var(--ms-touch);
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 1rem;
+    color: var(--ms-accent);
+    font-size: var(--ms-text-sm);
+    font-weight: 750;
+    text-decoration: none;
+  }
+
+  .empty-state {
+    display: grid;
+    max-width: 34rem;
+    justify-items: start;
+    margin-top: 2rem;
+    padding: 2rem;
+    border: 1px solid var(--ms-border);
+    border-radius: var(--ms-radius-lg);
+    background: var(--ms-surface);
+  }
+
+  .empty-state > span {
+    display: grid;
+    width: 3rem;
+    height: 3rem;
+    place-items: center;
+    border-radius: 1rem;
+    background: var(--ms-accent-soft);
+    color: var(--ms-accent);
+    font-size: 1.25rem;
+  }
+
+  .empty-state h2 {
+    margin-top: 1rem;
+    font-size: 1.35rem;
+  }
+
+  .empty-state p {
+    margin-top: 0.35rem;
+    color: var(--ms-text-secondary);
+    font-size: var(--ms-text-sm);
+  }
+
+  @media (max-width: 700px) {
+    .post-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

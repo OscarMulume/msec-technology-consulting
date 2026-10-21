@@ -1,4 +1,6 @@
-﻿export type LeadKind = 'audit' | 'contact' | 'pilot';
+﻿import { supabaseAuthHeaders } from './supabaseAuth.mjs';
+
+export type LeadKind = 'audit' | 'contact' | 'pilot';
 export type Locale = 'fr' | 'en';
 
 export interface LeadPayload {
@@ -36,8 +38,7 @@ export async function submitLead(payload: LeadPayload): Promise<LeadResult> {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        apikey: config.key,
-        Authorization: `Bearer ${config.key}`,
+        ...supabaseAuthHeaders(config.key),
         Prefer: 'return=minimal',
       },
       body: JSON.stringify([payload]),

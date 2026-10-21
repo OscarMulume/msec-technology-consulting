@@ -10,8 +10,9 @@
     "typecheck": "astro check",
     "validate:html": "html-validate \"dist/**/*.html\"",
     "check:links": "node scripts/check-links.mjs",
+    "test:unit": "node --test",
     "lint": "npm run check && npm run validate:html && npm run check:links",
-    "test": "npm run build && npm run lint"
+    "test": "npm run test:unit && npm run build && npm run lint"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.106.2",

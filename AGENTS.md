@@ -1,4 +1,4 @@
-# AGENTS.md — Contexte permanent M-SEC
+# AGENTS.md — Contexte permanent M-SEC (à placer à la racine de CHAQUE dépôt M-SEC)
 
 OpenCode lit ce fichier automatiquement. Il décrit qui nous sommes, ce qui existe, et les règles de travail.
 Toute mission doit respecter ce contexte. En cas de doute : ne pas deviner, poser la question ou l'écrire dans le rapport.
@@ -54,7 +54,13 @@ Toute mission doit respecter ce contexte. En cas de doute : ne pas deviner, pose
 
 ## 6. Règles de travail (non négociables)
 
-1. Un sujet = un commit + un tag. Messages de commit en français. Pas de push sans demande explicite dans la mission.
+1. SAUVEGARDE CONTINUE (décision d'Oscar, 23/10/2026) : chaque étape terminée = tests verts + commit + tag +
+   rapport d'étape + `git push origin <branche> --tags`, immédiatement, sur TOUS les projets, jusqu'à la fin.
+   Messages de commit en français. On ne termine jamais une session avec du travail non poussé :
+   `git status` propre et `git log origin/<branche>..HEAD` vide sont vérifiés et cités dans le rapport.
+   Si le push échoue (droits, réseau), le dire en tête du rapport. Un dépôt sans remote GitHub = le signaler
+   et proposer `gh repo create OscarMulume/<nom> --private --source . --push`.
+   Seule exception : ne jamais pousser un secret ; en cas de doute, s'arrêter et demander.
 2. Avant chaque commit : lint, typecheck et tests du dépôt. Rien n'est « fait » tant que la CI n'est pas verte.
 3. Ne jamais afficher, écrire ou committer un secret (.env, clés, jetons). Seulement des `.env.example` sans valeurs.
    La clé publique Supabase (publishable/anon) n'est pas un secret mais passe quand même par une variable d'environnement.
@@ -63,7 +69,11 @@ Toute mission doit respecter ce contexte. En cas de doute : ne pas deviner, pose
 5. Ne jamais afficher « envoyé avec succès » si l'envoi n'a pas réellement réussi.
 6. Pas d'affirmations absolues dans les textes commerciaux (« ne tombe jamais en panne », « zéro faille ») :
    formulations vérifiables uniquement.
-7. Chaque mission se termine par un rapport `docs/RAPPORT-<mission>-<AAAA-MM-JJ>.md` : tableau étape | fichiers | tests | résultat,
-   ce qui n'a pas pu être fait et pourquoi, questions pour Oscar. Puis S'ARRÊTER.
+7. Chaque étape ajoute sa ligne au rapport `docs/RAPPORT-<mission>-<AAAA-MM-JJ>.md` (étape | fichiers | tests | commit |
+   tag | poussé oui/non) ; le rapport est committé et poussé avec l'étape. En fin de mission : ce qui n'a pas pu être
+   fait et pourquoi, questions pour Oscar, puis S'ARRÊTER.
+9. Où vit chaque chose (ne pas confondre) : le CODE sur GitHub ; les DONNÉES (produits, commandes, comptes) dans
+   Supabase ; les SITES et SERVEURS en ligne sur Vercel, GitHub Pages ou Render. Une sauvegarde GitHub ne sauvegarde
+   pas les données : documenter dans chaque projet comment exporter la base (pg_dump ou export CSV).
 8. Les vérifications indépendantes sont faites par Claude ; signaler dans le rapport tout ce qui n'a pas pu être testé
    localement (ex. PostgreSQL, build Android).

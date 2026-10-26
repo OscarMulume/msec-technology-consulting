@@ -10,6 +10,9 @@ sessions/
 *.pem
 *.p12
 
+# Sources images lourdes (copies locales, non versionnées)
+assets/images/source/*.png
+
 # Node / Astro
 node_modules/
 dist/

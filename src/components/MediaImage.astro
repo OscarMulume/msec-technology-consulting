@@ -1,0 +1,49 @@
+---
+import { withBase } from '../config/site';
+
+interface Props {
+  slug: string;
+  alt: string;
+  width: number;
+  height: number;
+  sizes: string;
+  class?: string;
+  loading?: 'eager' | 'lazy';
+  fetchpriority?: 'high' | 'low' | 'auto';
+}
+
+const {
+  slug,
+  alt,
+  width,
+  height,
+  sizes,
+  class: className,
+  loading = 'lazy',
+  fetchpriority,
+} = Astro.props;
+
+const variants = [
+  { width: 320, suffix: '-thumb' },
+  { width: 640, suffix: '-sm' },
+  { width: 1024, suffix: '-md' },
+  { width: 1600, suffix: '' },
+];
+
+const srcset = variants
+  .map((variant) => `${withBase(`/media/${slug}${variant.suffix}.webp`)} ${variant.width}w`)
+  .join(', ');
+---
+
+<img
+  src={withBase(`/media/${slug}.jpg`)}
+  srcset={srcset}
+  sizes={sizes}
+  width={width}
+  height={height}
+  alt={alt}
+  class={className}
+  loading={loading}
+  decoding="async"
+  fetchpriority={fetchpriority}
+/>

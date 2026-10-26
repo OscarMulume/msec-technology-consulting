@@ -62,7 +62,8 @@
     "slashes": "Kinshasa, RDC",
     "coverageValue": "Afrique centrale",
     "whatsappMessage": "Bonjour M-SEC, je souhaite discuter d'un projet.",
-    "opensNewTab": "s'ouvre dans un nouvel onglet"
+    "opensNewTab": "s'ouvre dans un nouvel onglet",
+    "illustration": "Illustration"
   },
   "footer": {
     "tagline": "Cabinet d'ingénierie IT, réseaux et cybersécurité. Infrastructure, connectivité et sécurité au service des entreprises d'Afrique centrale.",
@@ -92,6 +93,9 @@
       "ctaAudit": "Demander un audit gratuit",
       "ctaServices": "Découvrir nos services",
       "note": "Un premier échange permet de cadrer le besoin avant tout engagement.",
+      "imageAlt": "Illustration : homme en polo M-SEC devant un logo et un drapeau de la RDC.",
+      "imageTitle": "M-SEC Technology Consulting — Kinshasa, RDC",
+      "imageNote": "Illustration",
       "stats": [
         { "value": "24 h", "label": "Réponse à un message (jours ouvrés)" },
         { "value": "48 h", "label": "Diagnostic d'audit" },
@@ -130,6 +134,22 @@
           "cta": ""
         }
       ],
+      "visuals": [
+        {
+          "src": "msec-dev",
+          "tag": "Développement produit",
+          "title": "Concevoir et documenter",
+          "text": "Illustration : développement d'un outil et schéma réseau.",
+          "alt": "Illustration : développeur devant du code et un schéma réseau."
+        },
+        {
+          "src": "msec-pos",
+          "tag": "POS Pro",
+          "title": "Encaissement tactile et QR",
+          "text": "Illustration : caisse tactile et paiement par QR dans un commerce.",
+          "alt": "Illustration : caissière utilisant une caisse tactile et un paiement par QR."
+        }
+      ],
       "pilot": {
         "label": "Programme pilote",
         "title": "Devenir restaurant pilote",
@@ -152,19 +172,40 @@
         { "icon": "⏱️", "title": "Réactivité locale", "text": "Intervention sur site à Kinshasa et missions en Afrique centrale selon le périmètre convenu." },
         { "icon": "🛡️", "title": "Standards éprouvés", "text": "Cisco, UniFi, FortiGate, NIST, ISO 27001 et OWASP : des référentiels d'entreprise appliqués lorsque le projet le justifie." },
         { "icon": "📊", "title": "Transparence", "text": "Chiffrage clair, plannings suivis, rapports SLA et documentation livrée à chaque étape." }
+      ],
+      "visuals": [
+        {
+          "src": "msec-strategy",
+          "tag": "Conseil",
+          "title": "Cadrer la stratégie",
+          "text": "Illustration : travail de cadrage et plan de reprise.",
+          "alt": "Illustration : homme pensif au coucher du soleil, devant des classeurs intitulés « Stratégie de réussite »."
+        },
+        {
+          "src": "msec-field",
+          "tag": "Interventions terrain",
+          "title": "Déployer sur site",
+          "text": "Illustration : intervention de terrain avec tablette et véhicule équipé.",
+          "alt": "Illustration : technicien en gilet orange avec une tablette, près d'un 4x4 équipé d'une antenne."
+        },
+        {
+          "src": "msec-remote-site",
+          "tag": "Sites isolés",
+          "title": "Connecter les sites isolés",
+          "text": "Illustration : connectivité satellite et énergie solaire sur un site isolé.",
+          "alt": "Illustration : 4x4 avec antenne satellite et panneaux solaires au sommet de collines."
+        }
       ]
     },
     "gallery": {
-      "label": "Nos réalisations",
-      "title": "Un travail qui se voit",
-      "desc": "Aperçu de nos installations et de notre environnement de travail.",
+      "label": "En images",
+      "title": "Nos domaines en images",
+      "desc": "Visuels d'illustration de nos domaines d'intervention. Ils ne représentent pas des chantiers clients réels.",
       "close": "Fermer l'image",
       "items": [
-        { "src": "msec-office", "title": "Siège M-SEC", "text": "Kinshasa, RDC — cliquez pour agrandir", "alt": "Bureau M-SEC Technology Consulting" },
-        { "src": "msec-team", "title": "Notre équipe", "text": "Professionnels certifiés", "alt": "Équipe M-SEC" },
-        { "src": "msec-network", "title": "Salle serveurs", "text": "Câblage structuré et baies", "alt": "Infrastructure réseau" },
-        { "src": "msec-security", "title": "Sécurité périmétrique", "text": "Vidéosurveillance et contrôle d'accès", "alt": "Cybersécurité" },
-        { "src": "msec-server", "title": "Infrastructure serveur", "text": "Haute disponibilité", "alt": "Serveurs" }
+        { "src": "msec-network", "title": "Salle serveurs", "text": "Câblage structuré et baies — illustration", "alt": "Illustration : baie réseau câblée en bleu et orange." },
+        { "src": "msec-security", "title": "Sécurité périmétrique", "text": "Vidéosurveillance et contrôle d'accès — illustration", "alt": "Illustration : femme devant des écrans de vidéosurveillance et un tableau de sécurité." },
+        { "src": "msec-cabling", "title": "Câblage structuré", "text": "Montage Avant / Après — illustration", "alt": "Illustration : montage avant / après d'une baie réseau, câbles en désordre puis rangés." }
       ]
     },
     "cases": {

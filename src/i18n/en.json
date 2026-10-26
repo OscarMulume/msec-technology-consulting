@@ -62,7 +62,8 @@
     "slashes": "Kinshasa, DR Congo",
     "coverageValue": "Central Africa",
     "whatsappMessage": "Hello M-SEC, I would like to discuss a project.",
-    "opensNewTab": "opens in a new tab"
+    "opensNewTab": "opens in a new tab",
+    "illustration": "Illustration"
   },
   "footer": {
     "tagline": "IT, network and cybersecurity engineering firm. Infrastructure, connectivity and security for businesses in Central Africa.",
@@ -92,6 +93,9 @@
       "ctaAudit": "Request a free audit",
       "ctaServices": "Discover our services",
       "note": "An initial conversation helps define the need before any commitment.",
+      "imageAlt": "Illustration: man in an M-SEC polo shirt in front of a logo and the DR Congo flag.",
+      "imageTitle": "M-SEC Technology Consulting — Kinshasa, DR Congo",
+      "imageNote": "Illustration",
       "stats": [
         { "value": "24 h", "label": "Reply to a message (business days)" },
         { "value": "48 h", "label": "Audit diagnosis" },
@@ -130,6 +134,22 @@
           "cta": ""
         }
       ],
+      "visuals": [
+        {
+          "src": "msec-dev",
+          "tag": "Product development",
+          "title": "Design and document",
+          "text": "Illustration: developing a tool and a network diagram.",
+          "alt": "Illustration: developer in front of code and a network diagram."
+        },
+        {
+          "src": "msec-pos",
+          "tag": "POS Pro",
+          "title": "Touch and QR checkout",
+          "text": "Illustration: touch checkout and QR payment in a shop.",
+          "alt": "Illustration: cashier using a touch checkout and a QR payment."
+        }
+      ],
       "pilot": {
         "label": "Pilot programme",
         "title": "Become a pilot restaurant",
@@ -152,19 +172,40 @@
         { "icon": "⏱️", "title": "Local responsiveness", "text": "On-site work in Kinshasa and assignments in Central Africa according to the agreed scope." },
         { "icon": "🛡️", "title": "Proven standards", "text": "Cisco, UniFi, FortiGate, NIST, ISO 27001 and OWASP: enterprise frameworks applied when the project requires them." },
         { "icon": "📊", "title": "Transparency", "text": "Clear pricing, tracked schedules, SLA reports and documentation delivered at every stage." }
+      ],
+      "visuals": [
+        {
+          "src": "msec-strategy",
+          "tag": "Consulting",
+          "title": "Set the strategy",
+          "text": "Illustration: scoping work and recovery planning.",
+          "alt": "Illustration: pensive man at sunset in front of binders labelled “Successful Strategy”."
+        },
+        {
+          "src": "msec-field",
+          "tag": "Field work",
+          "title": "Deploy on site",
+          "text": "Illustration: field work with a tablet and an equipped vehicle.",
+          "alt": "Illustration: technician in an orange vest with a tablet next to a 4x4 fitted with an antenna."
+        },
+        {
+          "src": "msec-remote-site",
+          "tag": "Isolated sites",
+          "title": "Connect isolated sites",
+          "text": "Illustration: satellite connectivity and solar power on an isolated site.",
+          "alt": "Illustration: 4x4 with a satellite antenna and solar panels on a hilltop."
+        }
       ]
     },
     "gallery": {
-      "label": "Our work",
-      "title": "Work you can see",
-      "desc": "A look at our installations and our working environment.",
+      "label": "In pictures",
+      "title": "Our areas of work in pictures",
+      "desc": "Illustration images of our areas of work. They do not depict real client sites.",
       "close": "Close image",
       "items": [
-        { "src": "msec-office", "title": "M-SEC office", "text": "Kinshasa, DR Congo — click to enlarge", "alt": "M-SEC Technology Consulting office" },
-        { "src": "msec-team", "title": "Our team", "text": "Certified professionals", "alt": "M-SEC team" },
-        { "src": "msec-network", "title": "Server room", "text": "Structured cabling and racks", "alt": "Network infrastructure" },
-        { "src": "msec-security", "title": "Perimeter security", "text": "Video surveillance and access control", "alt": "Cybersecurity" },
-        { "src": "msec-server", "title": "Server infrastructure", "text": "High availability", "alt": "Servers" }
+        { "src": "msec-network", "title": "Server room", "text": "Structured cabling and racks — illustration", "alt": "Illustration: blue and orange cabled network rack." },
+        { "src": "msec-security", "title": "Perimeter security", "text": "Video surveillance and access control — illustration", "alt": "Illustration: woman in front of video surveillance screens and a security board." },
+        { "src": "msec-cabling", "title": "Structured cabling", "text": "Before / After montage — illustration", "alt": "Illustration: before / after montage of a network rack, cables tangled then neatly arranged." }
       ]
     },
     "cases": {

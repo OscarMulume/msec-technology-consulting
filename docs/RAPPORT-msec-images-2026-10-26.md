@@ -26,8 +26,33 @@ Les originaux restent dans `C:\Users\oscar\Downloads` (non modifiés). Une copie
 | Étape | Fichiers principaux | Vérifications | Commit / tag | Poussé |
 |---|---|---|---|---|
 | 1 — Copie, optimisation, script | `scripts/image-manifest.mjs`, `scripts/optimize-images.mjs`, `tests/media.test.mjs`, `public/media/*`, `.gitignore` | `npm test` vert : 6 tests unitaires, build 19 pages, `astro check` 0 erreur, HTML valide, 811 liens locaux | `msec-img-step-1` | oui |
+| 2 — Intégration HomePage + i18n | `src/components/MediaImage.astro`, `src/components/HomePage.astro`, `src/i18n/fr.json`, `src/i18n/en.json`, `public/media/*` | `npm test` vert : 6 tests unitaires, build 19 pages, `astro check` 0 erreur, HTML valide, 887 liens locaux | `msec-img-step-2` | oui |
 
-## 3. Poids avant / après
+## 3. Intégration des visuels
+
+| Image | Emplacement | Texte affiché (fr / en) |
+|---|---|---|
+| `msec-office` | Hero, image prioritaire (`fetchpriority="high"`, `loading="eager"`) | « M-SEC Technology Consulting — Kinshasa, RDC » + mention « Illustration » |
+| `msec-strategy` | Section services, visuel « Conseil » | « Cadrer la stratégie » / « Set the strategy » |
+| `msec-field` | Section services, visuel « Interventions terrain » | « Déployer sur site » / « Deploy on site » |
+| `msec-remote-site` | Section services, visuel « Sites isolés » | « Connecter les sites isolés » / « Connect isolated sites » |
+| `msec-dev` | Section produits (`#products`), visuel développement | « Concevoir et documenter » / « Design and document » |
+| `msec-pos` | Section produits (`#products`), visuel POS Pro | « Encaissement tactile et QR » / « Touch and QR checkout » |
+| `msec-network` | Galerie « En images » | « Salle serveurs » / « Server room » |
+| `msec-security` | Galerie « En images » | « Sécurité périmétrique » / « Perimeter security » |
+| `msec-cabling` | Galerie « En images » | « Câblage structuré — montage Avant / Après — illustration » |
+
+Chaque `<img>` est rendu par `src/components/MediaImage.astro` avec `srcset` (320/640/1024/1600 px), `sizes`, `width`/`height` explicites, `decoding="async"`, `loading="lazy"` (sauf le hero) et un JPG 1600 px en secours. Tous les textes (alt, titres, légendes, mention « Illustration ») viennent de `fr.json` et `en.json`.
+
+### Honnêteté des visuels
+
+- La galerie s'intitule désormais « En images » / « In pictures » et précise que les visuels sont des illustrations, pas des chantiers clients réels.
+- Chaque visuel d'illustration porte la mention « Illustration ».
+- `msec-cabling` est explicitement présenté comme un montage « Avant / Après » d'illustration.
+- La mention « Professionnels certifiés » / « Certified professionals » et l'image `msec-team` ont été retirées. L'image `msec-server`, devenue inutile, a aussi été supprimée de `public/media`.
+- Le hero n'écrit pas « notre siège » : la légende est « M-SEC Technology Consulting — Kinshasa, RDC ».
+
+## 4. Poids avant / après
 
 Source : fichiers PNG copiés depuis `Downloads`. Sortie : `public/media/`.
 
@@ -45,9 +70,9 @@ Source : fichiers PNG copiés depuis `Downloads`. Sortie : `public/media/`.
 
 Tous les WebP 1600 px sont sous 250 Ko et aucune image servie ne dépasse 300 Ko. Pour `msec-cabling` et `msec-remote-site`, la qualité a été abaissée de 80 à 78 en WebP (et 82 à 80 en JPG pour `msec-cabling`) uniquement pour respecter ces budgets. Les dimensions 1600 px sont 1600×1067 (3:2), 1600×1200 (4:3) ou 1600×900 (16:9) selon le cadrage d'origine.
 
-Les anciens PNG lourds de `public/media` ont été supprimés (seul `og-image.png` reste en PNG). Les anciennes images `msec-office`, `msec-network` et `msec-security` sont remplacées par les nouvelles sous le même nom ; elles ne sont plus référencées et ne sont donc pas archivées. L'ancienne image `msec-team` sera retirée à l'étape 2 avec la mention « Professionnels certifiés ».
+Les anciens PNG lourds de `public/media` ont été supprimés (seul `og-image.png` reste en PNG). Les anciennes images `msec-office`, `msec-network` et `msec-security` sont remplacées par les nouvelles sous le même nom ; elles ne sont plus référencées et ne sont donc pas archivées. Les anciennes images `msec-team` et `msec-server` ont été retirées de `public/media` à l'étape 2 ; la mention « Professionnels certifiés » a été supprimée des traductions.
 
-## 4. Questions pour Oscar
+## 5. Questions pour Oscar
 
 - Confirmer que `msec-cabling` doit rester un visuel d'illustration « Avant / Après » et ne jamais être présenté comme un chantier client réel.
-- Confirmer que les personnes des images ne doivent pas être présentées comme l'équipe réelle. La mention « Illustration » sera affichée sur les visuels concernés à l'étape 2.
+- Confirmer que les personnes des images ne doivent pas être présentées comme l'équipe réelle. La mention « Illustration » est affichée sur les visuels concernés depuis l'étape 2.

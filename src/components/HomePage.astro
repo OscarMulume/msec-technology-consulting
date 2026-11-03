@@ -365,6 +365,74 @@ const productCodes = ['POS', 'H', 'MI'];
         <p class="section-desc">{home.certifications.desc}</p>
       </div>
 
+      <div class="badge-panel">
+        <div class="badge-panel__head">
+          <p class="badge-panel__label">{home.certifications.badges.label}</p>
+          <h3>{home.certifications.badges.title}</h3>
+          <p>{home.certifications.badges.desc}</p>
+        </div>
+
+        <div class="badge-grid">
+          {home.certifications.badges.items.map((badge) => (
+            <article class="badge-card">
+              <img
+                class="badge-card__image"
+                src={withBase(`/media/badges/${badge.image}`)}
+                alt={badge.alt}
+                width="300"
+                height="300"
+                loading="lazy"
+                decoding="async"
+              />
+              <div class="badge-card__body">
+                <p class="badge-card__issuer">{badge.issuer}</p>
+                <h4>{badge.name}</h4>
+                <p class="badge-card__date">
+                  {home.certifications.badges.issued}{' '}
+                  <time datetime={badge.dateTime}>{badge.date}</time>
+                </p>
+                <p class="badge-card__skills-label">{home.certifications.badges.skillsLabel}</p>
+                <ul class="badge-card__skills">
+                  {badge.skills.map((skill) => <li>{skill}</li>)}
+                </ul>
+                <a
+                  class="btn btn--primary badge-card__verify"
+                  href={badge.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {home.certifications.badges.verify}
+                  <span class="visually-hidden"> ({dict.common.opensNewTab})</span>
+                </a>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <div class="badge-others">
+          <div>
+            <h4>{home.certifications.badges.othersLabel}</h4>
+            <ul>
+              {home.certifications.badges.others.map((badge) => (
+                <li>
+                  <span>{badge.name}</span>
+                  <time datetime={badge.dateTime}>{badge.date}</time>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <a
+            class="btn btn--secondary"
+            href={home.certifications.badges.profileUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {home.certifications.badges.profile}
+            <span class="visually-hidden"> ({dict.common.opensNewTab})</span>
+          </a>
+        </div>
+      </div>
+
       <div class="cert-grid">
         {home.certifications.items.map((item) => (
           <article class="cert-card">
@@ -1174,6 +1242,142 @@ const productCodes = ['POS', 'H', 'MI'];
     line-height: 1.55;
   }
 
+  .badge-panel {
+    margin-bottom: clamp(1.6rem, 4vw, 2.4rem);
+    padding: clamp(1.1rem, 3vw, 1.8rem);
+    border: 1px solid var(--ms-border);
+    border-radius: var(--ms-radius-lg);
+    background: var(--ms-surface);
+  }
+
+  .badge-panel__head {
+    max-width: 48rem;
+  }
+
+  .badge-panel__label {
+    color: var(--ms-accent);
+    font-size: 0.66rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .badge-panel__head h3 {
+    margin-top: 0.25rem;
+    font-size: 1.15rem;
+  }
+
+  .badge-panel__head p:last-child {
+    margin-top: 0.4rem;
+    color: var(--ms-text-secondary);
+    font-size: var(--ms-text-sm);
+    line-height: 1.55;
+  }
+
+  .badge-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 1.2rem;
+  }
+
+  .badge-card {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1rem;
+    align-items: start;
+    padding: 1rem;
+    border: 1px solid var(--ms-border);
+    border-radius: var(--ms-radius-md);
+    background: var(--ms-surface-muted);
+  }
+
+  .badge-card__image {
+    width: 96px;
+    height: 96px;
+    border-radius: var(--ms-radius-sm);
+    object-fit: contain;
+  }
+
+  .badge-card__issuer {
+    color: var(--ms-text-muted);
+    font-size: 0.66rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .badge-card h4 {
+    margin-top: 0.2rem;
+    font-size: 1rem;
+    line-height: 1.25;
+  }
+
+  .badge-card__date {
+    margin-top: 0.3rem;
+    color: var(--ms-text-muted);
+    font-size: var(--ms-text-xs);
+  }
+
+  .badge-card__skills-label {
+    margin-top: 0.7rem;
+    color: var(--ms-text);
+    font-size: var(--ms-text-xs);
+    font-weight: 700;
+  }
+
+  .badge-card__skills {
+    margin: 0.35rem 0 0;
+    padding-left: 1.1rem;
+    color: var(--ms-text-secondary);
+    font-size: var(--ms-text-xs);
+    line-height: 1.5;
+  }
+
+  .badge-card__skills li + li {
+    margin-top: 0.2rem;
+  }
+
+  .badge-card__verify {
+    margin-top: 0.9rem;
+  }
+
+  .badge-others {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 1.2rem;
+    padding-top: 1.1rem;
+    border-top: 1px solid var(--ms-border);
+  }
+
+  .badge-others h4 {
+    font-size: 0.95rem;
+  }
+
+  .badge-others ul {
+    display: grid;
+    gap: 0.35rem;
+    margin: 0.5rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .badge-others li {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.4rem 1rem;
+    color: var(--ms-text-secondary);
+    font-size: var(--ms-text-xs);
+  }
+
+  .badge-others time {
+    color: var(--ms-text-muted);
+  }
+
   .cert-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -1380,6 +1584,7 @@ const productCodes = ['POS', 'H', 'MI'];
 
     .service-grid,
     .case-grid,
+    .badge-grid,
     .cert-grid {
       grid-template-columns: 1fr;
     }
@@ -1406,6 +1611,14 @@ const productCodes = ['POS', 'H', 'MI'];
     .values-grid,
     .contact-cards {
       grid-template-columns: 1fr;
+    }
+
+    .badge-card {
+      grid-template-columns: 1fr;
+    }
+
+    .badge-others {
+      align-items: flex-start;
     }
 
     .gallery-grid {

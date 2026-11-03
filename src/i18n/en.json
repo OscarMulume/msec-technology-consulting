@@ -284,6 +284,52 @@
       "label": "Validation & technical excellence",
       "title": "Certifications & academic rigour",
       "desc": "We combine academic rigour with field realities. Each certification validates a capability applied to your projects.",
+      "badges": {
+        "label": "Verifiable badges",
+        "title": "Verified Cisco badges",
+        "desc": "Two badges issued by Cisco Networking Academy, verifiable directly on Credly.",
+        "issued": "Issued",
+        "skillsLabel": "Key skills",
+        "verify": "Verify on Credly",
+        "profile": "See all 5 badges on Credly",
+        "othersLabel": "Other Cisco badges",
+        "items": [
+          {
+            "image": "cisco-ethical-hacker.webp",
+            "alt": "Cisco Ethical Hacker badge verified on Credly",
+            "name": "Ethical Hacker",
+            "issuer": "Cisco Networking Academy",
+            "date": "October 23, 2026",
+            "dateTime": "2026-10-23",
+            "skills": [
+              "Legal framework and compliance",
+              "Vulnerability assessment (scoping, execution, reporting)",
+              "Remediation recommendations"
+            ],
+            "url": "https://www.credly.com/badges/bc73a9b9-0b18-423f-b230-485a61ddfcc6/public_url"
+          },
+          {
+            "image": "cisco-junior-cybersecurity-analyst.webp",
+            "alt": "Cisco Junior Cybersecurity Analyst Career Path badge verified on Credly",
+            "name": "Junior Cybersecurity Analyst Career Path",
+            "issuer": "Cisco Networking Academy",
+            "date": "March 20, 2026",
+            "dateTime": "2026-03-20",
+            "skills": [
+              "Network monitoring and alert management",
+              "Firewalls, cloud security and cryptography",
+              "Vulnerability assessment and incident response"
+            ],
+            "url": "https://www.credly.com/badges/28ac05ee-4d11-4114-9c58-15cbf86c4589/public_url"
+          }
+        ],
+        "others": [
+          { "name": "Networking Devices and Initial Configuration", "date": "March 17, 2026", "dateTime": "2026-03-17" },
+          { "name": "Networking Basics", "date": "March 4, 2026", "dateTime": "2026-03-04" },
+          { "name": "Introduction to Cybersecurity", "date": "July 10, 2022", "dateTime": "2022-07-10" }
+        ],
+        "profileUrl": "https://www.credly.com/users/oscar-mulume"
+      },
       "items": [
         { "icon": "🌐", "domain": "Network & infrastructure", "title": "Cisco Networking Academy", "text": "Official certification “Networking Devices and Initial Configuration” (March 2026). Proof of mastery of network fundamentals applied to every architecture." },
         { "icon": "🛡️", "domain": "Offensive cybersecurity", "title": "Hack The Box & Kali Linux", "text": "Continuous practice on Hack The Box Academy and mastery of Kali Linux under WSL. Offensive skills serving your defence." },

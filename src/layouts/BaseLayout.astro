@@ -38,6 +38,43 @@ const enUrl = absoluteUrl(enPath);
 const ogImage = absoluteMedia(image);
 const whatsappMessage = dict.common.whatsappMessage;
 
+const credentials = [
+  {
+    name: 'Ethical Hacker',
+    dateCreated: '2026-10-23',
+    url: 'https://www.credly.com/badges/bc73a9b9-0b18-423f-b230-485a61ddfcc6/public_url',
+  },
+  {
+    name: 'Junior Cybersecurity Analyst Career Path',
+    dateCreated: '2026-03-20',
+    url: 'https://www.credly.com/badges/28ac05ee-4d11-4114-9c58-15cbf86c4589/public_url',
+  },
+  {
+    name: 'Networking Devices and Initial Configuration',
+    dateCreated: '2026-03-17',
+    url: 'https://www.credly.com/users/oscar-mulume',
+  },
+  {
+    name: 'Networking Basics',
+    dateCreated: '2026-03-04',
+    url: 'https://www.credly.com/users/oscar-mulume',
+  },
+  {
+    name: 'Introduction to Cybersecurity',
+    dateCreated: '2022-07-10',
+    url: 'https://www.credly.com/users/oscar-mulume',
+  },
+].map((credential) => ({
+  '@type': 'EducationalOccupationalCredential',
+  ...credential,
+  credentialCategory: 'Badge',
+  recognizedBy: {
+    '@type': 'EducationalOrganization',
+    name: 'Cisco Networking Academy',
+    url: 'https://www.netacad.com/',
+  },
+}));
+
 const organization = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
@@ -47,7 +84,13 @@ const organization = {
   logo: absoluteMedia('logo.svg'),
   email: SITE.email,
   telephone: SITE.phone,
-  founder: { '@type': 'Person', name: SITE.founder },
+  founder: {
+    '@type': 'Person',
+    name: SITE.founder,
+    sameAs: ['https://www.credly.com/users/oscar-mulume'],
+    hasCredential: credentials,
+  },
+  hasCredential: credentials,
   address: {
     '@type': 'PostalAddress',
     addressLocality: 'Kinshasa',

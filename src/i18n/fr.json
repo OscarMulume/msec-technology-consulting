@@ -282,8 +282,8 @@
     },
     "certifications": {
       "label": "Validations & excellence technique",
-      "title": "Certifications & rigueur académique",
-      "desc": "Nous allions la rigueur académique aux réalités du terrain. Chaque certification valide une capacité appliquée sur vos projets.",
+      "title": "Certifications & badges vérifiés",
+      "desc": "Nous allions la rigueur académique aux réalités du terrain. Chaque badge ou certification valide une capacité appliquée sur vos projets.",
       "badges": {
         "label": "Badges vérifiables",
         "title": "Badges Cisco vérifiés",
@@ -331,12 +331,12 @@
         "profileUrl": "https://www.credly.com/users/oscar-mulume"
       },
       "items": [
-        { "icon": "🌐", "domain": "Réseau & infrastructure", "title": "Cisco Networking Academy", "text": "Certification officielle « Networking Devices and Initial Configuration » (mars 2026). Une preuve de maîtrise des fondations réseau appliquées à chaque architecture." },
-        { "icon": "🛡️", "domain": "Cybersécurité offensive", "title": "Hack The Box & Kali Linux", "text": "Pratique continue sur Hack The Box Academy et maîtrise de Kali Linux sous WSL. Des compétences offensives au service de votre défense." },
+        { "icon": "🌐", "domain": "Réseau & infrastructure", "title": "Cisco Networking Academy", "text": "Badge Cisco Networking Academy « Networking Devices and Initial Configuration » (mars 2026). Une preuve vérifiable des fondations réseau appliquées à chaque architecture." },
+        { "icon": "🛡️", "domain": "Cybersécurité offensive", "title": "Hack The Box & Kali Linux", "text": "Pratique continue sur Hack The Box Academy et sur Kali Linux sous WSL ; le badge Cisco Ethical Hacker, vérifiable sur Credly, en est une preuve. Des compétences offensives au service de votre défense." },
         { "icon": "🤖", "domain": "Intelligence artificielle", "title": "Grant AI Skills & Compute Africa", "text": "Obtenu en juillet 2026 pour le fine-tuning de modèles de langage et d'agents autonomes, complété par la Data Science Africa Summer School (Université Makerere)." },
         { "icon": "🎓", "domain": "Fondations académiques", "title": "Licence en Sciences Informatiques — ISIPA", "text": "Un socle théorique solide qui garantit des livrables rigoureux, documentés et pérennes." }
       ],
-      "note": "Chaque validation se traduit par un bénéfice concret : des architectures plus sûres, des systèmes audités selon des standards reconnus et une veille permanente sur les menaces émergentes."
+      "note": "Chaque badge et chaque validation se traduit par un bénéfice concret : des architectures plus sûres, des systèmes audités selon des standards reconnus et une veille permanente sur les menaces émergentes."
     },
     "audit": {
       "label": "Évaluation gratuite",

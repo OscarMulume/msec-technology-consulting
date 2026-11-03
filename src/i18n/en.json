@@ -282,8 +282,8 @@
     },
     "certifications": {
       "label": "Validation & technical excellence",
-      "title": "Certifications & academic rigour",
-      "desc": "We combine academic rigour with field realities. Each certification validates a capability applied to your projects.",
+      "title": "Certifications & verified badges",
+      "desc": "We combine academic rigour with field realities. Each badge or certification validates a capability applied to your projects.",
       "badges": {
         "label": "Verifiable badges",
         "title": "Verified Cisco badges",
@@ -331,12 +331,12 @@
         "profileUrl": "https://www.credly.com/users/oscar-mulume"
       },
       "items": [
-        { "icon": "🌐", "domain": "Network & infrastructure", "title": "Cisco Networking Academy", "text": "Official certification “Networking Devices and Initial Configuration” (March 2026). Proof of mastery of network fundamentals applied to every architecture." },
-        { "icon": "🛡️", "domain": "Offensive cybersecurity", "title": "Hack The Box & Kali Linux", "text": "Continuous practice on Hack The Box Academy and mastery of Kali Linux under WSL. Offensive skills serving your defence." },
+        { "icon": "🌐", "domain": "Network & infrastructure", "title": "Cisco Networking Academy", "text": "Cisco Networking Academy badge “Networking Devices and Initial Configuration” (March 2026). Verifiable proof of network fundamentals applied to every architecture." },
+        { "icon": "🛡️", "domain": "Offensive cybersecurity", "title": "Hack The Box & Kali Linux", "text": "Continuous practice on Hack The Box Academy and on Kali Linux under WSL; the Cisco Ethical Hacker badge, verifiable on Credly, is evidence of it. Offensive skills serving your defence." },
         { "icon": "🤖", "domain": "Artificial intelligence", "title": "Grant AI Skills & Compute Africa", "text": "Awarded in July 2026 for fine-tuning language models and autonomous agents, complemented by the Data Science Africa Summer School (Makerere University)." },
         { "icon": "🎓", "domain": "Academic foundations", "title": "Bachelor's degree in Computer Science — ISIPA", "text": "A strong theoretical foundation ensuring rigorous, documented and durable deliverables." }
       ],
-      "note": "Each certification translates into a concrete benefit: safer architectures, systems audited against recognised standards and continuous monitoring of emerging threats."
+      "note": "Each badge and each validation translates into a concrete benefit: safer architectures, systems audited against recognised standards and continuous monitoring of emerging threats."
     },
     "audit": {
       "label": "Free assessment",

@@ -25,7 +25,7 @@ Images fournies par Claude et déjà optimisées : `public/media/badges/cisco-et
 | Étape | Fichiers principaux | Vérifications | Commit | Tag | Poussé |
 |---|---|---|---|---|---|
 | 1 - Bloc « Badges Cisco vérifiés » | `src/components/HomePage.astro`, `src/i18n/fr.json`, `src/i18n/en.json`, `src/layouts/BaseLayout.astro`, `public/media/badges/*` | `npm test` vert : 6 tests unitaires, 19 pages construites, `astro check` 0 erreur / 0 avertissement, `html-validate` sans erreur, 891 références locales valides | `d11c97a` | `msec-badges-step-1` | oui |
-| 2 - Exactitude des textes existants | à compléter | à compléter | à compléter | `msec-badges-step-2` | à compléter |
+| 2 - Exactitude des textes existants | `src/i18n/fr.json`, `src/i18n/en.json` | `npm test` vert : 6 tests unitaires, 19 pages construites, `astro check` 0 erreur / 0 avertissement, `html-validate` sans erreur, 891 références locales valides | `6c4b679` | `msec-badges-step-2` | oui |
 | 3 - Vérification finale | à compléter | à compléter | à compléter | `msec-badges-step-3` puis `msec-badges` | à compléter |
 
 ## 3. Étape 1 - Bloc « Badges Cisco vérifiés »
@@ -43,10 +43,27 @@ Images fournies par Claude et déjà optimisées : `public/media/badges/cisco-et
   `EducationalOccupationalCredential` (nom, `credentialCategory: Badge`, `dateCreated`, URL Credly) et
   `recognizedBy` Cisco Networking Academy.
 
-## 4. Questions pour Oscar
+## 4. Étape 2 - Exactitude des textes existants
 
-- à compléter à l'étape 2.
+- Titre de section : « Certifications & badges vérifiés » (fr) / « Certifications & verified badges » (en).
+- La carte Cisco ne parle plus de « certification officielle ». Elle affiche : « Badge Cisco Networking Academy
+  « Networking Devices and Initial Configuration » (mars 2026) », avec une preuve vérifiable.
+- La carte « Hack The Box & Kali Linux » remplace « maîtrise » par « pratique » et cite le badge Cisco Ethical
+  Hacker, vérifiable sur Credly, comme preuve.
+- Les mentions génériques « chaque certification » deviennent « chaque badge ou certification » / « chaque badge
+  et chaque validation ».
+- Les cartes « Grant AI Skills & Compute Africa » et « Licence en Sciences Informatiques — ISIPA » restent
+  affichées telles quelles : aucun lien de vérification ne figure dans les données fournies.
 
-## 5. Ce qui n'a pas pu être fait
+## 5. Questions pour Oscar
+
+- Existe-t-il un lien ou un document de vérification pour le « Grant AI Skills & Compute Africa » (juillet 2026) ?
+  Si oui, il pourra être ajouté à la carte. Sinon, la mention reste sans lien, sans rien inventer.
+- Existe-t-il un lien ou un document de vérification pour la « Licence en Sciences Informatiques — ISIPA » ?
+  Même règle : aucune affirmation inventée.
+- Faut-il demander à Cisco Networking Academy (ou Credly) des URLs publiques dédiées pour les trois badges qui
+  n'ont aujourd'hui que le lien du profil (Networking Devices, Networking Basics, Introduction to Cybersecurity) ?
+
+## 6. Ce qui n'a pas pu être fait
 
 - à compléter à l'étape 3.

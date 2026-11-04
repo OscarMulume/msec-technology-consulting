@@ -37,6 +37,8 @@ const frUrl = absoluteUrl(frPath);
 const enUrl = absoluteUrl(enPath);
 const ogImage = absoluteMedia(image);
 const whatsappMessage = dict.common.whatsappMessage;
+// L'assistant n'est affiché que si la variable publique est activée au build (après déploiement de la fonction).
+const assistantEnabled = import.meta.env.PUBLIC_ASSISTANT_ENABLED === 'true';
 
 const credentials = [
   {
@@ -156,6 +158,8 @@ const organization = {
     </main>
     <Footer locale={locale} />
     <WhatsAppButton locale={locale} message={whatsappMessage} />
+    {assistantEnabled && <msec-assistant lang={locale}></msec-assistant>}
+    {assistantEnabled && <script is:inline defer src={withBase('/assistant/msec-assistant.js')}></script>}
   </body>
 </html>
 

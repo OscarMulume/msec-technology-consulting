@@ -15,7 +15,8 @@
     "check:credentials": "node scripts/check-credentials.mjs",
     "test:unit": "node --experimental-strip-types --test",
     "lint": "npm run check && npm run validate:html && npm run check:links",
-    "test": "npm run test:unit && npm run build && npm run lint && npm run check:credentials"
+    "test": "npm run test:unit && npm run build && npm run lint && npm run check:credentials",
+    "test:e2e": "node tests/e2e/run.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.106.2",
@@ -23,6 +24,7 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.11",
+    "@playwright/test": "^1.64.1",
     "html-validate": "^11.17.0",
     "typescript": "^6.0.3"
   }

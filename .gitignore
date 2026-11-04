@@ -26,3 +26,8 @@ npm-debug.log*
 Thumbs.db
 *.swp
 *.tmp
+
+# Tests de bout en bout
+dist-e2e/
+test-results/
+playwright-report/

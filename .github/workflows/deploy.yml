@@ -22,6 +22,7 @@ jobs:
           PUBLIC_SUPABASE_URL: ${{ vars.PUBLIC_SUPABASE_URL }}
           PUBLIC_SUPABASE_ANON_KEY: ${{ vars.PUBLIC_SUPABASE_ANON_KEY }}
           PUBLIC_WHATSAPP_NUMBER: ${{ vars.PUBLIC_WHATSAPP_NUMBER }}
+          PUBLIC_ASSISTANT_ENABLED: ${{ vars.PUBLIC_ASSISTANT_ENABLED }}
       - uses: actions/upload-pages-artifact@v3
         with: { path: "./dist" }
   deploy:

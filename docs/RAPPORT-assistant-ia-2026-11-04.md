@@ -28,9 +28,15 @@ L'étape 5 (déploiement) n'est PAS faite : elle exige les actions d'Oscar, voir
 - Le workflow de déploiement du site a reçu un déclenchement manuel (`workflow_dispatch`) pour pouvoir le relancer après activation de la variable `PUBLIC_ASSISTANT_ENABLED`.
 - Vérification en lecture seule du projet Supabase : `pos-pro-msec` (cinzlzdfddvcjhmvnbtp) existe, état ACTIVE_HEALTHY, aucune Edge Function déployée. La liste des tables a échoué (erreur d'identifiants côté outil) : l'existence de `site_leads` n'est PAS confirmée, voir ASSISTANT.md étape 2.
 
-## Questions pour Oscar
-1. Identifiant exact du modèle DeepSeek de NVIDIA à utiliser (`LLM_MODEL`) : je ne l'ai pas, je n'ai rien inventé.
-2. Confirmer ou changer les 4 décisions par défaut en tête de ce rapport.
+## Réponses d'Oscar (04/11/2026)
+- Modèle : `z-ai/glm-5.3-flash` (NVIDIA, gratuit), secours manuel `deepseek-ai/deepseek-v4.1-flash`, base `https://integrate.api.nvidia.com/v1`. Pas de bascule automatique dans la fonction (un seul `LLM_MODEL`) ; le routeur du prochain chantier « msec-ia-routeur » concerne les outils de développement, pas cette fonction.
+- Tag : `assistant-ia-fix` reste la référence ; `assistant-ia` n'est pas déplacé (rien n'est forcé).
+- Décisions a) téléphone, b) « incident de sécurité » et d) Mosala : CONFIRMÉES.
+- Décision c) (études de cas) : réponse non exploitable (modèle de réponse non rempli). On GARDE « exemples de missions » en attendant ; à confirmer par « ce sont de vrais chantiers » ou « garde exemples de missions ».
+
+## Questions pour Oscar (restantes)
+1. Décision c) : « ce sont de vrais chantiers » ou « garde exemples de missions » ?
+2. (Réglé) Décisions a), b), d) confirmées.
 3. La table `site_leads` existe-t-elle déjà dans pos-pro-msec (migration du 20/10) ?
 4. Une NOUVELLE clé NVIDIA est indispensable avant la mise en ligne (l'ancienne a été exposée).
 

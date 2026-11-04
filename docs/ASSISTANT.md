@@ -48,11 +48,11 @@ npx supabase login
 npx supabase functions deploy assistant --project-ref cinzlzdfddvcjhmvnbtp --no-verify-jwt
 ```
 
-**6. Saisir les secrets** (la clé est tapée à l'invite, jamais écrite dans un fichier). Remplacez `<MODELE>` par l'identifiant exact du modèle DeepSeek de NVIDIA que vous utilisez déjà (je ne l'ai pas : **question pour vous**) :
+**6. Saisir les secrets** (la clé est tapée à l'invite, jamais écrite dans un fichier). Modèle choisi par Oscar (04/11/2026) : `z-ai/glm-5.3-flash` (NVIDIA, offre gratuite). Modèle de secours à utiliser manuellement si le premier disparaît : `deepseek-ai/deepseek-v4.1-flash` (la fonction n'utilise qu'UN modèle à la fois : il n'y a pas de bascule automatique ; pour basculer, relancez la commande ci-dessous en changeant `LLM_MODEL`) :
 ```powershell
 $cle = Read-Host "Collez la NOUVELLE cle NVIDIA"
 $sel = node -e "console.log(require('crypto').randomBytes(24).toString('hex'))"
-npx supabase secrets set "LLM_API_KEY=$cle" "ASSISTANT_SALT=$sel" "LLM_BASE_URL=https://integrate.api.nvidia.com/v1" "LLM_MODEL=<MODELE>" --project-ref cinzlzdfddvcjhmvnbtp
+npx supabase secrets set "LLM_API_KEY=$cle" "ASSISTANT_SALT=$sel" "LLM_BASE_URL=https://integrate.api.nvidia.com/v1" "LLM_MODEL=z-ai/glm-5.3-flash" --project-ref cinzlzdfddvcjhmvnbtp
 Remove-Variable cle, sel
 ```
 Ne définissez PAS `ASSISTANT_ALLOW_LOCALHOST` en production.

@@ -5,6 +5,8 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
+    "build:knowledge": "node scripts/build-knowledge.mjs",
+    "check:knowledge": "node scripts/build-knowledge.mjs --check",
     "preview": "astro preview",
     "check": "astro check",
     "typecheck": "astro check",

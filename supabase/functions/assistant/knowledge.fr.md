@@ -1,7 +1,7 @@
 # Connaissances de l'assistant M-SEC — français
 
 > Fichier généré par `scripts/build-knowledge.mjs`. Ne pas modifier à la main : lancer `npm run build:knowledge`.
-> Version des sources : `63dcc657980f`.
+> Version des sources : `a94da268196b`.
 > À relire par Oscar avant la mise en production.
 
 ## 1. Identité et coordonnées
@@ -12,7 +12,6 @@
 - **Site M-SEC** : https://oscarmulume.github.io/msec-technology-consulting/
 - **Portfolio** : https://oscarmulume.github.io/
 - **E-mail** : oscarmulume1612@gmail.com
-- **Téléphone** : +243 975 585 150
 - **LinkedIn** : https://www.linkedin.com/in/oscar-mulume-95666b225/
 - **GitHub** : https://github.com/OscarMulume
 - **Basé à** : Kinshasa, RDC — Afrique Centrale.
@@ -106,7 +105,7 @@ Déploiement local d'agents IA open-source (Hermes Agent, OpenCode AI) sous Linu
 - **POS Pro n'est pas encore en ligne.** Le développement est en cours ; le programme pilote s'adresse aux restaurants de Kinshasa, sous réserve de disponibilité et après validation du besoin. Aucun prix n'est publié.
 - **Herbo** et **MonImmo** sont en préparation : ne pas les présenter comme lancés ou disponibles.
 
-## 5. Méthode, engagements et études de cas
+## 5. Méthode, engagements et exemples de missions
 
 **Méthode en 4 phases :**
 
@@ -121,7 +120,9 @@ Déploiement local d'agents IA open-source (Hermes Agent, OpenCode AI) sous Linu
 - **Diagnostic d'audit** : Sous 48 h. Après réception des informations nécessaires. Le rapport complet dépend du périmètre convenu.
 - **Intervention prioritaire** : Selon le SLA du contrat. Délais définis et signés dans le contrat de support.
 
-### Refonte du câblage et digitalisation de complexes immobiliers
+**Exemples de missions :** les deux exemples ci-dessous sont présentés comme des exemples de missions. Ne pas affirmer qu'il s'agit de chantiers réalisés pour des clients précis ni citer de client.
+
+### Exemple de mission : Refonte du câblage et digitalisation de complexes immobiliers
 
 *Modernisation d'infrastructure*
 
@@ -131,7 +132,7 @@ Déploiement local d'agents IA open-source (Hermes Agent, OpenCode AI) sous Linu
 
 **L'impact opérationnel :** Des opérations accélérées, des ventes fiabilisées et une infrastructure enfin maintenable, documentée et prête à croître.
 
-### Architecture de connectivité pour véhicules d'intervention
+### Exemple de mission : Architecture de connectivité pour véhicules d'intervention
 
 *Connectivité nomade*
 
@@ -153,7 +154,7 @@ Déploiement local d'agents IA open-source (Hermes Agent, OpenCode AI) sous Linu
 - **Responsable IT, Ingénierie & Technologies (Consultant IT)** (Févr. 2026 – Présent) — Malaïka Group — Kinshasa, RDC
   - Pilotage de l'IT, de la cybersécurité et de l'ingénierie de 5 entités (Malaïka Group, Ranch, Travels, Le Gabriel, Chez Malaïka)
   - Entré comme technicien réseau pour un audit d'urgence : pannes critiques rétablies, contrat groupe obtenu en un mois
-  - Durcissement des plateformes web après une cyberattaque majeure : scans de vulnérabilités, correctifs, pare-feu, antivirus
+  - Durcissement des plateformes web après un incident de sécurité : scans de vulnérabilités, correctifs, pare-feu, antivirus
   - Disponibilité de 99,9 % (Wi-Fi, PMS, contrôle d'accès), 99,5 % (POS), 99 % (Internet) ; incidents critiques traités en moins de 2 h
   - Plan de reprise après sinistre (DRP) et sauvegardes testés ; rapports mensuels à la direction
 - **Fondateur & Consultant principal** (Mai 2026 – Présent) — M-SEC Technology Consulting — Kinshasa, RDC
@@ -178,6 +179,7 @@ Déploiement local d'agents IA open-source (Hermes Agent, OpenCode AI) sous Linu
 - **POS Pro** (En cours) — Caisse pour restaurant pensée pour fonctionner hors ligne, avec application web et déclinaisons bureau et mobile. Développement en cours, pas encore disponible en ligne.
 - **Malaika Ranch** (En ligne) — Boutique en ligne avec commande via WhatsApp. — https://malaika-ranch-web.vercel.app
 - **Site M-SEC Technology Consulting** (En ligne) — Site vitrine de M-SEC Technology Consulting : conseil IT, réseaux et cybersécurité à Kinshasa. — https://oscarmulume.github.io/msec-technology-consulting/
+- **Mosala** (En ligne) — Assistant open source de CV et de conversation pour les langues africaines, qui fonctionne hors ligne avec un modèle local (Ollama). — https://github.com/OscarMulume/nonchalant-cv ; https://dev.to/oscarmulume/mosala-a-cv-and-conversation-assistant-for-africas-languages-running-on-your-own-computer-2coc
 - **Machines Cohort & Orion** — Cohort : SSRF, accès initial puis élévation de privilèges via CVE. Orion : énumération web CraftCMS et contournement d'authentification Telnet local.
 - **Sherlocks Brutus & Investigate Web Attack** — Reconstitution de kill chains à partir de logs : brute force SSH (auth.log, wtmp, MITRE T1136), scan Nikto, brute force web et injection de commandes.
 - **Cloud privé Raspberry Pi** — Serveur de stockage personnel sur Raspberry Pi 5 avec Nextcloud, accessible à distance de façon sécurisée via Tailscale.
@@ -209,7 +211,8 @@ Cinq badges Cisco Networking Academy, vérifiables sur Credly :
 - Ne pas dire que POS Pro est disponible ou en ligne. Ne pas dire que Herbo ou MonImmo sont lancés.
 - Ne pas donner de conseil de sécurité personnalisé comme s'il valait audit. Proposer un audit ou un échange.
 - Ne pas demander de mot de passe, clé, secret, donnée bancaire ou information sensible.
-- Si l'information n'est pas dans ce fichier : répondre « Je n'ai pas cette information » et orienter vers le formulaire, l'e-mail ou le téléphone.
+- Ne communiquer aucun numéro de téléphone : renvoyer vers le formulaire de contact et l'e-mail.
+- Si l'information n'est pas dans ce fichier : répondre « Je n'ai pas cette information » et orienter vers le formulaire ou l'e-mail.
 
 ## 10. Réponses canoniques
 
@@ -232,7 +235,7 @@ Il détient cinq badges Cisco Networking Academy vérifiables sur Credly. Ce son
 Il est basé à Kinshasa et intervient à Kinshasa, Goma, Bukavu, en Afrique centrale et à distance, selon la mission.
 
 **Comment demander un devis ?**  
-Utiliser le formulaire de contact du site M-SEC, écrire à oscarmulume1612@gmail.com ou appeler le +243 975 585 150. L'assistant peut aussi recueillir un nom, un e-mail ou un numéro WhatsApp, et le besoin.
+Utiliser le formulaire de contact du site M-SEC, écrire à oscarmulume1612@gmail.com. L'assistant peut aussi recueillir un nom, un e-mail ou un numéro WhatsApp, et le besoin.
 
 **M-SEC garantit-il 99,9 % de disponibilité ?**  
 Non, aucune garantie universelle n'est publiée. Les objectifs de disponibilité sont définis contrat par contrat. Le chiffre de 99,9 % est un résultat passé chez Malaïka Group, pas une promesse générale de M-SEC.

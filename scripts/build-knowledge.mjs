@@ -87,8 +87,17 @@ function renderService(service, lang) {
   ].join('\n');
 }
 
+function projectLink(project) {
+  if (project.href) return ` — ${project.href}`;
+  if (Array.isArray(project.links) && project.links.length > 0) {
+    return ` — ${project.links.map((link) => link.href ?? link).join(' ; ')}`;
+  }
+  return '';
+}
+
 function renderCaseStudy(item, lang) {
-  const lines = [`### ${item.title}`, '', `*${item.tag}*`, ''];
+  const prefix = lang === 'fr' ? 'Exemple de mission' : 'Example mission';
+  const lines = [`### ${prefix} : ${item.title}`, '', `*${item.tag}*`, ''];
   for (const segment of item.segments) {
     lines.push(`**${segment.label} :** ${segment.text}`, '');
   }
@@ -118,7 +127,7 @@ const EN_PROFILE = {
       company: 'Malaïka Group — Kinshasa, DR Congo',
       bullets: [
         'Leads IT, cybersecurity and engineering for 5 entities (Malaïka Group, Ranch, Travels, Le Gabriel, Chez Malaïka).',
-        'Hardened web platforms after a major cyberattack: vulnerability scans, patches, firewall and antivirus.',
+        'Hardened web platforms after a security incident: vulnerability scans, patches, firewall and antivirus.',
         'Maintained 99.9% availability for Wi-Fi, PMS and access control, 99.5% for POS and 99% for Internet; critical incidents handled in under 2 hours.',
         'Tested disaster recovery and backup plans; delivered monthly reports to management.',
       ],
@@ -158,6 +167,17 @@ const EN_PROFILE = {
       href: 'https://oscarmulume.github.io/msec-technology-consulting/',
     },
     {
+      title: 'Mosala',
+      tag: 'Open source · local AI',
+      status: 'Online',
+      description:
+        'Open-source CV and conversation assistant for African languages. It works offline with a local model (Ollama).',
+      links: [
+        'https://github.com/OscarMulume/nonchalant-cv',
+        'https://dev.to/oscarmulume/mosala-a-cv-and-conversation-assistant-for-africas-languages-running-on-your-own-computer-2coc',
+      ],
+    },
+    {
       title: 'Cohort & Orion machines',
       tag: 'Pentest · Hack The Box',
       description:
@@ -189,7 +209,7 @@ const EN_PROFILE = {
     ['Is POS Pro available?', 'Not yet. POS Pro is in development and offered through a pilot programme for restaurants, subject to availability. It is not available online.'],
     ['Is Oscar Cisco certified?', 'He holds five Cisco Networking Academy badges, verifiable on Credly. These are training badges, not professional certifications, so he should not be described as “Cisco certified”.'],
     ['Where does Oscar work?', 'He is based in Kinshasa and works in Kinshasa, Goma, Bukavu, across Central Africa, and remotely, depending on the assignment.'],
-    ['How can I request a quote?', 'Use the contact form on the M-SEC site, email oscarmulume1612@gmail.com, or call +243 975 585 150. The assistant can also collect a name, an email or WhatsApp number, and the need.'],
+    ['How can I request a quote?', 'Use the contact form on the M-SEC site or email oscarmulume1612@gmail.com. The assistant can also collect a name, an email or WhatsApp number, and the need.'],
     ['Does M-SEC guarantee 99.9% availability?', 'No universal guarantee is published. Availability targets are defined contract by contract. The 99.9% figure is a past result at Malaïka Group, not a blanket M-SEC promise.'],
   ],
 };
@@ -205,7 +225,6 @@ function buildFr(fr, services, profile) {
   const languages = profile.sections.skills.groups.find((group) => group.title === 'Langues')?.tags ?? [];
 
   const email = contact.cards.find((card) => card.label === 'Email')?.value;
-  const phone = contact.cards.find((card) => card.label === 'Téléphone')?.value;
   const linkedin = contact.cards.find((card) => card.label === 'LinkedIn')?.href;
   const github = contact.cards.find((card) => card.label === 'GitHub')?.href;
   const zone = contact.zone.lines.map((line) => line.replace(/^[^\p{L}]+/u, '').trim());
@@ -216,7 +235,7 @@ function buildFr(fr, services, profile) {
   });
 
   const projectLines = projects.map((project) => {
-    const link = project.href ? ` — ${project.href}` : '';
+    const link = projectLink(project);
     const status = project.status ? ` (${project.status})` : '';
     return `- **${project.title}**${status} — ${project.description}${link}`;
   });
@@ -254,7 +273,6 @@ function buildFr(fr, services, profile) {
 - **Site M-SEC** : https://oscarmulume.github.io/msec-technology-consulting/
 - **Portfolio** : ${site.url}/
 - **E-mail** : ${email}
-- **Téléphone** : ${phone}
 - **LinkedIn** : ${linkedin}
 - **GitHub** : ${github}
 - **Basé à** : ${site.location}.
@@ -284,7 +302,7 @@ ${productLines.join('\n')}
 - **POS Pro n'est pas encore en ligne.** Le développement est en cours ; le programme pilote s'adresse aux restaurants de Kinshasa, sous réserve de disponibilité et après validation du besoin. Aucun prix n'est publié.
 - **Herbo** et **MonImmo** sont en préparation : ne pas les présenter comme lancés ou disponibles.
 
-## 5. Méthode, engagements et études de cas
+## 5. Méthode, engagements et exemples de missions
 
 **Méthode en 4 phases :**
 
@@ -293,6 +311,8 @@ ${methodLines.join('\n')}
 **Engagements contractuels :**
 
 ${engagementLines.join('\n')}
+
+**Exemples de missions :** les deux exemples ci-dessous sont présentés comme des exemples de missions. Ne pas affirmer qu'il s'agit de chantiers réalisés pour des clients précis ni citer de client.
 
 ${fr.home.cases.items.map((item) => renderCaseStudy(item, 'fr')).join('\n\n')}
 
@@ -348,7 +368,8 @@ ${otherBadgeLines.join('\n')}
 - Ne pas dire que POS Pro est disponible ou en ligne. Ne pas dire que Herbo ou MonImmo sont lancés.
 - Ne pas donner de conseil de sécurité personnalisé comme s'il valait audit. Proposer un audit ou un échange.
 - Ne pas demander de mot de passe, clé, secret, donnée bancaire ou information sensible.
-- Si l'information n'est pas dans ce fichier : répondre « Je n'ai pas cette information » et orienter vers le formulaire, l'e-mail ou le téléphone.
+- Ne communiquer aucun numéro de téléphone : renvoyer vers le formulaire de contact et l'e-mail.
+- Si l'information n'est pas dans ce fichier : répondre « Je n'ai pas cette information » et orienter vers le formulaire ou l'e-mail.
 
 ## 10. Réponses canoniques
 
@@ -371,7 +392,7 @@ Il détient cinq badges Cisco Networking Academy vérifiables sur Credly. Ce son
 Il est basé à Kinshasa et intervient à Kinshasa, Goma, Bukavu, en Afrique centrale et à distance, selon la mission.
 
 **Comment demander un devis ?**  
-Utiliser le formulaire de contact du site M-SEC, écrire à ${email} ou appeler le ${phone}. L'assistant peut aussi recueillir un nom, un e-mail ou un numéro WhatsApp, et le besoin.
+Utiliser le formulaire de contact du site M-SEC, écrire à ${email}. L'assistant peut aussi recueillir un nom, un e-mail ou un numéro WhatsApp, et le besoin.
 
 **M-SEC garantit-il 99,9 % de disponibilité ?**  
 Non, aucune garantie universelle n'est publiée. Les objectifs de disponibilité sont définis contrat par contrat. Le chiffre de 99,9 % est un résultat passé chez Malaïka Group, pas une promesse générale de M-SEC.
@@ -384,7 +405,6 @@ function buildEn(en, services, profile) {
   const credentials = profile.sections.credentials;
 
   const email = contact.cards.find((card) => card.label === 'Email')?.value;
-  const phone = contact.cards.find((card) => card.label === 'Téléphone')?.value;
   const linkedin = contact.cards.find((card) => card.label === 'LinkedIn')?.href;
   const github = contact.cards.find((card) => card.label === 'GitHub')?.href;
   const zone = ['Kinshasa, Goma, Bukavu (DR Congo)', 'Central Africa', 'Remote / on-site'];
@@ -402,7 +422,7 @@ function buildEn(en, services, profile) {
   });
 
   const projectLines = EN_PROFILE.projects.map((project) => {
-    const link = project.href ? ` — ${project.href}` : '';
+    const link = projectLink(project);
     const status = project.status ? ` (${project.status})` : '';
     return `- **${project.title}**${status} — ${project.description}${link}`;
   });
@@ -432,7 +452,6 @@ function buildEn(en, services, profile) {
 - **M-SEC website**: https://oscarmulume.github.io/msec-technology-consulting/
 - **Portfolio**: ${site.url}/
 - **Email**: ${email}
-- **Phone**: ${phone}
 - **LinkedIn**: ${linkedin}
 - **GitHub**: ${github}
 - **Based in**: Kinshasa, DR Congo.
@@ -462,7 +481,7 @@ ${productLines.join('\n')}
 - **POS Pro is not online yet.** Development is ongoing; the pilot programme is aimed at restaurants in Kinshasa, subject to availability and after validating the need. No price is published.
 - **Herbo** and **MonImmo** are in preparation: do not present them as launched or available.
 
-## 5. Method, commitments and case studies
+## 5. Method, commitments and example missions
 
 **Four-phase method:**
 
@@ -471,6 +490,8 @@ ${methodLines.join('\n')}
 **Contractual commitments:**
 
 ${engagementLines.join('\n')}
+
+**Example missions:** the two examples below are presented as example missions. Do not claim they are completed projects for specific clients and never name a client.
 
 ${en.home.cases.items.map((item) => renderCaseStudy(item, 'en')).join('\n\n')}
 
@@ -526,7 +547,8 @@ ${otherBadgeLines.join('\n')}
 - Do not say POS Pro is available or online. Do not say Herbo or MonImmo have launched.
 - Do not give personalised security advice as if it were an audit. Offer an audit or a conversation.
 - Do not ask for passwords, keys, secrets, banking details or sensitive information.
-- If the information is not in this file: answer “I don’t have that information” and point to the form, email or phone.
+- Never give out a phone number: point to the contact form and email.
+- If the information is not in this file: answer “I don’t have that information” and point to the form or email.
 
 ## 10. Canonical answers
 
@@ -564,7 +586,7 @@ function validate(fr, en, servicesFr, servicesEn, profile) {
   assertNonEmpty(en.home.cases.items[0]?.segments?.[0]?.text, 'Case study EN');
 
   const projects = profile.sections.projects.items.map((item) => item.title);
-  for (const expected of ['POS Pro', 'Malaika Ranch', 'Site M-SEC Technology Consulting', 'Machines Cohort & Orion']) {
+  for (const expected of ['POS Pro', 'Malaika Ranch', 'Site M-SEC Technology Consulting', 'Mosala', 'Machines Cohort & Orion']) {
     if (!projects.includes(expected)) fail(`Projet manquant : ${expected}`);
   }
 
@@ -596,9 +618,31 @@ const sourceHash = createHash('sha256')
   .slice(0, 12);
 const SOURCE_HASH = sourceHash;
 
+function applyDecisions(text, lang) {
+  let result = text;
+  if (lang === 'fr') {
+    result = result.replace('après une cyberattaque majeure', 'après un incident de sécurité');
+  }
+  for (const forbidden of ['cyberattaque majeure', 'major cyberattack', '975 585 150', '+243']) {
+    if (result.includes(forbidden)) fail(`Formulation interdite dans les connaissances (${lang}) : ${forbidden}`);
+  }
+  return result;
+}
+
+const knowledgeFr = applyDecisions(buildFr(fr, Object.values(servicesFr), profile), 'fr');
+const knowledgeEn = applyDecisions(buildEn(en, Object.values(servicesEn), profile), 'en');
+
+const clean = (text) => text.replace(/\r\n/g, '\n').replace(/\bM-Sec\b/g, 'M-SEC');
+
 const outputs = {
-  'knowledge.fr.md': buildFr(fr, Object.values(servicesFr), profile),
-  'knowledge.en.md': buildEn(en, Object.values(servicesEn), profile),
+  'knowledge.fr.md': knowledgeFr,
+  'knowledge.en.md': knowledgeEn,
+  'knowledge.generated.ts': [
+    '// Fichier généré par scripts/build-knowledge.mjs. Ne pas modifier à la main.',
+    '// Les connaissances sont embarquées dans le code de la fonction (import statique).',
+    `export const KNOWLEDGE: { fr: string; en: string } = ${JSON.stringify({ fr: clean(knowledgeFr), en: clean(knowledgeEn) }, null, 2)};`,
+    '',
+  ].join('\n'),
 };
 
 const checkOnly = process.argv.includes('--check');
@@ -606,7 +650,7 @@ let changes = 0;
 
 for (const [filename, content] of Object.entries(outputs)) {
   const target = path.join(OUT_DIR, filename);
-  const normalized = content.replace(/\r\n/g, '\n').replace(/\bM-Sec\b/g, 'M-SEC');
+  const normalized = clean(content);
   if (checkOnly) {
     let current = '';
     try {

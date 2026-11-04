@@ -18,7 +18,11 @@ test('les connaissances FR et EN contiennent les faits obligatoires', async () =
     assert.match(text, /Oscar Mulume/, `${locale} : nom manquant`);
     assert.match(text, /M-SEC Technology Consulting/, `${locale} : entreprise manquante`);
     assert.match(text, /oscarmulume1612@gmail\.com/, `${locale} : e-mail manquant`);
-    assert.match(text, /\+243 975 585 150/, `${locale} : téléphone manquant`);
+    assert.doesNotMatch(text, /975 585 150|\+243/, `${locale} : le téléphone ne doit pas figurer dans les connaissances`);
+    assert.doesNotMatch(text, /cyberattaque majeure|major cyberattack/, `${locale} : formulation remplacée par « incident de sécurité »`);
+    assert.match(text, /Mosala/, `${locale} : Mosala manquant`);
+    assert.match(text, /nonchalant-cv/, `${locale} : lien du dépôt Mosala manquant`);
+    assert.match(text, /dev\.to\/oscarmulume\/mosala/, `${locale} : lien de l'article Mosala manquant`);
     assert.match(text, /POS Pro/, `${locale} : POS Pro manquant`);
     assert.match(text, /Malaika Ranch/, `${locale} : Malaika Ranch manquant`);
     assert.match(text, /Cisco Networking Academy/, `${locale} : badge Cisco manquant`);
@@ -37,6 +41,17 @@ test('les connaissances FR et EN contiennent les faits obligatoires', async () =
   assert.match(en, /Do not say POS Pro is available/);
   assert.match(fr, /99,9 %/);
   assert.match(en, /99\.9%/);
+});
+
+test('les études de cas sont présentées comme des exemples de missions', async () => {
+  const fr = await readKnowledge('fr');
+  const en = await readKnowledge('en');
+  assert.match(fr, /Exemple de mission : Refonte du câblage/);
+  assert.match(fr, /ne pas affirmer qu'il s'agit de chantiers/i);
+  assert.match(en, /Example mission : Rewiring/);
+  assert.match(en, /Do not claim they are completed projects/);
+  assert.match(fr, /après un incident de sécurité/);
+  assert.match(en, /after a security incident/);
 });
 
 test('les connaissances citent les cinq badges et leurs liens', async () => {

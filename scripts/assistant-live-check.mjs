@@ -1,6 +1,6 @@
 // Test réel de l'assistant déployé : 10 questions types, réponses affichées en tableau Markdown
 // à coller dans le rapport. À lancer par Oscar APRÈS le déploiement (voir docs/ASSISTANT.md).
-//   node scripts/test-assistant-live.mjs [URL_DE_LA_FONCTION]
+//   node scripts/assistant-live-check.mjs [URL_DE_LA_FONCTION]
 // Aucune clé n'est utilisée : le script se présente comme le portfolio (en-tête Origin), comme un navigateur.
 // Attention : chaque question compte dans la limite de 20 messages par heure.
 

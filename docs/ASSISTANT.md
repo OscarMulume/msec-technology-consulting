@@ -59,7 +59,7 @@ Ne définissez PAS `ASSISTANT_ALLOW_LOCALHOST` en production.
 
 **7. Test réel** (10 questions : profil, badges, POS Pro, Malaika, services, prix, téléphone, hors périmètre, deux détournements) :
 ```powershell
-node scripts/test-assistant-live.mjs
+node scripts/assistant-live-check.mjs
 ```
 Collez le tableau obtenu dans `docs/RAPPORT-assistant-ia-2026-11-04.md` et relisez chaque réponse selon la colonne « Attendu ». Si une réponse est mauvaise, ne passez pas à l'étape 8.
 

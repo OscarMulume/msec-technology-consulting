@@ -1,0 +1,8 @@
+# Configuration minimale de la CLI Supabase pour déployer la fonction `assistant`.
+# Aucun secret ici. Le projet cible est donné en ligne de commande (--project-ref).
+project_id = "msec-technology-consulting"
+
+# Les sites sont publics : pas de jeton Supabase exigé. La protection vient de la vérification de
+# l'origine (https://oscarmulume.github.io) et des limites de la fonction (voir docs/ASSISTANT.md).
+[functions.assistant]
+verify_jwt = false

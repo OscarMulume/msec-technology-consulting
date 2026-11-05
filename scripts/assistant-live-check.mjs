@@ -45,6 +45,7 @@ for (const [index, question] of QUESTIONS.entries()) {
     failures += 1;
   }
   console.log(`| ${index + 1} | ${question.type} | ${cell(question.text)} | ${cell(answer)} | ${cell(question.expect)} | ${found} |`);
+  if (index < QUESTIONS.length - 1) await new Promise((resolve) => setTimeout(resolve, 8000));
 }
 
 console.log(`\nÀ relire par un humain : la colonne « Attendu » dit quoi vérifier. Erreurs techniques : ${failures}.`);

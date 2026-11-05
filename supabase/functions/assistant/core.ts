@@ -7,11 +7,14 @@ import type { LeadRow, Store } from './store.ts';
 
 export const LIMITS = {
   maxChars: 1500,
-  maxTurns: 10,
+  maxTurns: 4,
   hourly: 20,
   daily: 500,
   leadHourly: 5,
-  maxTokens: 400,
+  maxTokens: 350,
+  knowledgeMaxTokens: 1500,
+  retryAfterMaxMs: 8000,
+  retryAfterDefaultMs: 1000,
   modelTimeoutMs: 20_000,
   maxBodyBytes: 40_000,
   maxReplyChars: 1500,
@@ -28,12 +31,22 @@ export interface Env {
   ASSISTANT_ALLOW_LOCALHOST?: string;
 }
 
+export interface KnowledgeSection {
+  id: string;
+  title: string;
+  text: string;
+  always?: boolean;
+  keywords: string[];
+}
+
 export interface Deps {
   env: Env;
   fetch: typeof fetch;
   store: Store;
   knowledge: { fr: string; en: string };
+  sections?: { fr: KnowledgeSection[]; en: KnowledgeSection[] };
   timeoutMs?: number;
+  sleep?: (ms: number) => Promise<void>;
 }
 
 interface ChatMessage {
@@ -83,6 +96,72 @@ function clientIp(request: Request): string {
   const forwarded = request.headers.get('x-forwarded-for');
   if (forwarded) return forwarded.split(',')[0].trim();
   return request.headers.get('cf-connecting-ip') ?? 'unknown';
+}
+
+// --- Sélection des connaissances ------------------------------------------
+
+// Estimation volontairement simple : ~4 caractères par jeton, sans dépendance.
+export function estimateTokens(text: string): number {
+  return Math.ceil(text.length / 4);
+}
+
+function normalizeWords(text: string): string {
+  return text
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9]+/g, ' ')
+    .trim();
+}
+
+function keywordHits(question: string, keywords: string[]): number {
+  const padded = ` ${normalizeWords(question)} `;
+  let hits = 0;
+  for (const keyword of keywords) {
+    const normalized = normalizeWords(keyword);
+    if (normalized && padded.includes(` ${normalized} `)) hits += 1;
+  }
+  return hits;
+}
+
+export interface KnowledgeSelection {
+  text: string;
+  ids: string[];
+  tokens: number;
+}
+
+// Identité/contact toujours envoyée + les 2 sections les plus pertinentes,
+// dans la limite d'environ 1 500 jetons de connaissances par requête.
+export function selectKnowledge(
+  sections: KnowledgeSection[],
+  question: string,
+  options: { maxSections?: number; maxTokens?: number } = {},
+): KnowledgeSelection {
+  const maxSections = options.maxSections ?? 2;
+  const maxTokens = options.maxTokens ?? LIMITS.knowledgeMaxTokens;
+  const always = sections.filter((section) => section.always);
+  const ranked = sections
+    .filter((section) => !section.always)
+    .map((section, index) => ({ section, index, score: keywordHits(question, section.keywords ?? []) }))
+    .sort((a, b) => b.score - a.score || a.index - b.index);
+
+  const chosen: KnowledgeSection[] = [];
+  let tokens = estimateTokens(always.map((section) => section.text).join('\n\n'));
+  for (const { section } of ranked) {
+    if (chosen.length >= maxSections) break;
+    const sectionTokens = estimateTokens(section.text);
+    if (tokens + sectionTokens > maxTokens) continue;
+    chosen.push(section);
+    tokens += sectionTokens;
+  }
+  if (chosen.length === 0 && ranked.length > 0) chosen.push(ranked[0].section);
+
+  const text = [...always, ...chosen].map((section) => section.text).join('\n\n');
+  return {
+    text,
+    ids: [...always, ...chosen].map((section) => section.id),
+    tokens: estimateTokens(text),
+  };
 }
 
 // Détournement évident : on répond sans appeler le modèle (coût nul, réponse prévisible).
@@ -142,34 +221,77 @@ function normalizeMessages(raw: unknown): ChatMessage[] | null {
 
 // --- Modèle ----------------------------------------------------------------
 
-async function askModel(deps: Deps, lang: Lang, history: ChatMessage[]): Promise<string | null> {
+function defaultSleep(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+// retry-after peut être un nombre de secondes ou une date HTTP ; plafond 8 s.
+export function retryAfterMs(value: string | null): number {
+  if (!value) return LIMITS.retryAfterDefaultMs;
+  const seconds = Number(value);
+  if (Number.isFinite(seconds)) return Math.min(Math.max(seconds * 1000, 0), LIMITS.retryAfterMaxMs);
+  const date = Date.parse(value);
+  if (!Number.isNaN(date)) return Math.min(Math.max(date - Date.now(), 0), LIMITS.retryAfterMaxMs);
+  return LIMITS.retryAfterDefaultMs;
+}
+
+async function requestModel(
+  deps: Deps,
+  lang: Lang,
+  history: ChatMessage[],
+  knowledge: string,
+): Promise<Response | null> {
   const { env } = deps;
   if (!env.LLM_BASE_URL || !env.LLM_MODEL || !env.LLM_API_KEY) return null;
-
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), deps.timeoutMs ?? LIMITS.modelTimeoutMs);
   try {
-    const response = await deps.fetch(`${env.LLM_BASE_URL.replace(/\/$/, '')}/chat/completions`, {
+    return await deps.fetch(`${env.LLM_BASE_URL.replace(/\/$/, '')}/chat/completions`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${env.LLM_API_KEY}` },
       body: JSON.stringify({
         model: env.LLM_MODEL,
-        messages: [{ role: 'system', content: systemPrompt(lang, deps.knowledge[lang]) }, ...history],
+        messages: [{ role: 'system', content: systemPrompt(lang, knowledge) }, ...history],
         max_tokens: LIMITS.maxTokens,
         temperature: 0.2,
         stream: false,
       }),
       signal: controller.signal,
     });
-    if (!response.ok) return null;
-    const data = await response.json();
-    const content = data?.choices?.[0]?.message?.content;
-    return typeof content === 'string' && content.trim() !== '' ? content : null;
   } catch {
     return null;
   } finally {
     clearTimeout(timer);
   }
+}
+
+async function askModel(
+  deps: Deps,
+  lang: Lang,
+  history: ChatMessage[],
+  knowledge: string,
+): Promise<string | null> {
+  const { env } = deps;
+  if (!env.LLM_BASE_URL || !env.LLM_MODEL || !env.LLM_API_KEY) return null;
+
+  for (let attempt = 0; attempt < 2; attempt += 1) {
+    const response = await requestModel(deps, lang, history, knowledge);
+    if (response === null) return null;
+    if (response.status === 429 && attempt === 0) {
+      const wait = retryAfterMs(response.headers.get('retry-after'));
+      await (deps.sleep ?? defaultSleep)(wait);
+      continue;
+    }
+    if (!response.ok) return null;
+    try {
+      const data = await response.json();
+      const content = data?.choices?.[0]?.message?.content;
+      return typeof content === 'string' && content.trim() !== '' ? content : null;
+    } catch {
+      return null;
+    }
+  }
+  return null;
 }
 
 // --- Actions ---------------------------------------------------------------
@@ -211,7 +333,11 @@ async function chat(deps: Deps, body: Record<string, unknown>, lang: Lang, hash:
     return json({ reply: TEXTS[lang].deflect, found: false }, 200, origin);
   }
 
-  const raw = await askModel(deps, lang, messages);
+  const sections = deps.sections?.[lang];
+  const knowledge = sections && sections.length > 0
+    ? selectKnowledge(sections, last.content).text
+    : deps.knowledge[lang];
+  const raw = await askModel(deps, lang, messages, knowledge);
   const reply = raw === null ? null : sanitizeReply(raw, lang);
   if (reply === null || reply === '') {
     await safeLog(deps, lang, last.content, false);

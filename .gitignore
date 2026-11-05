@@ -17,6 +17,9 @@ assets/images/source/*.png
 node_modules/
 dist/
 .astro/
+
+# Supabase CLI (état local, jetons de session)
+supabase/.temp/
 npm-debug.log*
 
 # Éditeurs / OS

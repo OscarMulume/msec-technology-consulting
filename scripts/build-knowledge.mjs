@@ -634,13 +634,74 @@ const knowledgeEn = applyDecisions(buildEn(en, Object.values(servicesEn), profil
 
 const clean = (text) => text.replace(/\r\n/g, '\n').replace(/\bM-Sec\b/g, 'M-SEC');
 
+// Mots-clés simples par section (identifiant = numéro de la section « ## »).
+// Aucun service externe : la fonction compare des mots normalisés.
+const SECTION_KEYWORDS = {
+  fr: {
+    '2': ['m-sec', 'msec', 'entreprise', 'cabinet', 'pilier', 'piliers', 'tarif', 'tarifs', 'prix', 'cout', 'coute', 'sla', 'disponibilite', 'engagement', 'engagements', 'garantie', 'garanties', '24/7', 'devis', 'audit', 'diagnostic'],
+    '3': ['service', 'services', 'offre', 'offrez', 'connectivite', 'reseau', 'reseaux', 'wifi', 'wi-fi', 'starlink', 'unifi', 'fortigate', 'pare-feu', 'firewall', 'telephonie', 'yeastar', 'cybersecurite', 'securite', 'videosurveillance', 'camera', 'cameras', 'hikvision', 'dahua', 'pentest', 'intrusion', 'iot', 'tracage', 'mdm', 'geolocalisation', 'flotte', 'flottes', 'agent', 'agents', 'ia', 'intelligence', 'automatisation', 'linux', 'hermes', 'opencode'],
+    '4': ['produit', 'produits', 'pos', 'pos pro', 'caisse', 'restaurant', 'restaurants', 'herbo', 'monimmo', 'boutique', 'immobilier', 'pilote'],
+    '5': ['methode', 'phases', 'phase', 'audit', 'diagnostic', 'deploiement', 'supervision', 'mission', 'missions', 'exemple', 'exemples', 'cas', 'delai', 'delais', 'engagement', 'engagements'],
+    '6': ['oscar', 'mulume', 'parcours', 'formation', 'diplome', 'experience', 'poste', 'postes', 'malaika', 'competence', 'competences', 'cv', 'resultat', 'resultats', '99,9', '99.9'],
+    '7': ['projet', 'projets', 'portfolio', 'malaika', 'mosala', 'hack', 'box', 'raspberry', 'cloud', 'orion', 'cohort', 'sherlock', 'brutus', 'pratique', 'niveau'],
+    '8': ['badge', 'badges', 'cisco', 'credly', 'certification', 'certifications', 'certifie', 'ethical', 'hacker', 'networking', 'cybersecurity', 'analyst', 'formation'],
+    '9': ['inventer', 'invention', 'promesse', 'promettre', 'garantir', 'garantie', 'certification', 'certifie', 'prix', 'tarif', 'secret', 'mot de passe', 'telephone', 'numero'],
+    '10': ['qui', 'quoi', 'combien', 'disponible', 'devis', 'capitale', 'intervient', 'garantit', 'coute', 'fait'],
+  },
+  en: {
+    '2': ['m-sec', 'msec', 'company', 'business', 'pillar', 'pillars', 'pricing', 'price', 'prices', 'cost', 'sla', 'availability', 'commitment', 'commitments', 'guarantee', 'quote', 'audit', 'diagnosis'],
+    '3': ['service', 'services', 'offer', 'connectivity', 'network', 'networks', 'wifi', 'wi-fi', 'starlink', 'unifi', 'fortigate', 'firewall', 'telephony', 'yeastar', 'cybersecurity', 'security', 'video', 'surveillance', 'camera', 'cameras', 'hikvision', 'dahua', 'pentest', 'penetration', 'intrusion', 'iot', 'tracking', 'mdm', 'geolocation', 'fleet', 'fleets', 'agent', 'agents', 'ai', 'automation', 'linux', 'hermes', 'opencode'],
+    '4': ['product', 'products', 'pos', 'pos pro', 'cash', 'register', 'restaurant', 'restaurants', 'herbo', 'monimmo', 'shop', 'real estate', 'pilot'],
+    '5': ['method', 'phase', 'phases', 'audit', 'diagnosis', 'deployment', 'monitoring', 'mission', 'missions', 'example', 'examples', 'case', 'deadline', 'commitment', 'commitments'],
+    '6': ['oscar', 'mulume', 'background', 'education', 'degree', 'diploma', 'experience', 'role', 'roles', 'malaika', 'skills', 'cv', 'result', 'results', '99.9'],
+    '7': ['project', 'projects', 'portfolio', 'malaika', 'mosala', 'hack', 'box', 'raspberry', 'cloud', 'orion', 'cohort', 'sherlock', 'brutus', 'practice', 'level'],
+    '8': ['badge', 'badges', 'cisco', 'credly', 'certification', 'certifications', 'certified', 'ethical', 'hacker', 'networking', 'cybersecurity', 'analyst', 'training'],
+    '9': ['invent', 'invention', 'promise', 'guarantee', 'certification', 'certified', 'price', 'pricing', 'secret', 'password', 'phone', 'number'],
+    '10': ['who', 'what', 'how', 'much', 'available', 'quote', 'capital', 'work', 'guarantee', 'cost'],
+  },
+};
+
+function splitSections(markdown, lang) {
+  const text = markdown.replace(/\r\n/g, '\n');
+  const matches = [...text.matchAll(/^## (.+)$/gm)];
+  return matches.map((match, index) => {
+    const start = match.index ?? 0;
+    const end = index + 1 < matches.length ? matches[index + 1].index ?? text.length : text.length;
+    const heading = match[1].trim();
+    const id = heading.match(/^(\d+)\./)?.[1] ?? String(index + 1);
+    return {
+      id,
+      title: heading,
+      text: text.slice(start, end).trim(),
+      ...(index === 0 ? { always: true } : {}),
+      keywords: SECTION_KEYWORDS[lang][id] ?? [],
+    };
+  });
+}
+
+const cleanedFr = clean(knowledgeFr);
+const cleanedEn = clean(knowledgeEn);
+const sectionsFr = splitSections(cleanedFr, 'fr');
+const sectionsEn = splitSections(cleanedEn, 'en');
+
 const outputs = {
-  'knowledge.fr.md': knowledgeFr,
-  'knowledge.en.md': knowledgeEn,
+  'knowledge.fr.md': cleanedFr,
+  'knowledge.en.md': cleanedEn,
   'knowledge.generated.ts': [
     '// Fichier généré par scripts/build-knowledge.mjs. Ne pas modifier à la main.',
     '// Les connaissances sont embarquées dans le code de la fonction (import statique).',
-    `export const KNOWLEDGE: { fr: string; en: string } = ${JSON.stringify({ fr: clean(knowledgeFr), en: clean(knowledgeEn) }, null, 2)};`,
+    '',
+    'export interface KnowledgeSection {',
+    '  id: string;',
+    '  title: string;',
+    '  text: string;',
+    '  always?: boolean;',
+    '  keywords: string[];',
+    '}',
+    '',
+    `export const KNOWLEDGE: { fr: string; en: string } = ${JSON.stringify({ fr: cleanedFr, en: cleanedEn }, null, 2)};`,
+    '',
+    `export const KNOWLEDGE_SECTIONS: { fr: KnowledgeSection[]; en: KnowledgeSection[] } = ${JSON.stringify({ fr: sectionsFr, en: sectionsEn }, null, 2)};`,
     '',
   ].join('\n'),
 };

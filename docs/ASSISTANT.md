@@ -115,8 +115,10 @@ Sauvegarde : le code est sur GitHub ; les données (`site_leads`, `assistant_log
 
 ## Limites et sécurité
 
-- 20 messages/heure/visiteur, 500 messages/jour au total, 1 500 caractères par message, 10 tours d'historique, 400 jetons de réponse maximum, 20 s de délai.
+- 20 messages/heure/visiteur, 500 messages/jour au total, 1 500 caractères par message, 4 tours d'historique, 350 jetons de réponse maximum, 20 s de délai.
+- Connaissances allégées : identité/contact toujours envoyée + les 2 sections les plus pertinentes (mots-clés), soit moins de 1 500 jetons de contexte par requête.
+- Si le fournisseur répond 429, la fonction attend le `retry-after` (plafonné à 8 s) et réessaie une fois.
 - Si le compteur de limites est injoignable, la fonction refuse de répondre plutôt que de risquer un coût illimité.
 - Demandes de détournement évidentes (« ignore tes instructions », demande de clé…) : réponse polie sans appeler le modèle.
 - Un assistant IA peut se tromper : le prompt l'oblige à s'appuyer sur les connaissances, mais ce n'est pas une garantie absolue.
-- Tests : `npm run test:unit` (fonction, 28 tests), `npm run test:e2e` (widget, 11 scénarios Playwright). Deno n'est pas installé sur le poste de développement : `index.ts` (Deno.serve) et la fonction SQL `assistant_hit` ne sont vérifiés qu'après le déploiement, par le test réel.
+- Tests : `npm run test:unit` (fonction, 31 tests), `npm run test:e2e` (widget, 11 scénarios Playwright). Deno n'est pas installé sur le poste de développement : `index.ts` (Deno.serve) et la fonction SQL `assistant_hit` ne sont vérifiés qu'après le déploiement, par le test réel.

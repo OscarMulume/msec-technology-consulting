@@ -1,9 +1,19 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 
-import { ALLOWED_ORIGIN, LIMITS, handle, looksLikeInjection, redactForLog } from '../supabase/functions/assistant/core.ts';
+import {
+  ALLOWED_ORIGIN,
+  LIMITS,
+  estimateTokens,
+  handle,
+  looksLikeInjection,
+  redactForLog,
+  retryAfterMs,
+  selectKnowledge,
+} from '../supabase/functions/assistant/core.ts';
 import { createRestStore } from '../supabase/functions/assistant/store.ts';
-import { KNOWLEDGE } from '../supabase/functions/assistant/knowledge.generated.ts';
+import { KNOWLEDGE, KNOWLEDGE_SECTIONS } from '../supabase/functions/assistant/knowledge.generated.ts';
+import { systemPrompt } from '../supabase/functions/assistant/messages.ts';
 
 const SECRET_KEY = 'nvapi-TEST-CLE-JAMAIS-REELLE-0123456789';
 const IP = '203.0.113.77';
@@ -46,6 +56,7 @@ function modelReturning(content, calls = []) {
 
 function makeDeps(overrides = {}) {
   const modelCalls = [];
+  const sleeps = [];
   const deps = {
     env: {
       LLM_BASE_URL: 'https://llm.example.test/v1',
@@ -56,10 +67,13 @@ function makeDeps(overrides = {}) {
     fetch: modelReturning('Oscar est consultant IT à Kinshasa.', modelCalls),
     store: makeStore(),
     knowledge: KNOWLEDGE,
+    sections: KNOWLEDGE_SECTIONS,
     timeoutMs: 200,
+    sleep: async (ms) => { sleeps.push(ms); },
     ...overrides,
   };
   deps.modelCalls = modelCalls;
+  deps.sleeps = sleeps;
   return deps;
 }
 
@@ -111,7 +125,8 @@ test('une question normale reçoit la réponse du modèle, avec les connaissance
   const [call] = deps.modelCalls;
   assert.equal(call.url, 'https://llm.example.test/v1/chat/completions');
   assert.equal(call.init.headers.Authorization, `Bearer ${SECRET_KEY}`);
-  assert.equal(call.body.max_tokens <= 400, true);
+  assert.equal(call.body.max_tokens, LIMITS.maxTokens);
+  assert.equal(call.body.max_tokens, 350);
   assert.equal(call.body.messages[0].role, 'system');
   assert.match(call.body.messages[0].content, /UNIQUEMENT à partir de la base de connaissances/);
   assert.match(call.body.messages[0].content, /Oscar Mulume/);
@@ -124,6 +139,83 @@ test('la langue anglaise utilise le prompt et les connaissances anglaises', asyn
   const system = deps.modelCalls[0].body.messages[0].content;
   assert.match(system, /Answer ONLY from the knowledge base/);
   assert.match(system, /I don't have that information/);
+});
+
+test('sélection : identité/contact toujours envoyée + les 2 sections les plus pertinentes', () => {
+  const cases = [
+    ['fr', 'Qui est Oscar Mulume ?', '6'],
+    ['fr', 'Quels badges Cisco Oscar a-t-il, et est-il certifié Cisco ?', '8'],
+    ['fr', 'POS Pro est-il disponible ?', '4'],
+    ['en', 'What services does M-SEC offer?', '3'],
+    ['fr', 'Combien coûte un audit de sécurité ?', '2'],
+    ['fr', 'Que savez-vous de Malaika Ranch ?', '7'],
+  ];
+
+  for (const [lang, question, expected] of cases) {
+    const selection = selectKnowledge(KNOWLEDGE_SECTIONS[lang], question);
+    assert.equal(selection.ids[0], '1', question);
+    assert.ok(selection.ids.includes(expected), `${question} : section ${expected} absente (${selection.ids.join(',')})`);
+    assert.ok(selection.ids.length <= 3, `${question} : identité + 2 sections maximum`);
+    assert.match(selection.text, /oscarmulume1612@gmail\.com/, `${question} : contact absent`);
+  }
+});
+
+test('taille du contexte : moins de 1 500 jetons de connaissances, jamais la fiche entière', () => {
+  const questions = [
+    ['fr', 'Qui est Oscar Mulume ?'],
+    ['fr', 'Quels badges Cisco Oscar a-t-il ?'],
+    ['fr', 'POS Pro est-il disponible ?'],
+    ['fr', 'Combien coûte un audit de sécurité ?'],
+    ['fr', 'Quel est le numéro de téléphone d\'Oscar ?'],
+    ['fr', 'Quelle est la capitale de la France ?'],
+    ['en', 'What services does M-SEC offer?'],
+    ['en', 'Is POS Pro available?'],
+  ];
+
+  for (const [lang, question] of questions) {
+    const selection = selectKnowledge(KNOWLEDGE_SECTIONS[lang], question);
+    assert.ok(selection.tokens <= LIMITS.knowledgeMaxTokens, `${question} : ${selection.tokens} jetons`);
+    assert.ok(selection.tokens < estimateTokens(KNOWLEDGE[lang]), `${question} : la fiche entière a été envoyée`);
+
+    const prompt = systemPrompt(lang, selection.text);
+    assert.ok(estimateTokens(prompt) < estimateTokens(systemPrompt(lang, KNOWLEDGE[lang])), question);
+  }
+});
+
+test('429 : attend le retry-after (plafonné à 8 s) puis réessaie une seule fois', async () => {
+  assert.equal(retryAfterMs(null), 1000);
+  assert.equal(retryAfterMs('2'), 2000);
+  assert.equal(retryAfterMs('120'), 8000);
+  assert.equal(retryAfterMs('date invalide'), 1000);
+
+  const calls = [];
+  const fetchImpl = async (url, init) => {
+    calls.push({ url, init });
+    if (calls.length === 1) return new Response('quota', { status: 429, headers: { 'retry-after': '2' } });
+    return new Response(JSON.stringify({ choices: [{ message: { content: 'Réponse après attente.' } }] }), { status: 200 });
+  };
+  const deps = makeDeps({ fetch: fetchImpl });
+  const data = await (await handle(post(ask('Bonjour')), deps)).json();
+
+  assert.equal(data.reply, 'Réponse après attente.');
+  assert.equal(calls.length, 2);
+  assert.deepEqual(deps.sleeps, [2000]);
+
+  const cappedCalls = [];
+  const capped = makeDeps({
+    fetch: async (url, init) => {
+      cappedCalls.push({ url, init });
+      if (cappedCalls.length === 1) return new Response('quota', { status: 429, headers: { 'retry-after': '120' } });
+      return new Response(JSON.stringify({ choices: [{ message: { content: 'OK' } }] }), { status: 200 });
+    },
+  });
+  await handle(post(ask('Bonjour')), capped);
+  assert.deepEqual(capped.sleeps, [8000]);
+
+  const twice = makeDeps({ fetch: async () => new Response('quota', { status: 429, headers: { 'retry-after': '1' } }) });
+  const twiceData = await (await handle(post(ask('Bonjour')), twice)).json();
+  assert.equal(twiceData.fallback, true);
+  assert.deepEqual(twice.sleeps, [1000]);
 });
 
 test('un client ne peut pas injecter un message system et l\'historique est plafonné', async () => {

@@ -3,6 +3,7 @@
 
 import { CONTACT_EMAIL, REFUSAL_PREFIX, TEXTS, systemPrompt } from './messages.ts';
 import type { Lang } from './messages.ts';
+import { verifyAppToken } from './token.ts';
 import { PROFILES, originAllowedByAnyEnabledApp, toAppId } from './profiles.ts';
 import type { AppId, AppProfile } from './profiles.ts';
 import type { LeadRow, Store } from './store.ts';
@@ -31,6 +32,8 @@ export interface Env {
   LLM_API_KEY?: string;
   ASSISTANT_SALT?: string;
   ASSISTANT_ALLOW_LOCALHOST?: string;
+  // Secret partagé avec le serveur POS Pro (Laravel) pour les jetons de connexion (profil `pos`).
+  ASSISTANT_POS_SECRET?: string;
 }
 
 export interface KnowledgeSection {
@@ -81,7 +84,7 @@ function corsHeaders(origin: string): Record<string, string> {
   return {
     'Access-Control-Allow-Origin': origin,
     'Access-Control-Allow-Methods': 'POST, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type, Authorization, apikey',
+    'Access-Control-Allow-Headers': 'Content-Type, Authorization, apikey, X-Assistant-Token',
     'Access-Control-Max-Age': '600',
     Vary: 'Origin',
   };
@@ -490,6 +493,13 @@ export async function handle(request: Request, deps: Deps): Promise<Response> {
   const profile = PROFILES[app];
   if (!profile.enabled) return json({ error: 'app_disabled', message: TEXTS.fr.unavailable }, 403, allowed);
   if (!isAllowedOriginForApp(allowed, profile, deps.env)) return json({ error: 'forbidden_origin' }, 403, null);
+
+  if (profile.requiresLogin) {
+    const token = request.headers.get('x-assistant-token');
+    if (!(await verifyAppToken(deps.env.ASSISTANT_POS_SECRET, app, token, Math.floor(Date.now() / 1000)))) {
+      return json({ error: 'login_required', message: TEXTS.fr.loginRequired }, 401, allowed);
+    }
+  }
 
   const lang = toLang(body.lang);
   const hash = (await sha256Hex(`${deps.env.ASSISTANT_SALT}:${clientIp(request)}`)).slice(0, 32);

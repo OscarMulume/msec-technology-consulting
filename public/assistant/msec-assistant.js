@@ -478,9 +478,21 @@
             const timer = setTimeout(() => { if (controller)
                 controller.abort(); }, REQUEST_TIMEOUT_MS);
             try {
+                const headers = { 'Content-Type': 'application/json' };
+                if (typeof this.tokenProvider === 'function') {
+                    let token = null;
+                    try {
+                        token = await this.tokenProvider();
+                    }
+                    catch (e) {
+                        token = null;
+                    }
+                    if (token)
+                        headers['X-Assistant-Token'] = String(token);
+                }
                 const response = await fetch(this.endpoint, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers,
                     body: JSON.stringify(payload),
                     signal: controller ? controller.signal : undefined,
                 });

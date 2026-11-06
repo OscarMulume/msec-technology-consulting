@@ -5,7 +5,8 @@
  * Attributs : app (msec | portfolio | malaika | pos, défaut msec), lang (fr | en), accent (#rrggbb),
  *   logo (URL https d'une image), endpoint (URL de la fonction), title, welcome.
  * Propriétés (code de l'application hôte) : orderAction = { label: {fr, en}, href: () => url } (bouton de commande),
- *   faq = [{ keywords: [..], answer: {fr, en} }] (réponses hors ligne, sans IA).
+ *   faq = [{ keywords: [..], answer: {fr, en} }] (réponses hors ligne, sans IA),
+ *   tokenProvider = () => Promise<string> (jeton de connexion pour les applications qui exigent un utilisateur connecté, envoyé dans X-Assistant-Token).
  * Cible : ES2017 (WebView Android 7) — compilé par scripts/build-assistant-widget.mjs.
  */
 (() => {
@@ -486,9 +487,19 @@
       const controller = typeof AbortController === 'function' ? new AbortController() : null;
       const timer = setTimeout(() => { if (controller) controller.abort(); }, REQUEST_TIMEOUT_MS);
       try {
+        const headers = { 'Content-Type': 'application/json' };
+        if (typeof this.tokenProvider === 'function') {
+          let token = null;
+          try {
+            token = await this.tokenProvider();
+          } catch (e) {
+            token = null;
+          }
+          if (token) headers['X-Assistant-Token'] = String(token);
+        }
         const response = await fetch(this.endpoint, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers,
           body: JSON.stringify(payload),
           signal: controller ? controller.signal : undefined,
         });

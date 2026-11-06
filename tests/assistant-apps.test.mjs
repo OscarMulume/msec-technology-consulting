@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 
+import { signAppToken } from '../supabase/functions/assistant/token.ts';
 import { handle, isAllowedOrigin } from '../supabase/functions/assistant/core.ts';
 import { APP_IDS, PROFILES, toAppId } from '../supabase/functions/assistant/profiles.ts';
 import { systemPrompt } from '../supabase/functions/assistant/messages.ts';
@@ -34,10 +35,10 @@ function makeDeps(extra = {}) {
   };
 }
 
-const post = (body, origin = SITE) =>
+const post = (body, origin = SITE, headers = {}) =>
   new Request('https://x.test/assistant', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json', origin, 'x-forwarded-for': '203.0.113.9' },
+    headers: { 'Content-Type': 'application/json', origin, 'x-forwarded-for': '203.0.113.9', ...headers },
     body: JSON.stringify(body),
   });
 const ask = (extra = {}) => ({ lang: 'fr', messages: [{ role: 'user', content: 'Bonjour' }], ...extra });
@@ -102,7 +103,9 @@ test('portfolio : connaissances propres (sous-ensemble de la base M-SEC), sans l
 
 test('application sans connaissances : 503 honnête, aucun appel au modèle', async () => {
   const deps = makeDeps({ appSections: {} });
-  const response = await handle(post(ask({ app: 'pos' }, 'https://pos-pro-msec.onrender.com'), 'https://pos-pro-msec.onrender.com'), deps);
+  deps.env.ASSISTANT_POS_SECRET = 'secret-test';
+  const token = await signAppToken('secret-test', 'pos', Math.floor(Date.now() / 1000));
+  const response = await handle(post(ask({ app: 'pos' }), 'https://pos-pro-msec.onrender.com', { 'x-assistant-token': token }), deps);
   assert.equal(response.status, 503);
   assert.equal(deps.calls.models.length, 0);
 });

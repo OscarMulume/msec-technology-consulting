@@ -807,5 +807,283 @@ export const APP_KNOWLEDGE: Partial<Record<string, { fr: KnowledgeSection[]; en:
         ]
       }
     ]
+  },
+  "pos": {
+    "fr": [
+      {
+        "id": "1",
+        "title": "1. POS Pro en bref",
+        "text": "## 1. POS Pro en bref\n- POS Pro est un logiciel de caisse pour restaurants et bars, édité par M-SEC Technology Consulting. Il existe en version web, application Android et application Windows.\n- Tu es l'aide caisse : tu expliques comment utiliser le logiciel. Tu parles du logiciel à la troisième personne (« POS Pro permet de… »).\n- Tu n'as accès à aucune donnée de vente, de caisse ou de client. Pour un chiffre ou une vente, indique où le consulter dans l'application (Rapport X, historique des shifts).\n- Pour toute information absente, dis-le et renvoie vers le support M-SEC : oscarmulume1612@gmail.com.",
+        "always": true,
+        "keywords": [
+          "pos",
+          "pro",
+          "bref"
+        ]
+      },
+      {
+        "id": "2",
+        "title": "2. Se connecter",
+        "text": "## 2. Se connecter\n<!-- mots-cles: connecter, connexion, identifiant, pin, mot de passe, oublie, demo, serveur, adresse, deconnecter, login -->\n- L'écran « Connexion de l'appareil au serveur » demande l'identifiant et le PIN ou le mot de passe (un bouton permet de choisir entre les deux).\n- L'adresse du serveur se règle dans « Configurer l'adresse du serveur » ; le bouton de test vérifie la connexion. Enregistrer recharge l'application.\n- Le mode démo ouvre l'application avec des données fictives, sans serveur, avec le bandeau « MODE DÉMO — DONNÉES FICTIVES » : rien n'est envoyé au serveur.\n- Se déconnecter révoque le jeton de l'appareil.\n- Mot de passe oublié (back-office web) : lien sur la page de connexion, un e-mail avec un lien signé est envoyé.",
+        "keywords": [
+          "connecter",
+          "connexion",
+          "identifiant",
+          "pin",
+          "mot de passe",
+          "oublie",
+          "demo",
+          "serveur",
+          "adresse",
+          "deconnecter",
+          "login"
+        ]
+      },
+      {
+        "id": "3",
+        "title": "3. Ouvrir la caisse",
+        "text": "## 3. Ouvrir la caisse\n<!-- mots-cles: ouvrir, ouverture, caisse, fond, fond de caisse, vendre, commencer -->\n- Pour vendre, une caisse doit être ouverte. Sinon l'application affiche « Ouvrez une caisse pour commencer à vendre ».\n- Toucher « Ouvrir la caisse », saisir le fond de caisse en CDF (et en USD si demandé), valider.",
+        "keywords": [
+          "ouvrir",
+          "ouverture",
+          "caisse",
+          "fond",
+          "fond de caisse",
+          "vendre",
+          "commencer"
+        ]
+      },
+      {
+        "id": "4",
+        "title": "4. Prendre une commande",
+        "text": "## 4. Prendre une commande\n<!-- mots-cles: commande, table, panier, produit, cuisine, bar, emporter, note, rupture, quantite, kds, comptoir -->\n- Choisir la table (libre ou occupée) ou « À emporter », toucher les produits pour remplir le panier, régler les quantités.\n- Un produit marqué RUPTURE ne peut pas être vendu.\n- « Note cuisine (optionnel) » permet une consigne.\n- À l'envoi, la commande part en cuisine (écran KDS) ou au bar ; un article servi au comptoir est marqué « Servi au comptoir ».",
+        "keywords": [
+          "commande",
+          "table",
+          "panier",
+          "produit",
+          "cuisine",
+          "bar",
+          "emporter",
+          "note",
+          "rupture",
+          "quantite",
+          "kds",
+          "comptoir"
+        ]
+      },
+      {
+        "id": "5",
+        "title": "5. Encaisser",
+        "text": "## 5. Encaisser\n<!-- mots-cles: encaisser, encaissement, paiement, payer, especes, monnaie, mobile money, m-pesa, airtel, orange, afrimoney, ardoise, compte, remise, annuler, annulation, void -->\n- Écran « Encaissement » : « À encaisser » est le montant à payer.\n- Moyens de paiement : espèces (la monnaie à rendre se calcule), Mobile Money (M-Pesa, Airtel Money, Orange Money, Afrimoney), compte (ardoise).\n- Remise : « Appliquer une remise » avec un motif ; les remises figurent au rapport de caisse.\n- Annuler une vente encaissée (void) demande un rôle autorisé (manager ou supérieur) ; les annulations apparaissent au rapport.",
+        "keywords": [
+          "encaisser",
+          "encaissement",
+          "paiement",
+          "payer",
+          "especes",
+          "monnaie",
+          "mobile money",
+          "m-pesa",
+          "airtel",
+          "orange",
+          "afrimoney",
+          "ardoise",
+          "compte",
+          "remise",
+          "annuler",
+          "annulation",
+          "void"
+        ]
+      },
+      {
+        "id": "6",
+        "title": "6. Clôturer la caisse (rapports X et Z)",
+        "text": "## 6. Clôturer la caisse (rapports X et Z)\n<!-- mots-cles: cloturer, cloture, rapport, x, z, comptage, ecart, shift, caissier, suivant, imprimer, historique, fermer -->\n- Rapport X : lecture en temps réel de la caisse en cours, sans la fermer.\n- Clôture (Z) : bouton « Comptage + Clôture (Z) ». Le comptage est à l'aveugle : le montant attendu n'est révélé qu'après la saisie du total compté. La clôture est définitive.\n- Le rapport Z indique le fond de caisse, les ventes par moyen de paiement, les remises, les annulations, les taxes, l'attendu, le compté et l'écart (manque ou excédent).\n- Passer la caisse au caissier suivant : clôture le shift en cours et ouvre la caisse pour le caissier choisi ; l'écart reste sur le shift du premier.\n- L'historique se trouve dans « Historique des Shifts de Caisse » ; le bouton « Imprimer » imprime le rapport.",
+        "keywords": [
+          "cloturer",
+          "cloture",
+          "rapport",
+          "comptage",
+          "ecart",
+          "shift",
+          "caissier",
+          "suivant",
+          "imprimer",
+          "historique",
+          "fermer"
+        ]
+      },
+      {
+        "id": "7",
+        "title": "7. Hors ligne et synchronisation",
+        "text": "## 7. Hors ligne et synchronisation\n<!-- mots-cles: hors ligne, internet, connexion, synchroniser, synchronisation, sync, coupure, reseau, wifi, perdu -->\n- La caisse hors ligne enregistre les ventes sur l'appareil ; elles partent au serveur automatiquement quand la connexion revient, sans doublon.\n- Ne pas ressaisir une vente en cas de doute : attendre la synchronisation. Ne pas désinstaller l'application avant que les ventes soient synchronisées.",
+        "keywords": [
+          "hors ligne",
+          "internet",
+          "connexion",
+          "synchroniser",
+          "synchronisation",
+          "sync",
+          "coupure",
+          "reseau",
+          "wifi",
+          "perdu"
+        ]
+      },
+      {
+        "id": "8",
+        "title": "8. Abonnement",
+        "text": "## 8. Abonnement\n<!-- mots-cles: abonnement, suspendu, suspension, prix, tarif, facture, echeance, essai, reactiver, paiement en retard, grace, support -->\n- La page « Mon abonnement » montre les paiements, l'échéance et les factures.\n- Essai, actif et paiement en retard autorisent toutes les opérations. Suspendu ou résilié : les nouvelles ventes sont bloquées, la lecture reste possible, les ventes déjà en cours et les ventes hors ligne antérieures restent acceptées (grâce hors ligne).\n- Pour réactiver : contacter le support M-SEC. Le prix de l'abonnement n'est pas communiqué ici : n'annonce aucun montant.",
+        "keywords": [
+          "abonnement",
+          "suspendu",
+          "suspension",
+          "prix",
+          "tarif",
+          "facture",
+          "echeance",
+          "essai",
+          "reactiver",
+          "paiement en retard",
+          "grace",
+          "support"
+        ]
+      }
+    ],
+    "en": [
+      {
+        "id": "1",
+        "title": "1. POS Pro in brief",
+        "text": "## 1. POS Pro in brief\n- POS Pro is a point-of-sale system for restaurants and bars, published by M-SEC Technology Consulting. It comes as a web app, an Android app and a Windows app.\n- You are the help assistant: you explain how to use the software. Speak about the software in the third person (\"POS Pro lets you...\").\n- You have no access to any sales, cash or customer data. For a figure or a sale, say where to find it in the app (X report, shift history).\n- For anything missing, say so and point to M-SEC support: oscarmulume1612@gmail.com.",
+        "always": true,
+        "keywords": [
+          "pos",
+          "pro",
+          "brief"
+        ]
+      },
+      {
+        "id": "2",
+        "title": "2. Signing in",
+        "text": "## 2. Signing in\n<!-- keywords: sign, login, username, pin, password, forgot, demo, server, address, logout -->\n- The \"Connect the device to the server\" screen asks for the username and the PIN or password (a button switches between the two).\n- The server address is set in \"Configure the server address\"; the test button checks the connection. Saving reloads the app.\n- Demo mode opens the app with fictional data, no server, with the banner \"DEMO MODE — FICTIONAL DATA\": nothing is sent to the server.\n- Signing out revokes the device token.\n- Forgotten password (web back office): link on the sign-in page; an email with a signed link is sent.",
+        "keywords": [
+          "sign",
+          "login",
+          "username",
+          "pin",
+          "password",
+          "forgot",
+          "demo",
+          "server",
+          "address",
+          "logout"
+        ]
+      },
+      {
+        "id": "3",
+        "title": "3. Opening the till",
+        "text": "## 3. Opening the till\n<!-- keywords: open, opening, till, cash, float, sell, start -->\n- A till must be open to sell. Otherwise the app shows \"Open a till to start selling\".\n- Tap \"Open the till\", enter the opening float in CDF (and USD if asked), confirm.",
+        "keywords": [
+          "open",
+          "opening",
+          "till",
+          "cash",
+          "float",
+          "sell",
+          "start"
+        ]
+      },
+      {
+        "id": "4",
+        "title": "4. Taking an order",
+        "text": "## 4. Taking an order\n<!-- keywords: order, table, basket, cart, product, kitchen, bar, takeaway, note, out of stock, quantity, kds, counter -->\n- Pick the table (free or occupied) or \"Takeaway\", tap products to fill the basket, set quantities.\n- A product marked RUPTURE (out of stock) cannot be sold.\n- \"Kitchen note (optional)\" allows an instruction.\n- On sending, the order goes to the kitchen (KDS screen) or the bar; an item served at the counter is marked \"Served at the counter\".",
+        "keywords": [
+          "order",
+          "table",
+          "basket",
+          "cart",
+          "product",
+          "kitchen",
+          "bar",
+          "takeaway",
+          "note",
+          "out of stock",
+          "quantity",
+          "kds",
+          "counter"
+        ]
+      },
+      {
+        "id": "5",
+        "title": "5. Taking payment",
+        "text": "## 5. Taking payment\n<!-- keywords: payment, pay, cash, change, mobile money, m-pesa, airtel, orange, afrimoney, tab, account, discount, cancel, void -->\n- \"Payment\" screen: \"To collect\" is the amount due.\n- Payment methods: cash (change due is calculated), Mobile Money (M-Pesa, Airtel Money, Orange Money, Afrimoney), account (tab).\n- Discount: \"Apply a discount\" with a reason; discounts appear in the till report.\n- Cancelling a paid sale (void) needs an authorised role (manager or above); cancellations appear in the report.",
+        "keywords": [
+          "payment",
+          "pay",
+          "cash",
+          "change",
+          "mobile money",
+          "m-pesa",
+          "airtel",
+          "orange",
+          "afrimoney",
+          "tab",
+          "account",
+          "discount",
+          "cancel",
+          "void"
+        ]
+      },
+      {
+        "id": "6",
+        "title": "6. Closing the till (X and Z reports)",
+        "text": "## 6. Closing the till (X and Z reports)\n<!-- keywords: close, closing, report, x, z, count, gap, shift, cashier, next, print, history -->\n- X report: live view of the current till, without closing it.\n- Closing (Z): button \"Count + Close (Z)\". The count is blind: the expected amount is only shown after you enter the counted total. Closing is final.\n- The Z report shows the float, sales by payment method, discounts, cancellations, taxes, expected, counted and the gap (shortage or surplus).\n- Handing over to the next cashier closes the current shift and opens the till for the chosen cashier; the gap stays on the first shift.\n- History is in \"Cash shift history\"; the print button prints the report.",
+        "keywords": [
+          "close",
+          "closing",
+          "report",
+          "count",
+          "gap",
+          "shift",
+          "cashier",
+          "next",
+          "print",
+          "history"
+        ]
+      },
+      {
+        "id": "7",
+        "title": "7. Offline and sync",
+        "text": "## 7. Offline and sync\n<!-- keywords: offline, internet, connection, sync, synchronise, network, wifi, lost -->\n- The offline till stores sales on the device; they go to the server automatically when the connection returns, without duplicates.\n- Do not re-enter a sale when in doubt: wait for the sync. Do not uninstall the app before sales are synced.",
+        "keywords": [
+          "offline",
+          "internet",
+          "connection",
+          "sync",
+          "synchronise",
+          "network",
+          "wifi",
+          "lost"
+        ]
+      },
+      {
+        "id": "8",
+        "title": "8. Subscription",
+        "text": "## 8. Subscription\n<!-- keywords: subscription, suspended, price, invoice, due, trial, reactivate, late, grace, support -->\n- The \"My subscription\" page shows payments, the due date and invoices.\n- Trial, active and late payment allow every operation. Suspended or cancelled: new sales are blocked, reading stays possible, sales already in progress and earlier offline sales are still accepted (offline grace).\n- To reactivate: contact M-SEC support. The subscription price is not given here: do not state any amount.",
+        "keywords": [
+          "subscription",
+          "suspended",
+          "price",
+          "invoice",
+          "due",
+          "trial",
+          "reactivate",
+          "late",
+          "grace",
+          "support"
+        ]
+      }
+    ]
   }
 };

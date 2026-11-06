@@ -53,6 +53,17 @@ Limite de la longueur de réponse : 100 mots (au lieu de 120) pour réduire les 
 - **Interrupteur** : `NEXT_PUBLIC_ASSISTANT_ENABLED` (Vercel), absent/`false` par défaut : le composant ne rend RIEN. **EN ATTENTE D'OSCAR** : obtenir l'accord du client Malaika, puis définir `NEXT_PUBLIC_ASSISTANT_ENABLED=true` dans Vercel et redéployer. Je n'ai pas activé l'affichage.
 - Non testé ici : affichage réel dans le navigateur sur la boutique (le widget est testé sur le site M-SEC par Playwright ; la boutique est vérifiée par `next build` et les tests unitaires du lien WhatsApp) ; appel réel de la fonction pour Malaika (nécessite le déploiement, P6).
 
+## P4 - POS Pro, aide caisse
+
+- **Guide utilisateur** : `docs/GUIDE-UTILISATEUR-POS-PRO.md` (dépôt pos_msec), écrit d'après le code réel (connexion, mode démo, ouverture de caisse, commande, encaissement, rapports X/Z à comptage aveugle, hors ligne, abonnement). Prix d'abonnement : TODO explicite, jamais annoncé. Connaissances de l'assistant : `apps/pos.{fr,en}.md`, régénérées (`npm run build:knowledge`).
+- **Rôle requis (utilisateur connecté)** : jeton court HMAC-SHA256 (15 min, sans donnée personnelle) délivré par Laravel (`GET /api/v1/assistant/token` Sanctum, `GET /assistant/token` session, 20 req/min) et vérifié par la fonction (`X-Assistant-Token`, secret `ASSISTANT_POS_SECRET`). Sans jeton valide : 401 `login_required`, aucun appel au modèle ; secret absent côté fonction ou Laravel : refus / 503, jamais de jeton faible.
+- **Widget** : propriété `tokenProvider` (envoie `X-Assistant-Token`), ES2017 vérifié.
+- **Hors ligne** : FAQ embarquée sans IA (5 sujets) dans `pos-shared` (caisse web, Tauri, Capacitor) et dans le back-office Blade (4 sujets), message « Hors ligne : … » explicite.
+- **Interrupteurs, désactivés par défaut** : `VITE_ASSISTANT_ENABLED` (caisse) et `ASSISTANT_ENABLED` (Laravel).
+- Tests : fonction 55 verts (dont 4 nouveaux : sans jeton, valide, falsifié/expiré/autre app/sans secret, pas de prix), `npm test` du site vert, pos-shared 50 verts, Laravel 107 verts (+3 sur le jeton).
+- **EN ATTENTE D'OSCAR** : générer UN secret aléatoire, le mettre dans Laravel (`ASSISTANT_POS_SECRET` dans `.env`/Render) ET dans Supabase (`npx supabase secrets set ASSISTANT_POS_SECRET=... --project-ref cinzlzdfddvcjhmvnbtp`) ; domaine du back-office pour CORS quand il existera.
+- Non testé : appel réel de bout en bout (nécessite le déploiement P6 et le secret), affichage dans l'application Android/Windows.
+
 ## ARRÊT DE SESSION (06/11/2026) - prochaine étape : P4
 
 Arrêt volontaire après P3, à une limite propre (tout est poussé). La barre d'état Claude Code n'est pas lisible par l'agent (`%LOCALAPPDATA%\msec\claude-usage.json` absent) : l'arrêt est une précaution pour la limite hebdomadaire, pas une mesure à 80 %.

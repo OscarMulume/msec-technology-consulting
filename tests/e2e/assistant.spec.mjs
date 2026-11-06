@@ -186,3 +186,79 @@ test('le mode sombre du site est suivi par le composant', async ({ page }) => {
   await page.evaluate(() => document.documentElement.setAttribute('data-theme', 'light'));
   await expect(page.locator('msec-assistant')).toHaveAttribute('data-theme', 'light');
 });
+
+// --- P2 : widget unique et thémable ------------------------------------------------------------
+
+async function addWidget(page, attributes) {
+  await page.goto('');
+  await page.evaluate((attrs) => {
+    const node = document.createElement('msec-assistant');
+    node.id = 'test-widget';
+    for (const [key, value] of Object.entries(attrs)) node.setAttribute(key, value);
+    document.body.append(node);
+  }, attributes);
+}
+
+test('app="malaika" : thème, accueil, suggestions propres, pas de bouton devis, app envoyée au serveur', async ({ page }) => {
+  let body = null;
+  await page.route(ENDPOINT, (route) => { body = route.request().postDataJSON(); return route.fulfill(json({ reply: 'Voir la boutique.' })); });
+  await addWidget(page, { app: 'malaika', lang: 'fr' });
+  const widget = page.locator('#test-widget');
+  await widget.locator('#launcher').click();
+  await expect(widget.locator('#title')).toHaveText('Conseiller Malaika Ranch');
+  await expect(widget.locator('.msg.assistant').first()).toContainText('Malaika Ranch');
+  await expect(widget.locator('#quote')).toHaveCount(0);
+  await expect(widget.locator('.chip').first()).toHaveText('Quels produits sont disponibles ?');
+  await widget.locator('.chip').first().click();
+  await expect(widget.locator('.msg.assistant').last()).toContainText('boutique');
+  expect(body.app).toBe('malaika');
+});
+
+test('accent personnalisé : le contraste du bouton reste au moins AA (4,5:1), en clair comme en sombre', async ({ page }) => {
+  await addWidget(page, { app: 'msec', accent: '#ffe066' }); // jaune très clair : doit être assombri
+  for (const scheme of ['light', 'dark']) {
+    await page.emulateMedia({ colorScheme: scheme });
+    await page.evaluate((theme) => document.documentElement.setAttribute('data-theme', theme), scheme);
+    const ratio = await page.evaluate(() => {
+      const host = document.getElementById('test-widget');
+      const cs = getComputedStyle(host);
+      const parse = (v) => { const m = /^#([0-9a-f]{6})$/i.exec(v.trim()); return [0, 2, 4].map((i) => parseInt(m[1].slice(i, i + 2), 16)); };
+      const lum = (rgb) => { const l = rgb.map((c) => { const x = c / 255; return x <= 0.03928 ? x / 12.92 : ((x + 0.055) / 1.055) ** 2.4; }); return 0.2126 * l[0] + 0.7152 * l[1] + 0.0722 * l[2]; };
+      const a = lum(parse(host.style.getPropertyValue('--a-accent')));
+      const t = lum(parse(host.style.getPropertyValue('--a-accent-contrast')));
+      return (Math.max(a, t) + 0.05) / (Math.min(a, t) + 0.05);
+    });
+    expect(ratio, scheme).toBeGreaterThanOrEqual(4.5);
+  }
+});
+
+test('action de commande fournie par l\'application hôte : lien https généré au clic', async ({ page }) => {
+  await addWidget(page, { app: 'malaika' });
+  await page.evaluate(() => {
+    document.getElementById('test-widget').orderAction = { label: { fr: 'Commander sur WhatsApp', en: 'Order on WhatsApp' }, href: () => 'https://wa.me/?text=Bonjour' };
+  });
+  const widget = page.locator('#test-widget');
+  await widget.locator('#launcher').click();
+  const order = widget.locator('#order-action');
+  await expect(order).toHaveText('Commander sur WhatsApp');
+  await order.evaluate((a) => a.addEventListener('click', (e) => e.preventDefault()));
+  await order.click();
+  await expect(order).toHaveAttribute('href', 'https://wa.me/?text=Bonjour');
+});
+
+test('hors ligne avec FAQ intégrée : réponse sans IA et message clair, aucun appel réseau', async ({ page, context }) => {
+  let calls = 0;
+  await page.route(ENDPOINT, (route) => { calls += 1; return route.fulfill(json({ reply: 'x' })); });
+  await addWidget(page, { app: 'pos' });
+  await page.evaluate(() => {
+    document.getElementById('test-widget').faq = [{ keywords: ['encaisser', 'vente'], answer: { fr: 'Ouvrez Caisse puis Encaisser.', en: 'Open Till then Pay.' } }];
+  });
+  await context.setOffline(true);
+  const widget = page.locator('#test-widget');
+  await widget.locator('#launcher').click();
+  await widget.locator('#input').fill('Comment encaisser une vente ?');
+  await widget.locator('#send').click();
+  await expect(widget.locator('.msg.assistant').last()).toContainText('hors ligne');
+  await expect(widget.locator('.msg.assistant').last()).toContainText('Ouvrez Caisse puis Encaisser.');
+  expect(calls).toBe(0);
+});

@@ -7,6 +7,7 @@ export interface HitResult {
 }
 
 export interface LogEntry {
+  app: string;
   lang: 'fr' | 'en';
   question: string;
   found: boolean;
@@ -14,7 +15,7 @@ export interface LogEntry {
 
 export interface LeadRow {
   kind: 'contact';
-  source: 'assistant';
+  source: string;
   full_name: string;
   email: string | null;
   phone: string | null;

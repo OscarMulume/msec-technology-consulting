@@ -2,6 +2,7 @@ import { createHash } from 'node:crypto';
 import { readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { buildAppKnowledge } from './app-knowledge.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const OUT_DIR = path.join(ROOT, 'supabase', 'functions', 'assistant');
@@ -683,6 +684,7 @@ const cleanedFr = clean(knowledgeFr);
 const cleanedEn = clean(knowledgeEn);
 const sectionsFr = splitSections(cleanedFr, 'fr');
 const sectionsEn = splitSections(cleanedEn, 'en');
+const appKnowledge = await buildAppKnowledge({ sectionsFr, sectionsEn, appsDir: path.join(OUT_DIR, 'apps') });
 
 const outputs = {
   'knowledge.fr.md': cleanedFr,
@@ -702,6 +704,8 @@ const outputs = {
     `export const KNOWLEDGE: { fr: string; en: string } = ${JSON.stringify({ fr: cleanedFr, en: cleanedEn }, null, 2)};`,
     '',
     `export const KNOWLEDGE_SECTIONS: { fr: KnowledgeSection[]; en: KnowledgeSection[] } = ${JSON.stringify({ fr: sectionsFr, en: sectionsEn }, null, 2)};`,
+    '',
+    `export const APP_KNOWLEDGE: Partial<Record<string, { fr: KnowledgeSection[]; en: KnowledgeSection[] }>> = ${JSON.stringify(appKnowledge, null, 2)};`,
     '',
   ].join('\n'),
 };

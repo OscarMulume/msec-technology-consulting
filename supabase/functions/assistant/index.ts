@@ -5,7 +5,7 @@
 
 import { handle } from './core.ts';
 import { createRestStore } from './store.ts';
-import { KNOWLEDGE, KNOWLEDGE_SECTIONS } from './knowledge.generated.ts';
+import { APP_KNOWLEDGE, KNOWLEDGE, KNOWLEDGE_SECTIONS } from './knowledge.generated.ts';
 
 declare const Deno: {
   serve(handler: (request: Request) => Response | Promise<Response>): unknown;
@@ -29,5 +29,6 @@ Deno.serve((request: Request) => {
     store: createRestStore(supabaseUrl, serviceKey),
     knowledge: KNOWLEDGE,
     sections: KNOWLEDGE_SECTIONS,
+    appSections: APP_KNOWLEDGE,
   });
 });

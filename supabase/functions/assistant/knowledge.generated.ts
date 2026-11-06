@@ -465,3 +465,195 @@ export const KNOWLEDGE_SECTIONS: { fr: KnowledgeSection[]; en: KnowledgeSection[
     }
   ]
 };
+
+export const APP_KNOWLEDGE: Partial<Record<string, { fr: KnowledgeSection[]; en: KnowledgeSection[] }>> = {
+  "portfolio": {
+    "fr": [
+      {
+        "id": "1",
+        "title": "1. Identité et coordonnées",
+        "text": "## 1. Identité et coordonnées\n\n- **Nom public** : Oscar Mulume (nom légal : MULUME IZUBA OSCAR).\n- **Rôle** : Infrastructure IT · Réseaux · Cybersécurité · Développement.\n- **Entreprise** : M-SEC Technology Consulting, aussi appelée **M-SEC** (pour Mulume Security). Cabinet d'ingénierie IT, réseaux et cybersécurité. Infrastructure, connectivité et sécurité au service des entreprises d'Afrique centrale.\n- **Site M-SEC** : https://oscarmulume.github.io/msec-technology-consulting/\n- **Portfolio** : https://oscarmulume.github.io/\n- **E-mail** : oscarmulume1612@gmail.com\n- **LinkedIn** : https://www.linkedin.com/in/oscar-mulume-95666b225/\n- **GitHub** : https://github.com/OscarMulume\n- **Basé à** : Kinshasa, RDC — Afrique Centrale.\n- **Zone d'intervention** : Kinshasa, Goma, Bukavu ; Afrique Centrale ; Remote / Sur site.\n- **Langues** : Français (natif/bilingue), Anglais (pro/technique), Swahili (pro), Lingala (intermédiaire).\n- **Disponibilité** : Disponible — Afrique Centrale.",
+        "keywords": [],
+        "always": true
+      },
+      {
+        "id": "6",
+        "title": "6. Oscar Mulume : parcours et formation",
+        "text": "## 6. Oscar Mulume : parcours et formation\n\n- J'architecte, déploie et sécurise les infrastructures critiques d'entreprises en Afrique Centrale. De la fibre optique à la cybersécurité offensive, en passant par l'intégration d'IA — je conçois des systèmes pensés pour rester disponibles.\n- **En IT depuis** : 2021.\n- **Formation** : Licence Réseaux, Télécoms & Maintenance — ISIPA 2025.\n- **Diplôme** : Diplôme Sup. Informatique — ISIG Goma (2019-2025).\n\n**Postes actuels :**\n\n- **Responsable IT, Ingénierie & Technologies (Consultant IT)** (Févr. 2026 – Présent) — Malaïka Group — Kinshasa, RDC\n  - Pilotage de l'IT, de la cybersécurité et de l'ingénierie de 5 entités (Malaïka Group, Ranch, Travels, Le Gabriel, Chez Malaïka)\n  - Entré comme technicien réseau pour un audit d'urgence : pannes critiques rétablies, contrat groupe obtenu en un mois\n  - Durcissement des plateformes web après un incident de sécurité : scans de vulnérabilités, correctifs, pare-feu, antivirus\n  - Disponibilité de 99,9 % (Wi-Fi, PMS, contrôle d'accès), 99,5 % (POS), 99 % (Internet) ; incidents critiques traités en moins de 2 h\n  - Plan de reprise après sinistre (DRP) et sauvegardes testés ; rapports mensuels à la direction\n- **Fondateur & Consultant principal** (Mai 2026 – Présent) — M-SEC Technology Consulting — Kinshasa, RDC\n  - Évaluations de vulnérabilités, durcissement de systèmes et conseil en sécurité\n  - Applications web et mobiles sur mesure (Flutter/Dart, Supabase) avec paiement mobile\n\n- **Auparavant** : ALOM Services (2024–2025), Genocost (2024), Canalbox / Group Vivendi Africa (2022), Hima Cement / LafargeHolcim (2021), et bénévolat à la Croix-Rouge RDC (2022–2024).\n\n**Compétences clés :**\n\n- Réseau et sécurité : Cisco IOS, fibre FTTH, Starlink Business, UniFi, FortiGate, CCTV IP, Wi-Fi entreprise, durcissement, pare-feu/IDS, DRP/BCP.\n- Développement et données : Flutter/Dart, Python, JavaScript, Supabase, PostgreSQL, MySQL, MongoDB, paiements M-Pesa, Orange Money et Flutterwave.\n- IA et cloud : AWS Bedrock, machine learning, IA générative, déploiement local d'agents open-source sous Linux.\n\n**Résultats publiés sur le portfolio :**\n\n- Chez Malaïka Group : 5 entités sécurisées, SLA de 99,9 % maintenu pour le Wi-Fi et le PMS, disponibilité POS de 99,5 %, disponibilité Internet de 99 %, incidents critiques traités en moins de 2 h.\n- Ces chiffres sont des résultats passés publiés sur le portfolio. Ils ne constituent pas une garantie universelle de M-SEC : les objectifs de disponibilité sont fixés contrat par contrat.",
+        "keywords": [
+          "oscar",
+          "mulume",
+          "parcours",
+          "formation",
+          "diplome",
+          "experience",
+          "poste",
+          "postes",
+          "malaika",
+          "competence",
+          "competences",
+          "cv",
+          "resultat",
+          "resultats",
+          "99,9",
+          "99.9"
+        ]
+      },
+      {
+        "id": "7",
+        "title": "7. Projets et pratique",
+        "text": "## 7. Projets et pratique\n\n- **POS Pro** (En cours) — Caisse pour restaurant pensée pour fonctionner hors ligne, avec application web et déclinaisons bureau et mobile. Développement en cours, pas encore disponible en ligne.\n- **Malaika Ranch** (En ligne) — Boutique en ligne avec commande via WhatsApp. — https://malaika-ranch-web.vercel.app\n- **Site M-SEC Technology Consulting** (En ligne) — Site vitrine de M-SEC Technology Consulting : conseil IT, réseaux et cybersécurité à Kinshasa. — https://oscarmulume.github.io/msec-technology-consulting/\n- **Mosala** (En ligne) — Assistant open source de CV et de conversation pour les langues africaines, qui fonctionne hors ligne avec un modèle local (Ollama). — https://github.com/OscarMulume/nonchalant-cv ; https://dev.to/oscarmulume/mosala-a-cv-and-conversation-assistant-for-africas-languages-running-on-your-own-computer-2coc\n- **Machines Cohort & Orion** — Cohort : SSRF, accès initial puis élévation de privilèges via CVE. Orion : énumération web CraftCMS et contournement d'authentification Telnet local.\n- **Sherlocks Brutus & Investigate Web Attack** — Reconstitution de kill chains à partir de logs : brute force SSH (auth.log, wtmp, MITRE T1136), scan Nikto, brute force web et injection de commandes.\n- **Cloud privé Raspberry Pi** — Serveur de stockage personnel sur Raspberry Pi 5 avec Nextcloud, accessible à distance de façon sécurisée via Tailscale.\n\n- **Hack The Box** : pratique régulière en cybersécurité offensive ; le portfolio affiche le niveau 25.",
+        "keywords": [
+          "projet",
+          "projets",
+          "portfolio",
+          "malaika",
+          "mosala",
+          "hack",
+          "box",
+          "raspberry",
+          "cloud",
+          "orion",
+          "cohort",
+          "sherlock",
+          "brutus",
+          "pratique",
+          "niveau"
+        ]
+      },
+      {
+        "id": "8",
+        "title": "8. Badges Cisco Networking Academy",
+        "text": "## 8. Badges Cisco Networking Academy\n\n**Important : ce sont des badges de formation, pas des certifications professionnelles. Ne jamais dire qu'Oscar est « certifié Cisco » ni présenter un badge comme une certification.**\n\nCinq badges Cisco Networking Academy, vérifiables sur Credly :\n\n- **Ethical Hacker** — 23 octobre 2026 — https://www.credly.com/badges/bc73a9b9-0b18-423f-b230-485a61ddfcc6/public_url\n- **Junior Cybersecurity Analyst Career Path** — 20 mars 2026 — https://www.credly.com/badges/28ac05ee-4d11-4114-9c58-15cbf86c4589/public_url\n- **Networking Devices and Initial Configuration** — 17 mars 2026 — https://www.credly.com/users/oscar-mulume\n- **Networking Basics** — 4 mars 2026 — https://www.credly.com/users/oscar-mulume\n- **Introduction to Cybersecurity** — 10 juillet 2022 — https://www.credly.com/users/oscar-mulume\n\n- **Profil Credly** : https://www.credly.com/users/oscar-mulume\n- **Formation complémentaire** : Grant AI Skills & Compute Africa (juillet 2026, fine-tuning de modèles et agents autonomes) et Data Science Africa Summer School (Université Makerere), selon le site M-SEC. Aucun lien de vérification n'est fourni pour ces deux formations.\n- **Diplôme** : Licence en Sciences Informatiques — ISIPA, selon le portfolio. Aucun lien de vérification n'est fourni.",
+        "keywords": [
+          "badge",
+          "badges",
+          "cisco",
+          "credly",
+          "certification",
+          "certifications",
+          "certifie",
+          "ethical",
+          "hacker",
+          "networking",
+          "cybersecurity",
+          "analyst",
+          "formation"
+        ]
+      },
+      {
+        "id": "9",
+        "title": "9. Ce que l'assistant ne doit jamais affirmer",
+        "text": "## 9. Ce que l'assistant ne doit jamais affirmer\n\n- Aucun prix, tarif, remise, délai de livraison, nombre de clients, témoignage ou résultat non listé dans ce fichier.\n- Aucune certification professionnelle, aucun partenariat officiel, aucune accréditation ISO. Les référentiels NIST, ISO 27001, CIS, OWASP et TIA/EIA-568 sont des standards utilisés, pas des certifications obtenues.\n- Aucune garantie de disponibilité 24/7 ou de SLA universel. Le SLA dépend du contrat.\n- Ne pas dire qu'un audit complet est gratuit : seul le mini-audit initial est gratuit ; le rapport complet dépend du périmètre.\n- Ne pas dire que POS Pro est disponible ou en ligne. Ne pas dire que Herbo ou MonImmo sont lancés.\n- Ne pas donner de conseil de sécurité personnalisé comme s'il valait audit. Proposer un audit ou un échange.\n- Ne pas demander de mot de passe, clé, secret, donnée bancaire ou information sensible.\n- Ne communiquer aucun numéro de téléphone : renvoyer vers le formulaire de contact et l'e-mail.\n- Si l'information n'est pas dans ce fichier : répondre « Je n'ai pas cette information » et orienter vers le formulaire ou l'e-mail.",
+        "keywords": [
+          "inventer",
+          "invention",
+          "promesse",
+          "promettre",
+          "garantir",
+          "garantie",
+          "certification",
+          "certifie",
+          "prix",
+          "tarif",
+          "secret",
+          "mot de passe",
+          "telephone",
+          "numero"
+        ]
+      }
+    ],
+    "en": [
+      {
+        "id": "1",
+        "title": "1. Identity and contact details",
+        "text": "## 1. Identity and contact details\n\n- **Public name**: Oscar Mulume (legal name: MULUME IZUBA OSCAR).\n- **Role**: IT infrastructure · Networks · Cybersecurity · Development.\n- **Company**: M-SEC Technology Consulting, also called **M-SEC** (for Mulume Security). IT, network and cybersecurity engineering firm. Infrastructure, connectivity and security for businesses in Central Africa.\n- **M-SEC website**: https://oscarmulume.github.io/msec-technology-consulting/\n- **Portfolio**: https://oscarmulume.github.io/\n- **Email**: oscarmulume1612@gmail.com\n- **LinkedIn**: https://www.linkedin.com/in/oscar-mulume-95666b225/\n- **GitHub**: https://github.com/OscarMulume\n- **Based in**: Kinshasa, DR Congo.\n- **Service area**: Kinshasa, Goma, Bukavu (DR Congo); Central Africa; Remote / on-site.\n- **Languages**: French (native/bilingual), English (professional/technical), Swahili (professional), Lingala (intermediate).\n- **Availability**: Available — Central Africa.",
+        "keywords": [],
+        "always": true
+      },
+      {
+        "id": "6",
+        "title": "6. Oscar Mulume: background and education",
+        "text": "## 6. Oscar Mulume: background and education\n\n- I design, deploy and secure critical business infrastructure in Central Africa. From fibre optics to offensive cybersecurity and AI integration, I build systems designed to stay available.\n- **In IT since**: 2021.\n- **Education**: Bachelor’s degree in Networks, Telecommunications & Maintenance — ISIPA, 2025.\n- **Diploma**: Higher diploma in Computer Science — ISIG Goma, 2019–2025.\n\n**Current roles:**\n\n- **Head of IT, Engineering & Technology (IT Consultant)** (February 2026 – present) — Malaïka Group — Kinshasa, DR Congo\n  - Leads IT, cybersecurity and engineering for 5 entities (Malaïka Group, Ranch, Travels, Le Gabriel, Chez Malaïka).\n  - Hardened web platforms after a security incident: vulnerability scans, patches, firewall and antivirus.\n  - Maintained 99.9% availability for Wi-Fi, PMS and access control, 99.5% for POS and 99% for Internet; critical incidents handled in under 2 hours.\n  - Tested disaster recovery and backup plans; delivered monthly reports to management.\n- **Founder & Principal Consultant** (May 2026 – present) — M-SEC Technology Consulting — Kinshasa, DR Congo\n  - Vulnerability assessments, system hardening and security consulting.\n  - Custom web and mobile applications (Flutter/Dart, Supabase) with mobile money payments.\n\n- **Previously**: ALOM Services (2024–2025), Genocost (2024), Canalbox / Group Vivendi Africa (2022), Hima Cement / LafargeHolcim (2021), and volunteer work with the Red Cross DRC (2022–2024).\n\n**Key skills:**\n\n- Network and security: Cisco IOS, fibre FTTH, Starlink Business, UniFi, FortiGate, IP CCTV, enterprise Wi-Fi, hardening, firewall/IDS, DRP/BCP.\n- Development and data: Flutter/Dart, Python, JavaScript, Supabase, PostgreSQL, MySQL, MongoDB, M-Pesa, Orange Money and Flutterwave payments.\n- AI and cloud: AWS Bedrock, machine learning, generative AI, local deployment of open-source agents on Linux.\n\n**Results published on the portfolio:**\n\n- At Malaïka Group: 5 entities secured, 99.9% SLA maintained for Wi-Fi and PMS, 99.5% POS availability, 99% Internet availability, critical incidents handled in under 2 hours.\n- The 99.9% SLA, 99.5% POS availability and 99% Internet availability are past results at Malaïka Group published on the portfolio. They are not a universal M-SEC guarantee; M-SEC availability targets are set contract by contract.",
+        "keywords": [
+          "oscar",
+          "mulume",
+          "background",
+          "education",
+          "degree",
+          "diploma",
+          "experience",
+          "role",
+          "roles",
+          "malaika",
+          "skills",
+          "cv",
+          "result",
+          "results",
+          "99.9"
+        ]
+      },
+      {
+        "id": "7",
+        "title": "7. Projects and practice",
+        "text": "## 7. Projects and practice\n\n- **POS Pro** (In progress) — Restaurant point-of-sale designed to work offline, with web, desktop and mobile versions. Development is ongoing and it is not yet available online.\n- **Malaika Ranch** (Online) — Online shop with ordering through WhatsApp. — https://malaika-ranch-web.vercel.app\n- **M-SEC Technology Consulting website** (Online) — M-SEC Technology Consulting website: IT consulting, networks and cybersecurity in Kinshasa. — https://oscarmulume.github.io/msec-technology-consulting/\n- **Mosala** (Online) — Open-source CV and conversation assistant for African languages. It works offline with a local model (Ollama). — https://github.com/OscarMulume/nonchalant-cv ; https://dev.to/oscarmulume/mosala-a-cv-and-conversation-assistant-for-africas-languages-running-on-your-own-computer-2coc\n- **Cohort & Orion machines** — Cohort: SSRF, initial access then privilege escalation through a CVE. Orion: CraftCMS web enumeration and local Telnet authentication bypass.\n- **Brutus & Investigate Web Attack Sherlocks** — Reconstructing kill chains from logs: SSH brute force (auth.log, wtmp, MITRE T1136), Nikto scanning, web brute force and command injection.\n- **Raspberry Pi private cloud** — Personal storage server on a Raspberry Pi 5 with Nextcloud, securely reachable remotely through Tailscale.\n\n- **Hack The Box**: regular offensive cybersecurity practice; the portfolio displays level 25.",
+        "keywords": [
+          "project",
+          "projects",
+          "portfolio",
+          "malaika",
+          "mosala",
+          "hack",
+          "box",
+          "raspberry",
+          "cloud",
+          "orion",
+          "cohort",
+          "sherlock",
+          "brutus",
+          "practice",
+          "level"
+        ]
+      },
+      {
+        "id": "8",
+        "title": "8. Cisco Networking Academy badges",
+        "text": "## 8. Cisco Networking Academy badges\n\n**Important: these are training badges, not professional certifications. Never say Oscar is “Cisco certified” or present a badge as a certification.**\n\nFive Cisco Networking Academy badges, verifiable on Credly:\n\n- **Ethical Hacker** — October 23, 2026 — https://www.credly.com/badges/bc73a9b9-0b18-423f-b230-485a61ddfcc6/public_url\n- **Junior Cybersecurity Analyst Career Path** — March 20, 2026 — https://www.credly.com/badges/28ac05ee-4d11-4114-9c58-15cbf86c4589/public_url\n- **Networking Devices and Initial Configuration** — March 17, 2026 — https://www.credly.com/users/oscar-mulume\n- **Networking Basics** — March 4, 2026 — https://www.credly.com/users/oscar-mulume\n- **Introduction to Cybersecurity** — July 10, 2022 — https://www.credly.com/users/oscar-mulume\n\n- **Credly profile**: https://www.credly.com/users/oscar-mulume\n- **Additional training**: Grant AI Skills & Compute Africa (July 2026, fine-tuning language models and autonomous agents) and the Data Science Africa Summer School (Makerere University), according to the M-SEC website. No verification link is provided for these two programmes.\n- **Degree**: Bachelor’s degree in Computer Science — ISIPA, according to the portfolio. No verification link is provided.",
+        "keywords": [
+          "badge",
+          "badges",
+          "cisco",
+          "credly",
+          "certification",
+          "certifications",
+          "certified",
+          "ethical",
+          "hacker",
+          "networking",
+          "cybersecurity",
+          "analyst",
+          "training"
+        ]
+      },
+      {
+        "id": "9",
+        "title": "9. What the assistant must never claim",
+        "text": "## 9. What the assistant must never claim\n\n- No price, rate, discount, delivery time, client count, testimonial or result that is not listed in this file.\n- No professional certification, official partnership or ISO accreditation. NIST, ISO 27001, CIS, OWASP and TIA/EIA-568 are standards that may be used, not certifications obtained.\n- No guarantee of 24/7 availability or a universal SLA. The SLA depends on the contract.\n- Do not say a full audit is free: only the initial mini-audit is free; the full report depends on the scope.\n- Do not say POS Pro is available or online. Do not say Herbo or MonImmo have launched.\n- Do not give personalised security advice as if it were an audit. Offer an audit or a conversation.\n- Do not ask for passwords, keys, secrets, banking details or sensitive information.\n- Never give out a phone number: point to the contact form and email.\n- If the information is not in this file: answer “I don’t have that information” and point to the form or email.",
+        "keywords": [
+          "invent",
+          "invention",
+          "promise",
+          "guarantee",
+          "certification",
+          "certified",
+          "price",
+          "pricing",
+          "secret",
+          "password",
+          "phone",
+          "number"
+        ]
+      }
+    ]
+  }
+};

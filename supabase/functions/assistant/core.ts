@@ -3,6 +3,8 @@
 
 import { CONTACT_EMAIL, REFUSAL_PREFIX, TEXTS, systemPrompt } from './messages.ts';
 import type { Lang } from './messages.ts';
+import { PROFILES, originAllowedByAnyEnabledApp, toAppId } from './profiles.ts';
+import type { AppId, AppProfile } from './profiles.ts';
 import type { LeadRow, Store } from './store.ts';
 
 export const LIMITS = {
@@ -44,7 +46,9 @@ export interface Deps {
   fetch: typeof fetch;
   store: Store;
   knowledge: { fr: string; en: string };
+  // Connaissances de l'application `msec` (compatibilité) et des autres applications.
   sections?: { fr: KnowledgeSection[]; en: KnowledgeSection[] };
+  appSections?: Partial<Record<AppId, { fr: KnowledgeSection[]; en: KnowledgeSection[] }>>;
   timeoutMs?: number;
   sleep?: (ms: number) => Promise<void>;
 }
@@ -56,13 +60,19 @@ interface ChatMessage {
 
 // --- Origine et CORS -------------------------------------------------------
 
+function isLocalOrigin(origin: string, env: Env): boolean {
+  return env.ASSISTANT_ALLOW_LOCALHOST === 'true' && /^http:\/\/(localhost|127\.0\.0\.1)(:\d{1,5})?$/.test(origin);
+}
+
+// Origine acceptée pour la requête préliminaire CORS : celle d'une application activée (ou localhost en test).
 export function isAllowedOrigin(origin: string | null, env: Env): boolean {
   if (!origin) return false;
-  if (origin === ALLOWED_ORIGIN) return true;
-  if (env.ASSISTANT_ALLOW_LOCALHOST === 'true') {
-    return /^http:\/\/(localhost|127\.0\.0\.1)(:\d{1,5})?$/.test(origin);
-  }
-  return false;
+  return originAllowedByAnyEnabledApp(origin) || isLocalOrigin(origin, env);
+}
+
+// Origine acceptée pour UNE application précise.
+export function isAllowedOriginForApp(origin: string, profile: AppProfile, env: Env): boolean {
+  return profile.origins.includes(origin) || isLocalOrigin(origin, env);
 }
 
 function corsHeaders(origin: string): Record<string, string> {
@@ -261,6 +271,7 @@ async function requestModel(
   lang: Lang,
   history: ChatMessage[],
   knowledge: string,
+  profile: AppProfile,
 ): Promise<Response | null> {
   const { env } = deps;
   if (!env.LLM_BASE_URL || !env.LLM_MODEL || !env.LLM_API_KEY) return null;
@@ -272,7 +283,7 @@ async function requestModel(
       headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${env.LLM_API_KEY}` },
       body: JSON.stringify({
         model: env.LLM_MODEL,
-        messages: [{ role: 'system', content: systemPrompt(lang, knowledge) }, ...history],
+        messages: [{ role: 'system', content: systemPrompt(lang, knowledge, profile) }, ...history],
         max_tokens: LIMITS.maxTokens,
         temperature: 0.2,
         stream: false,
@@ -291,12 +302,13 @@ async function askModel(
   lang: Lang,
   history: ChatMessage[],
   knowledge: string,
+  profile: AppProfile,
 ): Promise<{ content: string; truncated: boolean } | null> {
   const { env } = deps;
   if (!env.LLM_BASE_URL || !env.LLM_MODEL || !env.LLM_API_KEY) return null;
 
   for (let attempt = 0; attempt < 2; attempt += 1) {
-    const response = await requestModel(deps, lang, history, knowledge);
+    const response = await requestModel(deps, lang, history, knowledge, profile);
     if (response === null) return null;
     if (response.status === 429 && attempt === 0) {
       const wait = retryAfterMs(response.headers.get('retry-after'));
@@ -318,15 +330,15 @@ async function askModel(
 
 // --- Actions ---------------------------------------------------------------
 
-async function safeLog(deps: Deps, lang: Lang, question: string, found: boolean): Promise<void> {
+async function safeLog(deps: Deps, app: AppId, lang: Lang, question: string, found: boolean): Promise<void> {
   try {
-    await deps.store.log({ lang, question: redactForLog(question), found });
+    await deps.store.log({ app, lang, question: redactForLog(question), found });
   } catch {
     // Le journal ne doit jamais empêcher de répondre.
   }
 }
 
-async function chat(deps: Deps, body: Record<string, unknown>, lang: Lang, hash: string, origin: string): Promise<Response> {
+async function chat(deps: Deps, body: Record<string, unknown>, lang: Lang, hash: string, origin: string, profile: AppProfile): Promise<Response> {
   const messages = normalizeMessages(body.messages);
   const last = messages?.[messages.length - 1];
   if (!messages || !last || last.role !== 'user') return json({ error: 'bad_request', message: TEXTS[lang].badRequest }, 400, origin);
@@ -340,7 +352,7 @@ async function chat(deps: Deps, body: Record<string, unknown>, lang: Lang, hash:
 
   let hit;
   try {
-    hit = await deps.store.hit(`chat:${hash}`, LIMITS.hourly, LIMITS.daily);
+    hit = await deps.store.hit(`chat:${profile.id}:${hash}`, profile.limits.hourly, profile.limits.daily);
   } catch {
     // Impossible de vérifier les limites : on refuse plutôt que de risquer un coût illimité.
     return json({ error: 'unavailable', message: TEXTS[lang].unavailable }, 503, origin);
@@ -351,23 +363,24 @@ async function chat(deps: Deps, body: Record<string, unknown>, lang: Lang, hash:
   }
 
   if (looksLikeInjection(last.content)) {
-    await safeLog(deps, lang, last.content, false);
+    await safeLog(deps, profile.id, lang, last.content, false);
     return json({ reply: TEXTS[lang].deflect, found: false }, 200, origin);
   }
 
-  const sections = deps.sections?.[lang];
-  const knowledge = sections && sections.length > 0
-    ? selectKnowledge(sections, last.content).text
-    : deps.knowledge[lang];
-  const raw = await askModel(deps, lang, messages, knowledge);
+  const sections = (deps.appSections?.[profile.id] ?? (profile.id === 'msec' ? deps.sections : undefined))?.[lang];
+  let knowledge: string;
+  if (sections && sections.length > 0) knowledge = selectKnowledge(sections, last.content).text;
+  else if (profile.id === 'msec') knowledge = deps.knowledge[lang];
+  else return json({ error: 'unavailable', message: TEXTS[lang].unavailable }, 503, origin); // aucune connaissance pour cette application
+  const raw = await askModel(deps, lang, messages, knowledge, profile);
   const reply = raw === null ? null : sanitizeReply(raw.content, lang, raw.truncated);
   if (reply === null || reply === '') {
-    await safeLog(deps, lang, last.content, false);
+    await safeLog(deps, profile.id, lang, last.content, false);
     return json({ reply: TEXTS[lang].fallback, found: false, fallback: true }, 200, origin);
   }
 
   const found = !isRefusal(reply, lang);
-  await safeLog(deps, lang, last.content, found);
+  await safeLog(deps, profile.id, lang, last.content, found);
   return json({ reply, found }, 200, origin);
 }
 
@@ -384,7 +397,7 @@ function parseContact(value: string): { email: string | null; phone: string | nu
   return null;
 }
 
-async function lead(deps: Deps, body: Record<string, unknown>, lang: Lang, hash: string, origin: string): Promise<Response> {
+async function lead(deps: Deps, body: Record<string, unknown>, lang: Lang, hash: string, origin: string, profile: AppProfile): Promise<Response> {
   const input = (body.lead ?? {}) as Record<string, unknown>;
   const name = typeof input.name === 'string' ? input.name.trim() : '';
   const contactRaw = typeof input.contact === 'string' ? input.contact : '';
@@ -396,16 +409,16 @@ async function lead(deps: Deps, body: Record<string, unknown>, lang: Lang, hash:
   }
 
   try {
-    const hit = await deps.store.hit(`lead:${hash}`, LIMITS.leadHourly, null);
+    const hit = await deps.store.hit(`lead:${profile.id}:${hash}`, profile.limits.leadHourly, null);
     if (!hit.allowed) return json({ error: 'rate_limited', message: TEXTS[lang].leadLimit }, 429, origin);
   } catch {
     return json({ error: 'unavailable', message: TEXTS[lang].unavailable }, 503, origin);
   }
 
-  const page = typeof input.page === 'string' && input.page.startsWith(ALLOWED_ORIGIN) ? input.page.slice(0, 300) : null;
+  const page = typeof input.page === 'string' && profile.origins.some((o) => (input.page as string).startsWith(o)) ? input.page.slice(0, 300) : null;
   const row: LeadRow = {
     kind: 'contact',
-    source: 'assistant',
+    source: profile.leadSource,
     full_name: name,
     email: contact.email,
     phone: contact.phone,
@@ -459,11 +472,17 @@ export async function handle(request: Request, deps: Deps): Promise<Response> {
     return json({ error: 'bad_request', message: TEXTS.fr.badRequest }, 400, allowed);
   }
 
+  const app = toAppId(body.app);
+  if (app === null) return json({ error: 'unknown_app', message: TEXTS.fr.badRequest }, 400, allowed);
+  const profile = PROFILES[app];
+  if (!profile.enabled) return json({ error: 'app_disabled', message: TEXTS.fr.unavailable }, 403, allowed);
+  if (!isAllowedOriginForApp(allowed, profile, deps.env)) return json({ error: 'forbidden_origin' }, 403, null);
+
   const lang = toLang(body.lang);
   const hash = (await sha256Hex(`${deps.env.ASSISTANT_SALT}:${clientIp(request)}`)).slice(0, 32);
   const action = body.action === 'lead' ? 'lead' : 'chat';
 
-  return action === 'lead' ? lead(deps, body, lang, hash, allowed) : chat(deps, body, lang, hash, allowed);
+  return action === 'lead' ? lead(deps, body, lang, hash, allowed, profile) : chat(deps, body, lang, hash, allowed, profile);
 }
 
 export { CONTACT_EMAIL };

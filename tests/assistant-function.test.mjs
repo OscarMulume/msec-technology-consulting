@@ -267,7 +267,7 @@ test('limite de 20 messages par heure par visiteur, sans IP en clair dans la cl�
   assert.equal(other.status, 200, 'un autre visiteur n\'est pas bloqué');
 
   const keys = deps.store.calls.hits.map((hit) => hit.key);
-  assert.equal(keys.every((key) => /^chat:[0-9a-f]{32}$/.test(key)), true);
+  assert.equal(keys.every((key) => /^chat:msec:[0-9a-f]{32}$/.test(key)), true);
   assert.equal(keys.some((key) => key.includes(IP)), false);
 });
 
@@ -390,7 +390,7 @@ test('une panne du journal n\'empêche pas la réponse', async () => {
   assert.equal(response.status, 200);
 });
 
-test('demande de contact : enregistrée dans site_leads avec source assistant', async () => {
+test('demande de contact : enregistrée dans site_leads avec source msec', async () => {
   const deps = makeDeps();
   const response = await handle(post({
     action: 'lead',
@@ -401,7 +401,7 @@ test('demande de contact : enregistrée dans site_leads avec source assistant', 
   assert.equal(response.status, 200);
   assert.deepEqual(await response.json(), { ok: true });
   const [row] = deps.store.calls.leads;
-  assert.equal(row.source, 'assistant');
+  assert.equal(row.source, 'msec');
   assert.equal(row.kind, 'contact');
   assert.equal(row.email, 'marie@example.cd');
   assert.equal(row.phone, null);

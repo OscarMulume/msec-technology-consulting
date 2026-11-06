@@ -10,6 +10,7 @@ import ts from 'typescript';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const SOURCE = path.join(ROOT, 'src', 'assistant', 'msec-assistant.src.js');
+const MSBOT = path.join(ROOT, 'src', 'assistant', 'msbot.src.js');
 const TARGETS = [
   path.join(ROOT, 'public', 'assistant', 'msec-assistant.js'),
   path.join(ROOT, 'public', 'assistant', 'v2', 'msec-assistant.js'),
@@ -50,7 +51,10 @@ export function findForbidden(code) {
 }
 
 const source = await readFile(SOURCE, 'utf8');
-const output = compile(source);
+const msbot = await readFile(MSBOT, 'utf8');
+// La mascotte est concaténée au widget : le portfolio la charge en cross-origin,
+// un fichier séparé ne serait pas résolu depuis oscarmulume.github.io.
+const output = compile(msbot) + '\n' + compile(source);
 const problems = findForbidden(output);
 if (problems.length > 0) {
   console.error(`Widget : syntaxe ou API trop récente pour ES2017 : ${problems.join(', ')}`);

@@ -180,10 +180,16 @@
     :focus-visible { outline: 3px solid var(--a-accent); outline-offset: 2px; }
     .launcher {
       display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
-      min-width: 3.25rem; min-height: 3.25rem; padding: 0 1rem; border-radius: 999px; border: 1px solid var(--a-border);
+      min-width: 3.25rem; min-height: 3.25rem; padding: .25rem .9rem .25rem .3rem; border-radius: 999px; border: 1px solid var(--a-border);
       background: var(--a-accent); color: var(--a-accent-contrast); font-weight: 600; box-shadow: var(--a-shadow);
+      transition: transform .25s cubic-bezier(.34,1.56,.64,1), box-shadow .25s;
     }
+    .launcher:hover { transform: translateY(-2px) scale(1.03); }
     .launcher svg { width: 1.4rem; height: 1.4rem; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+    .msbot-stage { display: block; width: 2.75rem; height: 2.75rem; flex: none; }
+    .msbot-stage svg { width: 100%; height: 100%; }
+    .launcher .msbot-label { font-size: .85rem; letter-spacing: .01em; }
+    @media (prefers-reduced-motion: reduce) { .launcher, .launcher:hover { transition: none; transform: none; } }
     .panel {
       position: absolute; right: 0; bottom: 4rem; width: 20rem; max-width: calc(100vw - 2rem);
       height: 30rem; max-height: calc(100vh - 9rem); display: flex; flex-direction: column; overflow: hidden;
@@ -292,6 +298,8 @@
       this.root = this.attachShadow({ mode: 'open' });
       this.build();
       this.syncTheme();
+      this.mountMsbot();
+      this.wireMsbot();
       new MutationObserver(() => this.syncTheme()).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
       if (window.matchMedia) {
         const query = window.matchMedia('(prefers-color-scheme: dark)');
@@ -310,6 +318,116 @@
       this.style.setProperty('--a-accent-contrast', vars.contrast);
       this.style.setProperty('--a-user', vars.accent);
       this.style.setProperty('--a-user-text', vars.contrast);
+      if (window.MSBot && this.lastDark !== dark) {
+        const first = this.lastDark === undefined;
+        this.lastDark = dark;
+        if (!first) window.MSBot.emit(dark ? 'env.theme.dark' : 'env.theme.light', { force: true });
+      }
+    }
+
+    // MSBot remplace l'icône du lanceur (PROMPT-6, M0-M5). Le module reste facultatif :
+    // sans lui, le widget fonctionne comme avant (repli).
+    mountMsbot() {
+      const api = window.MSBot;
+      if (!api || !this.botStage) return;
+      const name = (this.getAttribute('bot-name') || 'MSBot').slice(0, 16);
+      this.bot = api.mount(this.botStage, { theme: this.app, name, range: 300 });
+      if (window.matchMedia && window.matchMedia('(pointer: coarse)').matches) api.emit('env.mobile', { force: true });
+    }
+
+    /** Branche les comportements détectés automatiquement (aucun contenu de champ n'est lu ni envoyé). */
+    wireMsbot() {
+      const api = window.MSBot;
+      if (!api) return;
+      this.errorCount = 0;
+      this.lastError = { el: null, at: 0 };
+      let hoverTimer = 0;
+
+      this.launcher.addEventListener('pointerenter', () => {
+        api.emit('pointer.hover');
+        clearTimeout(hoverTimer);
+        hoverTimer = setTimeout(() => api.emit('pointer.hover.long'), 3000);
+      });
+      this.launcher.addEventListener('pointerleave', () => clearTimeout(hoverTimer));
+      this.launcher.addEventListener('click', () => api.emit('pointer.click'));
+
+      const fieldType = (node) => {
+        if (!node || !node.matches) return '';
+        const tag = node.tagName.toLowerCase();
+        if (tag === 'textarea') return 'textarea';
+        if (tag === 'select') return 'select';
+        const type = (node.getAttribute('type') || 'text').toLowerCase();
+        return ['email', 'tel', 'url', 'number', 'date', 'checkbox', 'file', 'password'].includes(type) ? type : 'text';
+      };
+      const countError = (el) => {
+        const at = Date.now();
+        if (this.lastError.el === el && at - this.lastError.at < 1500) return;
+        this.lastError = { el, at };
+        this.errorCount += 1;
+        const type = fieldType(el);
+        if (type) api.emit('field.' + type + '.format', { el, force: true });
+        if (this.errorCount >= 3) {
+          this.errorCount = 0;
+          api.emit('moment.form.errors3', { el, force: true });
+          this.flyTo(el);
+        }
+      };
+      document.addEventListener('invalid', (event) => {
+        const el = event.target;
+        if (el && el.matches && el.matches('input,textarea,select')) countError(el);
+      }, true);
+      document.addEventListener('blur', (event) => {
+        const el = event.target;
+        if (!el || !el.matches || !el.matches('input,textarea,select')) return;
+        if (el.hasAttribute('required') && !el.checkValidity()) countError(el);
+      }, true);
+      document.addEventListener('focusin', (event) => {
+        const el = event.target;
+        const type = fieldType(el);
+        if (type) api.emit('field.' + type + '.focus');
+      });
+
+      document.addEventListener('click', (event) => {
+        const node = event.target && event.target.closest ? event.target : null;
+        const el = node && node.closest('a[href^="tel:"],a[href*="wa.me"],a[href*="whatsapp"],[data-msbot]');
+        if (!el) return;
+        const href = el.getAttribute('href') || '';
+        const key = el.getAttribute('data-msbot') || (href.indexOf('tel:') === 0 ? 'call' : 'whatsapp');
+        const map = {
+          quote: 'intent.quote', services: 'intent.services', blog: 'nav.blog', call: 'contact.call',
+          mail: 'contact.mail', linkedin: 'contact.linkedin', whatsapp: 'contact.whatsapp',
+        };
+        if (map[key]) api.emit(map[key], { force: true });
+      }, true);
+      document.addEventListener('pointerenter', (event) => {
+        const el = event.target;
+        if (!el || !el.getAttribute) return;
+        const tip = el.getAttribute('data-msbot-tip');
+        if (tip && api.say) api.say(tip, 3000);
+      }, true);
+      document.addEventListener('copy', () => api.emit('pointer.copy'));
+      document.addEventListener('paste', () => api.emit('pointer.paste'));
+      document.addEventListener('keydown', (event) => {
+        if (event.altKey && !event.ctrlKey && !event.metaKey && String(event.key).toLowerCase() === 'm') {
+          event.preventDefault();
+          this.setOpen(this.panel.hidden);
+        }
+      });
+      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) api.emit('env.reducedmotion', { force: true });
+    }
+
+    /** Trois erreurs de saisie : MSBot vole vers le champ fautif puis revient. */
+    flyTo(el) {
+      if (!el || !el.getBoundingClientRect || !window.matchMedia) return;
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      const target = el.getBoundingClientRect();
+      const self = this.getBoundingClientRect();
+      const dx = Math.round(target.left - self.left - 8);
+      const dy = Math.round(target.top - self.top - 8);
+      this.style.transition = 'transform .65s cubic-bezier(.45,0,.2,1)';
+      this.style.transform = 'translate(' + dx + 'px,' + dy + 'px)';
+      clearTimeout(this.flyTimer);
+      this.flyTimer = setTimeout(() => { this.style.transform = ''; }, 5200);
     }
 
     build() {
@@ -318,8 +436,9 @@
       style.textContent = STYLE;
 
       this.launcher = el('button', { class: 'launcher', type: 'button', 'aria-expanded': 'false', 'aria-controls': 'panel', 'aria-label': t.open, id: 'launcher' });
-      this.launcher.innerHTML = BUBBLE_ICON;
-      this.launcher.append(el('span', { text: 'Assistant' }));
+      const botName = (this.getAttribute('bot-name') || 'MSBot').slice(0, 16);
+      this.botStage = el('span', { class: 'msbot-stage', id: 'msbot' });
+      this.launcher.append(this.botStage, el('span', { class: 'msbot-label', text: botName }));
       this.launcher.addEventListener('click', () => this.toggle());
 
       this.closeBtn = el('button', { class: 'icon-btn', type: 'button', 'aria-label': t.close, id: 'close', text: '×' });
@@ -445,6 +564,8 @@
     setOpen(open) {
       this.panel.hidden = !open;
       this.launcher.setAttribute('aria-expanded', String(open));
+      if (window.MSBot) window.MSBot.emit(open ? (this.openedOnce ? 'chat.reopen' : 'chat.open') : 'chat.close', { force: true });
+      if (open) this.openedOnce = true;
       if (open) {
         (this.leadForm.hidden ? this.input : this.leadName).focus();
       } else {

@@ -158,8 +158,8 @@ const organization = {
     </main>
     <Footer locale={locale} />
     <WhatsAppButton locale={locale} message={whatsappMessage} />
-    {assistantEnabled && <msec-assistant lang={locale}></msec-assistant>}
-    {assistantEnabled && <script is:inline defer src={withBase('/assistant/msec-assistant.js')}></script>}
+    {assistantEnabled && <msec-assistant app="msec" lang={locale}></msec-assistant>}
+    {assistantEnabled && <script is:inline defer src={withBase('/assistant/v2/msec-assistant.js')}></script>}
   </body>
 </html>
 

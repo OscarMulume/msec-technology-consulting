@@ -64,6 +64,12 @@ Limite de la longueur de réponse : 100 mots (au lieu de 120) pour réduire les 
 - **EN ATTENTE D'OSCAR** : générer UN secret aléatoire, le mettre dans Laravel (`ASSISTANT_POS_SECRET` dans `.env`/Render) ET dans Supabase (`npx supabase secrets set ASSISTANT_POS_SECRET=... --project-ref cinzlzdfddvcjhmvnbtp`) ; domaine du back-office pour CORS quand il existera.
 - Non testé : appel réel de bout en bout (nécessite le déploiement P6 et le secret), affichage dans l'application Android/Windows.
 
+## P5 - Portfolio et site M-SEC sur le widget v2
+
+- Site M-SEC : `<msec-assistant app="msec" lang=...>` chargé depuis `/assistant/v2/msec-assistant.js` (version figée). Portfolio (OscarMulume.github.io) : `app="portfolio"`, même fichier v2 du site M-SEC. Les deux restent masqués tant que `PUBLIC_ASSISTANT_ENABLED` n'est pas `true` (inchangé).
+- Tests : site M-SEC `npm test` vert + 15 scénarios Playwright verts ; portfolio `npm test` vert (test d'intégration mis à jour : attribut `app="portfolio"` et URL v2). Aucune régression.
+- Ordre de déploiement : pousser le site M-SEC (publie v2) avant le portfolio.
+
 ## ARRÊT DE SESSION (06/11/2026) - prochaine étape : P4
 
 Arrêt volontaire après P3, à une limite propre (tout est poussé). La barre d'état Claude Code n'est pas lisible par l'agent (`%LOCALAPPDATA%\msec\claude-usage.json` absent) : l'arrêt est une précaution pour la limite hebdomadaire, pas une mesure à 80 %.

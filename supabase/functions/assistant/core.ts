@@ -11,7 +11,7 @@ export const LIMITS = {
   hourly: 20,
   daily: 500,
   leadHourly: 5,
-  maxTokens: 350,
+  maxTokens: 600,
   knowledgeMaxTokens: 1500,
   retryAfterMaxMs: 8000,
   retryAfterDefaultMs: 1000,
@@ -184,9 +184,30 @@ export function looksLikeInjection(text: string): boolean {
 const PHONE_PATTERN = /\+?\s*243[\s.-]*\(?0?\)?[\s.-]*9\s*7\s*5[\s.-]*5\s*8\s*5[\s.-]*1\s*5\s*0|\b0?975[\s.-]?585[\s.-]?150\b/g;
 const SECRET_PATTERN = /(nvapi-[A-Za-z0-9_-]{10,}|sk-[A-Za-z0-9_-]{20,}|AIza[0-9A-Za-z_-]{20,}|eyJ[A-Za-z0-9_-]{15,}\.[A-Za-z0-9_-]{15,}\.[A-Za-z0-9_-]{10,})/;
 
-export function sanitizeReply(reply: string, lang: Lang): string | null {
+// Le widget affiche du texte : tout HTML éventuel du modèle est converti en texte (lien -> « texte : url »).
+export function stripHtml(text: string): string {
+  return text
+    .replace(/<a\s+[^>]*href=["']([^"']+)["'][^>]*>([\s\S]*?)<\/a>/gi, (_m, rawHref: string, label: string) => {
+      const href = rawHref.replace(/^mailto:/i, '');
+      const clean = label.replace(/<[^>]*>/g, '').trim();
+      return clean === '' || clean === href ? href : `${clean} : ${href}`;
+    })
+    .replace(/<br\s*\/?>/gi, '\n')
+    .replace(/<[^>]+>/g, '');
+}
+
+// Réponse coupée par la limite de jetons : on s'arrête à la dernière phrase ou ligne complète.
+export function trimToCompleteSentence(text: string): string {
+  const cut = Math.max(text.lastIndexOf('. '), text.lastIndexOf('.\n'), text.lastIndexOf('\n'), text.lastIndexOf('! '), text.lastIndexOf('? '));
+  if (cut > text.length * 0.4) return text.slice(0, cut + 1).trimEnd();
+  return `${text.trimEnd()}…`;
+}
+
+export function sanitizeReply(reply: string, lang: Lang, truncated = false): string | null {
   if (SECRET_PATTERN.test(reply)) return null;
-  const trimmed = reply.trim().slice(0, LIMITS.maxReplyChars);
+  let cleaned = stripHtml(reply).trim();
+  if (truncated) cleaned = trimToCompleteSentence(cleaned);
+  const trimmed = cleaned.slice(0, LIMITS.maxReplyChars);
   return trimmed.replace(PHONE_PATTERN, TEXTS[lang].phoneScrubbed);
 }
 
@@ -270,7 +291,7 @@ async function askModel(
   lang: Lang,
   history: ChatMessage[],
   knowledge: string,
-): Promise<string | null> {
+): Promise<{ content: string; truncated: boolean } | null> {
   const { env } = deps;
   if (!env.LLM_BASE_URL || !env.LLM_MODEL || !env.LLM_API_KEY) return null;
 
@@ -286,7 +307,8 @@ async function askModel(
     try {
       const data = await response.json();
       const content = data?.choices?.[0]?.message?.content;
-      return typeof content === 'string' && content.trim() !== '' ? content : null;
+      const truncated = data?.choices?.[0]?.finish_reason === 'length';
+      return typeof content === 'string' && content.trim() !== '' ? { content, truncated } : null;
     } catch {
       return null;
     }
@@ -338,7 +360,7 @@ async function chat(deps: Deps, body: Record<string, unknown>, lang: Lang, hash:
     ? selectKnowledge(sections, last.content).text
     : deps.knowledge[lang];
   const raw = await askModel(deps, lang, messages, knowledge);
-  const reply = raw === null ? null : sanitizeReply(raw, lang);
+  const reply = raw === null ? null : sanitizeReply(raw.content, lang, raw.truncated);
   if (reply === null || reply === '') {
     await safeLog(deps, lang, last.content, false);
     return json({ reply: TEXTS[lang].fallback, found: false, fallback: true }, 200, origin);

@@ -126,7 +126,7 @@ test('une question normale reçoit la réponse du modèle, avec les connaissance
   assert.equal(call.url, 'https://llm.example.test/v1/chat/completions');
   assert.equal(call.init.headers.Authorization, `Bearer ${SECRET_KEY}`);
   assert.equal(call.body.max_tokens, LIMITS.maxTokens);
-  assert.equal(call.body.max_tokens, 350);
+  assert.equal(call.body.max_tokens, 600);
   assert.equal(call.body.messages[0].role, 'system');
   assert.match(call.body.messages[0].content, /UNIQUEMENT à partir de la base de connaissances/);
   assert.match(call.body.messages[0].content, /Oscar Mulume/);

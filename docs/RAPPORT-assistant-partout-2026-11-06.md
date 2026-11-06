@@ -52,3 +52,17 @@ Limite de la longueur de réponse : 100 mots (au lieu de 120) pour réduire les 
 - Origine CORS autorisée pour le profil : `https://malaika-ranch-web.vercel.app`.
 - **Interrupteur** : `NEXT_PUBLIC_ASSISTANT_ENABLED` (Vercel), absent/`false` par défaut : le composant ne rend RIEN. **EN ATTENTE D'OSCAR** : obtenir l'accord du client Malaika, puis définir `NEXT_PUBLIC_ASSISTANT_ENABLED=true` dans Vercel et redéployer. Je n'ai pas activé l'affichage.
 - Non testé ici : affichage réel dans le navigateur sur la boutique (le widget est testé sur le site M-SEC par Playwright ; la boutique est vérifiée par `next build` et les tests unitaires du lien WhatsApp) ; appel réel de la fonction pour Malaika (nécessite le déploiement, P6).
+
+## ARRÊT DE SESSION (06/11/2026) - prochaine étape : P4
+
+Arrêt volontaire après P3, à une limite propre (tout est poussé). La barre d'état Claude Code n'est pas lisible par l'agent (`%LOCALAPPDATA%\msec\claude-usage.json` absent) : l'arrêt est une précaution pour la limite hebdomadaire, pas une mesure à 80 %.
+
+**Reprendre à P4 - POS Pro (`C:\pos-system`)**, constats déjà faits :
+- Il n'existe PAS de guide utilisateur dans `docs/` (seulement des rapports techniques, `pos-shared/src/help/fr.json` = 8 infobulles). Le prompt demande de répondre « à partir du guide utilisateur » : il faut d'abord écrire `docs/GUIDE-UTILISATEUR-POS-PRO.md` à partir du comportement réel de l'application (vues `laravel/resources/views/pos/*.blade.php`, `pos-shared/index.html`, modale de gestion de caisse X/Z, synchronisation, abonnement), sans rien inventer, puis en tirer `apps/pos.{fr,en}.md`.
+- « Rôle requis : utilisateur connecté » : la fonction vit sur Supabase, Laravel gère l'authentification. Piste : route Laravel `auth:sanctum` qui délivre un jeton court signé (HMAC) vérifié par la fonction (en-tête `X-Assistant-Token`, secret partagé `ASSISTANT_POS_SECRET`) ; le widget enverrait ce jeton via une propriété `tokenProvider`. EN ATTENTE D'OSCAR : définir le même secret côté Laravel (`.env`) et côté Supabase (`supabase secrets set`).
+- Hors ligne : la propriété `faq` du widget est prête (P2) ; il reste à embarquer la FAQ (sans IA) dans `pos-shared` (caisse hors ligne, Tauri, Capacitor) et dans le back-office.
+- Origines du profil `pos` : domaine du back-office à ajouter quand il existera (aucun domaine inventé).
+
+**Ensuite** : P5 (portfolio et site M-SEC passent au widget v2 avec `app="portfolio"` / `app="msec"`, sans régression des tests), puis P6 (recette : 10 questions × 8 s par application, tableau ici ; `docs/ASSISTANT.md` : ajouter une app en 5 étapes, changer de modèle, activer/désactiver par app, lire les journaux ; **appliquer d'abord la migration `20261106_assistant_multi_app.sql`**, puis `npx supabase functions deploy assistant --project-ref cinzlzdfddvcjhmvnbtp --no-verify-jwt --yes` ; tag `assistant-partout` ; ne pas activer l'affichage public).
+
+**EN ATTENTE D'OSCAR (cumul)** : accord du client Malaika avant `NEXT_PUBLIC_ASSISTANT_ENABLED=true` ; confirmation des 4 défauts de P0 (hypothèse ci-dessus) ; secret `ASSISTANT_POS_SECRET` (P4) ; domaine du back-office POS Pro (origine CORS).

@@ -4,6 +4,7 @@
 // Fournis automatiquement par Supabase : SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY.
 
 import { handle } from './core.ts';
+import { loadMalaikaKnowledge } from './catalog.ts';
 import { createRestStore } from './store.ts';
 import { APP_KNOWLEDGE, KNOWLEDGE, KNOWLEDGE_SECTIONS } from './knowledge.generated.ts';
 
@@ -30,5 +31,10 @@ Deno.serve((request: Request) => {
     knowledge: KNOWLEDGE,
     sections: KNOWLEDGE_SECTIONS,
     appSections: APP_KNOWLEDGE,
+    // Catalogue Malaika lu en direct (lecture seule, produits publiés) ; MALAIKA_API_BASE facultatif.
+    dynamicKnowledge: (app, lang, question) =>
+      app === 'malaika'
+        ? loadMalaikaKnowledge({ fetch, base: Deno.env.get('MALAIKA_API_BASE') ?? undefined }, lang, question)
+        : Promise.resolve(null),
   });
 });

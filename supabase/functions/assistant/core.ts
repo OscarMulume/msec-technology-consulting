@@ -49,6 +49,8 @@ export interface Deps {
   // Connaissances de l'application `msec` (compatibilité) et des autres applications.
   sections?: { fr: KnowledgeSection[]; en: KnowledgeSection[] };
   appSections?: Partial<Record<AppId, { fr: KnowledgeSection[]; en: KnowledgeSection[] }>>;
+  // Connaissances lues en direct pour certaines applications (catalogue Malaika) : texte ajouté à la base, jamais d'exception.
+  dynamicKnowledge?: (app: AppId, lang: Lang, question: string) => Promise<string | null>;
   timeoutMs?: number;
   sleep?: (ms: number) => Promise<void>;
 }
@@ -372,6 +374,17 @@ async function chat(deps: Deps, body: Record<string, unknown>, lang: Lang, hash:
   if (sections && sections.length > 0) knowledge = selectKnowledge(sections, last.content).text;
   else if (profile.id === 'msec') knowledge = deps.knowledge[lang];
   else return json({ error: 'unavailable', message: TEXTS[lang].unavailable }, 503, origin); // aucune connaissance pour cette application
+  if (deps.dynamicKnowledge) {
+    let extra: string | null = null;
+    try {
+      extra = await deps.dynamicKnowledge(profile.id, lang, last.content);
+    } catch {
+      extra = null;
+    }
+    if (extra) knowledge = `${knowledge}
+
+${extra}`;
+  }
   const raw = await askModel(deps, lang, messages, knowledge, profile);
   const reply = raw === null ? null : sanitizeReply(raw.content, lang, raw.truncated);
   if (reply === null || reply === '') {

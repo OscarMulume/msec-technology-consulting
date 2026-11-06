@@ -70,6 +70,12 @@ Limite de la longueur de réponse : 100 mots (au lieu de 120) pour réduire les 
 - Tests : site M-SEC `npm test` vert + 15 scénarios Playwright verts ; portfolio `npm test` vert (test d'intégration mis à jour : attribut `app="portfolio"` et URL v2). Aucune régression.
 - Ordre de déploiement : pousser le site M-SEC (publie v2) avant le portfolio.
 
+## P6 - Recette (PARTIELLE : déploiement bloqué)
+
+- Fait : `docs/ASSISTANT.md` mis à jour (nouvelle app en 5 étapes, activer/désactiver par app, changer de modèle, journaux, jeton POS Pro, ordre de déploiement).
+- **BLOQUÉ** : l'application de la migration `20261106_assistant_multi_app.sql` sur `pos-pro-msec` (outil Supabase `apply_migration`) a été refusée par le contrôle de permissions de la session. Je n'ai pas contourné ce refus (ni CLI, ni SQL direct). Conséquence : la fonction n'est PAS redéployée (la déployer sans migration casserait l'enregistrement des demandes et le journal), donc le test réel « 10 questions x 8 s par application » n'a pas eu lieu et le tag `assistant-partout` n'est pas posé.
+- **EN ATTENTE D'OSCAR** : soit autoriser l'outil (règle de permission pour `mcp__claude_ai_Supabase__apply_migration`), soit exécuter le fichier SQL dans l'éditeur SQL Supabase de `pos-pro-msec` ; puis `npx supabase secrets set ASSISTANT_POS_SECRET=...` ; puis me demander de déployer et de lancer la recette.
+
 ## ARRÊT DE SESSION (06/11/2026) - prochaine étape : P4
 
 Arrêt volontaire après P3, à une limite propre (tout est poussé). La barre d'état Claude Code n'est pas lisible par l'agent (`%LOCALAPPDATA%\msec\claude-usage.json` absent) : l'arrêt est une précaution pour la limite hebdomadaire, pas une mesure à 80 %.

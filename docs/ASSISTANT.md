@@ -122,3 +122,29 @@ Sauvegarde : le code est sur GitHub ; les données (`site_leads`, `assistant_log
 - Demandes de détournement évidentes (« ignore tes instructions », demande de clé…) : réponse polie sans appeler le modèle.
 - Un assistant IA peut se tromper : le prompt l'oblige à s'appuyer sur les connaissances, mais ce n'est pas une garantie absolue.
 - Tests : `npm run test:unit` (fonction, 31 tests), `npm run test:e2e` (widget, 11 scénarios Playwright). Deno n'est pas installé sur le poste de développement : `index.ts` (Deno.serve) et la fonction SQL `assistant_hit` ne sont vérifiés qu'après le déploiement, par le test réel.
+
+## Plusieurs applications, un seul moteur (assistant-partout)
+
+Applications : `msec` (site), `portfolio`, `malaika`, `pos` ; `herbo` et `monimmo` sont préparées mais désactivées (`enabled: false`).
+
+### Ajouter une nouvelle application en 5 étapes
+1. `supabase/functions/assistant/profiles.ts` : ajouter l'identifiant à `AppId` et `APP_IDS`, puis un profil (intro, ton, règles, périmètre, origines CORS, limites, `leadSource`, `requiresLogin`).
+2. Connaissances : créer `supabase/functions/assistant/apps/<app>.fr.md` et `<app>.en.md` (sections `##`, la première toujours envoyée, mots-clés `<!-- mots-cles: a, b -->`), puis `npm run build:knowledge`.
+3. Base : ajouter `<app>` à la contrainte `site_leads_source_check` (nouvelle migration idempotente).
+4. Application hôte : `<msec-assistant app="<app>" lang="fr" accent="#...">` chargé depuis `.../assistant/v2/msec-assistant.js`, derrière un interrupteur désactivé par défaut. Pour une application avec connexion : `requiresLogin: true`, propriété `tokenProvider` (jeton court signé par le serveur de l'application, voir `token.ts`) ; hors ligne : propriété `faq`.
+5. Tests (`tests/assistant-<app>.test.mjs`), `npm test`, redéploiement de la fonction.
+
+### Activer ou désactiver par application
+- Côté serveur : `enabled` dans le profil (puis redéploiement) ; une application désactivée répond 403 `app_disabled`.
+- Côté affichage : `PUBLIC_ASSISTANT_ENABLED` (site, portfolio), `NEXT_PUBLIC_ASSISTANT_ENABLED` (Malaika, Vercel), `VITE_ASSISTANT_ENABLED` (caisse POS Pro), `ASSISTANT_ENABLED` (back-office Laravel). Tous désactivés par défaut.
+
+### POS Pro : jeton de connexion
+Le même secret aléatoire doit exister dans Laravel (`ASSISTANT_POS_SECRET`) et dans Supabase : `npx supabase secrets set ASSISTANT_POS_SECRET=<valeur> --project-ref cinzlzdfddvcjhmvnbtp`. Sans secret, le profil `pos` refuse tout (401).
+
+### Changer de modèle, lire les journaux
+Voir les deux sections précédentes ; le journal `assistant_logs` a maintenant une colonne `app` : `select app, count(*) from assistant_logs group by app;`. Les demandes laissées dans `site_leads` portent `source = '<app>'`.
+
+### Déploiement (ordre obligatoire)
+1. Appliquer `supabase/migrations/20261106_assistant_multi_app.sql` sur `pos-pro-msec`.
+2. `npx supabase functions deploy assistant --project-ref cinzlzdfddvcjhmvnbtp --no-verify-jwt --yes`.
+3. `node scripts/assistant-live-check.mjs` puis lecture du tableau.

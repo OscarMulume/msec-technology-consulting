@@ -54,3 +54,22 @@ test('catalogue MSBot : couleurs du prototype renommées en --msbot-', () => {
   assert.equal(source.indexOf('--mico-'), -1);
   assert.match(source, /--msbot-/);
 });
+
+test('module MSBot : rendu adaptatif 3D et repli SVG', () => {
+  for (const name of ['function Bot3D', 'function load3d', 'function start3d', 'function fallback3d', 'function can3d']) {
+    assert.ok(source.indexOf(name) !== -1, name);
+  }
+  assert.match(source, /cdnjs\.cloudflare\.com\/ajax\/libs\/three\.js\/r128/);
+});
+
+test('module MSBot : effets du prototype présents', () => {
+  for (const name of ['function confetti', 'function sparkle', 'function ring', 'function plane', 'function morse', 'function shatter', 'function tele']) {
+    assert.ok(source.indexOf(name) !== -1, name);
+  }
+});
+
+test('module MSBot : attributs de palette et aucune réponse factice de démonstration', () => {
+  assert.match(source, /function setPalette/);
+  assert.equal(source.indexOf('DEMO'), -1);
+  assert.equal(source.indexOf('answers['), -1);
+});

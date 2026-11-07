@@ -54,7 +54,9 @@ const source = await readFile(SOURCE, 'utf8');
 const msbot = await readFile(MSBOT, 'utf8');
 // La mascotte est concaténée au widget : le portfolio la charge en cross-origin,
 // un fichier séparé ne serait pas résolu depuis oscarmulume.github.io.
-const output = compile(msbot) + '\n' + compile(source);
+const botOutput = compile(msbot);
+const output = botOutput + '\n' + compile(source);
+const MODULE = path.join(ROOT, 'public', 'assistant', 'msbot', 'msbot.js');
 const problems = findForbidden(output);
 if (problems.length > 0) {
   console.error(`Widget : syntaxe ou API trop récente pour ES2017 : ${problems.join(', ')}`);
@@ -62,18 +64,19 @@ if (problems.length > 0) {
 }
 
 const check = process.argv.includes('--check');
-for (const target of TARGETS) {
+const targets = TARGETS.map((target) => ({ target, code: output })).concat([{ target: MODULE, code: botOutput }]);
+for (const { target, code } of targets) {
   if (check) {
     let current = '';
     try { current = (await readFile(target, 'utf8')).replace(/\r\n/g, '\n'); } catch { /* absent */ }
-    if (current !== output) {
+    if (current !== code) {
       console.error(`${path.relative(ROOT, target)} n'est pas à jour. Lancer npm run build:widget.`);
       process.exit(1);
     }
   } else {
     await mkdir(path.dirname(target), { recursive: true });
-    await writeFile(target, output, 'utf8');
-    console.log(`écrit ${path.relative(ROOT, target)} (${Buffer.byteLength(output, 'utf8')} octets)`);
+    await writeFile(target, code, 'utf8');
+    console.log(`écrit ${path.relative(ROOT, target)} (${Buffer.byteLength(code, 'utf8')} octets)`);
   }
 }
 if (check) console.log('widget à jour (ES2017)');

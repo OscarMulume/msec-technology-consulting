@@ -23,6 +23,7 @@
   const I18N = {
     fr: {
       open: "Ouvrir l'assistant M-SEC",
+      recall: 'Rappeler MSBot',
       close: "Fermer l'assistant",
       title: 'Assistant M-SEC',
       subtitle: "Réponses à partir des informations publiées sur M-SEC et Oscar Mulume. Un assistant IA peut se tromper.",
@@ -49,6 +50,7 @@
     },
     en: {
       open: 'Open the M-SEC assistant',
+      recall: 'Call MSBot back',
       close: 'Close the assistant',
       title: 'M-SEC assistant',
       subtitle: 'Answers come from the information published about M-SEC and Oscar Mulume. An AI assistant can make mistakes.',
@@ -186,14 +188,19 @@
     }
     .launcher:hover { transform: translateY(-2px) scale(1.03); }
     .launcher svg { width: 1.4rem; height: 1.4rem; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-    .msbot-stage { display: block; width: 2.75rem; height: 2.75rem; flex: none; }
+    .msbot-stage { display: block; width: 4rem; height: 4rem; flex: none; }
     .msbot-stage svg { width: 100%; height: 100%; }
     .launcher .msbot-label { font-size: .85rem; letter-spacing: .01em; }
     @media (prefers-reduced-motion: reduce) { .launcher, .launcher:hover { transition: none; transform: none; } }
+    .launcher.away { display: none; }
+    .recall { position: absolute; right: 0; bottom: 0; min-height: 2.75rem; padding: 0 1rem; border-radius: 999px; border: 1px solid var(--a-border); background: var(--a-bg); color: var(--a-text); box-shadow: var(--a-shadow); font-weight: 600; -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); }
+    :host([data-theme="dark"]) .panel { background: rgba(16,28,34,.86); }
+    @media (max-width: 520px) { .msbot-stage { width: 3.5rem; height: 3.5rem; } .launcher { min-height: 4rem; } }
     .panel {
       position: absolute; right: 0; bottom: 4rem; width: 20rem; max-width: calc(100vw - 2rem);
       height: 30rem; max-height: calc(100vh - 9rem); display: flex; flex-direction: column; overflow: hidden;
-      background: var(--a-bg); border: 1px solid var(--a-border); border-radius: 1.25rem; box-shadow: var(--a-shadow);
+      background: var(--a-bg); border: 1px solid var(--a-border); border-radius: 1.5rem; box-shadow: var(--a-shadow);
+      background: rgba(255,255,255,.82); -webkit-backdrop-filter: blur(20px) saturate(160%); backdrop-filter: blur(20px) saturate(160%);
     }
     @supports (width: min(1px, 2px)) { .panel { width: min(24rem, calc(100vw - 2rem)); height: min(34rem, calc(100vh - 9rem)); } }
     @supports (height: 1dvh) { .panel { max-height: calc(100dvh - 9rem); } }
@@ -331,8 +338,39 @@
       const api = window.MSBot;
       if (!api || !this.botStage) return;
       const name = (this.getAttribute('bot-name') || 'MSBot').slice(0, 16);
-      this.bot = api.mount(this.botStage, { theme: this.app, name, range: 300 });
+      if (api.setPalette && (this.getAttribute('msbot-dark') || this.getAttribute('msbot-accent') || this.getAttribute('msbot-eye') || this.getAttribute('msbot-emblem'))) {
+        api.setPalette({
+          dark: this.getAttribute('msbot-dark') || undefined,
+          accent: this.getAttribute('msbot-accent') || undefined,
+          eye: this.getAttribute('msbot-eye') || undefined,
+          emblem: this.getAttribute('msbot-emblem') || undefined,
+        });
+      }
+      const mode = this.getAttribute('msbot-render') || 'auto';
+      this.bot = api.mount(this.botStage, { theme: this.app, name, range: 300, render: mode });
       if (window.matchMedia && window.matchMedia('(pointer: coarse)').matches) api.emit('env.mobile', { force: true });
+    }
+
+    // « Rappeler MSBot » : après une longue inactivité, le lanceur s'efface et un onglet discret le rappelle.
+    armIdle() {
+      clearTimeout(this.idleTimer);
+      this.idleTimer = setTimeout(() => {
+        if (!this.panel.hidden || !window.MSBot) return;
+        window.MSBot.emit('idle.invite', { force: true });
+        this.idleTimer = setTimeout(() => {
+          if (!this.panel.hidden) return;
+          this.launcher.classList.add('away');
+          this.recall.hidden = false;
+        }, 30000);
+      }, 45000);
+    }
+
+    showDock() {
+      clearTimeout(this.idleTimer);
+      this.launcher.classList.remove('away');
+      this.recall.hidden = true;
+      this.armIdle();
+      if (window.MSBot) window.MSBot.emit('idle.wake', { force: true });
     }
 
     /** Branche les comportements détectés automatiquement (aucun contenu de champ n'est lu ni envoyé). */
@@ -461,6 +499,9 @@
       this.log.append(this.chips);
 
       this.input = el('textarea', { rows: '1', maxlength: String(MAX_CHARS), placeholder: t.placeholder, 'aria-label': t.placeholder, id: 'input' });
+      this.input.addEventListener('input', () => {
+        if (window.MSBot && this.input.value.trim()) window.MSBot.emit('chat.coding');
+      });
       this.input.addEventListener('keydown', (event) => {
         if (event.key === 'Enter' && !event.shiftKey) {
           event.preventDefault();
@@ -488,7 +529,11 @@
         }
       });
 
-      this.root.append(style, this.panel, this.launcher);
+      this.recall = el('button', { class: 'recall', type: 'button', text: t.recall, id: 'recall' });
+      this.recall.hidden = true;
+      this.recall.addEventListener('click', () => this.showDock());
+      this.root.append(style, this.panel, this.launcher, this.recall);
+      this.armIdle();
     }
 
     buildLeadForm() {
@@ -647,6 +692,7 @@
       this.sendBtn.disabled = true;
       this.input.value = '';
       this.addMessage('user', text);
+      if (window.MSBot) window.MSBot.emit('chat.send', { force: true });
       this.history.push({ role: 'user', content: text.slice(0, MAX_CHARS) });
       this.history = this.history.slice(-MAX_HISTORY);
       this.setThinking(true);
@@ -663,16 +709,19 @@
         const result = await this.post({ app: this.app, lang: this.lang, messages: this.history });
         this.setThinking(false);
         if (result.ok && result.data && typeof result.data.reply === 'string') {
+          if (window.MSBot) window.MSBot.emit('chat.answer', { force: true });
           this.addMessage('assistant', result.data.reply);
           this.history.push({ role: 'assistant', content: result.data.reply.slice(0, MAX_CHARS) });
           this.history = this.history.slice(-MAX_HISTORY);
         } else {
+          if (window.MSBot) window.MSBot.emit(result.status === 429 ? 'chat.ratelimit' : 'chat.provider.error', { force: true });
           const message = result.data && typeof result.data.message === 'string' ? result.data.message : this.t.networkError;
           this.addMessage('assistant', message, true);
           this.history.pop();
         }
       } catch (e) {
         this.setThinking(false);
+        if (window.MSBot) window.MSBot.emit('chat.provider.error', { force: true });
         // Réseau coupé en cours de route : FAQ intégrée si l'application en fournit une.
         this.addMessage('assistant', this.faq ? this.faqAnswer(text) : this.t.networkError, !this.faq);
         this.history.pop();

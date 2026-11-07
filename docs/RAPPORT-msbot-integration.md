@@ -8,7 +8,7 @@ Date : 06/11/2026. Dépôt : `msec-technology-consulting`. Référence : `docs/p
 |---|---|---|---|---|---|
 | I1 — module réutilisable | `src/assistant/msbot.src.js`, `scripts/build-assistant-widget.mjs`, `public/assistant/msbot/msbot.js`, `tests/msbot-catalog.test.mjs` | `npm test` vert | I1+I2 commit unique | `msbot-i1` | oui |
 | I2 — vraies réponses | `src/assistant/msec-assistant.src.js` | `npm test` vert | idem (même commit) | `msbot-i2` | oui |
-| I3 — site M-SEC | à faire | — | — | — | — |
+| I3 — site M-SEC | composants Astro (`data-msbot`, `data-msbot-section`), observateur de sections | `npm test` vert | oui | `msbot-i3` | oui |
 | I4 — portfolio | à faire | — | — | — | — |
 | I5 — preuve visuelle | à faire | — | — | — | — |
 | I6 — POS / Malaika | à faire | — | — | — | — |
@@ -29,6 +29,13 @@ Date : 06/11/2026. Dépôt : `msec-technology-consulting`. Référence : `docs/p
 
 - `ask()` du prototype remplacé par l'appel Supabase existant (`post({ app, lang, messages })`) : mêmes paramètres, historique borné, 429 distingué, erreurs réseau gérées, Markdown assaini, capture de contact existante conservée.
 - États MSBot : envoi → `scan`, frappe → `code`, réponse → `happy`, 429 → `sleep`, erreur fournisseur/réseau → `error` avec message clair.
+
+## I3 — ce qui est fait
+
+- Attributs posés : `call` (tel:), `mail` (mailto: en-tête de pied, cartes contact, secours du formulaire), `linkedin`, `whatsapp`, `blog` (menu), `quote` (boutons audit/devis), `services` (cartes), `data-msbot-section` sur chaque section de l'accueil.
+- Les liens gardent leur comportement normal (aucun `preventDefault` dans le gestionnaire de clic, vérifié par test). Les réactions de champ du formulaire existaient déjà (M0-M5).
+- Sections : contact, produits, services déclenchent une réaction une seule fois.
+- Thème M-SEC : #0B2A4A / #E8A33D / #FFB547 / « MC ».
 
 ## Écarts assumés
 

@@ -36,7 +36,7 @@ const productCodes = ['POS', 'H', 'MI'];
 ---
 
 <div class="home">
-  <section class="hero">
+  <section class="hero" data-msbot-section="hero">
     <div class="container hero__grid">
       <div class="hero__copy">
         <p class="hero__badge"><span></span>{home.hero.badge}</p>
@@ -47,7 +47,7 @@ const productCodes = ['POS', 'H', 'MI'];
         <p class="hero__tagline">{home.hero.tagline}</p>
         <p class="hero__manifesto">{home.hero.manifesto}</p>
         <div class="btn-row">
-          <a class="btn btn--primary" href={localePath(locale, '#audit')}>{home.hero.ctaAudit}</a>
+          <a class="btn btn--primary" data-msbot="quote" href={localePath(locale, '#audit')}>{home.hero.ctaAudit}</a>
           <a class="btn btn--secondary" href={localePath(locale, '#services')}>{home.hero.ctaServices}</a>
         </div>
         <p class="hero__note">{home.hero.note}</p>
@@ -99,7 +99,7 @@ const productCodes = ['POS', 'H', 'MI'];
     </div>
   </section>
 
-  <section class="section" id="products">
+  <section class="section" id="products" data-msbot-section="products">
     <div class="container">
       <div class="section-head">
         <p class="eyebrow">{home.products.label}</p>
@@ -165,7 +165,7 @@ const productCodes = ['POS', 'H', 'MI'];
     </div>
   </section>
 
-  <section class="section section--soft" id="services">
+  <section class="section section--soft" id="services" data-msbot-section="services">
     <div class="container">
       <div class="section-head">
         <p class="eyebrow">{home.services.label}</p>
@@ -175,7 +175,7 @@ const productCodes = ['POS', 'H', 'MI'];
 
       <div class="service-grid">
         {services.map((service, index) => (
-          <article class="service-card">
+          <article class="service-card" data-msbot="services">
             <div class="service-card__head">
               <span class="service-card__icon"><ServiceIcon slug={service.slug} /></span>
               <span class="service-card__index">0{index + 1}</span>
@@ -228,7 +228,7 @@ const productCodes = ['POS', 'H', 'MI'];
     </div>
   </section>
 
-  <section class="section" id="realisations">
+  <section class="section" id="realisations" data-msbot-section="realisations">
     <div class="container">
       <div class="section-head">
         <p class="eyebrow">{home.gallery.label}</p>
@@ -277,7 +277,7 @@ const productCodes = ['POS', 'H', 'MI'];
     </div>
   </section>
 
-  <section class="section section--soft" id="engagements">
+  <section class="section section--soft" id="engagements" data-msbot-section="engagements">
     <div class="container">
       <div class="section-head">
         <p class="eyebrow">{home.engagements.label}</p>
@@ -321,7 +321,7 @@ const productCodes = ['POS', 'H', 'MI'];
     </div>
   </section>
 
-  <section class="section" id="methodology">
+  <section class="section" id="methodology" data-msbot-section="methodology">
     <div class="container">
       <div class="split-head">
         <div class="section-head">
@@ -357,7 +357,7 @@ const productCodes = ['POS', 'H', 'MI'];
     </div>
   </section>
 
-  <section class="section section--soft" id="certifications">
+  <section class="section section--soft" id="certifications" data-msbot-section="certifications">
     <div class="container">
       <div class="section-head">
         <p class="eyebrow">{home.certifications.label}</p>
@@ -449,7 +449,7 @@ const productCodes = ['POS', 'H', 'MI'];
     </div>
   </section>
 
-  <section class="section" id="audit">
+  <section class="section" id="audit" data-msbot-section="audit">
     <div class="container">
       <div class="audit-grid">
         <div>
@@ -475,7 +475,7 @@ const productCodes = ['POS', 'H', 'MI'];
     </div>
   </section>
 
-  <section class="section section--soft" id="contact">
+  <section class="section section--soft" id="contact" data-msbot-section="contact">
     <div class="container">
       <div class="section-head section-head--center">
         <p class="eyebrow">{home.contact.label}</p>
@@ -491,7 +491,7 @@ const productCodes = ['POS', 'H', 'MI'];
               <span aria-hidden="true">{card.icon}</span>
               <h3>{card.title}</h3>
               {'href' in card && card.href
-                ? <a href={card.href}>{card.value}</a>
+                ? <a href={card.href} data-msbot={String(card.href).startsWith('mailto:') ? 'mail' : 'call'}>{card.value}</a>
                 : <p>{card.value}</p>}
             </article>
           ))}
@@ -513,7 +513,7 @@ const productCodes = ['POS', 'H', 'MI'];
           <p>{home.cta.desc}</p>
         </div>
         <div class="btn-row">
-          <a class="btn btn--primary" href={localePath(locale, '#audit')}>{home.cta.audit}</a>
+          <a class="btn btn--primary" data-msbot="quote" href={localePath(locale, '#audit')}>{home.cta.audit}</a>
           <a class="btn btn--secondary" href={localePath(locale, '#contact')}>{home.cta.contact}</a>
         </div>
       </div>

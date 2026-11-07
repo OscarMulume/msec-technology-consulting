@@ -73,3 +73,18 @@ test('module MSBot : attributs de palette et aucune réponse factice de démonst
   assert.equal(source.indexOf('DEMO'), -1);
   assert.equal(source.indexOf('answers['), -1);
 });
+import { readFileSync as lire } from 'node:fs';
+import test2 from 'node:test';
+import assert2 from 'node:assert/strict';
+
+test2('I3 : le site M-SEC pose les attributs data-msbot sans preventDefault sur tel:/mailto:', () => {
+  const sources = ['Header', 'Footer', 'HomePage', 'WhatsAppButton', 'ServicePage']
+    .map((n) => lire(new URL('../src/components/' + n + '.astro', import.meta.url), 'utf8')).join('\n');
+  for (const k of ['call', 'mail', 'linkedin', 'whatsapp', 'blog', 'quote', 'services']) {
+    assert2.ok(sources.includes('data-msbot="' + k + '"') || sources.includes("'" + k + "'"), 'data-msbot ' + k);
+  }
+  assert2.ok(sources.includes('data-msbot-section'));
+  const widget = lire(new URL('../src/assistant/msec-assistant.src.js', import.meta.url), 'utf8');
+  const bloc = widget.slice(widget.indexOf("document.addEventListener('click'"), widget.indexOf("document.addEventListener('pointerenter'"));
+  assert2.ok(!bloc.includes('preventDefault'));
+});

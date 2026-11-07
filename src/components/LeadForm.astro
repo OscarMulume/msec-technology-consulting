@@ -111,7 +111,7 @@ const success = forms.success[kind as keyof typeof forms.success];
     <p>{forms.fallback.title}</p>
     <div class="lead-form__fallback-actions">
       <a class="btn btn--primary" data-whatsapp href="#" target="_blank" rel="noopener noreferrer" hidden>{forms.fallback.whatsapp}</a>
-      <a class="btn btn--secondary" data-mailto href={`mailto:${SITE.email}`}>{forms.fallback.email}</a>
+      <a class="btn btn--secondary" data-mailto data-msbot="mail" href={`mailto:${SITE.email}`}>{forms.fallback.email}</a>
     </div>
   </div>
 </form>

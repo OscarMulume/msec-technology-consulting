@@ -63,7 +63,7 @@ const otherServices = Object.values(content).filter((item) => item.slug !== slug
         <div class="aside-card">
           <h2>{dict.servicePage.ctaTitle}</h2>
           <p>{dict.servicePage.ctaText}</p>
-          <a class="btn btn--primary" href={localePath(locale, '#audit')}>{dict.servicePage.auditCta}</a>
+          <a class="btn btn--primary" data-msbot="quote" href={localePath(locale, '#audit')}>{dict.servicePage.auditCta}</a>
           <a class="btn btn--secondary" href={localePath(locale, '#contact')}>{dict.servicePage.contactCta}</a>
         </div>
 

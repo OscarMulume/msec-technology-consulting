@@ -2290,6 +2290,20 @@
                 if (map[key])
                     api.emit(map[key], { force: true });
             }, true);
+            if (window.IntersectionObserver) {
+                const sectionMap = { contact: 'nav.section.formulaire', products: 'nav.section.boutique', services: 'nav.section.bibliotheque' };
+                const seen = {};
+                const io = new IntersectionObserver((entries) => {
+                    entries.forEach((entry) => {
+                        const name = entry.target.getAttribute('data-msbot-section');
+                        if (!entry.isIntersecting || seen[name] || !sectionMap[name])
+                            return;
+                        seen[name] = true;
+                        api.emit(sectionMap[name]);
+                    });
+                }, { threshold: 0.45 });
+                document.querySelectorAll('[data-msbot-section]').forEach((node) => io.observe(node));
+            }
             document.addEventListener('pointerenter', (event) => {
                 const el = event.target;
                 if (!el || !el.getAttribute)

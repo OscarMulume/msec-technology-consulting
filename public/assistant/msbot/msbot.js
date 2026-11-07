@@ -746,6 +746,20 @@
             bubble.appendChild(box);
         }
         document.body.appendChild(bubble);
+        try {
+            var host = document.querySelector('msec-assistant');
+            var lan = host && host.shadowRoot && host.shadowRoot.getElementById('launcher');
+            if (lan) {
+                var r = lan.getBoundingClientRect();
+                bubble.style.bottom = Math.max(8, Math.round(window.innerHeight - r.top + 10)) + 'px';
+                bubble.style.right = Math.max(8, Math.round(window.innerWidth - r.right)) + 'px';
+            }
+            bubble.style.pointerEvents = 'none';
+            var btns = bubble.querySelectorAll('button');
+            for (var k = 0; k < btns.length; k++)
+                btns[k].style.pointerEvents = 'auto';
+        }
+        catch (e) { }
         clearTimeout(bubbleTimer);
         bubbleTimer = setTimeout(hideBubble, ms || 4200);
     }

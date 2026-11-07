@@ -1,0 +1,56 @@
+[
+ {
+  "site": "msec",
+  "appareil": "ordinateur",
+  "http": 200,
+  "script": true,
+  "erreurs": [
+   "capture: locator.fill: Timeout 30000ms exceeded."
+  ],
+  "reponse": ""
+ },
+ {
+  "site": "msec",
+  "appareil": "iphone13",
+  "http": 200,
+  "script": true,
+  "erreurs": [
+   "capture: locator.fill: Timeout 30000ms exceeded."
+  ],
+  "reponse": ""
+ },
+ {
+  "site": "msec",
+  "appareil": "pixel5",
+  "http": 200,
+  "script": true,
+  "erreurs": [
+   "capture: locator.fill: Timeout 30000ms exceeded."
+  ],
+  "reponse": ""
+ },
+ {
+  "site": "portfolio",
+  "appareil": "ordinateur",
+  "http": 200,
+  "script": true,
+  "erreurs": [],
+  "reponse": "Assistant Les principaux projets d’Oscar sont : - **POS Pro** : solution de caisse hors ligne pour restaurants, en cours de développement. - **Malaika Ranch** : boutique en ligne avec commandes via WhatsApp – https://mal"
+ },
+ {
+  "site": "portfolio",
+  "appareil": "iphone13",
+  "http": 200,
+  "script": true,
+  "erreurs": [],
+  "reponse": "Assistant Les principaux projets d’Oscar Mulume sont : - **POS Pro** : solution de caisse pour restaurant fonctionnant hors ligne, en cours de développement. - **Malaika Ranch** : boutique en ligne avec commandes via Wha"
+ },
+ {
+  "site": "portfolio",
+  "appareil": "pixel5",
+  "http": 200,
+  "script": true,
+  "erreurs": [],
+  "reponse": "Assistant Les principaux projets d’Oscar Mulume sont : - **POS Pro** : solution de caisse hors ligne pour restaurants, en cours de développement (web, desktop et mobile). - **Malaika Ranch** : boutique en ligne avec comm"
+ }
+]

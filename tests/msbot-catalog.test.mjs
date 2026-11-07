@@ -95,3 +95,8 @@ test2('I4 : portfolio, palette du site (sombre + accent) et reactions deduites d
   const w = lire(new URL('../src/assistant/msec-assistant.src.js', import.meta.url), 'utf8');
   assert2.ok(w.includes('a[href^="mailto:"]') && w.includes('linkedin.com'));
 });
+
+test2('La bulle MSBot ne recouvre pas le lanceur et ne bloque pas ses clics', () => {
+  const m = lire(new URL('../src/assistant/msbot.src.js', import.meta.url), 'utf8');
+  assert2.ok(m.includes("bubble.style.pointerEvents = 'none'") && m.includes('getElementById(\'launcher\')'));
+});

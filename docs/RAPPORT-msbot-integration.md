@@ -10,7 +10,7 @@ Date : 06/11/2026. Dépôt : `msec-technology-consulting`. Référence : `docs/p
 | I2 — vraies réponses | `src/assistant/msec-assistant.src.js` | `npm test` vert | idem (même commit) | `msbot-i2` | oui |
 | I3 — site M-SEC | composants Astro (`data-msbot`, `data-msbot-section`), observateur de sections | `npm test` vert | oui | `msbot-i3` | oui |
 | I4 — portfolio | profil portfolio (#0C0D14 / #6366F1 / #22D3EE), réactions mailto:/LinkedIn déduites des liens | `npm test` vert | oui | `msbot-i4` | oui |
-| I5 — preuve visuelle | à faire | — | — | — | — |
+| I5 — preuve visuelle | `scripts/capture-msbot.mjs`, `docs/captures/` | 6/6 : HTTP 200, script chargé, 0 erreur console, vraie réponse | oui | `msbot-i5` | oui |
 | I6 — POS / Malaika | à faire | — | — | — | — |
 
 ## I1 — ce qui est fait
@@ -36,6 +36,27 @@ Date : 06/11/2026. Dépôt : `msec-technology-consulting`. Référence : `docs/p
 - Les liens gardent leur comportement normal (aucun `preventDefault` dans le gestionnaire de clic, vérifié par test). Les réactions de champ du formulaire existaient déjà (M0-M5).
 - Sections : contact, produits, services déclenchent une réaction une seule fois.
 - Thème M-SEC : #0B2A4A / #E8A33D / #FFB547 / « MC ».
+
+## I5 — preuve en ligne (08/11/2026)
+
+Script rejouable : `node scripts/capture-msbot.mjs` (Playwright, sites publics, aucune clé). Résultat : `docs/captures/resultats.json`.
+
+| Site | Appareil | HTTP | Script MSBot | Erreurs console | Vraie réponse |
+|---|---|---|---|---|---|
+| M-SEC | ordinateur 1280 | 200 | oui | 0 | oui |
+| M-SEC | iPhone 13 | 200 | oui | 0 | oui |
+| M-SEC | Pixel 5 | 200 | oui | 0 | oui |
+| Portfolio | ordinateur 1280 | 200 | oui | 0 | oui |
+| Portfolio | iPhone 13 | 200 | oui | 0 | oui |
+| Portfolio | Pixel 5 | 200 | oui | 0 | oui |
+
+Captures : `docs/captures/<site>-<appareil>-1-arrivee.png` (MSBot en place) et `-2-reponse.png` (fenêtre ouverte, réponse à « Quels services propose M-SEC ? » / « Quels sont les principaux projets d'Oscar ? »).
+
+Défauts réels trouvés et corrigés grâce aux captures :
+1. La bulle d'accueil recouvrait le lanceur et interceptait les clics (impossible d'ouvrir MSBot tant qu'elle était affichée) : elle se place maintenant au-dessus du lanceur réel et laisse passer les clics.
+2. La bulle restait par-dessus la fenêtre ouverte et masquait « Envoyer » sur mobile : supprimée à l'ouverture.
+3. Le gras Markdown s'affichait en `**` bruts : rendu par éléments DOM.
+4. Un 429/indisponibilité passagère a donné une fois le message de secours (Pixel 5 portfolio) : le script refait un essai ; non reproduit ensuite.
 
 ## Écarts assumés
 

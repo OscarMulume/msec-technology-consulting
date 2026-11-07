@@ -11,7 +11,7 @@ Date : 06/11/2026. Dépôt : `msec-technology-consulting`. Référence : `docs/p
 | I3 — site M-SEC | composants Astro (`data-msbot`, `data-msbot-section`), observateur de sections | `npm test` vert | oui | `msbot-i3` | oui |
 | I4 — portfolio | profil portfolio (#0C0D14 / #6366F1 / #22D3EE), réactions mailto:/LinkedIn déduites des liens | `npm test` vert | oui | `msbot-i4` | oui |
 | I5 — preuve visuelle | `scripts/capture-msbot.mjs`, `docs/captures/` | 6/6 : HTTP 200, script chargé, 0 erreur console, vraie réponse | oui | `msbot-i5` | oui |
-| I6 — POS / Malaika | à faire | — | — | — | — |
+| I6 — POS Pro / Malaika | aucune modif de code : le widget partagé (MSBot inclus) est déjà chargé par POS Pro et Malaika | tests `assistant-pos` et `assistant-malaika` verts | oui | `msbot-integration` | oui |
 
 ## I1 — ce qui est fait
 
@@ -58,6 +58,12 @@ Défauts réels trouvés et corrigés grâce aux captures :
 3. Le gras Markdown s'affichait en `**` bruts : rendu par éléments DOM.
 4. Un 429/indisponibilité passagère a donné une fois le message de secours (Pixel 5 portfolio) : le script refait un essai ; non reproduit ensuite.
 
+## I6 — POS Pro et Malaika Ranch
+
+- POS Pro : le back-office Laravel (`resources/views/components/assistant-help.blade.php`, interrupteur `ASSISTANT_ENABLED`) et la caisse web / Android / Windows (`pos-shared/src/ui/assistant.ts`, `VITE_ASSISTANT_ENABLED`) chargent le même fichier `assistant/v2/msec-assistant.js` avec `app="pos"` et un `tokenProvider` : ils reçoivent donc MSBot (thème POS Pro #102A43 / #2BB673 / « POS ») sans code supplémentaire. Tous les interrupteurs sont à `false` par défaut.
+- Malaika Ranch : profil `malaika` (#23402C / #D9A441 / « MR »), intégré, affichage public DÉSACTIVÉ (`NEXT_PUBLIC_ASSISTANT_ENABLED` absent) tant que le client n'a pas donné son accord.
+- Non vérifié en réel : POS Pro est derrière connexion et les interrupteurs sont éteints ; aucune capture n'a été faite. Le dépôt privé `malaika-ranch-web` n'est pas cloné sur ce poste.
+
 ## Écarts assumés
 
 - La 3D est rendue dans le lanceur (64 px bureau / 56 px téléphone) et non dans un grand plateau : le composant doit rester discret sur le site. Le module expose `mount(host, {render:'3d'})` si un grand plateau est souhaité plus tard.
@@ -65,4 +71,11 @@ Défauts réels trouvés et corrigés grâce aux captures :
 
 ## EN ATTENTE D'OSCAR
 
-- Rien à ce stade.
+- Accord du client Malaika Ranch pour activer l'affichage public.
+- Activer les interrupteurs POS Pro (`ASSISTANT_ENABLED`, `VITE_ASSISTANT_ENABLED`) et le secret `ASSISTANT_POS_SECRET` quand vous voulez ouvrir l'aide en caisse.
+
+## NON FAIT dans cette session (reste à faire)
+
+- Point 3 du prompt : jeux de 20 questions réelles par application (`tests/`), taux de bonnes réponses mesuré, complétion des fichiers `apps/*.md`, objectif ≥ 80 %, redéploiement de la fonction. Aucune mesure n'existe donc encore : aucun taux n'est annoncé.
+- Captures POS Pro / Malaika et recette 3D sur appareil réel (la descente automatique est testée par code, pas mesurée sur un téléphone lent).
+- Sous-agent @verificateur non disponible dans cette session.

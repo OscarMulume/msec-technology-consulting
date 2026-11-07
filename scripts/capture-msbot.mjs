@@ -30,7 +30,7 @@ for (const site of SITES) {
       await page.locator('#launcher').waitFor({ state: 'visible', timeout: 15000 });
       await page.waitForTimeout(1500);
       await page.screenshot({ path: `${OUT}/${site.id}-${app.id}-1-arrivee.png` });
-      await page.locator('#launcher').click({ force: true });
+      await page.locator('#launcher').click();
       await page.locator('#input').fill(site.question);
       await page.locator('#send').click();
       const reponses = page.locator('.msg.assistant');

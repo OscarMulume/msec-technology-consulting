@@ -4,30 +4,24 @@
   "appareil": "ordinateur",
   "http": 200,
   "script": true,
-  "erreurs": [
-   "capture: locator.fill: Timeout 30000ms exceeded."
-  ],
-  "reponse": ""
+  "erreurs": [],
+  "reponse": "Assistant M‑SEC propose : la conception et le déploiement d’infrastructures réseau (câblage, Wi‑Fi, antennes), la connectivité d’entreprise, la cybersécurité (firewalls, durcissement, audits), la vidéosurveillance, les s"
  },
  {
   "site": "msec",
   "appareil": "iphone13",
   "http": 200,
   "script": true,
-  "erreurs": [
-   "capture: locator.fill: Timeout 30000ms exceeded."
-  ],
-  "reponse": ""
+  "erreurs": [],
+  "reponse": "Assistant M‑SEC propose des services d’ingénierie IT : conception et déploiement d’infrastructures réseau, connectivité, cybersécurité (incluant vidéosurveillance) et développement d’applications. Ses quatre piliers couv"
  },
  {
   "site": "msec",
   "appareil": "pixel5",
   "http": 200,
   "script": true,
-  "erreurs": [
-   "capture: locator.fill: Timeout 30000ms exceeded."
-  ],
-  "reponse": ""
+  "erreurs": [],
+  "reponse": "Assistant M‑SEC propose des services d’ingénierie IT et de cybersécurité : conception et déploiement d’infrastructures réseau (Cisco, UniFi, FortiGate), connectivité sur site ou à distance, vidéosurveillance, solutions I"
  },
  {
   "site": "portfolio",
@@ -35,7 +29,7 @@
   "http": 200,
   "script": true,
   "erreurs": [],
-  "reponse": "Assistant Les principaux projets d’Oscar sont : - **POS Pro** : solution de caisse hors ligne pour restaurants, en cours de développement. - **Malaika Ranch** : boutique en ligne avec commandes via WhatsApp – https://mal"
+  "reponse": "Assistant Les principaux projets d’Oscar sont : - **POS Pro** : solution de caisse hors‑ligne pour restaurants, en cours de développement. - **Malaika Ranch** : boutique en ligne avec commandes WhatsApp – https://malaika"
  },
  {
   "site": "portfolio",
@@ -43,7 +37,7 @@
   "http": 200,
   "script": true,
   "erreurs": [],
-  "reponse": "Assistant Les principaux projets d’Oscar Mulume sont : - **POS Pro** : solution de caisse pour restaurant fonctionnant hors ligne, en cours de développement. - **Malaika Ranch** : boutique en ligne avec commandes via Wha"
+  "reponse": "Assistant Les principaux projets d’Oscar sont : - **POS Pro** : caisse pour restaurant fonctionnant hors ligne, en cours de développement. - **Malaika Ranch** : boutique en ligne avec commandes via WhatsApp – https://mal"
  },
  {
   "site": "portfolio",
@@ -51,6 +45,6 @@
   "http": 200,
   "script": true,
   "erreurs": [],
-  "reponse": "Assistant Les principaux projets d’Oscar Mulume sont : - **POS Pro** : solution de caisse hors ligne pour restaurants, en cours de développement (web, desktop et mobile). - **Malaika Ranch** : boutique en ligne avec comm"
+  "reponse": "Assistant L'assistant est momentanément indisponible. Vous pouvez écrire à oscarmulume1612@gmail.com ou utiliser le formulaire de contact du site : Oscar vous répondra."
  }
 ]

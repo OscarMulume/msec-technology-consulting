@@ -724,6 +724,9 @@
     function say(text, ms, acts) {
         if (!text)
             return;
+        var h0 = document.querySelector('msec-assistant'), pn0 = h0 && h0.shadowRoot && h0.shadowRoot.getElementById('panel');
+        if (pn0 && !pn0.hidden)
+            return;
         injectStyles();
         hideBubble();
         bubble = document.createElement('div');

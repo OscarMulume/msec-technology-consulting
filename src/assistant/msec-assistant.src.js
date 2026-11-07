@@ -624,6 +624,7 @@
       this.launcher.setAttribute('aria-expanded', String(open));
       if (window.MSBot) window.MSBot.emit(open ? (this.openedOnce ? 'chat.reopen' : 'chat.open') : 'chat.close', { force: true });
       if (open) this.openedOnce = true;
+      if (open) document.querySelectorAll('.msbot-bubble').forEach((n) => n.remove());
       if (open) {
         (this.leadForm.hidden ? this.input : this.leadName).focus();
       } else {

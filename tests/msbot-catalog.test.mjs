@@ -100,3 +100,9 @@ test2('La bulle MSBot ne recouvre pas le lanceur et ne bloque pas ses clics', ()
   const m = lire(new URL('../src/assistant/msbot.src.js', import.meta.url), 'utf8');
   assert2.ok(m.includes("bubble.style.pointerEvents = 'none'") && m.includes('getElementById(\'launcher\')'));
 });
+
+test2('Aucune bulle MSBot par-dessus la fenetre de discussion ouverte', () => {
+  const m = lire(new URL('../src/assistant/msbot.src.js', import.meta.url), 'utf8');
+  const w = lire(new URL('../src/assistant/msec-assistant.src.js', import.meta.url), 'utf8');
+  assert2.ok(m.includes('fenetre ouverte : pas de bulle') && w.includes("querySelectorAll('.msbot-bubble')"));
+});

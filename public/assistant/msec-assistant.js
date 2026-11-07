@@ -724,6 +724,9 @@
     function say(text, ms, acts) {
         if (!text)
             return;
+        var h0 = document.querySelector('msec-assistant'), pn0 = h0 && h0.shadowRoot && h0.shadowRoot.getElementById('panel');
+        if (pn0 && !pn0.hidden)
+            return;
         injectStyles();
         hideBubble();
         bubble = document.createElement('div');
@@ -2496,6 +2499,8 @@
                 window.MSBot.emit(open ? (this.openedOnce ? 'chat.reopen' : 'chat.open') : 'chat.close', { force: true });
             if (open)
                 this.openedOnce = true;
+            if (open)
+                document.querySelectorAll('.msbot-bubble').forEach((n) => n.remove());
             if (open) {
                 (this.leadForm.hidden ? this.input : this.leadName).focus();
             }

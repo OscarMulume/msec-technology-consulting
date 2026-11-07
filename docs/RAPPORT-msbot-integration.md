@@ -9,7 +9,7 @@ Date : 06/11/2026. Dépôt : `msec-technology-consulting`. Référence : `docs/p
 | I1 — module réutilisable | `src/assistant/msbot.src.js`, `scripts/build-assistant-widget.mjs`, `public/assistant/msbot/msbot.js`, `tests/msbot-catalog.test.mjs` | `npm test` vert | I1+I2 commit unique | `msbot-i1` | oui |
 | I2 — vraies réponses | `src/assistant/msec-assistant.src.js` | `npm test` vert | idem (même commit) | `msbot-i2` | oui |
 | I3 — site M-SEC | composants Astro (`data-msbot`, `data-msbot-section`), observateur de sections | `npm test` vert | oui | `msbot-i3` | oui |
-| I4 — portfolio | à faire | — | — | — | — |
+| I4 — portfolio | profil portfolio (#0C0D14 / #6366F1 / #22D3EE), réactions mailto:/LinkedIn déduites des liens | `npm test` vert | oui | `msbot-i4` | oui |
 | I5 — preuve visuelle | à faire | — | — | — | — |
 | I6 — POS / Malaika | à faire | — | — | — | — |
 

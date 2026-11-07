@@ -441,7 +441,7 @@
     };
     var THEMES = {
         msec: { name: "M-SEC", dark: "#0B2A4A", acc: "#E8A33D", eye: "#FFB547", emblem: "MC" },
-        portfolio: { name: "Portfolio", dark: "#1B2440", acc: "#C9A46A", eye: "#EFD29C", emblem: "OM" },
+        portfolio: { name: "Portfolio", dark: "#0C0D14", acc: "#6366F1", eye: "#22D3EE", emblem: "OM" },
         malaika: { name: "Malaika Ranch", dark: "#23402C", acc: "#D9A441", eye: "#F5CB6E", emblem: "MR" },
         pos: { name: "POS Pro", dark: "#102A43", acc: "#2BB673", eye: "#6EE7A8", emblem: "POS" }
     };
@@ -2278,11 +2278,11 @@
             });
             document.addEventListener('click', (event) => {
                 const node = event.target && event.target.closest ? event.target : null;
-                const el = node && node.closest('a[href^="tel:"],a[href*="wa.me"],a[href*="whatsapp"],[data-msbot]');
+                const el = node && node.closest('a[href^="tel:"],a[href^="mailto:"],a[href*="linkedin.com"],a[href*="wa.me"],a[href*="whatsapp"],[data-msbot]');
                 if (!el)
                     return;
                 const href = el.getAttribute('href') || '';
-                const key = el.getAttribute('data-msbot') || (href.indexOf('tel:') === 0 ? 'call' : 'whatsapp');
+                const key = el.getAttribute('data-msbot') || (href.indexOf('tel:') === 0 ? 'call' : href.indexOf('mailto:') === 0 ? 'mail' : href.indexOf('linkedin.com') > -1 ? 'linkedin' : 'whatsapp');
                 const map = {
                     quote: 'intent.quote', services: 'intent.services', blog: 'nav.blog', call: 'contact.call',
                     mail: 'contact.mail', linkedin: 'contact.linkedin', whatsapp: 'contact.whatsapp',
@@ -2291,18 +2291,18 @@
                     api.emit(map[key], { force: true });
             }, true);
             if (window.IntersectionObserver) {
-                const sectionMap = { contact: 'nav.section.formulaire', products: 'nav.section.boutique', services: 'nav.section.bibliotheque' };
+                const sectionMap = { contact: 'nav.section.formulaire', products: 'nav.section.boutique', services: 'nav.section.bibliotheque', projets: 'nav.section.bibliotheque', realisations: 'nav.section.bibliotheque' };
                 const seen = {};
                 const io = new IntersectionObserver((entries) => {
                     entries.forEach((entry) => {
-                        const name = entry.target.getAttribute('data-msbot-section');
+                        const name = entry.target.getAttribute('data-msbot-section') || entry.target.id;
                         if (!entry.isIntersecting || seen[name] || !sectionMap[name])
                             return;
                         seen[name] = true;
                         api.emit(sectionMap[name]);
                     });
                 }, { threshold: 0.45 });
-                document.querySelectorAll('[data-msbot-section]').forEach((node) => io.observe(node));
+                document.querySelectorAll('[data-msbot-section],main section[id]').forEach((node) => io.observe(node));
             }
             document.addEventListener('pointerenter', (event) => {
                 const el = event.target;

@@ -427,10 +427,10 @@
 
       document.addEventListener('click', (event) => {
         const node = event.target && event.target.closest ? event.target : null;
-        const el = node && node.closest('a[href^="tel:"],a[href*="wa.me"],a[href*="whatsapp"],[data-msbot]');
+        const el = node && node.closest('a[href^="tel:"],a[href^="mailto:"],a[href*="linkedin.com"],a[href*="wa.me"],a[href*="whatsapp"],[data-msbot]');
         if (!el) return;
         const href = el.getAttribute('href') || '';
-        const key = el.getAttribute('data-msbot') || (href.indexOf('tel:') === 0 ? 'call' : 'whatsapp');
+        const key = el.getAttribute('data-msbot') || (href.indexOf('tel:') === 0 ? 'call' : href.indexOf('mailto:') === 0 ? 'mail' : href.indexOf('linkedin.com') > -1 ? 'linkedin' : 'whatsapp');
         const map = {
           quote: 'intent.quote', services: 'intent.services', blog: 'nav.blog', call: 'contact.call',
           mail: 'contact.mail', linkedin: 'contact.linkedin', whatsapp: 'contact.whatsapp',
@@ -438,17 +438,17 @@
         if (map[key]) api.emit(map[key], { force: true });
       }, true);
       if (window.IntersectionObserver) {
-        const sectionMap = { contact: 'nav.section.formulaire', products: 'nav.section.boutique', services: 'nav.section.bibliotheque' };
+        const sectionMap = { contact: 'nav.section.formulaire', products: 'nav.section.boutique', services: 'nav.section.bibliotheque', projets: 'nav.section.bibliotheque', realisations: 'nav.section.bibliotheque' };
         const seen = {};
         const io = new IntersectionObserver((entries) => {
           entries.forEach((entry) => {
-            const name = entry.target.getAttribute('data-msbot-section');
+            const name = entry.target.getAttribute('data-msbot-section') || entry.target.id;
             if (!entry.isIntersecting || seen[name] || !sectionMap[name]) return;
             seen[name] = true;
             api.emit(sectionMap[name]);
           });
         }, { threshold: 0.45 });
-        document.querySelectorAll('[data-msbot-section]').forEach((node) => io.observe(node));
+        document.querySelectorAll('[data-msbot-section],main section[id]').forEach((node) => io.observe(node));
       }
       document.addEventListener('pointerenter', (event) => {
         const el = event.target;

@@ -441,7 +441,7 @@
     };
     var THEMES = {
         msec: { name: "M-SEC", dark: "#0B2A4A", acc: "#E8A33D", eye: "#FFB547", emblem: "MC" },
-        portfolio: { name: "Portfolio", dark: "#1B2440", acc: "#C9A46A", eye: "#EFD29C", emblem: "OM" },
+        portfolio: { name: "Portfolio", dark: "#0C0D14", acc: "#6366F1", eye: "#22D3EE", emblem: "OM" },
         malaika: { name: "Malaika Ranch", dark: "#23402C", acc: "#D9A441", eye: "#F5CB6E", emblem: "MR" },
         pos: { name: "POS Pro", dark: "#102A43", acc: "#2BB673", eye: "#6EE7A8", emblem: "POS" }
     };

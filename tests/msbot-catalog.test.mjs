@@ -88,3 +88,10 @@ test2('I3 : le site M-SEC pose les attributs data-msbot sans preventDefault sur 
   const bloc = widget.slice(widget.indexOf("document.addEventListener('click'"), widget.indexOf("document.addEventListener('pointerenter'"));
   assert2.ok(!bloc.includes('preventDefault'));
 });
+
+test2('I4 : portfolio, palette du site (sombre + accent) et reactions deduites des liens', () => {
+  const m = lire(new URL('../src/assistant/msbot.src.js', import.meta.url), 'utf8');
+  assert2.match(m, /portfolio:\{name:"Portfolio", dark:"#0C0D14", acc:"#6366F1"/);
+  const w = lire(new URL('../src/assistant/msec-assistant.src.js', import.meta.url), 'utf8');
+  assert2.ok(w.includes('a[href^="mailto:"]') && w.includes('linkedin.com'));
+});

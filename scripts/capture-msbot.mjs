@@ -31,15 +31,21 @@ for (const site of SITES) {
       await page.waitForTimeout(1500);
       await page.screenshot({ path: `${OUT}/${site.id}-${app.id}-1-arrivee.png` });
       await page.locator('#launcher').click();
-      await page.locator('#input').fill(site.question);
-      await page.locator('#send').click();
       const reponses = page.locator('.msg.assistant');
-      await page.waitForFunction(() => {
-        const host = document.querySelector('msec-assistant');
-        const n = host && host.shadowRoot ? host.shadowRoot.querySelectorAll('.msg.assistant').length : 0;
-        return n >= 2 && !host.shadowRoot.querySelector('#thinking');
-      }, null, { timeout: 60000 });
-      ligne.reponse = (await reponses.last().innerText()).replace(/\s+/g, ' ').slice(0, 220);
+      for (let essai = 1; essai <= 3; essai++) {
+        const avant = await reponses.count();
+        await page.locator('#input').fill(site.question);
+        await page.locator('#send').click();
+        await page.waitForFunction((n) => {
+          const host = document.querySelector('msec-assistant');
+          const c = host && host.shadowRoot ? host.shadowRoot.querySelectorAll('.msg.assistant').length : 0;
+          return c > n && !host.shadowRoot.querySelector('#thinking');
+        }, avant, { timeout: 60000 });
+        ligne.reponse = (await reponses.last().innerText()).replace(/\s+/g, ' ').slice(0, 220);
+        ligne.essais = essai;
+        if (!/momentan[ée]ment indisponible|trop de demandes/i.test(ligne.reponse)) break;
+        await page.waitForTimeout(12000); // limite de debit passagere : nouvel essai
+      }
       await page.waitForTimeout(800);
       await page.screenshot({ path: `${OUT}/${site.id}-${app.id}-2-reponse.png` });
     } catch (e) { ligne.erreurs.push('capture: ' + String(e.message).split('\n')[0]); }

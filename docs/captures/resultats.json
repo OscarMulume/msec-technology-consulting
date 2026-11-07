@@ -5,7 +5,8 @@
   "http": 200,
   "script": true,
   "erreurs": [],
-  "reponse": "Assistant M‑SEC propose : la conception et le déploiement d’infrastructures réseau (câblage, Wi‑Fi, antennes), la connectivité d’entreprise, la cybersécurité (firewalls, durcissement, audits), la vidéosurveillance, les s"
+  "reponse": "Assistant M‑SEC propose : la conception, l’installation et la maintenance d’infrastructures réseau (câblage, antennes, équipements Cisco, UniFi, FortiGate) ; la cybersécurité et la vidéosurveillance avec durcissement et ",
+  "essais": 1
  },
  {
   "site": "msec",
@@ -13,7 +14,8 @@
   "http": 200,
   "script": true,
   "erreurs": [],
-  "reponse": "Assistant M‑SEC propose des services d’ingénierie IT : conception et déploiement d’infrastructures réseau, connectivité, cybersécurité (incluant vidéosurveillance) et développement d’applications. Ses quatre piliers couv"
+  "reponse": "Assistant M‑SEC propose : - **Connectivité et infrastructure** : conception, déploiement et maintenance de réseaux (Cisco, UniFi, FortiGate) et d’infrastructures IT. - **Cybersécurité et vidéosurveillance** : audits, dur",
+  "essais": 1
  },
  {
   "site": "msec",
@@ -21,7 +23,8 @@
   "http": 200,
   "script": true,
   "erreurs": [],
-  "reponse": "Assistant M‑SEC propose des services d’ingénierie IT et de cybersécurité : conception et déploiement d’infrastructures réseau (Cisco, UniFi, FortiGate), connectivité sur site ou à distance, vidéosurveillance, solutions I"
+  "reponse": "Assistant M‑SEC propose : - **Connectivité & infrastructure** : conception, déploiement et maintenance de réseaux (Cisco, UniFi, FortiGate) et d’infrastructures IT. - **Cybersécurité & vidéosurveillance** : audits, durci",
+  "essais": 1
  },
  {
   "site": "portfolio",
@@ -29,7 +32,8 @@
   "http": 200,
   "script": true,
   "erreurs": [],
-  "reponse": "Assistant Les principaux projets d’Oscar sont : - **POS Pro** : solution de caisse hors‑ligne pour restaurants, en cours de développement. - **Malaika Ranch** : boutique en ligne avec commandes WhatsApp – https://malaika"
+  "reponse": "Assistant Les projets majeurs d’Oscar Mulume sont : - **POS Pro** : solution de caisse hors‑ligne pour restaurants (développement en cours). - **Malaika Ranch** : boutique en ligne avec commandes via WhatsApp – https://m",
+  "essais": 1
  },
  {
   "site": "portfolio",
@@ -37,7 +41,8 @@
   "http": 200,
   "script": true,
   "erreurs": [],
-  "reponse": "Assistant Les principaux projets d’Oscar sont : - **POS Pro** : caisse pour restaurant fonctionnant hors ligne, en cours de développement. - **Malaika Ranch** : boutique en ligne avec commandes via WhatsApp – https://mal"
+  "reponse": "Assistant Les principaux projets d’Oscar Mulume sont : - **POS Pro** : solution de caisse hors ligne pour restaurants, en cours de développement. - **Malaika Ranch** : boutique en ligne avec commandes via WhatsApp – http",
+  "essais": 1
  },
  {
   "site": "portfolio",
@@ -45,6 +50,7 @@
   "http": 200,
   "script": true,
   "erreurs": [],
-  "reponse": "Assistant L'assistant est momentanément indisponible. Vous pouvez écrire à oscarmulume1612@gmail.com ou utiliser le formulaire de contact du site : Oscar vous répondra."
+  "reponse": "Assistant Les principaux projets d’Oscar Mulume sont : - **POS Pro** : solution de caisse pour restaurant fonctionnant hors ligne, avec interfaces web, desktop et mobile (en cours de développement). - **Malaika Ranch** :",
+  "essais": 1
  }
 ]

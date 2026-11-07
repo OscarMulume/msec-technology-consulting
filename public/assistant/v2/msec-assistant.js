@@ -2098,13 +2098,27 @@
     .vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
   `;
     const BUBBLE_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20.5l1.5-4.6A8 8 0 1 1 21 12Z"/><path d="M9 11h6M9 14h4"/></svg>';
+    function appendText(parent, str) {
+        const parts = String(str).split(/\*\*([^*\n]{1,160})\*\*/);
+        for (let i = 0; i < parts.length; i++) {
+            if (!parts[i])
+                continue;
+            if (i % 2) {
+                const strong = document.createElement('strong');
+                strong.textContent = parts[i];
+                parent.append(strong);
+            }
+            else
+                parent.append(parts[i]);
+        }
+    }
     function appendRich(parent, text) {
         const pattern = /\[([^\]]{1,120})\]\((https:\/\/[^\s)]+)\)|(https:\/\/[^\s<>)\]]+[^\s<>)\].,;:!?])/g;
         let last = 0;
         let match;
         while ((match = pattern.exec(text)) !== null) {
             if (match.index > last)
-                parent.append(text.slice(last, match.index));
+                appendText(parent, text.slice(last, match.index));
             const link = document.createElement('a');
             link.href = match[2] || match[3];
             link.textContent = match[1] || match[3];
@@ -2114,7 +2128,7 @@
             last = pattern.lastIndex;
         }
         if (last < text.length)
-            parent.append(text.slice(last));
+            appendText(parent, text.slice(last));
     }
     function el(tag, props = {}, children = []) {
         const node = document.createElement(tag);

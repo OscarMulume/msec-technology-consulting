@@ -106,3 +106,8 @@ test2('Aucune bulle MSBot par-dessus la fenetre de discussion ouverte', () => {
   const w = lire(new URL('../src/assistant/msec-assistant.src.js', import.meta.url), 'utf8');
   assert2.ok(m.includes('fenetre ouverte : pas de bulle') && w.includes("querySelectorAll('.msbot-bubble')"));
 });
+
+test2('Rendu : le gras **x** devient <strong> par le DOM, sans innerHTML', () => {
+  const w = lire(new URL('../src/assistant/msec-assistant.src.js', import.meta.url), 'utf8');
+  assert2.ok(w.includes("createElement('strong')") && !/innerHTML\s*=/.test(w));
+});

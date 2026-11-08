@@ -12,6 +12,7 @@
 - On the shop, add products to the cart (choose the unit and the quantity), then validate the cart to open the order form.
 - The form asks for: name, phone, address (or location), delivery zone, delivery slot, payment method and an optional remark.
 - Payment methods offered: cash on delivery, M-Pesa, Airtel Money, Orange Money, Afrimoney.
+- Write these names EXACTLY, never reword them or invent others: "cash on delivery", "M-Pesa", "Airtel Money", "Orange Money", "Afrimoney".
 - On validation, the order is saved and a WhatsApp message pre-filled with the summary opens: it must be sent for the order to be passed on.
 - In the assistant window, the "Order on WhatsApp" button opens WhatsApp with the current cart content.
 - Displayed availability is indicative: it is confirmed on WhatsApp before delivery.

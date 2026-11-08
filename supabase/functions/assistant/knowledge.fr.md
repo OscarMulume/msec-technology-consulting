@@ -1,7 +1,7 @@
 # Connaissances de l'assistant M-SEC — français
 
 > Fichier généré par `scripts/build-knowledge.mjs`. Ne pas modifier à la main : lancer `npm run build:knowledge`.
-> Version des sources : `a94da268196b`.
+> Version des sources : `89bdf61a7f44`.
 > À relire par Oscar avant la mise en production.
 
 ## 1. Identité et coordonnées
@@ -180,6 +180,7 @@ Déploiement local d'agents IA open-source (Hermes Agent, OpenCode AI) sous Linu
 - **Malaika Ranch** (En ligne) — Boutique en ligne avec commande via WhatsApp. — https://malaika-ranch-web.vercel.app
 - **Site M-SEC Technology Consulting** (En ligne) — Site vitrine de M-SEC Technology Consulting : conseil IT, réseaux et cybersécurité à Kinshasa. — https://oscarmulume.github.io/msec-technology-consulting/
 - **Mosala** (En ligne) — Assistant open source de CV et de conversation pour les langues africaines, qui fonctionne hors ligne avec un modèle local (Ollama). — https://github.com/OscarMulume/nonchalant-cv ; https://dev.to/oscarmulume/mosala-a-cv-and-conversation-assistant-for-africas-languages-running-on-your-own-computer-2coc
+- **opencode-free-router** (En ligne) — Routeur local qui permet à OpenCode et aux agents de code de continuer à travailler avec les quotas gratuits des fournisseurs de modèles : mesure, routage rapide et bascule automatique. — https://github.com/OscarMulume/opencode-free-router
 - **Machines Cohort & Orion** — Cohort : SSRF, accès initial puis élévation de privilèges via CVE. Orion : énumération web CraftCMS et contournement d'authentification Telnet local.
 - **Sherlocks Brutus & Investigate Web Attack** — Reconstitution de kill chains à partir de logs : brute force SSH (auth.log, wtmp, MITRE T1136), scan Nikto, brute force web et injection de commandes.
 - **Cloud privé Raspberry Pi** — Serveur de stockage personnel sur Raspberry Pi 5 avec Nextcloud, accessible à distance de façon sécurisée via Tailscale.

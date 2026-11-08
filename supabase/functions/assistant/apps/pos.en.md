@@ -28,6 +28,7 @@
 <!-- keywords: payment, pay, cash, change, mobile money, m-pesa, airtel, orange, afrimoney, tab, account, discount, cancel, void -->
 - "Payment" screen: "To collect" is the amount due.
 - Payment methods: cash (change due is calculated), Mobile Money (M-Pesa, Airtel Money, Orange Money, Afrimoney), account (tab).
+- Write these names EXACTLY: "Mobile Money", "M-Pesa", "Airtel Money", "Orange Money", "Afrimoney"; never invent others.
 - Discount: "Apply a discount" with a reason; discounts appear in the till report.
 - Cancelling a paid sale (void) needs an authorised role (manager or above); cancellations appear in the report.
 

@@ -12,6 +12,7 @@
 - Sur la boutique, ajouter les produits au panier (choix de l'unité et de la quantité), puis valider le panier pour ouvrir le formulaire de commande.
 - Le formulaire demande : nom, téléphone, adresse (ou position), zone de livraison, créneau de livraison, mode de paiement et une remarque facultative.
 - Modes de paiement proposés : espèces à la livraison, M-Pesa, Airtel Money, Orange Money, Afrimoney.
+- Écris ces noms EXACTEMENT, sans les reformuler ni en créer d'autres : « espèces à la livraison », « M-Pesa », « Airtel Money », « Orange Money », « Afrimoney ».
 - À la validation, la commande est enregistrée et un message WhatsApp pré-rempli avec le récapitulatif est ouvert : il faut l'envoyer pour que la commande soit transmise.
 - Dans la fenêtre de l'assistant, le bouton « Commander sur WhatsApp » ouvre WhatsApp avec le contenu actuel du panier.
 - La disponibilité affichée est indicative : elle est confirmée par WhatsApp avant la livraison.

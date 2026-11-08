@@ -28,6 +28,7 @@
 <!-- mots-cles: encaisser, encaissement, paiement, payer, especes, monnaie, mobile money, m-pesa, airtel, orange, afrimoney, ardoise, compte, remise, annuler, annulation, void -->
 - Écran « Encaissement » : « À encaisser » est le montant à payer.
 - Moyens de paiement : espèces (la monnaie à rendre se calcule), Mobile Money (M-Pesa, Airtel Money, Orange Money, Afrimoney), compte (ardoise).
+- Écris ces noms EXACTEMENT : « Mobile Money », « M-Pesa », « Airtel Money », « Orange Money », « Afrimoney » ; n'en invente aucun autre.
 - Remise : « Appliquer une remise » avec un motif ; les remises figurent au rapport de caisse.
 - Annuler une vente encaissée (void) demande un rôle autorisé (manager ou supérieur) ; les annulations apparaissent au rapport.
 

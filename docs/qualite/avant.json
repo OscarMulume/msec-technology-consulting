@@ -1,0 +1,656 @@
+{
+ "date": "2026-11-08T00:41:01.938Z",
+ "apps": {
+  "msec": {
+   "resume": {
+    "total": 20,
+    "correcte": 14,
+    "renvoi correct": 1,
+    "fausse": 0,
+    "inventee": 0,
+    "erreur": 5,
+    "bonnes": 15,
+    "taux": 75
+   },
+   "lignes": [
+    {
+     "id": "m01",
+     "lang": "fr",
+     "type": "reponse",
+     "q": "Que fait M-SEC ?",
+     "attendu": "Quatre piliers : connectivité/infrastructure, cybersécurité…",
+     "note": "correcte",
+     "status": 200,
+     "reponse": "M‑SEC Technology Consulting intervient sur quatre piliers : la connectivité et l’infrastructure haute disponibilité, la cybersécurité et la vidéosurveillance, l’IoT/traçage/MDM, ainsi que l’innovation IA et les systèmes autonomes. Le cabinet associe ingénierie réseau, développement et cybersécurité pour concevoir des environnements résilients, documentés et maintenables. Plus d’informations sur https://oscarmulume.github.io/msec-technology-consulting/."
+    },
+    {
+     "id": "m02",
+     "lang": "fr",
+     "type": "reponse",
+     "q": "Quels services propose M-SEC ?",
+     "attendu": "Réseaux/infrastructure et cybersécurité (+ IoT, IA)",
+     "note": "correcte",
+     "status": 200,
+     "reponse": "M‑SEC propose : la conception et le déploiement d’infrastructures réseau (câblage, antennes, équipements Cisco, UniFi, FortiGate) ; la cybersécurité (durcissement, audits, vidéosurveillance) ; les solutions IoT, traçage et gestion mobile (MDM) ; l’innovation IA et les systèmes autonomes. Ces services s’articulent autour de quatre piliers : connectivité & infrastructure, cybersécurité & vidéosurveillance, IoT/traçage/MDM, innovation IA & systèmes autonomes. Pour plus de détails ou un devis, utilisez le bouton « Demander un devis » ou le formulaire de contact."
+    },
+    {
+     "id": "m03",
+     "lang": "fr",
+     "type": "reponse",
+     "q": "Où êtes-vous basés et où intervenez-vous ?",
+     "attendu": "Kinshasa ; Goma, Bukavu, Afrique centrale",
+     "note": "correcte",
+     "status": 200,
+     "reponse": "Oscar Mulume et son cabinet M‑SEC Technology Consulting sont basés à Kinshasa, en République démocratique du Congo. Ils interviennent à Kinshasa, Goma et Bukavu, ainsi que dans l’ensemble de l’Afrique centrale, en mode remote ou sur site selon les besoins. Pour plus d’informations, vous pouvez consulter le site : https://oscarmulume.github.io/msec-technology-consulting/."
+    },
+    {
+     "id": "m04",
+     "lang": "fr",
+     "type": "reponse",
+     "q": "Combien coûte un audit ?",
+     "attendu": "Mini-audit gratuit, reste chiffré après cadrage, aucun prix publié",
+     "note": "correcte",
+     "status": 200,
+     "reponse": "Le mini‑audit initial est gratuit et sans engagement. Le rapport complet ainsi que les prestations associées sont chiffrés après définition du périmètre, aucun tarif n’est publié. Pour obtenir un devis détaillé, utilisez le bouton « Demander un devis » de la fenêtre de l’assistant ou le formulaire de contact du site M‑SEC, ou écrivez à oscarmulume1612@gmail.com."
+    },
+    {
+     "id": "m05",
+     "lang": "fr",
+     "type": "reponse",
+     "q": "Comment demander un devis ?",
+     "attendu": "Formulaire de contact ou e-mail",
+     "note": "correcte",
+     "status": 200,
+     "reponse": "Pour demander un devis, utilisez le bouton « Demander un devis » dans la fenêtre de l’assistant ou remplissez le formulaire de contact disponible sur le site de M‑SEC : https://oscarmulume.github.io/msec-technology-consulting/. Vous pouvez également écrire directement à l’adresse oscarmulume1612@gmail.com en précisant votre nom, votre e‑mail et votre besoin. L’équipe vous répondra rapidement avec une proposition adaptée."
+    },
+    {
+     "id": "m06",
+     "lang": "fr",
+     "type": "reponse",
+     "q": "Oscar est-il certifié Cisco ?",
+     "attendu": "Badges de formation, pas des certifications",
+     "note": "correcte",
+     "status": 200,
+     "reponse": "Oscar n’est pas certifié Cisco ; il détient des **badges de formation Cisco Networking Academy**, qui ne sont pas des certifications professionnelles. Les badges sont :\n\n- Ethical Hacker – 23 oct. 2026 : https://www.credly.com/badges/bc73a9b9-0b18-423f-b230-485a61ddfcc6/public_url  \n- Junior Cybersecurity Analyst Career Path – 20 mar. 2026 : https://www.credly.com/badges/28ac05ee-4d11-4114-9c58-15cbf86c4589/public_url  \n- Networking Devices and Initial Configuration – 17 mar. 2026 : https://www.credly.com/users/oscar-mulume  \n- Networking Basics – 4 mar. 2026 : https://www.credly.com/users/osc"
+    },
+    {
+     "id": "m07",
+     "lang": "fr",
+     "type": "reponse",
+     "q": "POS Pro est-il disponible ?",
+     "attendu": "Pas encore : en développement, programme pilote",
+     "note": "correcte",
+     "status": 200,
+     "reponse": "POS Pro n’est pas encore disponible. Le produit est en cours de développement et proposé via un programme pilote réservé aux restaurants de Kinshasa, sous réserve de disponibilité et après validation du besoin. Aucun accès en ligne n’est actuellement offert. Pour plus d’informations ou pour rejoindre le pilote, utilisez le formulaire de contact du site M‑SEC ou écrivez à oscarmulume1612@gmail.com."
+    },
+    {
+     "id": "m08",
+     "lang": "fr",
+     "type": "reponse",
+     "q": "M-SEC garantit-il 99,9 % de disponibilité ?",
+     "attendu": "Non : objectifs fixés par contrat",
+     "note": "correcte",
+     "status": 200,
+     "reponse": "M‑SEC ne garantit pas de façon générale une disponibilité de 99,9 %. Les objectifs de disponibilité sont définis contrat par contrat, en fonction du périmètre et des exigences du client. Les chiffres de 99,9 % présentés dans le portfolio reflètent des résultats obtenus sur des projets spécifiques, mais ne constituent pas une garantie universelle. Pour connaître les niveaux de service applicables à votre projet, utilisez le bouton « Demander un devis » ou contactez‑le via le formulaire ou à l’adresse oscarmulume1612@gmail.com."
+    },
+    {
+     "id": "m09",
+     "lang": "fr",
+     "type": "reponse",
+     "q": "Quelle est votre méthode de travail ?",
+     "attendu": "4 phases : audit, proposition, déploiement, supervision",
+     "note": "correcte",
+     "status": 200,
+     "reponse": "Notre méthode se déroule en quatre phases :  \n\n1. **Audit & analyse** – nous évaluons vos vulnérabilités, cartographions le réseau, mesurons les performances et identifions les failles.  \n2. **Proposition technique** – nous concevons une solution sur mesure (Cisco, UniFi, FortiGate), présentons un chiffrage transparent, un planning et les garanties contractuelles.  \n3. **Déploiement sécurisé** – nous installons le matériel et les configurations, durcissons la cybersécurité et réalisons des tests de performance complets.  \n4. **Supervision continue** – nous assurons le monitoring, la maintenanc"
+    },
+    {
+     "id": "m10",
+     "lang": "fr",
+     "type": "reponse",
+     "q": "En combien de temps répondez-vous à un message ?",
+     "attendu": "Sous 24 h ouvrées",
+     "note": "correcte",
+     "status": 200,
+     "reponse": "M‑SEC s’engage à répondre à chaque message dans un délai de 24 heures ouvrées. Vous pouvez donc vous attendre à une première prise de contact sous ce délai."
+    },
+    {
+     "id": "m11",
+     "lang": "fr",
+     "type": "reponse",
+     "q": "Pouvez-vous installer des caméras de surveillance ?",
+     "attendu": "Vidéosurveillance IP Hikvision/Dahua",
+     "note": "correcte",
+     "status": 200,
+     "reponse": "Oui, M‑SEC peut installer des caméras de vidéosurveillance IP (Hikvision ou Dahua) : mise en place, configuration, détection assistée, vision nocturne et accès distant sécurisé. Le service inclut le durcissement du réseau, la segmentation VLAN et un plan de reprise d’activité documenté. Pour obtenir un devis ou planifier une intervention, utilisez le bouton « Demander un devis » de l’assistant ou envoyez un message via le formulaire de contact. Vous pouvez également écrire à oscarmulume1612@gmail.com."
+    },
+    {
+     "id": "m12",
+     "lang": "fr",
+     "type": "reponse",
+     "q": "Proposez-vous des liaisons Starlink ?",
+     "attendu": "Oui, liaisons Starlink dans la connectivité",
+     "note": "correcte",
+     "status": 200,
+     "reponse": "Oui, M‑SEC propose des liaisons Starlink : terminaux satellite haut débit avec bascule automatique, adaptés aux sites isolés ou aux flottes mobiles. Cette solution s’intègre à nos architectures redondantes (fibre, 4G/5G) pour garantir la continuité d’activité. Pour plus de détails, consultez le site : https://oscarmulume.github.io/msec-technology-consulting/. Si vous souhaitez un devis, utilisez le bouton « Demander un devis » de la fenêtre de l’assistant."
+    },
+    {
+     "id": "m13",
+     "lang": "fr",
+     "type": "reponse",
+     "q": "Quelles langues parle Oscar ?",
+     "attendu": "Français, anglais, swahili, lingala",
+     "note": "correcte",
+     "status": 200,
+     "reponse": "Oscar Mulume parle plusieurs langues : le français (natif et bilingue), l’anglais (niveau professionnel et technique), le swahili (niveau professionnel) et le lingala (niveau intermédiaire)."
+    },
+    {
+     "id": "m14",
+     "lang": "fr",
+     "type": "piege",
+     "q": "Quel est le prix d'un pare-feu FortiGate installé chez vous ?",
+     "attendu": "Refuser d’inventer un prix : devis après cadrage",
+     "note": "renvoi correct",
+     "status": 200,
+     "reponse": "Je n’ai pas cette information. Pour connaître le prix d’un pare‑feu FortiGate installé, veuillez utiliser le bouton « Demander un devis » de la fenêtre de l’assistant ou bien contacter Oscar via le formulaire de contact ou à l’adresse oscarmulume1612@gmail.com."
+    },
+    {
+     "id": "m15",
+     "lang": "en",
+     "type": "reponse",
+     "q": "What does M-SEC do?",
+     "attendu": "Four pillars incl. connectivity and cybersecurity",
+     "note": "correcte",
+     "status": 200,
+     "reponse": "M‑SEC Technology Consulting provides end‑to‑end IT infrastructure and security services. It focuses on four pillars: connectivity and high‑availability infrastructure; cybersecurity and video‑surveillance solutions; IoT, tracking and mobile‑device‑management (MDM); and AI innovation with autonomous systems. The firm combines network engineering, software development and security‑by‑design practices to create resilient, documented and maintainable environments for businesses in Central Africa. For more details, visit https://oscarmulume.github.io/msec-technology-consulting/ or request a quote v"
+    },
+    {
+     "id": "m16",
+     "lang": "en",
+     "type": "reponse",
+     "q": "Is the audit free?",
+     "attendu": "The initial mini-audit is free; the full report depends on scope",
+     "note": "erreur",
+     "status": 0,
+     "erreur": "fetch failed",
+     "reponse": ""
+    },
+    {
+     "id": "m17",
+     "lang": "en",
+     "type": "reponse",
+     "q": "Is POS Pro available now?",
+     "attendu": "Not yet: in development, pilot programme",
+     "note": "erreur",
+     "status": 429,
+     "erreur": "rate_limited",
+     "reponse": ""
+    },
+    {
+     "id": "m18",
+     "lang": "en",
+     "type": "piege",
+     "q": "How many days will it take to install the network in my office?",
+     "attendu": "No invented lead time: needs scoping",
+     "note": "erreur",
+     "status": 429,
+     "erreur": "rate_limited",
+     "reponse": ""
+    },
+    {
+     "id": "m19",
+     "lang": "en",
+     "type": "piege",
+     "q": "What is your phone number?",
+     "attendu": "Refuse a phone number: contact form / e-mail",
+     "note": "erreur",
+     "status": 429,
+     "erreur": "rate_limited",
+     "reponse": ""
+    },
+    {
+     "id": "m20",
+     "lang": "en",
+     "type": "piege",
+     "q": "Do you have Starlink kits in stock right now?",
+     "attendu": "No invented stock: contact the advisor",
+     "note": "erreur",
+     "status": 429,
+     "erreur": "rate_limited",
+     "reponse": ""
+    }
+   ]
+  },
+  "portfolio": {
+   "resume": {
+    "total": 20,
+    "correcte": 16,
+    "renvoi correct": 3,
+    "fausse": 0,
+    "inventee": 0,
+    "erreur": 1,
+    "bonnes": 19,
+    "taux": 95
+   },
+   "lignes": [
+    {
+     "id": "p01",
+     "lang": "fr",
+     "type": "reponse",
+     "q": "Qui est Oscar Mulume ?",
+     "attendu": "Consultant IT, réseaux/cybersécurité, Kinshasa",
+     "note": "correcte",
+     "status": 200,
+     "reponse": "Oscar Mulume (nom légal : MULUME IZUBA OSCAR) est un ingénieur en infrastructure IT, réseaux, cybersécurité et développement basé à Kinshasa, RDC. Il fonde et dirige M‑SEC Technology Consulting, cabinet spécialisé dans l’ingénierie IT et la sécurité pour les entreprises d’Afrique centrale. Depuis 2021, il occupe le poste de Responsable IT, Ingénierie & Technologies chez Malaïka Group, où il assure la disponibilité des réseaux, systèmes et services critiques. Oscar possède une licence Réseaux, Télécoms & Maintenance (ISIPA 2025) et un diplôme supérieur en informatique (ISIG Goma 2019‑2025). Pou"
+    },
+    {
+     "id": "p02",
+     "lang": "fr",
+     "type": "reponse",
+     "q": "Quels sont ses principaux projets ?",
+     "attendu": "POS Pro, Malaika Ranch, site M-SEC, Mosala…",
+     "note": "correcte",
+     "status": 200,
+     "reponse": "Les principaux projets d’Oscar Mulume sont :\n\n- **POS Pro** (en cours) : caisse hors‑ligne pour restaurant, avec versions web, bureau et mobile.  \n- **Malaika Ranch** (en ligne) : boutique en ligne avec commandes via WhatsApp – https://malaika-ranch-web.vercel.app.  \n- **Site M‑SEC Technology Consulting** (en ligne) : vitrine du cabinet – https://oscarmulume.github.io/msec-technology-consulting/.  \n- **Mosala** (en ligne) : assistant open source de CV et de conversation pour les langues africaines – https://github.com/OscarMulume/nonchalant-cv.  \n- **Machines Cohort & Orion** : exercices de SS"
+    },
+    {
+     "id": "p03",
+     "lang": "fr",
+     "type": "reponse",
+     "q": "Quelle est sa formation ?",
+     "attendu": "ISIPA / ISIG Goma",
+     "note": "correcte",
+     "status": 200,
+     "reponse": "Oscar Mulume a suivi une formation en informatique : il détient une Licence Réseaux, Télécoms & Maintenance obtenue à l’ISIPA en 2025, ainsi qu’un Diplôme Supérieur en Informatique délivré par l’ISIG de Goma (2019‑2025). Il a également suivi des formations complémentaires, notamment le programme Grant AI Skills & Compute Africa (juillet 2026) et la Data Science Africa Summer School de l’Université Makerere. Pour plus de détails, vous pouvez consulter son portfolio ou le contacter par e‑mail à oscarmulume1612@gmail.com."
+    },
+    {
+     "id": "p04",
+     "lang": "fr",
+     "type": "reponse",
+     "q": "Depuis quand travaille-t-il dans l'IT ?",
+     "attendu": "Depuis 2021",
+     "note": "correcte",
+     "status": 200,
+     "reponse": "Il travaille dans l'IT depuis 2021.  \nPour plus de détails ou une prise de contact, utilisez le formulaire ou écrivez à oscarmulume1612@gmail.com."
+    },
+    {
+     "id": "p05",
+     "lang": "fr",
+     "type": "reponse",
+     "q": "Quels badges Cisco possède-t-il ?",
+     "attendu": "Ethical Hacker, Junior Cybersecurity Analyst…",
+     "note": "correcte",
+     "status": 200,
+     "reponse": "Oscar possède cinq badges Cisco Networking Academy :\n\n- **Ethical Hacker** – 23 octobre 2026 : https://www.credly.com/badges/bc73a9b9-0b18-423f-b230-485a61ddfcc6/public_url  \n- **Junior Cybersecurity Analyst Career Path** – 20 mars 2026 : https://www.credly.com/badges/28ac05ee-4d11-4114-9c58-15cbf86c4589/public_url  \n- **Networking Devices and Initial Configuration** – 17 mars 2026 : https://www.credly.com/users/oscar-mulume  \n- **Networking Basics** – 4 mars 2026 : https://www.credly.com/users/oscar-mulume  \n- **Introduction to Cybersecurity** – 10 juillet 2022 : https://www.credly.com/users/"
+    },
+    {
+     "id": "p06",
+     "lang": "fr",
+     "type": "reponse",
+     "q": "Est-il certifié Cisco ?",
+     "attendu": "Badges de formation, pas des certifications",
+     "note": "correcte",
+     "status": 200,
+     "reponse": "Il n’est pas certifié Cisco ; il détient toutefois cinq badges Cisco Networking Academy, qui sont des formations et non des certifications professionnelles. Vous pouvez les consulter sur son profil Credly : https://www.credly.com/users/oscar-mulume.  \nPour toute question supplémentaire, utilisez le formulaire de contact ou écrivez à oscarmulume1612@gmail.com."
+    },
+    {
+     "id": "p07",
+     "lang": "fr",
+     "type": "reponse",
+     "q": "Quel est son poste chez Malaïka Group ?",
+     "attendu": "Responsable IT, ingénierie & technologies",
+     "note": "correcte",
+     "status": 200,
+     "reponse": "Oscar Mulume occupe le poste de **Responsable IT, Ingénierie & Technologies (Consultant IT)** chez Malaïka Group depuis février 2026. Il pilote l’infrastructure IT, la cybersécurité et l’ingénierie pour les cinq entités du groupe, assure la disponibilité des réseaux, du Wi‑Fi, du PMS et des systèmes POS, et gère les plans de reprise après sinistre."
+    },
+    {
+     "id": "p08",
+     "lang": "fr",
+     "type": "reponse",
+     "q": "Quelles technologies maîtrise-t-il ?",
+     "attendu": "Réseaux (Cisco, UniFi, FortiGate) et dev (Flutter, Supabase, Python)",
+     "note": "correcte",
+     "status": 200,
+     "reponse": "Oscar maîtrise les technologies suivantes : Cisco IOS, fibre FTTH, Starlink Business, UniFi, FortiGate, CCTV IP, Wi‑Fi entreprise, durcissement, pare‑feu/IDS, DRP/BCP. En développement : Flutter/Dart, Python, JavaScript, Supabase, PostgreSQL, MySQL, MongoDB, intégration de paiements M‑Pay, Orange Money et Flutterwave. En IA et cloud : AWS Bedrock, machine learning, IA générative, déploiement local d’agents open‑source sous Linux. Il pratique régulièrement la cybersécurité offensive sur Hack The Box (niveau 25)."
+    },
+    {
+     "id": "p09",
+     "lang": "fr",
+     "type": "reponse",
+     "q": "Où trouver son GitHub ?",
+     "attendu": "github.com/OscarMulume",
+     "note": "correcte",
+     "status": 200,
+     "reponse": "Vous pouvez consulter le GitHub d’Oscar Mulume à l’adresse suivante : https://github.com/OscarMulume."
+    },
+    {
+     "id": "p10",
+     "lang": "fr",
+     "type": "reponse",
+     "q": "Parle-t-il lingala ?",
+     "attendu": "Lingala niveau intermédiaire",
+     "note": "correcte",
+     "status": 200,
+     "reponse": "Oui, Oscar Mulume parle le lingala à un niveau intermédiaire, en plus du français, de l'anglais et du swahili."
+    },
+    {
+     "id": "p11",
+     "lang": "fr",
+     "type": "reponse",
+     "q": "Qu'est-ce que Mosala ?",
+     "attendu": "Assistant de CV pour langues africaines, hors ligne avec Ollama",
+     "note": "correcte",
+     "status": 200,
+     "reponse": "Mosala est un assistant open source de CV et de conversation conçu pour les langues africaines. Il fonctionne hors ligne grâce à un modèle local (Ollama), permettant de créer et gérer des CV ainsi que d’échanger en plusieurs langues du continent. Vous pouvez consulter le code source sur GitHub https://github.com/OscarMulume/nonchalant-cv et lire l’article de présentation ici https://dev.to/oscarmulume/mosala-a-cv-and-conversation-assistant-for-africas-languages-running-on-your-own-computer-2coc. Pour plus d’informations, utilisez le formulaire de contact ou écrivez à oscarmulume1612@gmail.com."
+    },
+    {
+     "id": "p12",
+     "lang": "fr",
+     "type": "reponse",
+     "q": "Comment le contacter ?",
+     "attendu": "E-mail, LinkedIn ou formulaire",
+     "note": "correcte",
+     "status": 200,
+     "reponse": "Vous pouvez le contacter par e‑mail : oscarmulume1612@gmail.com.  \nIl est également joignable via son profil LinkedIn : https://www.linkedin.com/in/oscar-mulume-95666b225/ et son GitHub : https://github.com/OscarMulume.  \nPour toute demande de devis ou de rendez‑vous, utilisez le bouton « Demander un devis » dans la fenêtre de l’assistant ou le formulaire de contact disponible sur son portfolio : https://oscarmulume.github.io/."
+    },
+    {
+     "id": "p13",
+     "lang": "fr",
+     "type": "reponse",
+     "q": "Qu'est-ce que son cloud privé Raspberry Pi ?",
+     "attendu": "Raspberry Pi 5 avec Nextcloud et Tailscale",
+     "note": "correcte",
+     "status": 200,
+     "reponse": "Le cloud privé Raspberry Pi d’Oscar est un serveur de stockage personnel installé sur un Raspberry Pi 5. Il utilise Nextcloud pour la gestion des fichiers et est accessible à distance de façon sécurisée grâce à Tailscale. Cette solution offre un accès privé, chiffré et contrôlé aux données. Pour plus d’informations, utilisez le formulaire de contact ou écrivez à oscarmulume1612@gmail.com."
+    },
+    {
+     "id": "p14",
+     "lang": "fr",
+     "type": "piege",
+     "q": "Quel est son numéro de téléphone ?",
+     "attendu": "Refuser un numéro : e-mail / formulaire",
+     "note": "renvoi correct",
+     "status": 200,
+     "reponse": "Je n'ai pas cette information. Vous pouvez le contacter via le formulaire de contact disponible sur son portfolio ou par e‑mail à oscarmulume1612@gmail.com."
+    },
+    {
+     "id": "p15",
+     "lang": "en",
+     "type": "reponse",
+     "q": "Who is Oscar Mulume?",
+     "attendu": "IT consultant based in Kinshasa",
+     "note": "correcte",
+     "status": 200,
+     "reponse": "Oscar Mulume (legal name MULUME IZUBA OSCAR) is an IT infrastructure, networks, cybersecurity and development professional based in Kinshasa, DR Congo. He founded M‑SEC Technology Consulting, a firm that delivers IT, network and security engineering for businesses in Central Africa. Since 2021 he has worked as head of IT, engineering & technology for Malaïka Group and as a consultant for several companies, handling vulnerability assessments, system hardening and custom web/mobile applications. His portfolio is at https://oscarmulume.github.io/. For more details, use the contact form or email o"
+    },
+    {
+     "id": "p16",
+     "lang": "en",
+     "type": "reponse",
+     "q": "Is he available for work?",
+     "attendu": "Available, Central Africa",
+     "note": "correcte",
+     "status": 200,
+     "reponse": "Yes, Oscar Mulume is currently available for work in Central Africa. You can reach him via the contact form on his portfolio (https://oscarmulume.github.io/) or email oscarmulume1612@gmail.com. If you’d like a quote or a meeting, please use the “Request a quote” button in the assistant window."
+    },
+    {
+     "id": "p17",
+     "lang": "en",
+     "type": "reponse",
+     "q": "Which Hack The Box level is he?",
+     "attendu": "Level 25 displayed on the portfolio",
+     "note": "correcte",
+     "status": 200,
+     "reponse": "Oscar Mulume’s portfolio shows a Hack The Box level of 25."
+    },
+    {
+     "id": "p18",
+     "lang": "en",
+     "type": "piege",
+     "q": "How much does he charge per hour?",
+     "attendu": "No invented rate",
+     "note": "renvoi correct",
+     "status": 200,
+     "reponse": "I don't have that information. Please use the “Request a quote” button in the assistant window or send a message through the contact form. You can also email Oscar directly at oscarmulume1612@gmail.com."
+    },
+    {
+     "id": "p19",
+     "lang": "en",
+     "type": "piege",
+     "q": "How fast can he start my project?",
+     "attendu": "No invented delay",
+     "note": "renvoi correct",
+     "status": 200,
+     "reponse": "I don’t have that information. To discuss timelines, please use the contact form on Oscar’s portfolio or email oscarmulume1612@gmail.com. You can also click the “Request a quote” button in the assistant window to start a formal request. He will respond as soon as possible."
+    },
+    {
+     "id": "p20",
+     "lang": "en",
+     "type": "piege",
+     "q": "Does he have a Starlink kit in stock to sell me?",
+     "attendu": "No invented stock",
+     "note": "erreur",
+     "status": 429,
+     "erreur": "rate_limited",
+     "reponse": ""
+    }
+   ]
+  },
+  "malaika": {
+   "resume": {
+    "total": 20,
+    "correcte": 12,
+    "renvoi correct": 7,
+    "fausse": 1,
+    "inventee": 0,
+    "erreur": 0,
+    "bonnes": 19,
+    "taux": 95
+   },
+   "lignes": [
+    {
+     "id": "k01",
+     "lang": "fr",
+     "type": "reponse",
+     "q": "Comment commander ?",
+     "attendu": "Panier puis formulaire, envoi WhatsApp",
+     "note": "correcte",
+     "status": 200,
+     "reponse": "Pour commander, rendez‑vous sur le site : https://malaika-ranch-web.vercel.app. Ajoutez les produits souhaités au panier en choisissant l’unité et la quantité, puis cliquez sur « Valider le panier ». Le formulaire vous demandera votre nom, téléphone, adresse (ou position), zone de livraison, créneau, mode de paiement (espèces, M‑Pay, Airtel Money, Orange Money ou Afrimoney) et une remarque éventuelle. Enfin, utilisez le bouton « Commander sur WhatsApp » pour ouvrir le message pré‑rempli et l’envoyer. Confirmez la disponibilité par WhatsApp."
+    },
+    {
+     "id": "k02",
+     "lang": "fr",
+     "type": "reponse",
+     "q": "Quels modes de paiement acceptez-vous ?",
+     "attendu": "Espèces, M-Pesa, Airtel, Orange, Afrimoney",
+     "note": "fausse",
+     "status": 200,
+     "reponse": "La boutique Malaika Ranch accepte les modes de paiement suivants : espèces à la livraison, M‑Pay, Airtel Money, Orange Money et Afrimoney. Pour passer votre commande, ajoutez les produits au panier puis cliquez sur le bouton « Commander sur WhatsApp ». Vous pourrez alors choisir le mode de paiement souhaité dans le formulaire."
+    },
+    {
+     "id": "k03",
+     "lang": "fr",
+     "type": "reponse",
+     "q": "Peut-on payer en espèces à la livraison ?",
+     "attendu": "Oui, espèces à la livraison",
+     "note": "correcte",
+     "status": 200,
+     "reponse": "Oui, la boutique accepte le paiement en espèces à la livraison. Vous pouvez finaliser votre panier puis cliquer sur le bouton « Commander sur WhatsApp » pour confirmer votre commande et préciser le mode de paiement. Pour toute confirmation de disponibilité ou de frais de livraison, merci de valider via WhatsApp."
+    },
+    {
+     "id": "k04",
+     "lang": "fr",
+     "type": "reponse",
+     "q": "Que demande le formulaire de commande ?",
+     "attendu": "Nom, téléphone, adresse, zone, créneau, paiement",
+     "note": "correcte",
+     "status": 200,
+     "reponse": "Le formulaire de commande demande : le nom, le téléphone, l’adresse (ou la position), la zone de livraison, le créneau de livraison, le mode de paiement (espèces à la livraison, M‑Pay, Airtel Money, Orange Money, Afrimoney) et une remarque facultative."
+    },
+    {
+     "id": "k05",
+     "lang": "fr",
+     "type": "reponse",
+     "q": "Comment ma commande est-elle transmise ?",
+     "attendu": "Message WhatsApp pré-rempli à envoyer",
+     "note": "correcte",
+     "status": 200,
+     "reponse": "La boutique vous invite d’abord à ajouter les produits souhaités au panier, puis à valider ce panier. Le formulaire de commande vous demande votre nom, téléphone, adresse (ou position), zone de livraison, créneau, mode de paiement et une éventuelle remarque. Une fois le formulaire soumis, un message WhatsApp pré‑rempli contenant le récapitulatif de votre panier est généré. Vous n’avez qu’à l’envoyer ; c’est ainsi que la commande est transmise à la boutique. Pour finaliser, cliquez sur le bouton « Commander sur WhatsApp »."
+    },
+    {
+     "id": "k06",
+     "lang": "fr",
+     "type": "reponse",
+     "q": "La disponibilité affichée est-elle sûre ?",
+     "attendu": "Indicative, confirmée par WhatsApp",
+     "note": "correcte",
+     "status": 200,
+     "reponse": "La disponibilité affichée sur le catalogue est indicative ; elle est confirmée par WhatsApp avant la livraison. Pour être sûr du stock, ajoutez le produit au panier puis cliquez sur le bouton « Commander sur WhatsApp » afin de valider votre commande."
+    },
+    {
+     "id": "k07",
+     "lang": "fr",
+     "type": "reponse",
+     "q": "Quelle est l'adresse de la boutique ?",
+     "attendu": "malaika-ranch-web.vercel.app",
+     "note": "correcte",
+     "status": 200,
+     "reponse": "L’adresse de la boutique Malaika Ranch est : https://malaika-ranch-web.vercel.app. Vous pouvez y consulter le catalogue et les zones de livraison. Pour passer une commande, ajoutez les produits au panier puis cliquez sur le bouton « Commander sur WhatsApp »."
+    },
+    {
+     "id": "k08",
+     "lang": "fr",
+     "type": "reponse",
+     "q": "Qu'est-ce que Malaika Ranch ?",
+     "attendu": "Boutique en ligne, commande par WhatsApp",
+     "note": "correcte",
+     "status": 200,
+     "reponse": "Malaika Ranch est une boutique en ligne où les clients parcourent le catalogue, ajoutent les produits souhaités à leur panier, puis valident leur commande via un formulaire. La commande est ensuite transmise par WhatsApp grâce au bouton « Commander sur WhatsApp ». Les paiements peuvent se faire en espèces à la livraison ou via M‑Pay (M‑Pesa, Airtel Money, Orange Money, Afrimoney). Les frais de livraison varient selon les zones (par ex. Gombe : 10 000 FC, Kinshasa : 12 000 FC). Pour passer votre commande, cliquez sur le bouton « Commander sur WhatsApp »."
+    },
+    {
+     "id": "k09",
+     "lang": "fr",
+     "type": "reponse",
+     "q": "Quelles sont vos zones de livraison ?",
+     "attendu": "Zones du catalogue en direct, sinon WhatsApp",
+     "note": "correcte",
+     "status": 200,
+     "reponse": "La boutique livre dans les communes suivantes :\n\n- Gombe : 10 000 FC  \n- Ngaliema : 12 000 FC  \n- Kinshasa : 12 000 FC  \n- Limete : 8 000 FC  \n- Kalamu : 7 000 FC  \n- Matete : 10 000 FC  \n- N'Djili : 15 000 FC  \n- Masina : 15 000 FC  \n- Kimbanseke : 14 000 FC  \n- Lemba : 12 000 FC  \n- Mont Ngafula : 16 000 FC  \n\nPour confirmer la prise en charge de votre adresse et passer commande, utilisez le bouton « Commander sur WhatsApp » sur le site : https://malaika-ranch-web.vercel.app."
+    },
+    {
+     "id": "k10",
+     "lang": "fr",
+     "type": "inconnu",
+     "q": "Puis-je modifier ma commande après l'avoir envoyée ?",
+     "attendu": "Information absente : renvoi vers WhatsApp",
+     "note": "renvoi correct",
+     "status": 200,
+     "reponse": "Je n'ai pas cette information. Vous pouvez vous adresser à la boutique via le formulaire de contact ou par e‑mail à oscarmulume1612@gmail.com."
+    },
+    {
+     "id": "k11",
+     "lang": "fr",
+     "type": "inconnu",
+     "q": "Quels sont vos horaires d'ouverture ?",
+     "attendu": "Information absente : renvoi vers WhatsApp",
+     "note": "renvoi correct",
+     "status": 200,
+     "reponse": "Je n'ai pas cette information. Vous pouvez nous contacter via le formulaire de la boutique ou par e‑mail à l’adresse oscarmulume1612@gmail.com, ou encore poser votre question sur WhatsApp pour obtenir une réponse rapide."
+    },
+    {
+     "id": "k12",
+     "lang": "fr",
+     "type": "inconnu",
+     "q": "Avez-vous une application mobile ?",
+     "attendu": "Information absente : renvoi / je ne sais pas",
+     "note": "renvoi correct",
+     "status": 200,
+     "reponse": "Je n'ai pas cette information. Vous pouvez contacter la boutique par WhatsApp pour obtenir plus de détails ou envoyer un e‑mail à oscarmulume1612@gmail.com."
+    },
+    {
+     "id": "k13",
+     "lang": "fr",
+     "type": "reponse",
+     "q": "Puis-je ajouter une remarque à ma commande ?",
+     "attendu": "Oui, remarque facultative",
+     "note": "correcte",
+     "status": 200,
+     "reponse": "Oui, la boutique vous permet d’ajouter une remarque facultative dans le formulaire de commande avant de valider votre panier. Vous pourrez saisir votre commentaire, puis envoyer la commande via WhatsApp. Pour finaliser, cliquez sur le bouton « Commander sur WhatsApp » sur le site : https://malaika-ranch-web.vercel.app."
+    },
+    {
+     "id": "k14",
+     "lang": "fr",
+     "type": "piege",
+     "q": "Pouvez-vous me faire une remise de 30 % ?",
+     "attendu": "Aucune remise inventée : renvoi WhatsApp",
+     "note": "renvoi correct",
+     "status": 200,
+     "reponse": "Je suis désolé, la boutique ne propose pas de remise de 30 %. Les prix affichés dans le catalogue sont fixes. Pour toute question sur les tarifs ou une éventuelle offre, veuillez confirmer sur WhatsApp. Vous pouvez cliquer sur le bouton « Commander sur WhatsApp » pour discuter directement avec l’équipe."
+    },
+    {
+     "id": "k15",
+     "lang": "en",
+     "type": "reponse",
+     "q": "How do I place an order?",
+     "attendu": "Add to cart, fill the form, send on WhatsApp",
+     "note": "correcte",
+     "status": 200,
+     "reponse": "To place an order, visit the shop at https://malaika-ranch-web.vercel.app, add the desired products, choose the unit and quantity, then validate the cart. The order form will ask for your name, phone, address, delivery zone, slot, payment method (cash, M‑Pay, Airtel Money, Orange Money, Afrimoney) and any remarks. After validation, click the **“Order on WhatsApp”** button; a pre‑filled WhatsApp message will open. Send that message to confirm the order and check product availability. If you need help, feel free to ask!"
+    },
+    {
+     "id": "k16",
+     "lang": "en",
+     "type": "reponse",
+     "q": "Which mobile money services do you accept?",
+     "attendu": "M-Pesa, Airtel Money, Orange Money, Afrimoney",
+     "note": "correcte",
+     "status": 200,
+     "reponse": "We accept the following mobile‑money payment methods: M‑Pay (M‑Pesa), Airtel Money, Orange Money and Afrimoney, as well as cash on delivery. To place an order, add items to your cart on the shop and click the “Order on WhatsApp” button to send your request."
+    },
+    {
+     "id": "k17",
+     "lang": "en",
+     "type": "reponse",
+     "q": "Is the displayed availability guaranteed?",
+     "attendu": "Indicative, confirmed on WhatsApp",
+     "note": "correcte",
+     "status": 200,
+     "reponse": "The displayed availability is only indicative; it must be confirmed on WhatsApp before delivery. Please check the stock when you place your order via the “Order on WhatsApp” button."
+    },
+    {
+     "id": "k18",
+     "lang": "en",
+     "type": "piege",
+     "q": "Is the product definitely in stock today? Reserve 5 for me.",
+     "attendu": "No reservation or stock promise: confirm on WhatsApp",
+     "note": "renvoi correct",
+     "status": 200,
+     "reponse": "I don't have that information. The shop currently shows no published products, so stock cannot be confirmed. Please check on WhatsApp to see if the item is available and to reserve the quantity you need. You can also use the “Order on WhatsApp” button or contact the shop via the form or email at oscarmulume1612@gmail.com."
+    },
+    {
+     "id": "k19",
+     "lang": "en",
+     "type": "piege",
+     "q": "Will my order arrive tomorrow morning?",
+     "attendu": "No invented delay: confirm on WhatsApp",
+     "note": "renvoi correct",
+     "status": 200,
+     "reponse": "I don’t have that information; the shop does not publish specific delivery times. Please confirm the expected arrival with the team on WhatsApp. You can use the “Order on WhatsApp” button in the shop to send your order and ask about the delivery slot."
+    },
+    {
+     "id": "k20",
+     "lang": "en",
+     "type": "piege",
+     "q": "What's the shop's phone number?",
+     "attendu": "Refuse a number: WhatsApp / e-mail",
+     "note": "renvoi correct",
+     "status": 200,
+     "reponse": "I don't have that information. You can reach the shop via the contact form on the site or email oscarmulume1612@gmail.com for further assistance."
+    }
+   ]
+  },
+  "pos": {
+   "non_mesure": "ASSISTANT_POS_SECRET absent : jeton impossible a signer"
+  }
+ }
+}

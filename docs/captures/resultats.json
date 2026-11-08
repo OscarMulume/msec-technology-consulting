@@ -5,7 +5,7 @@
   "http": 200,
   "script": true,
   "erreurs": [],
-  "reponse": "Assistant M‑SEC propose : la conception, l’installation et la maintenance d’infrastructures réseau (câblage, antennes, équipements Cisco, UniFi, FortiGate) ; la cybersécurité incluant le durcissement, la vidéosurveillanc",
+  "reponse": "Assistant M‑SEC propose : la conception, l’installation et la maintenance d’infrastructures réseau (câblage, antennes, équipements Cisco, UniFi, FortiGate) ; la cybersécurité et la vidéosurveillance avec durcissement et ",
   "essais": 1
  },
  {
@@ -14,7 +14,7 @@
   "http": 200,
   "script": true,
   "erreurs": [],
-  "reponse": "Assistant M‑SEC propose : la conception, l’installation et la maintenance d’infrastructures réseau (câblage, Wi‑Fi, équipements Cisco, UniFi, FortiGate) ; des services de cybersécurité incluant le durcissement, la survei",
+  "reponse": "Assistant M‑SEC propose : la conception et le déploiement d’infrastructures réseau (câblage, antennes, équipements Cisco, UniFi, FortiGate) ; la cybersécurité (durcissement, audits, vidéosurveillance) ; les solutions IoT",
   "essais": 1
  },
  {
@@ -23,7 +23,7 @@
   "http": 200,
   "script": true,
   "erreurs": [],
-  "reponse": "Assistant M‑SEC propose des services d’ingénierie IT et de cybersécurité : conception et déploiement d’infrastructures réseau (Cisco, UniFi, FortiGate), connectivité sur site ou à distance, vidéosurveillance, solutions I",
+  "reponse": "Assistant M‑SEC propose : la conception et le déploiement d’infrastructures réseau (câblage, antennes, équipements Cisco, UniFi, FortiGate) ; la cybersécurité (durcissement, audits, vidéosurveillance) ; les solutions IoT",
   "essais": 1
  },
  {
@@ -32,7 +32,7 @@
   "http": 200,
   "script": true,
   "erreurs": [],
-  "reponse": "Assistant Les principaux projets d’Oscar Mulume sont : - POS Pro : solution de caisse hors‑ligne pour restaurants (développement en cours). - Malaika Ranch : boutique en ligne avec commandes via WhatsApp – https://malaik",
+  "reponse": "Assistant Les principaux projets d’Oscar Mulume sont : - POS Pro : solution de caisse hors ligne pour restaurants, en cours de développement (web, desktop et mobile). - Malaika Ranch : boutique en ligne avec commandes vi",
   "essais": 1
  },
  {
@@ -41,7 +41,7 @@
   "http": 200,
   "script": true,
   "erreurs": [],
-  "reponse": "Assistant Les principaux projets d’Oscar sont : - POS Pro : caisse pour restaurant fonctionnant hors ligne (développement en cours). - Malaika Ranch : boutique en ligne avec commandes via WhatsApp – https://malaika-ranch",
+  "reponse": "Assistant Les projets majeurs d’Oscar Mulume sont : - POS Pro : solution de caisse hors ligne pour restaurants, en cours de développement (web, desktop et mobile). - Malaika Ranch : boutique en ligne avec commandes via W",
   "essais": 1
  },
  {
@@ -50,7 +50,7 @@
   "http": 200,
   "script": true,
   "erreurs": [],
-  "reponse": "Assistant Les principaux projets d’Oscar Mulume sont : - POS Pro : solution de caisse pour restaurant fonctionnant hors ligne, avec versions web, bureau et mobile (développement en cours). - Malaika Ranch : boutique en l",
+  "reponse": "Assistant Les principaux projets d’Oscar Mulume sont : - POS Pro : solution de caisse hors ligne pour restaurants, en cours de développement (web, desktop et mobile). - Malaika Ranch : boutique en ligne avec commandes vi",
   "essais": 1
  }
 ]

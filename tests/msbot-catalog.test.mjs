@@ -118,7 +118,7 @@ test2('Etape 7 : lanceur sans fond (robot seul, ombre au sol), 64/56 px, bulle d
   assert2.match(css, /background: transparent/);
   assert2.match(css, /box-shadow: none/);
   assert2.match(css, /width: 4rem; height: 4rem/);
-  assert2.match(css, /width: 3\.5rem; height: 3\.5rem/);
+  assert2.match(w, /\.launcher \{ width: 3\.5rem; height: 3\.5rem; \}/);
   assert2.match(css, /launcher:focus-visible/);
   assert2.ok(!w.includes("class: 'msbot-label'"));
   const m = lire(new URL('../src/assistant/msbot.src.js', import.meta.url), 'utf8');

@@ -181,21 +181,21 @@
     button { cursor: pointer; }
     :focus-visible { outline: 3px solid var(--a-accent); outline-offset: 2px; }
     .launcher {
-      display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
-      min-width: 3.25rem; min-height: 3.25rem; padding: .25rem .9rem .25rem .3rem; border-radius: 999px; border: 1px solid var(--a-border);
-      background: var(--a-accent); color: var(--a-accent-contrast); font-weight: 600; box-shadow: var(--a-shadow);
-      transition: transform .25s cubic-bezier(.34,1.56,.64,1), box-shadow .25s;
+      position: relative; display: block; width: 4rem; height: 4rem; padding: 0; margin: 0; border: 0; border-radius: 12px;
+      background: transparent; box-shadow: none; color: inherit;
+      transition: transform .25s cubic-bezier(.34,1.56,.64,1);
     }
-    .launcher:hover { transform: translateY(-2px) scale(1.03); }
-    .launcher svg { width: 1.4rem; height: 1.4rem; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-    .msbot-stage { display: block; width: 4rem; height: 4rem; flex: none; }
+    .launcher::after { content: ""; position: absolute; left: 18%; right: 18%; bottom: -2px; height: 7px; border-radius: 50%;
+      background: radial-gradient(ellipse at center, rgba(0,0,0,.28), rgba(0,0,0,0) 70%); pointer-events: none; }
+    .launcher:hover { transform: translateY(-2px); }
+    .launcher:focus-visible { outline: 3px solid var(--a-accent); outline-offset: 4px; }
+    .msbot-stage { display: block; width: 100%; height: 100%; flex: none; }
     .msbot-stage svg { width: 100%; height: 100%; }
-    .launcher .msbot-label { font-size: .85rem; letter-spacing: .01em; }
     @media (prefers-reduced-motion: reduce) { .launcher, .launcher:hover { transition: none; transform: none; } }
     .launcher.away { display: none; }
     .recall { position: absolute; right: 0; bottom: 0; min-height: 2.75rem; padding: 0 1rem; border-radius: 999px; border: 1px solid var(--a-border); background: var(--a-bg); color: var(--a-text); box-shadow: var(--a-shadow); font-weight: 600; -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); }
     :host([data-theme="dark"]) .panel { background: rgba(16,28,34,.86); }
-    @media (max-width: 520px) { .msbot-stage { width: 3.5rem; height: 3.5rem; } .launcher { min-height: 4rem; } }
+    @media (max-width: 520px) { .launcher { width: 3.5rem; height: 3.5rem; } }
     .panel {
       position: absolute; right: 0; bottom: 4rem; width: 20rem; max-width: calc(100vw - 2rem);
       height: 30rem; max-height: calc(100vh - 9rem); display: flex; flex-direction: column; overflow: hidden;
@@ -500,9 +500,8 @@
       style.textContent = STYLE;
 
       this.launcher = el('button', { class: 'launcher', type: 'button', 'aria-expanded': 'false', 'aria-controls': 'panel', 'aria-label': t.open, id: 'launcher' });
-      const botName = (this.getAttribute('bot-name') || 'MSBot').slice(0, 16);
       this.botStage = el('span', { class: 'msbot-stage', id: 'msbot' });
-      this.launcher.append(this.botStage, el('span', { class: 'msbot-label', text: botName }));
+      this.launcher.append(this.botStage);
       this.launcher.addEventListener('click', () => this.toggle());
 
       this.closeBtn = el('button', { class: 'icon-btn', type: 'button', 'aria-label': t.close, id: 'close', text: '×' });

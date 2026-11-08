@@ -629,17 +629,30 @@ FIELDS.forEach(function(f){
     bot.host.animate([{ opacity: 1 }, { opacity: .25 }, { opacity: 1 }, { opacity: .45 }, { opacity: 1 }], { duration: 520, easing: 'steps(1,end)' });
   }
   // ---------- Emission ----------
+  // Sobriete : au repos, pas d'effet spectaculaire ni de bulle ; seule l'action du visiteur les declenche.
+  // Exception : une courte bulle d'accueil, une seule fois par visite, jamais sur telephone.
+  var lastAction = -1e9;
+  function markAction() { lastAction = (window.performance || Date).now(); }
+  ['pointerdown', 'keydown', 'touchstart', 'click'].forEach(function (n) { document.addEventListener(n, markAction, true); });
+  function isPhone() { try { return window.matchMedia('(max-width: 520px), (pointer: coarse)').matches; } catch (e) { return false; } }
+  function welcomeSeen() { try { return sessionStorage.getItem('msbot-welcome') === '1'; } catch (e) { return false; } }
+  function markWelcome() { try { sessionStorage.setItem('msbot-welcome', '1'); } catch (e) { /* ignore */ } }
+  var SPECTACULAR = /confetti|hero|plane|morse|shatter|tele|shield|flyin|sparkle/;
   var last = {}, fired = 0;
   function emit(id, ctx) {
     var e = BYID[id];
     if (!e) return false;
     var t = (window.performance || Date).now();
+    var acted = !!(ctx && ctx.force) || (t - lastAction < 2500);
+    var welcome = id.indexOf('nav.welcome.') === 0;
+    var mayBubble = acted || (welcome && !isPhone() && !welcomeSeen());
+    if (!acted && !welcome && e.fr && !e.quiet && !SPECTACULAR.test(e.fx || '') && !e.mood) return false;
     var cd = (ctx && ctx.force) ? 0 : (e.quiet ? 1500 : 4000);
     if (last[id] && t - last[id] < cd) return false;
     last[id] = t; fired += 1;
     var bot = bots[bots.length - 1] || null;
     if (bot) {
-      var fx = e.fx || '';
+      var fx = acted ? (e.fx || '') : (SPECTACULAR.test(e.fx || '') ? '' : (e.fx || ''));
       if (fx.indexOf('confetti') >= 0) { bot.setMood('yay', 2200); confetti(bot); }
       else if (fx.indexOf('hero') >= 0) { bot.setMood('hero', 2600); bot.jump(); }
       else if (e.mood) bot.setMood(e.mood, e.mood === 'sleep' ? 0 : 1800);
@@ -652,7 +665,10 @@ FIELDS.forEach(function(f){
       if (fx.indexOf('shatter') >= 0) shatter(bot);
       if (fx.indexOf('tele') >= 0) tele(bot);
     }
-    if (!e.quiet && e.fr) say(e.fr, (ctx && ctx.acts) ? 12000 : 4200, ctx && ctx.acts);
+    if (!e.quiet && e.fr && mayBubble) {
+      if (welcome) markWelcome();
+      say(e.fr, (ctx && ctx.acts) ? 12000 : (welcome ? 5000 : 4200), ctx && ctx.acts);
+    }
     var ev;
     try { ev = new CustomEvent('msbot:event', { detail: { id: id, el: ctx && ctx.el || null } }); }
     catch (err) { ev = document.createEvent('CustomEvent'); ev.initCustomEvent('msbot:event', true, true, { id: id, el: ctx && ctx.el || null }); }

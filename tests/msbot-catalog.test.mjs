@@ -111,3 +111,16 @@ test2('Rendu : le gras **x** devient <strong> par le DOM, sans innerHTML', () =>
   const w = lire(new URL('../src/assistant/msec-assistant.src.js', import.meta.url), 'utf8');
   assert2.ok(w.includes("createElement('strong')") && !/innerHTML\s*=/.test(w));
 });
+
+test2('Etape 7 : lanceur sans fond (robot seul, ombre au sol), 64/56 px, bulle d accueil unique et sobre', () => {
+  const w = lire(new URL('../src/assistant/msec-assistant.src.js', import.meta.url), 'utf8');
+  const css = w.slice(w.indexOf('    .launcher {'), w.indexOf('.launcher.away'));
+  assert2.match(css, /background: transparent/);
+  assert2.match(css, /box-shadow: none/);
+  assert2.match(css, /width: 4rem; height: 4rem/);
+  assert2.match(css, /width: 3\.5rem; height: 3\.5rem/);
+  assert2.match(css, /launcher:focus-visible/);
+  assert2.ok(!w.includes("class: 'msbot-label'"));
+  const m = lire(new URL('../src/assistant/msbot.src.js', import.meta.url), 'utf8');
+  assert2.ok(m.includes("msbot-welcome") && m.includes('welcome ? 5000') && m.includes('isPhone()'));
+});

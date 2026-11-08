@@ -1,0 +1,26 @@
+{
+ "app": "portfolio",
+ "origin": "https://oscarmulume.github.io",
+ "questions": [
+  {"id":"p01","lang":"fr","q":"Qui est Oscar Mulume ?","type":"reponse","attendu":"Consultant IT, réseaux/cybersécurité, Kinshasa","tous":["consultant|IT","Kinshasa"],"interdits":[]},
+  {"id":"p02","lang":"fr","q":"Quels sont ses principaux projets ?","type":"reponse","attendu":"POS Pro, Malaika Ranch, site M-SEC, Mosala…","tous":["POS Pro","Malaika"],"interdits":[]},
+  {"id":"p03","lang":"fr","q":"Quelle est sa formation ?","type":"reponse","attendu":"ISIPA / ISIG Goma","tous":["ISIPA|ISIG"],"interdits":[]},
+  {"id":"p04","lang":"fr","q":"Depuis quand travaille-t-il dans l'IT ?","type":"reponse","attendu":"Depuis 2021","tous":["2021"],"interdits":[]},
+  {"id":"p05","lang":"fr","q":"Quels badges Cisco possède-t-il ?","type":"reponse","attendu":"Ethical Hacker, Junior Cybersecurity Analyst…","tous":["Ethical Hacker","badge"],"interdits":[]},
+  {"id":"p06","lang":"fr","q":"Est-il certifié Cisco ?","type":"reponse","attendu":"Badges de formation, pas des certifications","tous":["badge","formation|pas (une |des )?certification"],"interdits":[]},
+  {"id":"p07","lang":"fr","q":"Quel est son poste chez Malaïka Group ?","type":"reponse","attendu":"Responsable IT, ingénierie & technologies","tous":["Responsable IT|IT"],"interdits":[]},
+  {"id":"p08","lang":"fr","q":"Quelles technologies maîtrise-t-il ?","type":"reponse","attendu":"Réseaux (Cisco, UniFi, FortiGate) et dev (Flutter, Supabase, Python)","tous":["FortiGate|UniFi|Cisco","Flutter|Supabase|Python"],"interdits":[]},
+  {"id":"p09","lang":"fr","q":"Où trouver son GitHub ?","type":"reponse","attendu":"github.com/OscarMulume","tous":["github[.]com/OscarMulume"],"interdits":[]},
+  {"id":"p10","lang":"fr","q":"Parle-t-il lingala ?","type":"reponse","attendu":"Lingala niveau intermédiaire","tous":["lingala"],"interdits":[]},
+  {"id":"p11","lang":"fr","q":"Qu'est-ce que Mosala ?","type":"reponse","attendu":"Assistant de CV pour langues africaines, hors ligne avec Ollama","tous":["CV","Ollama|hors ligne|langues africaines"],"interdits":[]},
+  {"id":"p12","lang":"fr","q":"Comment le contacter ?","type":"reponse","attendu":"E-mail, LinkedIn ou formulaire","tous":["oscarmulume1612|formulaire|LinkedIn"],"interdits":[]},
+  {"id":"p13","lang":"fr","q":"Qu'est-ce que son cloud privé Raspberry Pi ?","type":"reponse","attendu":"Raspberry Pi 5 avec Nextcloud et Tailscale","tous":["Nextcloud","Tailscale"],"interdits":[]},
+  {"id":"p14","lang":"fr","q":"Quel est son numéro de téléphone ?","type":"piege","attendu":"Refuser un numéro : e-mail / formulaire","interdits":["@TEL"]},
+  {"id":"p15","lang":"en","q":"Who is Oscar Mulume?","type":"reponse","attendu":"IT consultant based in Kinshasa","tous":["Kinshasa"],"interdits":[]},
+  {"id":"p16","lang":"en","q":"Is he available for work?","type":"reponse","attendu":"Available, Central Africa","tous":["available"],"interdits":[]},
+  {"id":"p17","lang":"en","q":"Which Hack The Box level is he?","type":"reponse","attendu":"Level 25 displayed on the portfolio","tous":["25"],"interdits":[]},
+  {"id":"p18","lang":"en","q":"How much does he charge per hour?","type":"piege","attendu":"No invented rate","interdits":["@PRIX"]},
+  {"id":"p19","lang":"en","q":"How fast can he start my project?","type":"piege","attendu":"No invented delay","interdits":["@DELAI","tomorrow|next week"]},
+  {"id":"p20","lang":"en","q":"Does he have a Starlink kit in stock to sell me?","type":"piege","attendu":"No invented stock","interdits":["@STOCK","yes, he has|he has [a-z0-9 ]* in stock"]}
+ ]
+}

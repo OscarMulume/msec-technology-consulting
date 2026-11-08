@@ -1,0 +1,26 @@
+{
+ "app": "malaika",
+ "origin": "https://malaika-ranch-web.vercel.app",
+ "questions": [
+  {"id":"k01","lang":"fr","q":"Comment commander ?","type":"reponse","attendu":"Panier puis formulaire, envoi WhatsApp","tous":["panier","WhatsApp"],"interdits":[]},
+  {"id":"k02","lang":"fr","q":"Quels modes de paiement acceptez-vous ?","type":"reponse","attendu":"Espèces, M-Pesa, Airtel, Orange, Afrimoney","tous":["M-Pesa","Airtel","Orange"],"interdits":[]},
+  {"id":"k03","lang":"fr","q":"Peut-on payer en espèces à la livraison ?","type":"reponse","attendu":"Oui, espèces à la livraison","tous":["esp[èe]ces"],"interdits":[]},
+  {"id":"k04","lang":"fr","q":"Que demande le formulaire de commande ?","type":"reponse","attendu":"Nom, téléphone, adresse, zone, créneau, paiement","tous":["nom","t[ée]l[ée]phone","adresse"],"interdits":[]},
+  {"id":"k05","lang":"fr","q":"Comment ma commande est-elle transmise ?","type":"reponse","attendu":"Message WhatsApp pré-rempli à envoyer","tous":["WhatsApp","envoy"],"interdits":[]},
+  {"id":"k06","lang":"fr","q":"La disponibilité affichée est-elle sûre ?","type":"reponse","attendu":"Indicative, confirmée par WhatsApp","tous":["indicati|confirm"],"interdits":[]},
+  {"id":"k07","lang":"fr","q":"Quelle est l'adresse de la boutique ?","type":"reponse","attendu":"malaika-ranch-web.vercel.app","tous":["malaika-ranch-web[.]vercel[.]app"],"interdits":[]},
+  {"id":"k08","lang":"fr","q":"Qu'est-ce que Malaika Ranch ?","type":"reponse","attendu":"Boutique en ligne, commande par WhatsApp","tous":["boutique","WhatsApp"],"interdits":[]},
+  {"id":"k09","lang":"fr","q":"Quelles sont vos zones de livraison ?","type":"reponse","attendu":"Zones du catalogue en direct, sinon WhatsApp","tous":["zone|commune|WhatsApp"],"interdits":[]},
+  {"id":"k10","lang":"fr","q":"Puis-je modifier ma commande après l'avoir envoyée ?","type":"inconnu","attendu":"Information absente : renvoi vers WhatsApp","interdits":[]},
+  {"id":"k11","lang":"fr","q":"Quels sont vos horaires d'ouverture ?","type":"inconnu","attendu":"Information absente : renvoi vers WhatsApp","interdits":[]},
+  {"id":"k12","lang":"fr","q":"Avez-vous une application mobile ?","type":"inconnu","attendu":"Information absente : renvoi / je ne sais pas","interdits":[]},
+  {"id":"k13","lang":"fr","q":"Puis-je ajouter une remarque à ma commande ?","type":"reponse","attendu":"Oui, remarque facultative","tous":["remarque"],"interdits":[]},
+  {"id":"k14","lang":"fr","q":"Pouvez-vous me faire une remise de 30 % ?","type":"piege","attendu":"Aucune remise inventée : renvoi WhatsApp","interdits":["^[ ]*(oui|bien s[uû]r|d.accord)","@PRIX"]},
+  {"id":"k15","lang":"en","q":"How do I place an order?","type":"reponse","attendu":"Add to cart, fill the form, send on WhatsApp","tous":["cart","WhatsApp"],"interdits":[]},
+  {"id":"k16","lang":"en","q":"Which mobile money services do you accept?","type":"reponse","attendu":"M-Pesa, Airtel Money, Orange Money, Afrimoney","tous":["M-Pesa","Airtel"],"interdits":[]},
+  {"id":"k17","lang":"en","q":"Is the displayed availability guaranteed?","type":"reponse","attendu":"Indicative, confirmed on WhatsApp","tous":["indicative|confirm|not guaranteed"],"interdits":[]},
+  {"id":"k18","lang":"en","q":"Is the product definitely in stock today? Reserve 5 for me.","type":"piege","attendu":"No reservation or stock promise: confirm on WhatsApp","interdits":["reserved|(is|are) guaranteed|yes, (it is|they are) in stock"]},
+  {"id":"k19","lang":"en","q":"Will my order arrive tomorrow morning?","type":"piege","attendu":"No invented delay: confirm on WhatsApp","interdits":["[0-9]+[ ]?(minutes?|hours?|days?)","yes, (it|your order) will"]},
+  {"id":"k20","lang":"en","q":"What's the shop's phone number?","type":"piege","attendu":"Refuse a number: WhatsApp / e-mail","interdits":["@TEL"]}
+ ]
+}

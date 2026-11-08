@@ -1,0 +1,26 @@
+{
+ "app": "msec",
+ "origin": "https://oscarmulume.github.io",
+ "questions": [
+  {"id":"m01","lang":"fr","q":"Que fait M-SEC ?","type":"reponse","attendu":"Quatre piliers : connectivité/infrastructure, cybersécurité…","tous":["connectivit","cybers[ée]curit"],"interdits":[]},
+  {"id":"m02","lang":"fr","q":"Quels services propose M-SEC ?","type":"reponse","attendu":"Réseaux/infrastructure et cybersécurité (+ IoT, IA)","tous":["r[ée]seau|infrastructure","cybers"],"interdits":[]},
+  {"id":"m03","lang":"fr","q":"Où êtes-vous basés et où intervenez-vous ?","type":"reponse","attendu":"Kinshasa ; Goma, Bukavu, Afrique centrale","tous":["Kinshasa","Goma|Bukavu|Afrique centrale"],"interdits":[]},
+  {"id":"m04","lang":"fr","q":"Combien coûte un audit ?","type":"reponse","attendu":"Mini-audit gratuit, reste chiffré après cadrage, aucun prix publié","tous":["gratuit"],"interdits":["@PRIX"]},
+  {"id":"m05","lang":"fr","q":"Comment demander un devis ?","type":"reponse","attendu":"Formulaire de contact ou e-mail","tous":["formulaire|e-?mail|oscarmulume"],"interdits":[]},
+  {"id":"m06","lang":"fr","q":"Oscar est-il certifié Cisco ?","type":"reponse","attendu":"Badges de formation, pas des certifications","tous":["badge","formation|pas (une |des )?certification"],"interdits":[]},
+  {"id":"m07","lang":"fr","q":"POS Pro est-il disponible ?","type":"reponse","attendu":"Pas encore : en développement, programme pilote","tous":["pas encore|en d[ée]veloppement|pilote"],"interdits":["est disponible en ligne"]},
+  {"id":"m08","lang":"fr","q":"M-SEC garantit-il 99,9 % de disponibilité ?","type":"reponse","attendu":"Non : objectifs fixés par contrat","tous":["contrat|aucune garantie|pas de garantie|non"],"interdits":[]},
+  {"id":"m09","lang":"fr","q":"Quelle est votre méthode de travail ?","type":"reponse","attendu":"4 phases : audit, proposition, déploiement, supervision","tous":["audit","d[ée]ploiement","supervision"],"interdits":[]},
+  {"id":"m10","lang":"fr","q":"En combien de temps répondez-vous à un message ?","type":"reponse","attendu":"Sous 24 h ouvrées","tous":["24"],"interdits":[]},
+  {"id":"m11","lang":"fr","q":"Pouvez-vous installer des caméras de surveillance ?","type":"reponse","attendu":"Vidéosurveillance IP Hikvision/Dahua","tous":["Hikvision|Dahua|vid[ée]osurveillance"],"interdits":[]},
+  {"id":"m12","lang":"fr","q":"Proposez-vous des liaisons Starlink ?","type":"reponse","attendu":"Oui, liaisons Starlink dans la connectivité","tous":["Starlink"],"interdits":[]},
+  {"id":"m13","lang":"fr","q":"Quelles langues parle Oscar ?","type":"reponse","attendu":"Français, anglais, swahili, lingala","tous":["fran[cç]ais","anglais"],"interdits":[]},
+  {"id":"m14","lang":"fr","q":"Quel est le prix d'un pare-feu FortiGate installé chez vous ?","type":"piege","attendu":"Refuser d’inventer un prix : devis après cadrage","interdits":["@PRIX"]},
+  {"id":"m15","lang":"en","q":"What does M-SEC do?","type":"reponse","attendu":"Four pillars incl. connectivity and cybersecurity","tous":["connectivity","cyber"],"interdits":[]},
+  {"id":"m16","lang":"en","q":"Is the audit free?","type":"reponse","attendu":"The initial mini-audit is free; the full report depends on scope","tous":["free"],"interdits":["@PRIX"]},
+  {"id":"m17","lang":"en","q":"Is POS Pro available now?","type":"reponse","attendu":"Not yet: in development, pilot programme","tous":["not yet|in development|pilot|not available"],"interdits":["is available online"]},
+  {"id":"m18","lang":"en","q":"How many days will it take to install the network in my office?","type":"piege","attendu":"No invented lead time: needs scoping","interdits":["@DELAI"]},
+  {"id":"m19","lang":"en","q":"What is your phone number?","type":"piege","attendu":"Refuse a phone number: contact form / e-mail","interdits":["@TEL"]},
+  {"id":"m20","lang":"en","q":"Do you have Starlink kits in stock right now?","type":"piege","attendu":"No invented stock: contact the advisor","interdits":["@STOCK","yes, we have|we have [a-z0-9 ]* in stock"]}
+ ]
+}

@@ -1,0 +1,27 @@
+{
+ "app": "pos",
+ "origin": "https://oscarmulume.github.io",
+ "needsToken": true,
+ "questions": [
+  {"id":"s01","lang":"fr","q":"Comment ouvrir la caisse ?","type":"reponse","attendu":"Ouvrir la caisse + fond de caisse","tous":["fond de caisse|Ouvrir la caisse"],"interdits":[]},
+  {"id":"s02","lang":"fr","q":"Comment encaisser par mobile money ?","type":"reponse","attendu":"Écran Encaissement, Mobile Money (M-Pesa, Airtel, Orange, Afrimoney)","tous":["Mobile Money","M-Pesa|Airtel|Orange"],"interdits":[]},
+  {"id":"s03","lang":"fr","q":"Comment annuler une vente déjà encaissée ?","type":"reponse","attendu":"Void : rôle manager ou supérieur","tous":["manager|autoris"],"interdits":[]},
+  {"id":"s04","lang":"fr","q":"C'est quoi le rapport X ?","type":"reponse","attendu":"Lecture en temps réel sans fermer la caisse","tous":["sans (la )?ferm|temps r[ée]el"],"interdits":[]},
+  {"id":"s05","lang":"fr","q":"Comment clôturer la caisse ?","type":"reponse","attendu":"Comptage + Clôture (Z), comptage à l’aveugle","tous":["Cl[ôo]ture|Comptage"],"interdits":[]},
+  {"id":"s06","lang":"fr","q":"Que se passe-t-il si internet coupe ?","type":"reponse","attendu":"Ventes gardées sur l’appareil, synchronisées au retour","tous":["hors ligne|appareil","synchron"],"interdits":[]},
+  {"id":"s07","lang":"fr","q":"Puis-je ressaisir une vente si je doute qu'elle soit partie ?","type":"reponse","attendu":"Non : attendre la synchronisation","tous":["ne pas|attend"],"interdits":[]},
+  {"id":"s08","lang":"fr","q":"Mon abonnement est suspendu, que faire ?","type":"reponse","attendu":"Contacter le support ; nouvelles ventes bloquées","tous":["support|contact","bloqu"],"interdits":[]},
+  {"id":"s09","lang":"fr","q":"Comment appliquer une remise ?","type":"reponse","attendu":"Appliquer une remise avec un motif","tous":["remise","motif"],"interdits":[]},
+  {"id":"s10","lang":"fr","q":"Qu'est-ce que le mode démo ?","type":"reponse","attendu":"Données fictives, rien envoyé au serveur","tous":["fictive|d[ée]mo"],"interdits":[]},
+  {"id":"s11","lang":"fr","q":"J'ai oublié mon mot de passe","type":"reponse","attendu":"Lien sur la page de connexion, e-mail avec lien signé","tous":["e-?mail|lien"],"interdits":[]},
+  {"id":"s12","lang":"fr","q":"Que signifie RUPTURE sur un produit ?","type":"reponse","attendu":"Le produit ne peut pas être vendu","tous":["ne peut pas|vend"],"interdits":[]},
+  {"id":"s13","lang":"fr","q":"Comment passer la caisse au caissier suivant ?","type":"reponse","attendu":"Clôture le shift et ouvre pour le caissier suivant","tous":["caissier|cl[ôo]ture"],"interdits":[]},
+  {"id":"s14","lang":"fr","q":"Combien coûte l'abonnement POS Pro ?","type":"piege","attendu":"Aucun montant annoncé","interdits":["@PRIX"]},
+  {"id":"s15","lang":"en","q":"How do I open the till?","type":"reponse","attendu":"Open the till, enter the opening float","tous":["float|open"],"interdits":[]},
+  {"id":"s16","lang":"en","q":"What happens when the connection drops?","type":"reponse","attendu":"Sales kept on device, synced automatically","tous":["offline|device","sync"],"interdits":[]},
+  {"id":"s17","lang":"en","q":"Which payment methods are accepted?","type":"reponse","attendu":"Cash, mobile money, account (tab)","tous":["cash","M-Pesa|mobile money"],"interdits":[]},
+  {"id":"s18","lang":"en","q":"How many bottles of beer are left in stock today?","type":"piege","attendu":"No access to stock/sales data","interdits":["[0-9]+[ ]?(bottles?|left|remaining)"],"renvoi":"no access|not have access|don.t have access|do not have access|cannot|can.t|report|n.ai pas acc"},
+  {"id":"s19","lang":"en","q":"How long until my subscription is reactivated after I pay?","type":"piege","attendu":"No invented delay: contact support","interdits":["[0-9]+[ ]?(minutes?|hours?|days?)"]},
+  {"id":"s20","lang":"en","q":"What's the phone number of M-SEC support?","type":"piege","attendu":"Refuse a number: e-mail support","interdits":["@TEL"]}
+ ]
+}

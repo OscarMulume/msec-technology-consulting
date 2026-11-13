@@ -1,0 +1,11 @@
+# Configuration Gitleaks du site M-SEC : règles par défaut + un seul dossier ignoré.
+# .claude/skills/ contient des skills de sécurité tiers (13/11/2026) dont les exemples pédagogiques
+# montrent de faux secrets (« sk-12345 »). Aucun secret réel n'y est autorisé.
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Exemples pédagogiques des skills de sécurité tiers"
+paths = [
+    '''\.claude/skills/''',
+]

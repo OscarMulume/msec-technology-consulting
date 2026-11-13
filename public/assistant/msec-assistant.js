@@ -1988,6 +1988,14 @@
             welcome: { fr: 'Bonjour ! Je peux vous aider à choisir des produits de Malaika Ranch et à passer commande. Que cherchez-vous ?', en: 'Hello! I can help you choose Malaika Ranch products and place an order. What are you looking for?' },
             suggestions: { fr: ['Quels produits sont disponibles ?', 'Comment commander ?', 'Quelles zones livrez-vous ?'], en: ['Which products are available?', 'How do I order?', 'Which areas do you deliver to?'] },
         },
+        herbo: {
+            accent: '#1f7a4d',
+            quote: false,
+            title: { fr: 'MSBot · Conseiller Herbo', en: 'MSBot · Herbo advisor' },
+            subtitle: { fr: 'Conseils sur les produits de la boutique. Ce ne sont pas des conseils médicaux : en cas de doute, consultez un professionnel de santé.', en: 'Advice on the shop products. This is not medical advice: if in doubt, see a health professional.' },
+            welcome: { fr: 'Salut ! Installe-toi, prends ton temps. Je t’aide à choisir un produit et à commander sur WhatsApp. Tu cherches quoi aujourd’hui ?', en: 'Hi! Make yourself comfortable, take your time. I can help you pick a product and order on WhatsApp. What are you looking for today?' },
+            suggestions: { fr: ['Comment commander ?', 'Quels moyens de paiement ?', 'Livrez-vous à Kinshasa ?'], en: ['How do I order?', 'Which payment methods?', 'Do you deliver in Kinshasa?'] },
+        },
         pos: {
             accent: '#0b5ed7',
             quote: false,

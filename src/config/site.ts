@@ -50,7 +50,8 @@ export function absoluteMedia(file: string): string {
   return `${SITE.origin}${base}/${clean}`;
 }
 
-export const whatsappNumber = import.meta.env.PUBLIC_WHATSAPP_NUMBER;
+// Numero WhatsApp d'Oscar (confirme le 13/11/2026) : la variable de build peut le remplacer, sinon on reprend SITE.phone.
+export const whatsappNumber = import.meta.env.PUBLIC_WHATSAPP_NUMBER || SITE.phone;
 
 export function whatsappLink(text: string): string | null {
   const digits = (whatsappNumber || '').replace(/[^\d]/g, '');

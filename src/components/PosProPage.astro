@@ -1,0 +1,159 @@
+---
+import { SITE, whatsappLink, type Locale } from '../config/site';
+import fr from '../content/pospro.fr.json';
+import en from '../content/pospro.en.json';
+import { getDict } from '../i18n/utils';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const c = locale === 'en' ? en : fr;
+const dict = getDict(locale);
+const phone = SITE.phone.replace(/ /g, '\u00a0');
+const newTab = `(${dict.common.opensNewTab})`;
+const wa = (text: string) => whatsappLink(text) ?? SITE.phoneHref;
+const waKey = (key: string) => wa(key === 'supermarket' ? c.whatsapp.supermarket : c.whatsapp.restaurant);
+---
+
+<div class="pospro">
+  <section class="section pospro-hero">
+    <div class="container">
+      <p class="eyebrow">{c.hero.eyebrow}</p>
+      <h1 class="pospro-hero__title">{c.hero.title}</h1>
+      <p class="pospro-hero__desc">{c.hero.desc}</p>
+      <div class="btn-row">
+        <a class="btn btn--primary" data-msbot="whatsapp" href={wa(c.whatsapp.demo)} target="_blank" rel="noopener noreferrer" aria-label={`${c.hero.ctaWhatsapp} ${newTab}`}>{c.hero.ctaWhatsapp}</a>
+        <a class="btn btn--secondary" data-msbot="phone" href={SITE.phoneHref} aria-label={`${c.hero.ctaCall} ${SITE.phone}`}>{c.hero.ctaCall}</a>
+      </div>
+      <p class="pospro-hero__note">{c.hero.note}</p>
+    </div>
+  </section>
+
+  <section class="section section--soft" aria-labelledby="editions-title">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">{c.editions.label}</p>
+        <h2 class="section-title" id="editions-title">{c.editions.title}</h2>
+        <p class="section-desc">{c.editions.desc}</p>
+      </div>
+      <div class="pospro-grid pospro-grid--2">
+        {c.editions.items.map((edition) => (
+          <article class="pospro-card">
+            <p class="product-card__tag">{edition.tag}</p>
+            <h3>{edition.name}</h3>
+            <ul class="pospro-list">
+              {edition.points.map((point) => <li>{point}</li>)}
+            </ul>
+            <a class="btn btn--secondary" href={waKey(edition.key)} target="_blank" rel="noopener noreferrer" aria-label={`${c.editions.cta} ${edition.name} ${newTab}`}>{c.editions.cta}</a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="features-title">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">{c.features.label}</p>
+        <h2 class="section-title" id="features-title">{c.features.title}</h2>
+      </div>
+      <div class="pospro-grid pospro-grid--4">
+        {c.features.items.map((feature) => (
+          <article class="pospro-card pospro-card--flat">
+            <h3>{feature.title}</h3>
+            <p>{feature.desc}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--soft" aria-labelledby="plans-title">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">{c.plans.label}</p>
+        <h2 class="section-title" id="plans-title">{c.plans.title}</h2>
+        <p class="section-desc">{c.plans.desc}</p>
+      </div>
+      <div class="pospro-grid pospro-grid--3">
+        {c.plans.items.map((plan) => (
+          <article class="pospro-card">
+            <p class="product-card__tag">{plan.for}</p>
+            <h3>{plan.name}</h3>
+            <p class="pospro-price">{c.plans.price}</p>
+            <ul class="pospro-list">
+              {plan.points.map((point) => <li>{point}</li>)}
+            </ul>
+            <a class="btn btn--primary" href={wa(`${c.whatsapp.plan} ${plan.name}`)} target="_blank" rel="noopener noreferrer" aria-label={`${c.plans.cta} ${plan.name} ${newTab}`}>{c.plans.cta}</a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="steps-title">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">{c.steps.label}</p>
+        <h2 class="section-title" id="steps-title">{c.steps.title}</h2>
+      </div>
+      <ol class="pospro-grid pospro-grid--4 pospro-steps">
+        {c.steps.items.map((step, index) => (
+          <li class="pospro-card pospro-card--flat">
+            <span class="pospro-steps__num" aria-hidden="true">{index + 1}</span>
+            <h3>{step.title}</h3>
+            <p>{step.desc}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section section--soft" id="contact" aria-labelledby="contact-title">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">{c.contact.label}</p>
+        <h2 class="section-title" id="contact-title">{c.contact.title}</h2>
+        <p class="section-desc">{c.contact.desc}</p>
+      </div>
+      <dl class="pospro-contact">
+        <div><dt>{c.contact.whatsapp}</dt><dd><a href={wa(c.whatsapp.demo)} target="_blank" rel="noopener noreferrer" aria-label={`${c.contact.whatsapp} ${SITE.phone} ${newTab}`}>{phone}</a></dd></div>
+        <div><dt>{c.contact.phone}</dt><dd><a href={SITE.phoneHref}>{phone}</a></dd></div>
+        <div><dt>{c.contact.email}</dt><dd><a href={`mailto:${SITE.email}`}>{SITE.email}</a></dd></div>
+        <div><dt>{c.contact.address}</dt><dd>{SITE.location}</dd></div>
+      </dl>
+    </div>
+  </section>
+</div>
+
+<style>
+  .pospro-hero { padding-block: clamp(3rem, 8vw, 6rem) clamp(2rem, 5vw, 3.5rem); }
+  .pospro-hero__title { font-size: clamp(2rem, 5vw, 3.25rem); line-height: 1.1; max-width: 22ch; margin-block: 0.5rem 1rem; }
+  .pospro-hero__desc { font-size: 1.125rem; max-width: 60ch; margin-bottom: 1.5rem; }
+  .pospro-hero__note { margin-top: 1rem; font-size: 0.95rem; color: var(--ms-text-secondary); }
+  .pospro-grid { display: grid; gap: 1.25rem; list-style: none; padding: 0; margin: 0; }
+  .pospro-grid--2 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); }
+  .pospro-grid--3 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); }
+  .pospro-grid--4 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); }
+  .pospro-card {
+    display: flex; flex-direction: column; gap: 0.75rem; padding: 1.5rem;
+    background: var(--ms-surface); border: 1px solid var(--ms-border);
+    border-radius: var(--ms-radius-lg);
+  }
+  .pospro-card h3 { margin: 0; font-size: 1.2rem; }
+  .pospro-card p { margin: 0; }
+  .pospro-card .btn { margin-top: auto; align-self: flex-start; min-height: 44px; }
+  .pospro-list { margin: 0; padding-left: 1.2rem; display: grid; gap: 0.4rem; }
+  .pospro-price { font-size: 1.5rem; font-weight: 700; }
+  .pospro-steps__num {
+    display: inline-grid; place-items: center; width: 2.25rem; height: 2.25rem; border-radius: 50%;
+    background: var(--ms-accent); color: var(--ms-accent-contrast); font-weight: 700;
+  }
+  .pospro-contact { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr)); margin: 0; }
+  .pospro-contact div { padding: 1.25rem; border-radius: var(--ms-radius-lg); background: var(--ms-surface); border: 1px solid var(--ms-border); }
+  .pospro-contact dt { font-size: 0.875rem; color: var(--ms-text-secondary); margin-bottom: 0.25rem; }
+  .pospro-contact dd { margin: 0; font-weight: 600; overflow-wrap: anywhere; }
+  .pospro-contact a { min-height: 44px; display: inline-flex; align-items: center; }
+</style>

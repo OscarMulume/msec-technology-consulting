@@ -119,6 +119,9 @@ const productCodes = ['POS', 'H', 'MI'];
             <p class="product-card__tag">{product.tag}</p>
             <h3>{product.name}</h3>
             <p class="product-card__description">{product.description}</p>
+            {index === 0 && (
+              <a class="product-card__link" href={localePath(locale, 'pos-pro/')}>{home.products.discover}<span aria-hidden="true">→</span></a>
+            )}
             {product.cta && (
               <a class="product-card__link" href="#pilot">{product.cta}<span aria-hidden="true">→</span></a>
             )}

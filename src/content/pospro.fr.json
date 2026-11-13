@@ -1,0 +1,97 @@
+{
+  "meta": {
+    "title": "POS Pro — Caisse pour restaurants et supermarchés en RDC",
+    "description": "POS Pro, la caisse de M-SEC pour restaurants, bars, supermarchés et boutiques en RDC : hors ligne, CDF et USD, mobile money, stock, codes-barres et rapports. Demandez une démonstration sur WhatsApp."
+  },
+  "hero": {
+    "eyebrow": "POS Pro par M-SEC",
+    "title": "La caisse qui continue de vendre, même quand internet coupe.",
+    "desc": "Pour les restaurants, bars, supermarchés et boutiques de RDC : encaissement en CDF et USD, mobile money, stock et rapports, sur ordinateur Windows, tablette ou téléphone Android.",
+    "ctaWhatsapp": "Demander une démo sur WhatsApp",
+    "ctaCall": "Appeler",
+    "note": "Programme pilote ouvert : installation et formation accompagnées à Kinshasa."
+  },
+  "whatsapp": {
+    "demo": "Bonjour M-SEC, je souhaite une démonstration de POS Pro pour mon commerce.",
+    "restaurant": "Bonjour M-SEC, je souhaite une démonstration de POS Pro Restaurant.",
+    "supermarket": "Bonjour M-SEC, je souhaite une démonstration de POS Pro Supermarché.",
+    "plan": "Bonjour M-SEC, je souhaite un devis pour l'offre POS Pro :"
+  },
+  "editions": {
+    "label": "Deux éditions",
+    "title": "Choisissez l'édition adaptée à votre commerce",
+    "desc": "Un seul logiciel : l'abonnement active l'édition Restaurant, l'édition Supermarché, ou les deux.",
+    "cta": "Démo de cette édition",
+    "items": [
+      {
+        "key": "restaurant",
+        "tag": "Restaurants, bars, cafés, fast-foods",
+        "name": "POS Pro Restaurant",
+        "points": [
+          "Plan de salle, tables et commandes par serveur sur téléphone",
+          "Envoi en cuisine et au bar par poste, écran cuisine",
+          "Options de plat (cuisson, suppléments), services entrée / plat / dessert",
+          "Division et fusion d'addition, pourboires, à emporter et livraison",
+          "Réservations"
+        ]
+      },
+      {
+        "key": "supermarket",
+        "tag": "Supermarchés, superettes, boutiques, quincailleries",
+        "name": "POS Pro Supermarché",
+        "points": [
+          "Caisse rapide au clavier et à la douchette, vente au poids",
+          "Codes-barres EAN, UPC et Code 128, étiquettes et codes internes",
+          "Stock multi-dépôts, lots et dates de péremption, inventaire par scan",
+          "Achats fournisseurs, réceptions, factures et dettes",
+          "Promotions, coupons, fidélité à points et cartes cadeaux"
+        ]
+      }
+    ]
+  },
+  "features": {
+    "label": "Commun aux deux éditions",
+    "title": "Pensé pour les réalités du terrain congolais",
+    "items": [
+      { "title": "Hors ligne d'abord", "desc": "La caisse continue d'encaisser sans internet et synchronise dès que la connexion revient." },
+      { "title": "CDF et USD", "desc": "Prix et paiements dans les deux devises, au taux du jour que vous saisissez." },
+      { "title": "Mobile money de la RDC", "desc": "M-Pesa, Airtel Money, Orange Money et Afrimoney, en plus des espèces et du rendu de monnaie." },
+      { "title": "Tickets et périphériques", "desc": "Imprimantes de tickets ESC/POS 58 et 80 mm, tiroir-caisse, douchette, afficheur client et balance." },
+      { "title": "Rapports et pilotage", "desc": "Rapports X et Z, ventes par produit, caissier et heure, marges, ruptures et péremptions à venir." },
+      { "title": "Sécurité", "desc": "Rôles et permissions, code PIN du gérant pour les actions sensibles, journal d'audit, sauvegardes chiffrées quotidiennes." },
+      { "title": "Facture normalisée DGI", "desc": "Numérotation sans trou, factures non modifiables et rapport Z préparés ; raccordement au dispositif e-MCF après homologation par la DGI." },
+      { "title": "Tous vos appareils", "desc": "Application Windows, application Android et version web installable sur iPhone." }
+    ]
+  },
+  "plans": {
+    "label": "Offres",
+    "title": "Des offres selon la taille de votre commerce",
+    "desc": "Les tarifs sont communiqués sur devis pendant le programme pilote. Demandez le vôtre sur WhatsApp : réponse sous un jour ouvré.",
+    "price": "Sur devis",
+    "cta": "Demander un devis",
+    "items": [
+      { "name": "Essentiel", "for": "Petit commerce", "points": ["1 caisse", "1 point de vente", "Édition Restaurant ou Supermarché"] },
+      { "name": "Pro", "for": "Commerce en croissance", "points": ["Plusieurs caisses en parallèle", "1 point de vente", "Périphériques et rapports avancés"] },
+      { "name": "Multi-magasins", "for": "Chaînes et groupes", "points": ["Plusieurs points de vente", "Vue siège consolidée", "Transferts de stock entre magasins"] }
+    ]
+  },
+  "steps": {
+    "label": "Comment démarrer",
+    "title": "De la démonstration à votre première vente",
+    "items": [
+      { "title": "Démonstration", "desc": "Écrivez-nous sur WhatsApp : nous vous montrons POS Pro avec un exemple proche de votre commerce." },
+      { "title": "Installation", "desc": "Nous installons POS Pro sur vos appareils et importons vos produits." },
+      { "title": "Formation", "desc": "Vos caissiers et votre gérant sont formés sur place." },
+      { "title": "Suivi", "desc": "Assistance par WhatsApp et téléphone pendant le pilote." }
+    ]
+  },
+  "contact": {
+    "label": "Contact",
+    "title": "Parlons de votre commerce",
+    "desc": "M-SEC Technology Consulting, Kinshasa. Écrivez-nous ou appelez-nous.",
+    "whatsapp": "WhatsApp",
+    "phone": "Téléphone",
+    "email": "E-mail",
+    "address": "Adresse"
+  }
+}

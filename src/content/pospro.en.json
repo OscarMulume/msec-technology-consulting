@@ -1,0 +1,97 @@
+{
+  "meta": {
+    "title": "POS Pro — Point of sale for restaurants and supermarkets in the DRC",
+    "description": "POS Pro, M-SEC's point of sale for restaurants, bars, supermarkets and shops in the DRC: offline, CDF and USD, mobile money, stock, barcodes and reports. Ask for a demo on WhatsApp."
+  },
+  "hero": {
+    "eyebrow": "POS Pro by M-SEC",
+    "title": "The point of sale that keeps selling, even when the internet drops.",
+    "desc": "For restaurants, bars, supermarkets and shops in the DRC: CDF and USD payments, mobile money, stock and reports, on a Windows computer, an Android tablet or phone.",
+    "ctaWhatsapp": "Ask for a demo on WhatsApp",
+    "ctaCall": "Call",
+    "note": "Pilot programme open: guided installation and training in Kinshasa."
+  },
+  "whatsapp": {
+    "demo": "Hello M-SEC, I would like a demo of POS Pro for my business.",
+    "restaurant": "Hello M-SEC, I would like a demo of POS Pro Restaurant.",
+    "supermarket": "Hello M-SEC, I would like a demo of POS Pro Supermarket.",
+    "plan": "Hello M-SEC, I would like a quote for the POS Pro plan:"
+  },
+  "editions": {
+    "label": "Two editions",
+    "title": "Pick the edition that fits your business",
+    "desc": "One software: your subscription turns on the Restaurant edition, the Supermarket edition, or both.",
+    "cta": "Demo of this edition",
+    "items": [
+      {
+        "key": "restaurant",
+        "tag": "Restaurants, bars, cafés, fast food",
+        "name": "POS Pro Restaurant",
+        "points": [
+          "Floor plan, tables and waiter orders on a phone",
+          "Kitchen and bar tickets by station, kitchen screen",
+          "Dish options (cooking, extras), starter / main / dessert courses",
+          "Split and merge bills, tips, takeaway and delivery",
+          "Reservations"
+        ]
+      },
+      {
+        "key": "supermarket",
+        "tag": "Supermarkets, convenience stores, shops, hardware stores",
+        "name": "POS Pro Supermarket",
+        "points": [
+          "Fast checkout with keyboard and scanner, sales by weight",
+          "EAN, UPC and Code 128 barcodes, labels and internal codes",
+          "Multi-warehouse stock, batches and expiry dates, scan stocktakes",
+          "Supplier purchasing, receipts, invoices and payables",
+          "Promotions, coupons, loyalty points and gift cards"
+        ]
+      }
+    ]
+  },
+  "features": {
+    "label": "In both editions",
+    "title": "Built for the realities of the Congolese market",
+    "items": [
+      { "title": "Offline first", "desc": "The till keeps taking payments without internet and syncs as soon as the connection returns." },
+      { "title": "CDF and USD", "desc": "Prices and payments in both currencies, at the daily rate you enter." },
+      { "title": "DRC mobile money", "desc": "M-Pesa, Airtel Money, Orange Money and Afrimoney, plus cash and change." },
+      { "title": "Receipts and devices", "desc": "ESC/POS receipt printers 58 and 80 mm, cash drawer, scanner, customer display and scale." },
+      { "title": "Reports and insights", "desc": "X and Z reports, sales by product, cashier and hour, margins, stockouts and upcoming expiries." },
+      { "title": "Security", "desc": "Roles and permissions, manager PIN for sensitive actions, audit log, daily encrypted backups." },
+      { "title": "DGI standardised invoice", "desc": "Gapless numbering, locked invoices and Z report prepared; connection to the e-MCF device after DGI approval." },
+      { "title": "All your devices", "desc": "Windows app, Android app and an installable web version for iPhone." }
+    ]
+  },
+  "plans": {
+    "label": "Plans",
+    "title": "Plans for every business size",
+    "desc": "Prices are quoted on request during the pilot programme. Ask for yours on WhatsApp: reply within one business day.",
+    "price": "On request",
+    "cta": "Ask for a quote",
+    "items": [
+      { "name": "Essential", "for": "Small business", "points": ["1 till", "1 store", "Restaurant or Supermarket edition"] },
+      { "name": "Pro", "for": "Growing business", "points": ["Several tills in parallel", "1 store", "Devices and advanced reports"] },
+      { "name": "Multi-store", "for": "Chains and groups", "points": ["Several stores", "Consolidated head-office view", "Stock transfers between stores"] }
+    ]
+  },
+  "steps": {
+    "label": "Getting started",
+    "title": "From the demo to your first sale",
+    "items": [
+      { "title": "Demo", "desc": "Message us on WhatsApp: we show you POS Pro with an example close to your business." },
+      { "title": "Installation", "desc": "We install POS Pro on your devices and import your products." },
+      { "title": "Training", "desc": "Your cashiers and manager are trained on site." },
+      { "title": "Support", "desc": "WhatsApp and phone support during the pilot." }
+    ]
+  },
+  "contact": {
+    "label": "Contact",
+    "title": "Let's talk about your business",
+    "desc": "M-SEC Technology Consulting, Kinshasa. Message or call us.",
+    "whatsapp": "WhatsApp",
+    "phone": "Phone",
+    "email": "Email",
+    "address": "Address"
+  }
+}

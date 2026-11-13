@@ -1,0 +1,9 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PosProPage from '../components/PosProPage.astro';
+import content from '../content/pospro.fr.json';
+---
+
+<BaseLayout locale="fr" title={content.meta.title} description={content.meta.description} frPath="/pos-pro/" enPath="/en/pos-pro/">
+  <PosProPage locale="fr" />
+</BaseLayout>

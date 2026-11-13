@@ -16,6 +16,8 @@ function staticEntries(): SitemapEntry[] {
     { path: '/en/', changefreq: 'monthly', priority: '1.0' },
     { path: '/blog/', changefreq: 'weekly', priority: '0.7' },
     { path: '/en/blog/', changefreq: 'weekly', priority: '0.7' },
+    { path: '/pos-pro/', changefreq: 'monthly', priority: '0.9' },
+    { path: '/en/pos-pro/', changefreq: 'monthly', priority: '0.9' },
     { path: '/mentions-legales/', changefreq: 'yearly', priority: '0.3' },
     { path: '/en/legal-notice/', changefreq: 'yearly', priority: '0.3' },
     { path: '/confidentialite/', changefreq: 'yearly', priority: '0.3' },

@@ -163,6 +163,21 @@
         ]
       }
     },
+    "studio": {
+      "label": "Accompagnement de projets",
+      "title": "Votre projet innovant, de l'idée à la mise en ligne",
+      "desc": "M-SEC n'est pas seulement un prestataire IT : nous accompagnons les porteurs de projets innovants — entrepreneurs, startups, associations — pour transformer une idée en produit en ligne, puis l'aider à grandir.",
+      "items": [
+        { "icon": "💡", "title": "Cadrage & conception", "text": "On clarifie l'idée, le public visé et le modèle, et on en tire un plan réalisable, étape par étape." },
+        { "icon": "🧩", "title": "Développement de sites & apps intégrés", "text": "Sites, boutiques et applications web ou mobiles, avec paiements, base de données et espace d'administration." },
+        { "icon": "🚀", "title": "Publication & déploiement", "text": "Mise en ligne sur des hébergements fiables, nom de domaine, et remise propre du code et des données." },
+        { "icon": "📣", "title": "Partage & visibilité", "text": "Préparation au partage : présentation claire du projet, bases de référencement et supports de communication." },
+        { "icon": "🤝", "title": "Mise en relation investisseurs", "text": "Nous aidons à structurer la présentation du projet pour des partenaires et investisseurs potentiels." },
+        { "icon": "🛡️", "title": "Sécurité & pérennité", "text": "Chaque projet est livré documenté, sauvegardable et sécurisé, pensé pour durer." }
+      ],
+      "note": "Nous accompagnons le développement, la publication et la préparation à la mise en relation. Nous ne garantissons pas de financement : nous aidons à présenter le projet de la façon la plus solide possible.",
+      "cta": "Présenter mon projet"
+    },
     "services": {
       "label": "Expertise technique",
       "title": "Nos 4 piliers d'expertise",
@@ -335,7 +350,9 @@
         { "icon": "🌐", "domain": "Réseau & infrastructure", "title": "Cisco Networking Academy", "text": "Badge Cisco Networking Academy « Networking Devices and Initial Configuration » (mars 2026). Une preuve vérifiable des fondations réseau appliquées à chaque architecture." },
         { "icon": "🛡️", "domain": "Cybersécurité offensive", "title": "Hack The Box & Kali Linux", "text": "Pratique continue sur Hack The Box Academy et sur Kali Linux sous WSL ; le badge Cisco Ethical Hacker, vérifiable sur Credly, en est une preuve. Des compétences offensives au service de votre défense." },
         { "icon": "🤖", "domain": "Intelligence artificielle", "title": "Grant AI Skills & Compute Africa", "text": "Obtenu en juillet 2026 pour le fine-tuning de modèles de langage et d'agents autonomes, complété par la Data Science Africa Summer School (Université Makerere)." },
-        { "icon": "🎓", "domain": "Fondations académiques", "title": "Licence en Sciences Informatiques — ISIPA", "text": "Un socle théorique solide qui garantit des livrables rigoureux, documentés et pérennes." }
+        { "icon": "🎓", "domain": "Fondations académiques", "title": "Licence en Sciences Informatiques — ISIPA", "text": "Un socle théorique solide qui garantit des livrables rigoureux, documentés et pérennes." },
+        { "icon": "🌍", "domain": "Gouvernance & sécurité Internet", "title": "Internet Society — 15 parcours", "text": "10 certificats et 5 badges Internet Society (gouvernance d'Internet, Online Trust & Safety, connectivité communautaire), vérifiables sur des pages publiques Accredible." },
+        { "icon": "📡", "domain": "Formations professionnelles", "title": "Liquid, UNHCR & CTF", "text": "Souveraineté des données et risques de l'IA (Liquid Intelligent Technologies), communications de sécurité VHF/UHF (UNHCR RETS) et participation à un CTF de cybersécurité." }
       ],
       "note": "Chaque badge et chaque validation se traduit par un bénéfice concret : des architectures plus sûres, des systèmes audités selon des standards reconnus et une veille permanente sur les menaces émergentes."
     },

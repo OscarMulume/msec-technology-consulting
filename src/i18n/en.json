@@ -163,6 +163,21 @@
         ]
       }
     },
+    "studio": {
+      "label": "Project acceleration",
+      "title": "Your innovative project, from idea to launch",
+      "desc": "M-SEC is not only an IT provider: we support innovative project owners — entrepreneurs, startups, non-profits — to turn an idea into a live product, then help it grow.",
+      "items": [
+        { "icon": "💡", "title": "Scoping & design", "text": "We clarify the idea, the target audience and the model, and turn it into a realistic, step-by-step plan." },
+        { "icon": "🧩", "title": "Integrated sites & apps", "text": "Websites, shops and web or mobile apps, with payments, a database and an admin area." },
+        { "icon": "🚀", "title": "Publishing & deployment", "text": "Going live on reliable hosting, a domain name, and a clean handover of the code and data." },
+        { "icon": "📣", "title": "Sharing & visibility", "text": "Getting ready to share: a clear project presentation, SEO basics and communication materials." },
+        { "icon": "🤝", "title": "Connecting with investors", "text": "We help structure the project's presentation for potential partners and investors." },
+        { "icon": "🛡️", "title": "Security & durability", "text": "Every project ships documented, backup-ready and secured, built to last." }
+      ],
+      "note": "We support development, publishing and preparation for introductions. We do not guarantee funding: we help present the project as strongly as possible.",
+      "cta": "Pitch my project"
+    },
     "services": {
       "label": "Technical expertise",
       "title": "Our 4 areas of expertise",
@@ -335,7 +350,9 @@
         { "icon": "🌐", "domain": "Network & infrastructure", "title": "Cisco Networking Academy", "text": "Cisco Networking Academy badge “Networking Devices and Initial Configuration” (March 2026). Verifiable proof of network fundamentals applied to every architecture." },
         { "icon": "🛡️", "domain": "Offensive cybersecurity", "title": "Hack The Box & Kali Linux", "text": "Continuous practice on Hack The Box Academy and on Kali Linux under WSL; the Cisco Ethical Hacker badge, verifiable on Credly, is evidence of it. Offensive skills serving your defence." },
         { "icon": "🤖", "domain": "Artificial intelligence", "title": "Grant AI Skills & Compute Africa", "text": "Awarded in July 2026 for fine-tuning language models and autonomous agents, complemented by the Data Science Africa Summer School (Makerere University)." },
-        { "icon": "🎓", "domain": "Academic foundations", "title": "Bachelor's degree in Computer Science — ISIPA", "text": "A strong theoretical foundation ensuring rigorous, documented and durable deliverables." }
+        { "icon": "🎓", "domain": "Academic foundations", "title": "Bachelor's degree in Computer Science — ISIPA", "text": "A strong theoretical foundation ensuring rigorous, documented and durable deliverables." },
+        { "icon": "🌍", "domain": "Internet governance & safety", "title": "Internet Society — 15 tracks", "text": "10 certificates and 5 badges from the Internet Society (Internet governance, Online Trust & Safety, community connectivity), verifiable on public Accredible pages." },
+        { "icon": "📡", "domain": "Professional training", "title": "Liquid, UNHCR & CTF", "text": "Data sovereignty and AI risk (Liquid Intelligent Technologies), VHF/UHF security communications (UNHCR RETS) and participation in a cybersecurity CTF." }
       ],
       "note": "Each badge and each validation translates into a concrete benefit: safer architectures, systems audited against recognised standards and continuous monitoring of emerging threats."
     },

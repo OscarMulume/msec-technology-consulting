@@ -178,6 +178,17 @@
       "note": "Nous accompagnons le développement, la publication et la préparation à la mise en relation. Nous ne garantissons pas de financement : nous aidons à présenter le projet de la façon la plus solide possible.",
       "cta": "Présenter mon projet"
     },
+    "downloads": {
+      "label": "Téléchargements",
+      "title": "Installez et testez POS Pro",
+      "desc": "Essayez la caisse POS Pro sur votre appareil. La version web fonctionne partout, sans installation ; elle s'ajoute à l'écran d'accueil comme une application.",
+      "items": [
+        { "icon": "🌐", "name": "Web — iPhone, iPad & PC", "note": "Ouvre dans le navigateur ; sur iPhone : Partager → « Sur l'écran d'accueil ».", "cta": "Ouvrir la caisse", "url": "https://pos-pro-caisse.onrender.com/?demo=resto" },
+        { "icon": "📱", "name": "Android (.apk)", "note": "Installation directe du fichier.", "cta": "Télécharger l'APK", "url": "https://github.com/OscarMulume/pos_msec/releases/download/demo/pos-pro-debug.apk" },
+        { "icon": "💻", "name": "Windows (.exe)", "note": "Installateur 64-bit.", "cta": "Télécharger", "url": "https://github.com/OscarMulume/pos_msec/releases/download/demo/POS.Pro_1.0.0_x64-setup.exe" }
+      ],
+      "note": "Versions de démonstration — données fictives."
+    },
     "services": {
       "label": "Expertise technique",
       "title": "Nos 4 piliers d'expertise",

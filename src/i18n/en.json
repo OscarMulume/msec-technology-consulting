@@ -178,6 +178,17 @@
       "note": "We support development, publishing and preparation for introductions. We do not guarantee funding: we help present the project as strongly as possible.",
       "cta": "Pitch my project"
     },
+    "downloads": {
+      "label": "Downloads",
+      "title": "Install and try POS Pro",
+      "desc": "Try the POS Pro register on your device. The web version works everywhere with no install; add it to your home screen like an app.",
+      "items": [
+        { "icon": "🌐", "name": "Web — iPhone, iPad & PC", "note": "Opens in the browser; on iPhone: Share → “Add to Home Screen”.", "cta": "Open the register", "url": "https://pos-pro-caisse.onrender.com/?demo=resto" },
+        { "icon": "📱", "name": "Android (.apk)", "note": "Direct file install.", "cta": "Download the APK", "url": "https://github.com/OscarMulume/pos_msec/releases/download/demo/pos-pro-debug.apk" },
+        { "icon": "💻", "name": "Windows (.exe)", "note": "64-bit installer.", "cta": "Download", "url": "https://github.com/OscarMulume/pos_msec/releases/download/demo/POS.Pro_1.0.0_x64-setup.exe" }
+      ],
+      "note": "Demonstration builds — sample data."
+    },
     "services": {
       "label": "Technical expertise",
       "title": "Our 4 areas of expertise",
